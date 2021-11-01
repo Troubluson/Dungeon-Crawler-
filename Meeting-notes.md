@@ -37,19 +37,14 @@ The first meeting of the group was held via discord. The goal of the meeting is 
 2. It is still unclear how time consuming it will be to implement additional features. 
 
 ## Actions
-1. Member 1 is going to look into defining an abstract interface for monsters 
-   to enable easy UI integration.
-2. Member 2 is going to work with Member 1 to use abstract interface in derived 
-   monster classes.
-3. Member 2 is going to test the interface.
-4. Member 3 is going to use ...
-
-> Please reflect these action decisions in your git commit messages so that 
-> your group members and advisor can follow the progress.
+1. Everyone should review what has been written to the project plan and make additions. 
+2. New meeting 2.11 at 1 pm when the assistant has hopefully answered our questions. 
 
 ## Project status 
 Nothing concrete has been done to the project yet. We started writing the project plan and chose what features we want to implement in the game. Some general information about the project was also added to the project.  
 
 ### TODOs
-1. Member 1: Write an action.
-2. ...
+1. Jonas: Ask the teaching assitant if WSL should be used and how we should get SFML working. We also need to make sure that our development environment is compatible with the testing done on the school computers. 
+2. Henrik: Configure GitLab to have correct labels and boards. 
+3. Oskar: Watch tutorial to get more familiar with git.
+4. Mikael: Same as Oskar.
