@@ -9,7 +9,7 @@ In each meeting, you are required to discuss:
 
 
 # Meeting 01.11.2021 14::00
-The first meeting of the group, held via discord. The goal of the meeting is to decide what features we want to include in the dungeon crawler and start writing the project plan. A google drive document was created to start writing the project plan.  
+The first meeting of the group was held via discord. The goal of the meeting is to decide what features we want to include in the dungeon crawler and start writing the project plan. A google drive document was created to start writing the project plan. A lot of the meeting was spent discussing what features we want to implement in the dungeon crawler and adding them to the project plan.  
 
 **Participants**: 
 1. Jonas
@@ -34,7 +34,7 @@ The first meeting of the group, held via discord. The goal of the meeting is to 
 ## Challenges
 
 1. None of the group members have experience working with the libraries which we want to use. 
-2. ...
+2. It is still unclear how time consuming it will be to implement additional features. 
 
 ## Actions
 1. Member 1 is going to look into defining an abstract interface for monsters 
@@ -48,7 +48,7 @@ The first meeting of the group, held via discord. The goal of the meeting is to 
 > your group members and advisor can follow the progress.
 
 ## Project status 
-Nothing concrete has been done to the project yet. 
+Nothing concrete has been done to the project yet. We started writing the project plan and chose what features we want to implement in the game. Some general information about the project was also added to the project.  
 
 ### TODOs
 1. Member 1: Write an action.
