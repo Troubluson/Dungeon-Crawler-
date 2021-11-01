@@ -8,29 +8,32 @@ In each meeting, you are required to discuss:
 4. Deviations and changes to the project plan, if any
 
 
-# Meeting dd.mm.2021 HH::MM
+# Meeting 01.11.2021 14::00
+The first meeting of the group, held via discord. The goal of the meeting is to decide what features we want to include in the dungeon crawler and start writing the project plan. A google drive document was created to start writing the project plan.  
 
 **Participants**: 
-1. Member 1
-2. Member 2
-3. Member 3
-4. Member 4 
+1. Jonas
+2. Oskar
+3. Henrik
+4. Mikael 
 
 ## Summary of works
-1. Member 1 
-   
-   Implementing the class XX. Tested the class XX. 
-   Results are in `tests/<class-xx-tests>`. Resolved the identified problems.
+1. Jonas
+   Tried to understand how CMake and SFML works with little success. 
 
-2. Member 2
+2. Mikael
+   Read about SFML but hasn't got it working 
 
-   Same as above
+3. Henrik 
+   Found a github repository with instructions how to use SFML which could be useful.
 
-3. ...
+4. Oskar
+   Overview of dungeon crawlers and looked a bit into making the graphics. 
+
 
 ## Challenges
 
-1. The integration of UI with the monsters requires an abstract interface.
+1. None of the group members have experience working with the libraries which we want to use. 
 2. ...
 
 ## Actions
@@ -45,7 +48,7 @@ In each meeting, you are required to discuss:
 > your group members and advisor can follow the progress.
 
 ## Project status 
-Short summary of current project status. 
+Nothing concrete has been done to the project yet. 
 
 ### TODOs
 1. Member 1: Write an action.
