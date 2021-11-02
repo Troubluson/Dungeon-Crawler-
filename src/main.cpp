@@ -1,6 +1,7 @@
 #include "Platform/Platform.hpp"
 
-int main() {
+int main()
+{
   util::Platform platform;
 
 #if defined(_DEBUG)
@@ -23,12 +24,14 @@ int main() {
   sf::Texture shapeTexture;
   shapeTexture.loadFromFile("content/sfml.png");
   shape.setTexture(&shapeTexture);
-
   sf::Event event;
 
-  while (window.isOpen()) {
-    while (window.pollEvent(event)) {
-      if (event.type == sf::Event::Closed) window.close();
+  while (window.isOpen())
+  {
+    while (window.pollEvent(event))
+    {
+      if (event.type == sf::Event::Closed)
+        window.close();
     }
 
     window.clear();
