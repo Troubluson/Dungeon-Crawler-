@@ -48,3 +48,44 @@ Nothing concrete has been done to the project yet. We started writing the projec
 2. Henrik: Configure GitLab to have correct labels and boards. 
 3. Oskar: Watch tutorial to get more familiar with git.
 4. Mikael: Same as Oskar.
+
+# Meeting 02.11.2021 13::00
+The goal of this meeting was to get SFML working for every group member. We held the meeting in discord as all future meetings will also be held. We got SFML working on 3 out of 4 group members computers. We are hoping to get the last computer set up with SFML later this day. We also decided to use Sourcetree to interact with git. Henrik had used this software earlier so he educated the rest of the group on how to use it.
+
+**Participants**: 
+1. Jonas
+2. Oskar
+3. Henrik
+4. Mikael 
+
+## Summary of works
+1. Jonas
+   Got SFML working and was able to compile and run a sample program.
+
+2. Mikael
+   Got SFML working and was able to compile and run a sample program. Also sourcetree is installed and working.
+
+3. Henrik 
+   Got SFML working and was able to compile and run a sample program.
+
+4. Oskar
+   Was nearly able to get SFML working during the meeting. Will probably get it working later today.
+
+
+## Challenges
+
+1. Sourcetree seems to want VSC closed when operating.
+2. Sourcetree also does not correctly show which rows have been added, modified and removed.
+
+## Actions
+1. Everyone should install SFML correctly
+2. Everyone should install sourcetree correctly
+
+## Project status 
+We now have SFML working on most of our computers. Next time we can focus on thinking about class relations and working further on our project plan.
+
+### TODOs
+1. Jonas: Install sourcetree. Investigate sourcetree for better functionality
+2. Henrik: Get sourcetree setup correctly. Investigate sourcetree for better functionality
+3. Oskar: Get SFML working and install sourcetree. Investigate sourcetree for better functionality
+4. Mikael: Investigate sourcetree for better functionality.
