@@ -1,8 +1,9 @@
 #include "player.hpp"
 
-Player::Player() {
+Player::Player()
+{
   this->initVariables();
-  this->initShape();
+  this->initSprite();
 }
 
 Player::~Player() {}
@@ -13,27 +14,36 @@ void Player::Render(sf::RenderTarget *target) { target->draw(this->shape_); }
 
 void Player::initVariables() {}
 
-void Player::initShape() {
-  this->shape_.setFillColor(sf::Color::Green);
-  this->shape_.setSize(sf::Vector2f(40.f, 40.f));
+void Player::initSprite()
+{
+
+  if (this->sprite_.loadFromFile("content/squidman.png"))
+  {
+    this->shape_.setTexture(&sprite_);
+    this->shape_.setSize(sf::Vector2f(200.f, 200.f));
+  }
 }
 
-bool Player::MoveLeft() {
+bool Player::MoveLeft()
+{
   xPos -= speed;
   return true;
 }
 
-bool Player::MoveRight() {
+bool Player::MoveRight()
+{
   xPos += speed;
   return true;
 }
 
-bool Player::MoveDown() {
+bool Player::MoveDown()
+{
   yPos += speed;
   return true;
 }
 
-bool Player::MoveUp() {
+bool Player::MoveUp()
+{
   yPos -= speed;
   return true;
 }

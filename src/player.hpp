@@ -3,8 +3,9 @@
 #ifndef _PLAYER_CLASS_
 #define _PLAYER_CLASS_
 
-class Player {
- public:
+class Player
+{
+public:
   Player();
   virtual ~Player();
 
@@ -17,12 +18,12 @@ class Player {
   bool MoveDown();
   bool MoveUp();
 
- private:
+private:
   sf::RectangleShape shape_;
-
+  sf::Texture sprite_;
   void initVariables();
 
-  void initShape();
+  void initSprite();
 
   float xPos = 0;
   float yPos = 0;
