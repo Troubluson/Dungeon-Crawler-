@@ -19,9 +19,10 @@ public:
   bool MoveUp();
 
 private:
-  sf::Sprite sprite_;
-  sf::Texture texture_;
+  sf::RectangleShape shape_;
+  sf::Texture sprite_;
   void initVariables();
+
   void initSprite();
 
   float xPos = 0;
