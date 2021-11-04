@@ -1,30 +1,39 @@
 #include "player.hpp"
 
-Player::Player()
-{
-	this->initVariables();
-	this->initShape();
+Player::Player() {
+  this->initVariables();
+  this->initShape();
 }
 
-Player::~Player()
-{
+Player::~Player() {}
+
+void Player::Update() { this->shape_.setPosition(xPos, yPos); }
+
+void Player::Render(sf::RenderTarget *target) { target->draw(this->shape_); }
+
+void Player::initVariables() {}
+
+void Player::initShape() {
+  this->shape_.setFillColor(sf::Color::Green);
+  this->shape_.setSize(sf::Vector2f(40.f, 40.f));
 }
 
-void Player::Update()
-{
+bool Player::MoveLeft() {
+  xPos -= speed;
+  return true;
 }
 
-void Player::Render(sf::RenderTarget *target)
-{
-	target->draw(this->shape_);
+bool Player::MoveRight() {
+  xPos += speed;
+  return true;
 }
 
-void Player::initVariables()
-{
+bool Player::MoveDown() {
+  yPos += speed;
+  return true;
 }
 
-void Player::initShape()
-{
-	this->shape_.setFillColor(sf::Color::Green);
-	this->shape_.setSize(sf::Vector2f(40.f, 40.f));
+bool Player::MoveUp() {
+  yPos -= speed;
+  return true;
 }

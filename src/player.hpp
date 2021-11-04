@@ -3,22 +3,30 @@
 #ifndef _PLAYER_CLASS_
 #define _PLAYER_CLASS_
 
-class Player
-{
-public:
-	Player();
-	virtual ~Player();
+class Player {
+ public:
+  Player();
+  virtual ~Player();
 
-	void Update();
+  void Update();
 
-	void Render(sf::RenderTarget *target);
+  void Render(sf::RenderTarget *target);
 
-private:
-	sf::RectangleShape shape_;
+  bool MoveLeft();
+  bool MoveRight();
+  bool MoveDown();
+  bool MoveUp();
 
-	void initVariables();
+ private:
+  sf::RectangleShape shape_;
 
-	void initShape();
+  void initVariables();
+
+  void initShape();
+
+  float xPos = 0;
+  float yPos = 0;
+  float speed = 5;
 };
 
 #endif

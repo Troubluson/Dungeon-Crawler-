@@ -5,28 +5,30 @@
 
 #include "player.hpp"
 
-class Game
-{
-public:
-	Game();
-	~Game();
+class Game {
+ public:
+  Game();
+  ~Game();
 
-	void UpdateGame();
+  void UpdateGame();
 
-	void RenderGame();
+  void RenderGame();
 
-	bool Running() const;
+  bool Running() const;
 
-	void Events();
+  void Events();
 
-private:
-	sf::VideoMode videomode_;
-	sf::RenderWindow *window_;
-	bool gameEnder_;
-	sf::Event event_;
-	Player player;
-	void initVariables();
-	void initWindow();
+ private:
+  sf::VideoMode videomode_;
+  sf::RenderWindow *window_;
+  bool gameEnder_;
+  sf::Event event_;
+  Player player;
+  void initVariables();
+  void initWindow();
+
+  bool paused = false;
+  void manageInput();
 };
 
 #endif

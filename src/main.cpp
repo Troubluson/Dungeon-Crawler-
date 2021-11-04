@@ -1,15 +1,12 @@
 #include "Platform/Platform.hpp"
 #include "game.hpp"
 
-int main()
-{
-
+int main() {
   Game dungeonCrawler;
 
   // Game loop
 
-  while (dungeonCrawler.Running())
-  {
+  while (dungeonCrawler.Running()) {
     dungeonCrawler.UpdateGame();
     dungeonCrawler.RenderGame();
   }
