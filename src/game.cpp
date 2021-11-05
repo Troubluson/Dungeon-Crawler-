@@ -2,8 +2,8 @@
 
 Game::Game()
 {
-  this->initVariables();
-  this->initWindow();
+  initVariables();
+  initWindow();
 }
 
 Game::~Game() { delete this->window_; }
@@ -19,21 +19,21 @@ void Game::UpdateGame()
 // render game frames
 void Game::RenderGame()
 {
-  this->window_->clear();
-  this->player.Render(this->window_);
-  this->window_->display();
+  window_->clear();
+  player.Render(window_);
+  window_->display();
 }
 // Keeps the game running when window is open
-bool Game::Running() const { return this->window_->isOpen(); }
+bool Game::Running() const { return window_->isOpen(); }
 
 void Game::Events()
 {
-  while (this->window_->pollEvent(this->event_))
+  while (window_->pollEvent(event_))
   {
-    switch (this->event_.type)
+    switch (event_.type)
     {
     case sf::Event::Closed:
-      this->window_->close();
+      window_->close();
       break;
     case sf::Event::LostFocus:
       paused = true;
@@ -47,12 +47,12 @@ void Game::Events()
   }
 }
 
-void Game::initVariables() { this->gameEnder_ = false; }
+void Game::initVariables() { gameEnder_ = false; }
 // initalize window
 void Game::initWindow()
 {
-  this->videomode_ = sf::VideoMode(1280, 768);
-  this->window_ = new sf::RenderWindow(this->videomode_, "Dungeon Crawler");
+  videomode_ = sf::VideoMode(1280, 768);
+  window_ = new sf::RenderWindow(videomode_, "Dungeon Crawler");
 }
 
 void Game::manageInput()
