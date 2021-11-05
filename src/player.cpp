@@ -2,24 +2,24 @@
 
 Player::Player()
 {
-  initVariables();
-  initSprite();
+  this->initVariables();
+  this->initSprite();
 }
 
 Player::~Player() {}
 
-void Player::Update() {sprite_.setPosition(xPos, yPos); }
+void Player::Update() { this->sprite_.setPosition(xPos, yPos); }
 
-void Player::Render(sf::RenderTarget *target) { target->draw(sprite_); }
+void Player::Render(sf::RenderTarget *target) { target->draw(this->sprite_); }
 
 void Player::initVariables() {}
 
 void Player::initSprite()
 {
-  if (texture_.loadFromFile("content/squidman.png"))
+  if (this->texture_.loadFromFile("content/squidman.png"))
   {
-    sprite_.setTexture(texture_);
-    sprite_.setScale(sf::Vector2f(3, 3));
+    this->sprite_.setTexture(texture_);
+    this->sprite_.setScale(sf::Vector2f(3, 3));
   }
 }
 
