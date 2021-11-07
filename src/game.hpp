@@ -5,8 +5,9 @@
 
 #include "player.hpp"
 
-class Game {
- public:
+class Game
+{
+public:
   Game();
   ~Game();
 
@@ -18,12 +19,12 @@ class Game {
 
   void Events();
 
- private:
+private:
   sf::VideoMode videomode_;
   sf::RenderWindow *window_;
   bool gameEnder_;
   sf::Event event_;
-  Player player;
+  Player player_;
   void initVariables();
   void initWindow();
 

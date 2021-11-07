@@ -10,17 +10,17 @@ Game::~Game() { delete this->window_; }
 
 void Game::UpdateGame()
 {
-  this->Events();
+  Events();
 
   manageInput();
 
-  player.Update();
+  player_.Update();
 }
 // render game frames
 void Game::RenderGame()
 {
   window_->clear();
-  player.Render(window_);
+  player_.Render(window_);
   window_->display();
 }
 // Keeps the game running when window is open
@@ -47,7 +47,10 @@ void Game::Events()
   }
 }
 
-void Game::initVariables() { gameEnder_ = false; }
+void Game::initVariables()
+{
+  gameEnder_ = false;
+}
 // initalize window
 void Game::initWindow()
 {
@@ -59,19 +62,19 @@ void Game::manageInput()
 {
   if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
   {
-    player.MoveLeft();
+    player_.MoveLeft();
   }
   else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
   {
-    player.MoveRight();
+    player_.MoveRight();
   }
 
   if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
   {
-    player.MoveUp();
+    player_.MoveUp();
   }
   else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
   {
-    player.MoveDown();
+    player_.MoveDown();
   }
 }
