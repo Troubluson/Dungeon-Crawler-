@@ -18,6 +18,8 @@ class Game {
 
   void Events();
 
+  void UpdateDt();
+
  private:
   sf::VideoMode videomode_;
   sf::RenderWindow *window_;
@@ -26,6 +28,9 @@ class Game {
   Player player;
   void initVariables();
   void initWindow();
+
+  sf::Clock dtClock;
+  float dt;
 
   bool paused = false;
   void manageInput();

@@ -3,22 +3,21 @@
 #ifndef _PLAYER_CLASS_
 #define _PLAYER_CLASS_
 
-class Player
-{
-public:
+class Player {
+ public:
   Player();
   virtual ~Player();
 
   void Update();
 
-  void Render(sf::RenderTarget *target);
+  void Render(sf::RenderTarget* target);
 
-  bool MoveLeft();
-  bool MoveRight();
-  bool MoveDown();
-  bool MoveUp();
+  bool MoveLeft(float dt);
+  bool MoveRight(float dt);
+  bool MoveDown(float dt);
+  bool MoveUp(float dt);
 
-private:
+ private:
   sf::Sprite sprite_;
   sf::Texture texture_;
   void initVariables();
@@ -27,7 +26,7 @@ private:
 
   float xPos = 0;
   float yPos = 0;
-  float speed = 5;
+  float speed = 200;
 };
 
 #endif
