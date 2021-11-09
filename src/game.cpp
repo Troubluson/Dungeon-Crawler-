@@ -10,16 +10,30 @@ Game::~Game() { delete this->window_; }
 void Game::UpdateGame() {
   this->Events();
 
-  manageInput();
   UpdateDt();
 
-  player.Update();
+  /* if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+    Projectile *p = new Projectile(50, 50);
+    p->initSprite();
+    projectileVector.push_back(p);
+  } */
+
+  /* for (auto it : projectileVector) {
+    it->Update(dt);
+  } */
+
+  player.Update(dt);
+  projectile.Update(dt);
 }
 // render game frames
 void Game::RenderGame() {
   window_->clear();
   player.Render(window_);
+  projectile.Render(window_);
   window_->display();
+  /* for (auto it : projectileVector) {
+    it->Render(window_);
+  } */
 }
 // Keeps the game running when window is open
 bool Game::Running() const { return window_->isOpen(); }
@@ -49,18 +63,4 @@ void Game::initVariables() { gameEnder_ = false; }
 void Game::initWindow() {
   videomode_ = sf::VideoMode(1280, 768);
   window_ = new sf::RenderWindow(videomode_, "Dungeon Crawler");
-}
-
-void Game::manageInput() {
-  if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-    player.MoveLeft(dt);
-  } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-    player.MoveRight(dt);
-  }
-
-  if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-    player.MoveUp(dt);
-  } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-    player.MoveDown(dt);
-  }
 }

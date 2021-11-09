@@ -3,7 +3,10 @@
 #ifndef _GAME_CLASS_
 #define _GAME_CLASS_
 
+#include <vector>
+
 #include "player.hpp"
+#include "projectile.hpp"
 
 class Game {
  public:
@@ -33,7 +36,8 @@ class Game {
   float dt;
 
   bool paused = false;
-  void manageInput();
+  Projectile projectile;
+  // std::vector<Projectile *> projectileVector;
 };
 
 #endif

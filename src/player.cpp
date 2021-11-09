@@ -7,9 +7,19 @@ Player::Player() {
 
 Player::~Player() {}
 
-void Player::Update() { sprite_.setPosition(xPos, yPos); }
+void Player::Update(float dt) {
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+    MoveLeft(dt);
+  } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+    MoveRight(dt);
+  }
 
-void Player::Render(sf::RenderTarget* target) { target->draw(sprite_); }
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+    MoveUp(dt);
+  } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+    MoveDown(dt);
+  }
+}
 
 void Player::initVariables() {}
 
@@ -18,24 +28,4 @@ void Player::initSprite() {
     sprite_.setTexture(texture_);
     sprite_.setScale(sf::Vector2f(3, 3));
   }
-}
-
-bool Player::MoveLeft(float dt) {
-  xPos -= speed * dt;
-  return true;
-}
-
-bool Player::MoveRight(float dt) {
-  xPos += speed * dt;
-  return true;
-}
-
-bool Player::MoveDown(float dt) {
-  yPos += speed * dt;
-  return true;
-}
-
-bool Player::MoveUp(float dt) {
-  yPos -= speed * dt;
-  return true;
 }
