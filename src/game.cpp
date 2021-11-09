@@ -13,12 +13,7 @@ void Game::UpdateGame() {
   UpdateDt();
 
   // Check collisions
-  if (projectileVector.size() > 0) {
-    if (projectileVector[0]->GetSprite().getGlobalBounds().intersects(
-            player.GetSprite().getGlobalBounds())) {
-      std::cout << "Crash" << std::endl;
-    }
-  }
+  CheckCollisions();
 
   // Update projectiles
   for (auto it : projectileVector) {
@@ -70,4 +65,22 @@ void Game::initVariables() { gameEnder_ = false; }
 void Game::initWindow() {
   videomode_ = sf::VideoMode(1280, 768);
   window_ = new sf::RenderWindow(videomode_, "Dungeon Crawler");
+}
+
+void Game::CheckCollisions() {
+  if (projectileVector.size() > 0) {
+    std::vector<int> listToDelete;
+    int i = 0;
+    for (auto projectile : projectileVector) {
+      if (projectile->GetSprite().getGlobalBounds().intersects(
+              player.GetSprite().getGlobalBounds())) {
+        std::cout << "Crash" << std::endl;
+        listToDelete.push_back(i);
+      }
+      i += 1;
+    }
+    for (auto it : listToDelete) {
+      projectileVector.erase(projectileVector.begin() + it);
+    }
+  }
 }

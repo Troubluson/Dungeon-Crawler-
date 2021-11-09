@@ -37,6 +37,8 @@ class Game {
 
   bool paused = false;
   std::vector<Projectile *> projectileVector;
+
+  void CheckCollisions();
 };
 
 #endif
