@@ -36,8 +36,7 @@ class Game {
   float dt;
 
   bool paused = false;
-  Projectile projectile;
-  // std::vector<Projectile *> projectileVector;
+  std::vector<Projectile *> projectileVector;
 };
 
 #endif

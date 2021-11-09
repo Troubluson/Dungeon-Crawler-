@@ -7,7 +7,7 @@
 
 class Projectile : public Entity {
  public:
-  Projectile();
+  Projectile(float x, float y);
   virtual ~Projectile();
   void Update(float dt);
 

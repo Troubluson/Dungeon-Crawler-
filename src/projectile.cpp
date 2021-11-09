@@ -1,8 +1,9 @@
 #include "projectile.hpp"
 
-Projectile::Projectile() {
+Projectile::Projectile(float x, float y) {
   initVariables();
   initSprite();
+  sprite_.setPosition(x, y);
 }
 
 Projectile::~Projectile() {}

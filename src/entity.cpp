@@ -21,3 +21,4 @@ bool Entity::MoveUp(float dt) {
   sprite_.move(0, -speed * dt);
   return true;
 }
+sf::Sprite Entity::GetSprite() { return sprite_; }
