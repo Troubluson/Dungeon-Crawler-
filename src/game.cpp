@@ -22,7 +22,6 @@ void Game::RenderGame()
   window_->clear();
   room.Render(window_);
   player.Render(window_);
-
   window_->display();
 }
 // Keeps the game running when window is open

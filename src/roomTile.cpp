@@ -25,7 +25,7 @@ bool RoomTile::setTileTexture(std::string textureLocation)
 
 	tileTexture.setSmooth(true);
 	tileSprite.setTexture(tileTexture);
-	tileSprite.setTextureRect(sf::IntRect(0,0,50,50));
+	tileSprite.setTextureRect(sf::IntRect(0,0,64,64));
 	return true;
 }
 
