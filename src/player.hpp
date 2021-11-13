@@ -9,6 +9,11 @@ class Player : public Character
 {
 public:
   Player();
+
+  int GetHitPoints() const;
+
+private:
+  int hitpoints_;
 };
 
 #endif

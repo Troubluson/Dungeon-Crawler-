@@ -4,6 +4,7 @@
 #define _GAME_CLASS_
 
 #include "player.hpp"
+#include "monster.hpp"
 
 class Game
 {
@@ -25,6 +26,7 @@ private:
   bool gameEnder_;
   sf::Event event_;
   Player player_;
+  std::vector<Monster> monsters_;
   void initVariables();
   void initWindow();
 

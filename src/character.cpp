@@ -12,6 +12,11 @@ void Character::Update()
 	sprite_.setPosition(xPos_, yPos_);
 }
 
+sf::Vector2f Character::GetPosition()
+{
+	return sprite_.getPosition();
+}
+
 void Character::Render(sf::RenderTarget *target)
 {
 	target->draw(sprite_);

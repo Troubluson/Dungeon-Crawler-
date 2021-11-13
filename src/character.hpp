@@ -22,6 +22,7 @@ public:
 	bool MoveUp();
 
 	void initVariables();
+	sf::Vector2f GetPosition();
 
 private:
 	sf::Sprite sprite_;

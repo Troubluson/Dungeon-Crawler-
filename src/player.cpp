@@ -1,3 +1,8 @@
 #include "player.hpp"
 
-Player::Player() {}
+Player::Player() : hitpoints_(100) {}
+
+int Player::GetHitPoints() const
+{
+	return hitpoints_;
+}
