@@ -20,6 +20,7 @@ void Game::UpdateGame()
   manageInput();
 
   player_->Update();
+  monster_->Update();
 }
 // render game frames
 void Game::RenderGame()

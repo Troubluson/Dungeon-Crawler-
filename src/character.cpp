@@ -4,7 +4,6 @@ Character::Character(const std::string &filename, float xPos, float yPos)
 {
 	xPos_ = xPos;
 	yPos_ = yPos;
-	initVariables();
 	initSprite(filename);
 }
 
@@ -32,12 +31,6 @@ void Character::initSprite(const std::string &filename)
 		sprite_.setTexture(texture_);
 		sprite_.setScale(sf::Vector2f(3, 3));
 	}
-}
-
-void Character::initVariables()
-{
-	xPos_ = 0;
-	yPos_ = 0;
 }
 
 bool Character::MoveLeft()
