@@ -1,8 +1,9 @@
 #include "character.hpp"
 
-Character::Character()
+Character::Character(const std::string &filename)
 {
-	initSprite();
+	initVariables();
+	initSprite(filename);
 }
 
 Character::~Character() {}
@@ -22,13 +23,20 @@ void Character::Render(sf::RenderTarget *target)
 	target->draw(sprite_);
 }
 
-void Character::initSprite()
+void Character::initSprite(const std::string &filename)
 {
-	if (texture_.loadFromFile("content/squidman.png"))
+	sf::Texture texture;
+	if (texture.loadFromFile(filename))
 	{
-		sprite_.setTexture(texture_);
+		sprite_.setTexture(texture);
 		sprite_.setScale(sf::Vector2f(3, 3));
 	}
+}
+
+void Character::initVariables()
+{
+	xPos_ = 0;
+	yPos_ = 0;
 }
 
 bool Character::MoveLeft()

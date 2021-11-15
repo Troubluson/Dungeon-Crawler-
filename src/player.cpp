@@ -1,6 +1,6 @@
 #include "player.hpp"
 
-Player::Player() : hitpoints_(100) {}
+Player::Player() : Character("content/squidman.png"), hitpoints_(100) {}
 
 int Player::GetHitPoints() const
 {

@@ -1,3 +1,3 @@
 #include "monster.hpp"
 
-Monster::Monster() {}
+Monster::Monster() : Character("content/monster1.png") {}

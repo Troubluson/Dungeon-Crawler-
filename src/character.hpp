@@ -6,7 +6,7 @@
 class Character
 {
 public:
-	Character();
+	Character(const std::string &filename);
 
 	~Character();
 
@@ -14,7 +14,7 @@ public:
 
 	void Render(sf::RenderTarget *target);
 
-	void initSprite();
+	void initSprite(const std::string &filename);
 
 	bool MoveLeft();
 	bool MoveRight();
@@ -26,8 +26,6 @@ public:
 
 private:
 	sf::Sprite sprite_;
-	sf::Texture texture_;
-
 	float xPos_ = 0;
 	float yPos_ = 0;
 	float speed_ = 5;
