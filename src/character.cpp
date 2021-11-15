@@ -1,7 +1,9 @@
 #include "character.hpp"
 
-Character::Character(const std::string &filename)
+Character::Character(const std::string &filename, float xPos, float yPos)
 {
+	xPos_ = xPos;
+	yPos_ = yPos;
 	initVariables();
 	initSprite(filename);
 }

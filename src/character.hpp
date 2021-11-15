@@ -6,7 +6,7 @@
 class Character
 {
 public:
-	Character(const std::string &filename);
+	Character(const std::string &filename, float xPos, float yPos);
 
 	~Character();
 

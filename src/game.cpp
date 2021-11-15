@@ -1,12 +1,17 @@
 #include "game.hpp"
 
-Game::Game()
+Game::Game() : player_(new Player()), monster_(new Monster(200, 200))
 {
   initVariables();
   initWindow();
 }
 
-Game::~Game() { delete this->window_; }
+Game::~Game()
+{
+  delete window_;
+  delete monster_;
+  delete player_;
+}
 
 void Game::UpdateGame()
 {
@@ -14,14 +19,14 @@ void Game::UpdateGame()
 
   manageInput();
 
-  player_.Update();
+  player_->Update();
 }
 // render game frames
 void Game::RenderGame()
 {
   window_->clear();
-  player_.Render(window_);
-  monster_.Render(window_);
+  player_->Render(window_);
+  monster_->Render(window_);
   window_->display();
 }
 // Keeps the game running when window is open
@@ -51,8 +56,6 @@ void Game::Events()
 void Game::initVariables()
 {
   gameEnder_ = false;
-  player_ = Player();
-  Monster monster1 = Monster();
 }
 // initalize window
 void Game::initWindow()
@@ -65,19 +68,19 @@ void Game::manageInput()
 {
   if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
   {
-    player_.MoveLeft();
+    player_->MoveLeft();
   }
   else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
   {
-    player_.MoveRight();
+    player_->MoveRight();
   }
 
   if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
   {
-    player_.MoveUp();
+    player_->MoveUp();
   }
   else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
   {
-    player_.MoveDown();
+    player_->MoveDown();
   }
 }

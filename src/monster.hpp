@@ -8,7 +8,7 @@
 class Monster : public Character
 {
 public:
-	Monster();
+	Monster(float xPos, float yPos);
 };
 
 #endif

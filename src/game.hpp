@@ -25,8 +25,8 @@ private:
   sf::RenderWindow *window_;
   bool gameEnder_;
   sf::Event event_;
-  Player player_;
-  Monster monster_;
+  Player *player_;
+  Monster *monster_;
   void initVariables();
   void initWindow();
 
