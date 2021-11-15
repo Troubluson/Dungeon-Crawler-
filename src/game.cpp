@@ -21,6 +21,7 @@ void Game::RenderGame()
 {
   window_->clear();
   player_.Render(window_);
+  monster_.Render(window_);
   window_->display();
 }
 // Keeps the game running when window is open
@@ -50,7 +51,7 @@ void Game::Events()
 void Game::initVariables()
 {
   gameEnder_ = false;
-  player_ = Player();
+  // player_ = Player();
   // Monster monster1 = Monster();
   // monsters_.push_back(monster1);
 }

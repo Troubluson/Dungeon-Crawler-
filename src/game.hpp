@@ -26,7 +26,7 @@ private:
   bool gameEnder_;
   sf::Event event_;
   Player player_;
-  std::vector<Monster> monsters_;
+  Monster monster_;
   void initVariables();
   void initWindow();
 
