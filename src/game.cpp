@@ -51,9 +51,8 @@ void Game::Events()
 void Game::initVariables()
 {
   gameEnder_ = false;
-  // player_ = Player();
-  // Monster monster1 = Monster();
-  // monsters_.push_back(monster1);
+  player_ = Player();
+  Monster monster1 = Monster();
 }
 // initalize window
 void Game::initWindow()

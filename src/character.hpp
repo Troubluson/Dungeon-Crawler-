@@ -26,6 +26,7 @@ public:
 
 private:
 	sf::Sprite sprite_;
+	sf::Texture texture_;
 	float xPos_ = 0;
 	float yPos_ = 0;
 	float speed_ = 5;

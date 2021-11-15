@@ -25,10 +25,9 @@ void Character::Render(sf::RenderTarget *target)
 
 void Character::initSprite(const std::string &filename)
 {
-	sf::Texture texture;
-	if (texture.loadFromFile(filename))
+	if (texture_.loadFromFile(filename))
 	{
-		sprite_.setTexture(texture);
+		sprite_.setTexture(texture_);
 		sprite_.setScale(sf::Vector2f(3, 3));
 	}
 }
