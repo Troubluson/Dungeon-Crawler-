@@ -1,48 +1,13 @@
 #include "player.hpp"
 
+namespace {
+const std::string PLAYER_SPRITE = "content/sprites/squidman.png";
+}
+
 Player::Player()
+    : Character(PLAYER_SPRITE, 0, 0)
+    , hitpoints_(100)
 {
-  initVariables();
-  initSprite();
 }
 
-Player::~Player() {}
-
-void Player::Update() { sprite_.setPosition(xPos, yPos); }
-
-void Player::Render(sf::RenderTarget *target) { target->draw(sprite_); }
-
-void Player::initVariables() {}
-
-void Player::initSprite()
-{
-  if (texture_.loadFromFile("content/sprites/squidman.png"))
-  {
-    sprite_.setTexture(texture_);
-    sprite_.setScale(sf::Vector2f(2, 2));
-  }
-}
-
-bool Player::MoveLeft()
-{
-  xPos -= speed;
-  return true;
-}
-
-bool Player::MoveRight()
-{
-  xPos += speed;
-  return true;
-}
-
-bool Player::MoveDown()
-{
-  yPos += speed;
-  return true;
-}
-
-bool Player::MoveUp()
-{
-  yPos -= speed;
-  return true;
-}
+int Player::GetHitPoints() const { return hitpoints_; }
