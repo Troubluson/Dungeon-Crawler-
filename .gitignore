@@ -54,5 +54,4 @@ Thumbs.db
 .DS_Store
 
 # VS Code
-.vscode/ipch
-.vscode/settings.json
+.vscode
