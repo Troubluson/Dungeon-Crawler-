@@ -9,6 +9,8 @@ class Monster : public Character
 {
 public:
 	Monster(float xPos, float yPos);
+
+	void Move();
 };
 
 #endif

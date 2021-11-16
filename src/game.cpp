@@ -84,4 +84,5 @@ void Game::manageInput()
   {
     player_->MoveDown();
   }
+  monster_->Move();
 }
