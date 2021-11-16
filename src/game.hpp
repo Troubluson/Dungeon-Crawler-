@@ -7,8 +7,9 @@
 #include "player.hpp"
 #include "roomInstance.hpp"
 
-class Game {
- public:
+class Game
+{
+public:
   Game();
   ~Game();
 
@@ -20,7 +21,7 @@ class Game {
 
   void Events();
 
- private:
+private:
   sf::VideoMode videomode_;
   sf::RenderWindow *window_;
   bool gameEnder_;

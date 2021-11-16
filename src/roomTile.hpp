@@ -3,7 +3,8 @@
 
 #include "PCH.hpp"
 
-class RoomTile{
+class RoomTile
+{
 public:
 	sf::Vector2f position;
 	sf::Texture tileTexture;
@@ -11,13 +12,10 @@ public:
 	bool isWalkable;
 	bool exitTile;
 
-	RoomTile(std::string, float, float , bool, bool);
+	RoomTile(std::string, float, float, bool, bool);
 	bool setTileTexture(std::string);
 
 private:
-
-
-
 };
 
 #endif

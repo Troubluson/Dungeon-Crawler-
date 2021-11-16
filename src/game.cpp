@@ -1,17 +1,20 @@
 #include "game.hpp"
 
-Game::Game() : player_(new Player()), monster_(new Monster(200, 200)) {
+Game::Game() : player_(new Player()), monster_(new Monster(200, 200))
+{
   initVariables();
   initWindow();
 }
 
-Game::~Game() {
+Game::~Game()
+{
   delete window_;
   delete monster_;
   delete player_;
 }
 
-void Game::UpdateGame() {
+void Game::UpdateGame()
+{
   Events();
 
   manageInput();
@@ -20,7 +23,8 @@ void Game::UpdateGame() {
   monster_->Update();
 }
 // render game frames
-void Game::RenderGame() {
+void Game::RenderGame()
+{
   window_->clear();
   room.Render(window_);
   player_->Render(window_);
@@ -30,41 +34,52 @@ void Game::RenderGame() {
 // Keeps the game running when window is open
 bool Game::Running() const { return window_->isOpen(); }
 
-void Game::Events() {
-  while (window_->pollEvent(event_)) {
-    switch (event_.type) {
-      case sf::Event::Closed:
-        window_->close();
-        break;
-      case sf::Event::LostFocus:
-        paused = true;
-        break;
-      case sf::Event::GainedFocus:
-        paused = false;
-        break;
-      default:
-        break;
+void Game::Events()
+{
+  while (window_->pollEvent(event_))
+  {
+    switch (event_.type)
+    {
+    case sf::Event::Closed:
+      window_->close();
+      break;
+    case sf::Event::LostFocus:
+      paused = true;
+      break;
+    case sf::Event::GainedFocus:
+      paused = false;
+      break;
+    default:
+      break;
     }
   }
 }
 
 void Game::initVariables() { gameEnder_ = false; }
 // initalize window
-void Game::initWindow() {
+void Game::initWindow()
+{
   videomode_ = sf::VideoMode(1280, 768);
   window_ = new sf::RenderWindow(videomode_, "Dungeon Crawler");
 }
 
-void Game::manageInput() {
-  if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+void Game::manageInput()
+{
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+  {
     player_->MoveLeft();
-  } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+  }
+  else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+  {
     player_->MoveRight();
   }
 
-  if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+  {
     player_->MoveUp();
-  } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+  }
+  else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+  {
     player_->MoveDown();
   }
   monster_->Move();

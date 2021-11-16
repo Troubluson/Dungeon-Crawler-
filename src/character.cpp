@@ -1,26 +1,18 @@
 #include "character.hpp"
 
-Character::Character(const std::string &filename, float xPos, float yPos) : xPos_(xPos), yPos_(yPos)
+Character::Character(const std::string &filename, float xPos, float yPos)
+	: xPos_(xPos), yPos_(yPos)
 {
 	initSprite(filename);
 }
 
 Character::~Character() {}
 
-void Character::Update()
-{
-	sprite_.setPosition(xPos_, yPos_);
-}
+void Character::Update() { sprite_.setPosition(xPos_, yPos_); }
 
-sf::Vector2f Character::GetPosition()
-{
-	return sprite_.getPosition();
-}
+sf::Vector2f Character::GetPosition() { return sprite_.getPosition(); }
 
-void Character::Render(sf::RenderTarget *target)
-{
-	target->draw(sprite_);
-}
+void Character::Render(sf::RenderTarget *target) { target->draw(sprite_); }
 
 void Character::initSprite(const std::string &filename)
 {

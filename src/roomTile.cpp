@@ -1,7 +1,5 @@
 #include "roomTile.hpp"
 
-
-
 RoomTile::RoomTile(std::string texture, float x, float y, bool walkable, bool exit)
 {
 	if (!setTileTexture(texture))
@@ -9,11 +7,10 @@ RoomTile::RoomTile(std::string texture, float x, float y, bool walkable, bool ex
 		return;
 	}
 
-	position = sf::Vector2f(x,y);
+	position = sf::Vector2f(x, y);
 	tileSprite.setPosition(position);
 	isWalkable = walkable;
 	exitTile = exit;
-
 }
 
 bool RoomTile::setTileTexture(std::string textureLocation)
@@ -25,10 +22,6 @@ bool RoomTile::setTileTexture(std::string textureLocation)
 
 	tileTexture.setSmooth(true);
 	tileSprite.setTexture(tileTexture);
-	tileSprite.setTextureRect(sf::IntRect(0,0,64,64));
+	tileSprite.setTextureRect(sf::IntRect(0, 0, 64, 64));
 	return true;
 }
-
-
-
-
