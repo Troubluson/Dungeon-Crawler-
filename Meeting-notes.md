@@ -154,11 +154,43 @@ A little recap on what we've done since monday and discuss issues.
 2. Get our base classes implemented in a good way.
 
 ## Project status
-Features are coming along nicely but time is always going to be a concern
+
+
+# Meeting 16.11.2021 13::00
+We started the meeting with disussing what has been done on the project. We started merging some branches into main as we have a lot of branches with some working features and we wanted to avoid merge issues if we develop the branches further. The majority of the meeting was spent on doing these merges and handling the merge requests. As a result of the meeting the branches with the roomtiles and characters were merged. 
+
+**Participants**:
+1. Jonas
+2. Oskar
+3. Henrik
+4. Mikael
+
+## Summary of works
+1. Jonas
+   Managed to implement moving monsters into the game. Have looked at the other members code and thought about how    the implementation of the player and monsters will work with the code already created.
+
+2. Mikael
+   Continued to work on projectiles.
+
+3. Henrik
+   Read up on game architecture, roguelikes and their design. Discussed game design with Oskar. Started constructing weapon and combat classes.
+
+4. Oskar
+   Implemented rooms with walls.
+
+## Challenges
+
+1. We have to wait for Mikael to access his computer from Helsinki in order to merge the projectiles.
+
+## Actions
+1. Continue to work with our Todo:s.
+
+## Project status
+We have some basic features like movement and projectiles implemented to some extent.
 
 ### TODOs
-1. Jonas: Implement Monsters and have them attack the player in some way
-2. Henrik: Start building architecture base, improve on building the project, some feature maybe.
-3. Oskar: Rooms and maybe fixing some textures
-4. Mikael: projectiles.
+1. Jonas: Implement a bar with the hitpoints for the monsters. Create a game bar at the bottom to display some stats etc.
+2. Henrik: Continue implementing combat, weapons and powerups and maybe improving code structure
+3. Oskar: Adding collisions with walls, make it possible to move between rooms and implement a walking animation.
+4. Mikael: Continue to work on projectiles and restrict their range. Help Henrik with the weapons.
 

@@ -3,19 +3,18 @@
 #ifndef _PLAYER_CLASS_
 #define _PLAYER_CLASS_
 
-#include "entity.hpp"
+#include "character.hpp"
 
-class Player : public Entity {
- public:
-  Player();
-  virtual ~Player();
+class Player : public Character {
+public:
+    Player();
 
-  void Update(float dt);
+    int GetHitPoints() const;
 
- private:
-  void initVariables();
+    int Attack(Character ch);
 
-  void initSprite();
+private:
+    int hitpoints_;
 };
 
 #endif

@@ -3,42 +3,37 @@
 #ifndef _GAME_CLASS_
 #define _GAME_CLASS_
 
-#include <vector>
-
-#include "Combat/Projectile.hpp"
+#include "monster.hpp"
 #include "player.hpp"
+#include "roomInstance.hpp"
 
 class Game {
- public:
-  Game();
-  ~Game();
+public:
+    Game();
+    ~Game();
 
-  void UpdateGame();
+    void UpdateGame();
 
-  void RenderGame();
+    void RenderGame();
 
-  bool Running() const;
+    bool Running() const;
 
-  void Events();
+    void Events();
 
-  void UpdateDt();
+private:
+    sf::VideoMode videomode_;
+    sf::RenderWindow* window_;
+    bool gameEnder_;
+    sf::Event event_;
+    RoomInstance room;
+    Player* player_;
+    Monster* monster_;
 
- private:
-  sf::VideoMode videomode_;
-  sf::RenderWindow *window_;
-  bool gameEnder_;
-  sf::Event event_;
-  Player player;
-  void initVariables();
-  void initWindow();
+    void initVariables();
+    void initWindow();
 
-  sf::Clock dtClock;
-  float dt;
-
-  bool paused = false;
-  std::vector<Projectile *> projectileVector;
-
-  void CheckCollisions();
+    bool paused = false;
+    void manageInput();
 };
 
 #endif
