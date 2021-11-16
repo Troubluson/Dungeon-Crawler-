@@ -3,8 +3,10 @@
 #ifndef _GAME_CLASS_
 #define _GAME_CLASS_
 
+#include "monster.hpp"
 #include "player.hpp"
 #include "roomInstance.hpp"
+
 class Game {
  public:
   Game();
@@ -23,10 +25,13 @@ class Game {
   sf::RenderWindow *window_;
   bool gameEnder_;
   sf::Event event_;
-  Player player;
   RoomInstance room;
+  Player *player_;
+  Monster *monster_;
+
   void initVariables();
   void initWindow();
+
   bool paused = false;
   void manageInput();
 };
