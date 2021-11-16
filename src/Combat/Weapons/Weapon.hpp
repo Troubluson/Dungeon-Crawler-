@@ -1,6 +1,7 @@
 
+#include "Combat/PowerUps/PowerUp.hpp"
 #include "Direction.hpp"
-#include "PowerUps/PowerUp.hpp"
+
 using namespace std;
 using namespace sf;
 
@@ -8,10 +9,10 @@ class Weapon {
  protected:
   int damage_;
   int range_;
-  vector<PowerUp*> powerUps_;
   const int maxPowerUps = 3;
   int getPowerUpCount();
   sf::Sprite sprite_;
+  vector<PowerUp*> powerUps_;
 
  public:
   Weapon(int damage, int range, Sprite sprite,

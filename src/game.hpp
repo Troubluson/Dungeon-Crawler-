@@ -5,8 +5,8 @@
 
 #include <vector>
 
+#include "Combat/Projectile.hpp"
 #include "player.hpp"
-#include "projectile.hpp"
 
 class Game {
  public:

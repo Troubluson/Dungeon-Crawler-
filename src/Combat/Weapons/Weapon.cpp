@@ -1,7 +1,7 @@
 
-#include "Weapon.hpp";
+#include "Weapon.hpp"
 
-#include "Direction.hpp";
+#include "Direction.hpp"
 
 void Weapon::AddPowerUp(PowerUp* up) {
   if (getPowerUpCount() < maxPowerUps) {

@@ -22,3 +22,10 @@ bool Entity::MoveUp(float dt) {
   return true;
 }
 sf::Sprite Entity::GetSprite() { return sprite_; }
+
+void Entity::initSprite(std::string location) {
+  if (texture_.loadFromFile(location)) {
+    sprite_.setTexture(texture_);
+    sprite_.setScale(sf::Vector2f(1, 1));
+  }
+}
