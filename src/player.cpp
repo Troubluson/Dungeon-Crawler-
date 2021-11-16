@@ -1,48 +1,31 @@
 #include "player.hpp"
 
-Player::Player()
-{
+Player::Player() {
   initVariables();
   initSprite();
 }
 
 Player::~Player() {}
 
-void Player::Update() { sprite_.setPosition(xPos, yPos); }
+void Player::Update(float dt) {
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+    MoveLeft(dt);
+  } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+    MoveRight(dt);
+  }
 
-void Player::Render(sf::RenderTarget *target) { target->draw(sprite_); }
-
-void Player::initVariables() {}
-
-void Player::initSprite()
-{
-  if (texture_.loadFromFile("content/squidman.png"))
-  {
-    sprite_.setTexture(texture_);
-    sprite_.setScale(sf::Vector2f(3, 3));
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+    MoveUp(dt);
+  } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+    MoveDown(dt);
   }
 }
 
-bool Player::MoveLeft()
-{
-  xPos -= speed;
-  return true;
-}
+void Player::initVariables() {}
 
-bool Player::MoveRight()
-{
-  xPos += speed;
-  return true;
-}
-
-bool Player::MoveDown()
-{
-  yPos += speed;
-  return true;
-}
-
-bool Player::MoveUp()
-{
-  yPos -= speed;
-  return true;
+void Player::initSprite() {
+  if (texture_.loadFromFile("content/squidman.png")) {
+    sprite_.setTexture(texture_);
+    sprite_.setScale(sf::Vector2f(3, 3));
+  }
 }

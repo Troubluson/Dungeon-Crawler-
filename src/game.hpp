@@ -3,7 +3,10 @@
 #ifndef _GAME_CLASS_
 #define _GAME_CLASS_
 
+#include <vector>
+
 #include "player.hpp"
+#include "projectile.hpp"
 
 class Game {
  public:
@@ -18,6 +21,8 @@ class Game {
 
   void Events();
 
+  void UpdateDt();
+
  private:
   sf::VideoMode videomode_;
   sf::RenderWindow *window_;
@@ -27,8 +32,13 @@ class Game {
   void initVariables();
   void initWindow();
 
+  sf::Clock dtClock;
+  float dt;
+
   bool paused = false;
-  void manageInput();
+  std::vector<Projectile *> projectileVector;
+
+  void CheckCollisions();
 };
 
 #endif
