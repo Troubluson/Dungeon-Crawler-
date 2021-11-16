@@ -16,7 +16,7 @@ void Player::initVariables() {}
 
 void Player::initSprite()
 {
-  if (texture_.loadFromFile("content/squidman.png"))
+  if (texture_.loadFromFile("content/sprites/squidman.png"))
   {
     sprite_.setTexture(texture_);
     sprite_.setScale(sf::Vector2f(3, 3));

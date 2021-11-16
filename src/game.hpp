@@ -4,7 +4,7 @@
 #define _GAME_CLASS_
 
 #include "player.hpp"
-
+#include "roomInstance.hpp"
 class Game {
  public:
   Game();
@@ -24,9 +24,9 @@ class Game {
   bool gameEnder_;
   sf::Event event_;
   Player player;
+  RoomInstance room;
   void initVariables();
   void initWindow();
-
   bool paused = false;
   void manageInput();
 };

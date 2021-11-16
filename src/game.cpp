@@ -20,6 +20,7 @@ void Game::UpdateGame()
 void Game::RenderGame()
 {
   window_->clear();
+  room.Render(window_);
   player.Render(window_);
   window_->display();
 }
@@ -75,3 +76,4 @@ void Game::manageInput()
     player.MoveDown();
   }
 }
+
