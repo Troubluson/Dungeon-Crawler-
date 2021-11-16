@@ -183,14 +183,14 @@ We started the meeting with disussing what has been done on the project. We star
 1. We have to wait for Mikael to access his computer from Helsinki in order to merge the projectiles.
 
 ## Actions
-1. 
+1. Continue to work with our Todo:s.
 
 ## Project status
 We have some basic features like movement and projectiles implemented to some extent.
 
 ### TODOs
 1. Jonas: Implement a bar with the hitpoints for the monsters. Create a game bar at the bottom to display some stats etc.
-2. Henrik: 
-3. Oskar: 
-4. Mikael: 
+2. Henrik: Continue implementing combat, weapons and powerups and maybe improving code structure
+3. Oskar: Adding collisions with walls, make it possible to move between rooms and implement a walking animation.
+4. Mikael: Continue to work on projectiles and restrict their range. Help Henrik with the weapons.
 
