@@ -22,6 +22,7 @@ void Game::UpdateGame() {
 // render game frames
 void Game::RenderGame() {
   window_->clear();
+  room.Render(window_);
   player_->Render(window_);
   monster_->Render(window_);
   window_->display();
