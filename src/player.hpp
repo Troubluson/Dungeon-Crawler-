@@ -12,6 +12,8 @@ public:
 
   int GetHitPoints() const;
 
+  int Attack(Character ch);
+
 private:
   int hitpoints_;
 };

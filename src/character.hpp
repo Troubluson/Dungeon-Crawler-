@@ -29,7 +29,7 @@ private:
 	sf::Texture texture_;
 	float xPos_;
 	float yPos_;
-	float speed_ = 5;
+	float speed_ = 0.2;
 };
 
 #endif
