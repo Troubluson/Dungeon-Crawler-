@@ -33,48 +33,48 @@ void RoomInstance::setTiles()
 			{
 				if (j==0)
 				{
-					row.push_back(new RoomTile("content/sprites/topwallleft.png",k, n, true, false));
+					row.push_back(new RoomTile("content/sprites/walls/topwallleft.png",k, n, true, false));
 				}
 				else if(j==19)
 				{
-					row.push_back(new RoomTile("content/sprites/topwallbottomleft.png",k, n, true, false));
+					row.push_back(new RoomTile("content/sprites/walls/topwallbottomleft.png",k, n, true, false));
 				}
 				else
 				{
-					row.push_back(new RoomTile("content/sprites/toppartofwall1.png",k, n, true, false));
+					row.push_back(new RoomTile("content/sprites/walls/toppartofwall1.png",k, n, true, false));
 				}
 			}
 			else if (i==1 && j!=0 && j!=19)
 			{
-				row.push_back(new RoomTile("content/sprites/wallfront1.png",k, n, true, false));
+				row.push_back(new RoomTile("content/sprites/walls/wallfront1.png",k, n, true, false));
 			}
 			else if (i==11)
 			{
 				if (j==0)
 				{
-					row.push_back(new RoomTile("content/sprites/topwallright.png",k, n, true, false));
+					row.push_back(new RoomTile("content/sprites/walls/topwallright.png",k, n, true, false));
 				}
 				else if(j==19)
 				{
-					row.push_back(new RoomTile("content/sprites/topwallbottomright.png",k, n, true, false));
+					row.push_back(new RoomTile("content/sprites/walls/topwallbottomright.png",k, n, true, false));
 				}
 				else
 				{
-					row.push_back(new RoomTile("content/sprites/topwallbottom.png",k, n, true, false));
+					row.push_back(new RoomTile("content/sprites/walls/topwallbottom.png",k, n, true, false));
 				}
 
 			}
 			else if (i!=0 && j==0)
 			{
-				row.push_back(new RoomTile("content/sprites/topwallLEFTSIDE.png",k, n, true, false));
+				row.push_back(new RoomTile("content/sprites/walls/topwallLEFTSIDE.png",k, n, true, false));
 			}
 			else if (i!=0 && j==19)
 			{
-				row.push_back(new RoomTile("content/sprites/topwallRIGHTSIDE.png",k, n, true, false));
+				row.push_back(new RoomTile("content/sprites/walls/topwallRIGHTSIDE.png",k, n, true, false));
 			}
 			else
 			{
-				row.push_back(new RoomTile("content/sprites/tile1.png",k, n, true, false));
+				row.push_back(new RoomTile("content/sprites/floors/tile1.png",k, n, true, false));
 			}
 
 			k += 64;
