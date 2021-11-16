@@ -5,12 +5,11 @@
 
 #include "character.hpp"
 
-class Monster : public Character
-{
+class Monster : public Character {
 public:
-	Monster(float xPos, float yPos);
+    Monster(float xPos, float yPos);
 
-	void Move();
+    void Move();
 };
 
 #endif

@@ -5,17 +5,16 @@
 
 #include "character.hpp"
 
-class Player : public Character
-{
+class Player : public Character {
 public:
-  Player();
+    Player();
 
-  int GetHitPoints() const;
+    int GetHitPoints() const;
 
-  int Attack(Character ch);
+    int Attack(Character ch);
 
 private:
-  int hitpoints_;
+    int hitpoints_;
 };
 
 #endif
