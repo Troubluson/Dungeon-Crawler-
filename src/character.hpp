@@ -23,12 +23,16 @@ public:
     void initVariables();
     sf::Vector2f GetPosition();
 
+    int GetHitpoints() const;
+
 private:
     sf::Sprite sprite_;
     sf::Texture texture_;
     float xPos_;
     float yPos_;
     float speed_ = 0.2;
+
+    int hitpoints_;
 };
 
 #endif
