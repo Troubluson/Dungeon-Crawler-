@@ -1,7 +1,7 @@
 #include "monster.hpp"
 
-Monster::Monster(float xPos, float yPos)
-    : Character("content/monster1.png", xPos, yPos)
+Monster::Monster(sf::Vector2f pos)
+    : Character("content/monster1.png", pos)
 {
 }
 

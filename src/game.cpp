@@ -2,7 +2,7 @@
 
 Game::Game()
     : player_(new Player())
-    , monster_(new Monster(200, 200))
+    , monster_(new Monster({200, 200}))
 {
     initVariables();
     initWindow();
@@ -18,9 +18,7 @@ Game::~Game()
 void Game::UpdateGame()
 {
     Events();
-
     manageInput();
-
     player_->Update();
     monster_->Update();
 }
