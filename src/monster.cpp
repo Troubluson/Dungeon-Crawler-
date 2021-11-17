@@ -1,5 +1,11 @@
 #include "monster.hpp"
 
+template <typename T>
+T Vector2length(const sf::Vector2<T>& v)
+{
+    return std::sqrt(v.x * v.x + v.y * v.y);
+}
+
 Monster::Monster(float xPos, float yPos)
     : Character("content/monster1.png", xPos, yPos)
 {
@@ -16,4 +22,13 @@ void Monster::Move()
         MoveUp();
     } else
         MoveRight();
+}
+
+void Monster::Attack(Player player)
+{
+    sf::Vector2f playerPos = player.GetPosition();
+    sf::Vector2f monsterPos = GetPosition();
+    if (Vector2length(playerPos - monsterPos) < 20 && Vector2length(playerPos - monsterPos) > -20) {
+        player.ReduceHitpoints();
+    }
 }

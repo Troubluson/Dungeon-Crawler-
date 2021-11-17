@@ -23,6 +23,7 @@ void Game::UpdateGame()
 
     player_->Update();
     monster_->Update();
+    monster_->Attack(*player_);
 }
 // render game frames
 void Game::RenderGame()

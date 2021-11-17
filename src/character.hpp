@@ -24,6 +24,7 @@ public:
     sf::Vector2f GetPosition();
 
     int GetHitpoints() const;
+    void ReduceHitpoints();
 
 private:
     sf::Sprite sprite_;

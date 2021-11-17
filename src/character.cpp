@@ -29,6 +29,12 @@ int Character::GetHitpoints() const
     return hitpoints_;
 }
 
+void Character::ReduceHitpoints()
+{
+    hitpoints_ = hitpoints_ - 10;
+    std::cout << hitpoints_ << std::endl;
+}
+
 bool Character::MoveLeft()
 {
     xPos_ -= speed_;
