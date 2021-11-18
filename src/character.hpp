@@ -1,4 +1,4 @@
-
+#pragma once
 
 #ifndef _CHARACTER_CLASS_
 #define _CHARACTER_CLASS_
@@ -8,6 +8,14 @@
 
 
 class Character {
+private:
+    enum class AnimationIndex {
+        AnimationUp,
+        AnimationDown,
+        AnimationLeft,
+        AnimationRight,
+        Count
+    };
 public:
     Character(const std::string& filename, const sf::Vector2f& pos_);
 
@@ -18,7 +26,7 @@ public:
     void Render(sf::RenderTarget* target);
 
     void initSprite(const std::string& filename);
-    void Direction(const sf::Vector2f dir);
+
 
     bool MoveLeft();
     bool MoveRight();
@@ -32,14 +40,14 @@ private:
 
     sf::Sprite sprite_;
     sf::Texture texture_;
+    bool player_char_;
     sf::Vector2f pos_;
-    sf::Vector2f dir_ = {0.0f, 0.0f};
     sf::Vector2f velocity_ = {0.0f, 0.0f};
-    static constexpr float speed_ = 3.0f;
+    static constexpr float speed_ = 5.0f;
     float dt_ = 0;
     std::chrono::_V2::steady_clock::time_point tp;
-
-    /*Animation AnimationRight;*/
+    Animation* Animations[int(AnimationIndex::Count)];
+    AnimationIndex currentAnimation = AnimationIndex::AnimationDown;
 
 };
 

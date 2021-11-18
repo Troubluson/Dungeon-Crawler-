@@ -1,8 +1,7 @@
 #include "animation.hpp"
 
 
-Animation::Animation(int x , int y , int width, int height, const std::string& textureName) {
-
+Animation::Animation(int x , int y , int width , int height , const std::string& textureName) {
 
 	texture_.loadFromFile(textureName);
 	for (int i = 0; i < nFrames_; i++) {
@@ -18,7 +17,8 @@ void Animation::AnimationToSprite(sf::Sprite& sprite) const
 
 void Animation::Update(float dt)
 {
-	time_ += dt;
+
+	time_ = time_ +  dt;
 	while(time_ >= holdTime_) {
 		time_ -= holdTime_;
 		NextFrame();

@@ -4,18 +4,21 @@
 Character::Character(const std::string& filename, const sf::Vector2f& pos)
 {
     pos_ = pos;
-    dt_ = {1.0f / 6.0f};
-    if (filename == "content/sprites/characters/spritesheet.png" ) {
-        /*AnimationRight(61, 64 *2, 61, 64, filename);*/
-        sprite_.setTextureRect({0,0,61,64});
+    dt_ = {1.0f / 60.0f};
+
+    if (filename == "content/spritesheet.png" ) {
+        sprite_.setTextureRect({0,0,64,64});
+        sprite_.setScale(sf::Vector2f(2, 2));
+        Animations[int(AnimationIndex::AnimationUp)] = new Animation(64 , 0 , 64, 64,  filename);
+        Animations[int(AnimationIndex::AnimationDown)] = new Animation(64 ,64 * 3 , 64, 64,  filename);
+        Animations[int(AnimationIndex::AnimationLeft)] = new Animation(64 ,64, 64, 64,  filename);
+        Animations[int(AnimationIndex::AnimationRight)] = new Animation(64 ,64 *2 , 64, 64,  filename);
+        player_char_ = true;
     }
 
-
-
-
-    initSprite(filename);
-
-
+    else {
+        initSprite(filename);
+    }
 
     tp = std::chrono::steady_clock::now();
 
@@ -27,10 +30,15 @@ Character::~Character() { }
 void Character::Update() {
     getDt();
     pos_ += velocity_ * dt_;
-    /*this->AnimationRight.Update(dt_);
-    this->AnimationRight.AnimationToSprite(sprite_);*/
+    if (player_char_ == true) {
+        Animations[int(currentAnimation)]->Update(dt_);
+        Animations[int(currentAnimation)]->AnimationToSprite(sprite_);
+    }
+
     sprite_.setPosition(pos_);
 }
+
+
 
 sf::Vector2f Character::GetPosition() { return sprite_.getPosition(); }
 
@@ -40,41 +48,42 @@ void Character::initSprite(const std::string& filename)
 {
     if (texture_.loadFromFile(filename)) {
         sprite_.setTexture(texture_);
-
         sprite_.setScale(sf::Vector2f(2, 2));
     }
 }
 
-void Character::Direction(const sf::Vector2f dir)
-{
-    velocity_ = dir * speed_;
-}
+
 
 bool Character::MoveLeft()
 {
-    dir_.x -= 1.0f;
-    this->Direction(dir_);
+    pos_.x -= speed_;
+    currentAnimation = AnimationIndex::AnimationLeft;
+
     return true;
 }
 
 bool Character::MoveRight()
 {
-    dir_.x += 1.0f;
-    this->Direction(dir_);
+    pos_.x += speed_;
+
+    currentAnimation = AnimationIndex::AnimationRight;
+
     return true;
 }
 
 bool Character::MoveDown()
 {
-    dir_.y += 1.0f;
-    this->Direction(dir_);
+    pos_.y += speed_;
+    currentAnimation = AnimationIndex::AnimationDown;
+
     return true;
 }
 
 bool Character::MoveUp()
 {
-    dir_.y -= 1.0f;
-    this->Direction(dir_);
+    pos_.y -= speed_;
+    currentAnimation = AnimationIndex::AnimationUp;
+
     return true;
 }
 

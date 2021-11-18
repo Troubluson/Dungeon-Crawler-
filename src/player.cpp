@@ -1,11 +1,11 @@
 #include "player.hpp"
 
 namespace {
-const std::string PLAYER_SPRITE = "content/sprites/characters/spritesheet.png";
+const std::string PLAYER_SPRITE = "content/spritesheet.png";
 }
 
 Player::Player()
-    : Character(PLAYER_SPRITE, {0.0f, 0.0f})
+    : Character(PLAYER_SPRITE, {640.0f, 320.0f})
     , hitpoints_(100)
 {
 }
