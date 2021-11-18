@@ -19,6 +19,7 @@ void Game::UpdateGame()
 {
     Events();
 
+    updateDt();
     manageInput();
 
     player_->Update();
@@ -63,18 +64,20 @@ void Game::initWindow()
     window_ = new sf::RenderWindow(videomode_, "Dungeon Crawler");
 }
 
+void Game::updateDt() { dt = dtClock.restart().asSeconds(); }
+
 void Game::manageInput()
 {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-        player_->MoveLeft();
+        player_->MoveLeft(dt);
     } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-        player_->MoveRight();
+        player_->MoveRight(dt);
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-        player_->MoveUp();
+        player_->MoveUp(dt);
     } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-        player_->MoveDown();
+        player_->MoveDown(dt);
     }
-    monster_->Move();
+    monster_->Move(dt);
 }
