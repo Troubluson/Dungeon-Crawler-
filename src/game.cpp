@@ -50,6 +50,24 @@ void Game::Events()
         case sf::Event::GainedFocus:
             paused = false;
             break;
+        case sf::Event::KeyPressed:
+            if (event_.key.code == sf::Keyboard::Space) {
+                sf::Vector2f direction = sf::Vector2f(1, 0);
+                Projectile* p = new Projectile(Projectile::EnemyProjectile, direction, 50, 50);
+                projectileVector.push_back(p);
+            }
+            break;
+        case sf::Event::MouseButtonPressed:
+            if (event_.mouseButton.button == sf::Mouse::Button::Left) {
+                sf::Vector2f direction = sf::Vector2f(
+                    static_cast<float>(sf::Mouse::getPosition(*window_).x) - player.GetSprite().getPosition().x,
+                    static_cast<float>(sf::Mouse::getPosition(*window_).y) - player.GetSprite().getPosition().y);
+                Projectile* p = new Projectile(Projectile::PlayerProjectile, direction,
+                    player.GetSprite().getPosition().x,
+                    player.GetSprite().getPosition().y);
+                projectileVector.push_back(p);
+            }
+            break;
         default:
             break;
         }
