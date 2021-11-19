@@ -48,12 +48,12 @@ bool Entity::MoveUp(float dt)
 
 bool Entity::Move(float dt, float x, float y)
 {
-    std::cout << "d" << std::endl;
     float xMovement = (x / (std::abs(x) + std::abs(y))) * speed_;
     float yMovement = (y / (std::abs(x) + std::abs(y))) * speed_;
     xMovement *= dt;
     yMovement *= dt;
     xPos_ += xMovement;
     yPos_ += yMovement;
+    sprite_.setPosition(xPos_, yPos_);
     return true;
 }

@@ -22,6 +22,10 @@ void Game::UpdateGame()
     updateDt();
     manageInput();
 
+    // Update projectiles
+    for (auto it : projectileVector) {
+        it->Update(dt);
+    }
     player_->Update();
     monster_->Update();
 }
