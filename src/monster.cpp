@@ -9,11 +9,11 @@ void Monster::Move(float dt)
 {
     int dir = rand() % 4 + 1;
     if (dir == 1) {
-        this->MoveDown(dt);
+        MoveDown(dt);
     } else if (dir == 2) {
-        this->MoveLeft(dt);
+        MoveLeft(dt);
     } else if (dir == 3) {
-        this->MoveUp(dt);
+        MoveUp(dt);
     } else
-        this->MoveRight(dt);
+        MoveRight(dt);
 }

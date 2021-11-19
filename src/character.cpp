@@ -10,7 +10,6 @@ Character::~Character() { }
 void Character::Update()
 {
     sprite_.setPosition(xPos_, yPos_);
-    std::cout << sprite_.getPosition().x << std::endl;
 }
 
 sf::Vector2f Character::GetPosition() { return sprite_.getPosition(); }

@@ -8,7 +8,6 @@ Projectile::Projectile(float x, float y)
     : Entity(PROJECTILE_SPRITE, x, y, 1)
 {
     initVariables();
-    timeExisted_ = 0;
 }
 
 bool Projectile::move(float dt, float x, float y)
@@ -26,22 +25,35 @@ bool Projectile::move(float dt, float x, float y)
 void Projectile::Update(float dt)
 {
     timeExisted_ += dt;
+    float distanceTravelledSquared = (std::abs(startPos_.x - xPos_) + std::abs(startPos_.y - yPos_));
+    if (distanceTravelledSquared > distanceLifeSpanSquared_) {
+        alive_ = false;
+    }
     move(dt, direction_.x, direction_.y);
 }
 
-void Projectile::initVariables() { }
+void Projectile::initVariables()
+{
+    alive_ = true;
+    timeExisted_ = 0;
+    startPos_ = GetPos();
+}
 
 //Getters
 int Projectile::GetDamage() { return damage_; }
 Projectile::Type Projectile::GetType() { return type_; }
 sf::Vector2f Projectile::GetDirection() { return direction_; }
+sf::Vector2f Projectile::GetStartPosition() { return startPos_; }
 float Projectile::GetTimeExisted() { return timeExisted_; }
 float Projectile::GetTimeLifeSpan() { return timeLifeSpan_; }
 float Projectile::GetProjectileSpeed() { return projectileSpeed_; }
+float Projectile::GetDistanceLifeSpan() { return distanceLifeSpanSquared_; }
+bool Projectile::GetAlive() { return alive_; }
 
 //Setters
 void Projectile::SetDamage(int damage) { damage_ = damage; }
 void Projectile::SetDirection(sf::Vector2f direction) { direction_ = direction; }
 void Projectile::SetType(Projectile::Type type) { type_ = type; }
 void Projectile::SetTimeLifeSpan(float timeLifeSpan) { timeLifeSpan_ = timeLifeSpan; }
+void Projectile::SetDistanceLifeSpan(float distanceLifeSpan) { distanceLifeSpanSquared_ = distanceLifeSpan * distanceLifeSpan; }
 void Projectile::SetProjectileSpeed(float projectileSpeed) { projectileSpeed_ = projectileSpeed; }

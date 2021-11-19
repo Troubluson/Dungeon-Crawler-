@@ -16,15 +16,19 @@ public:
     int GetDamage();
     Projectile::Type GetType();
     sf::Vector2f GetDirection();
+    sf::Vector2f GetStartPosition();
     float GetTimeExisted();
     float GetTimeLifeSpan();
     float GetProjectileSpeed();
+    float GetDistanceLifeSpan();
+    bool GetAlive();
 
     void SetType(Projectile::Type type);
     void SetDirection(sf::Vector2f direction);
     void SetDamage(int damage);
     void SetProjectileSpeed(float projectileSpeed);
     void SetTimeLifeSpan(float timeLifeSpan);
+    void SetDistanceLifeSpan(float distanceLifeSpan);
 
     void Update(float dt);
 
@@ -34,6 +38,10 @@ private:
 
     int damage_;
     float projectileSpeed_;
+
+    bool alive_;
+    sf::Vector2f startPos_;
+    float distanceLifeSpanSquared_;
     float timeExisted_;
     float timeLifeSpan_;
 

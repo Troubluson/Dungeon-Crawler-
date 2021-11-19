@@ -72,12 +72,15 @@ void Game::Events()
                 sf::Vector2f direction = sf::Vector2f(
                     static_cast<float>(sf::Mouse::getPosition(*window_).x) - player_->GetPosition().x - offset,
                     static_cast<float>(sf::Mouse::getPosition(*window_).y) - player_->GetPosition().y - offset);
+
                 Projectile* p = new Projectile(player_->GetPosition().x + offset, player_->GetPosition().y + offset);
                 p->SetType(Projectile::PlayerProjectile);
                 p->SetDamage(5);
                 p->SetProjectileSpeed(1000);
                 p->SetDirection(direction);
                 p->SetTimeLifeSpan(0.5);
+                p->SetDistanceLifeSpan(20);
+
                 projectileVector.push_back(p);
             }
             break;
@@ -155,7 +158,7 @@ void Game::deleteProjectile(Projectile* p)
 void Game::updateProjectiles()
 {
     for (auto it : projectileVector) {
-        if (it->GetTimeExisted() >= it->GetTimeLifeSpan()) {
+        if (it->GetAlive() == false) {
             deleteProjectile(it);
         }
         it->Update(dt);
