@@ -3,6 +3,7 @@
 #ifndef _GAME_CLASS_
 #define _GAME_CLASS_
 
+#include "gamebar.hpp"
 #include "monster.hpp"
 #include "player.hpp"
 #include "roomInstance.hpp"

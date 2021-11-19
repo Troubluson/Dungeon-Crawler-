@@ -5,17 +5,17 @@
 
 #include "player.hpp"
 
-class Gamebar
-{
+class Gamebar {
 public:
-	Gamebar(Player player) {}
+    Gamebar(Player player);
 
-	void Render();
+    void Render(sf::RenderTarget* target);
 
-	void Update();
+    void Update();
 
 private:
-	sf::RectangleShape background_;
-	sf::RectangleShape playerBar_;
+    Player player_;
+    sf::RectangleShape background_;
+    sf::RectangleShape playerBar_;
 };
 #endif

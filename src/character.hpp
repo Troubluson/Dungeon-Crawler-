@@ -11,7 +11,7 @@ public:
 
     void Update();
 
-    void Render(sf::RenderTarget* target);
+    virtual void Render(sf::RenderTarget* target);
 
     void initSprite(const std::string& filename);
 
