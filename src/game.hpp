@@ -28,7 +28,6 @@ private:
     sf::Event event_;
     RoomInstance room;
     Player* player_;
-    Monster* monster_;
 
     void initVariables();
     void initWindow();
@@ -40,10 +39,12 @@ private:
     bool paused = false;
     void manageInput();
 
+    std::vector<Character*> monsterVector_;
     std::vector<Projectile*> projectileVector;
 
-    void checkCollisions(Character* e, Projectile::Type type);
+    void checkCollisions(std::vector<Character*> characterVector, Projectile::Type type);
     void deleteProjectile(Projectile* p);
+    void deleteMonster(Monster* m);
     void updateProjectiles();
 };
 
