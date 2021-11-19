@@ -68,16 +68,16 @@ void Game::Events()
             break;
         case sf::Event::MouseButtonPressed:
             if (event_.mouseButton.button == sf::Mouse::Button::Left) {
-                sf::Vector2f direction = sf::Vector2f(
-                    static_cast<float>(sf::Mouse::getPosition(*window_).x) - player_->GetPosition().x,
-                    static_cast<float>(sf::Mouse::getPosition(*window_).y) - player_->GetPosition().y);
                 int offset = 20 * 3;
+                sf::Vector2f direction = sf::Vector2f(
+                    static_cast<float>(sf::Mouse::getPosition(*window_).x) - player_->GetPosition().x - offset,
+                    static_cast<float>(sf::Mouse::getPosition(*window_).y) - player_->GetPosition().y - offset);
                 Projectile* p = new Projectile(player_->GetPosition().x + offset, player_->GetPosition().y + offset);
                 p->SetType(Projectile::PlayerProjectile);
                 p->SetDamage(5);
                 p->SetProjectileSpeed(1000);
                 p->SetDirection(direction);
-                p->SetTimeLifeSpan(2);
+                p->SetTimeLifeSpan(0.5);
                 projectileVector.push_back(p);
             }
             break;
