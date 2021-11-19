@@ -77,8 +77,8 @@ void Game::Events()
             if (event_.mouseButton.button == sf::Mouse::Button::Left) {
                 int offset = 20 * 3;
                 sf::Vector2f direction = sf::Vector2f(
-                    static_cast<float>(sf::Mouse::getPosition(*window_).x) - player_->GetPosition().x - offset,
-                    static_cast<float>(sf::Mouse::getPosition(*window_).y) - player_->GetPosition().y - offset);
+                    static_cast<float>(sf::Mouse::getPosition(*window_).x) - 20 - player_->GetPosition().x - offset,
+                    static_cast<float>(sf::Mouse::getPosition(*window_).y) - 20 - player_->GetPosition().y - offset);
 
                 Projectile* p = new Projectile(player_->GetPosition().x + offset, player_->GetPosition().y + offset);
                 p->SetType(Projectile::PlayerProjectile);
