@@ -60,11 +60,11 @@ void Game::Events()
         case sf::Event::MouseButtonPressed:
             if (event_.mouseButton.button == sf::Mouse::Button::Left) {
                 sf::Vector2f direction = sf::Vector2f(
-                    static_cast<float>(sf::Mouse::getPosition(*window_).x) - player.GetSprite().getPosition().x,
-                    static_cast<float>(sf::Mouse::getPosition(*window_).y) - player.GetSprite().getPosition().y);
+                    static_cast<float>(sf::Mouse::getPosition(*window_).x) - player_->GetSprite().getPosition().x,
+                    static_cast<float>(sf::Mouse::getPosition(*window_).y) - player_->GetSprite().getPosition().y);
                 Projectile* p = new Projectile(Projectile::PlayerProjectile, direction,
-                    player.GetSprite().getPosition().x,
-                    player.GetSprite().getPosition().y);
+                    player_->GetSprite().getPosition().x,
+                    player_->GetSprite().getPosition().y);
                 projectileVector.push_back(p);
             }
             break;

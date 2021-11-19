@@ -7,11 +7,18 @@
 
 class Projectile : public Entity {
 public:
+    enum Type { PlayerProjectile,
+        EnemyProjectile };
+
+public:
+    Projectile(Type type, sf::Vector2f direction, float x, float y);
     Projectile(float x, float y);
     virtual ~Projectile();
     void Update(float dt);
 
 private:
+    Type type_;
+    sf::Vector2f direction_;
     void initSprite();
     void initVariables();
 };
