@@ -12,7 +12,6 @@ void Entity::Render(sf::RenderTarget* target) { target->draw(sprite_); }
 
 void Entity::initSprite(const std::string& filename, int spriteSize)
 {
-    std::cout << filename << std::endl;
     if (texture_.loadFromFile(filename)) {
         sprite_.setTexture(texture_);
         sprite_.setScale(sf::Vector2f(spriteSize, spriteSize));
