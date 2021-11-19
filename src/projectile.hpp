@@ -13,7 +13,9 @@ public:
 public:
     Projectile(float x, float y);
 
+    int GetDamage();
     Projectile::Type GetType();
+    sf::Vector2f GetDirection();
 
     void SetType(Projectile::Type type);
     void SetDirection(sf::Vector2f direction);
