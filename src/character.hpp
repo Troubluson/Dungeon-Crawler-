@@ -31,6 +31,7 @@ private:
     float speed_ = 200;
     int hitpoints_;
     bool alive_;
+    float clamp(float value, float low, float high);
 };
 
 #endif

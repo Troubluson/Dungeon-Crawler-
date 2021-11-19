@@ -14,6 +14,20 @@ void Character::Update()
     if (hitpoints_ <= 0) {
         alive_ = false;
     }
+    std::cout << yPos_ << std::endl;
+    xPos_ = clamp(xPos_, 50, 1050);
+    yPos_ = clamp(yPos_, 0, 550);
+}
+
+float Character::clamp(float value, float low, float high)
+{
+    if (value < low) {
+        value = low;
+    }
+    if (value > high) {
+        value = high;
+    }
+    return value;
 }
 
 void Character::initVariables()
