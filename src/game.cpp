@@ -30,6 +30,7 @@ void Game::UpdateGame()
     }
     //checkCollisions(player_, Projectile::Type::EnemyProjectile);
     checkCollisions(monsterVector_, Projectile::Type::PlayerProjectile);
+    checkWallCollisions();
     player_->Update();
 }
 // render game frames
@@ -150,11 +151,48 @@ void Game::checkCollisions(std::vector<Character*> characterVector, Projectile::
         i += 1;
     }
 
+    //Delete colliding projectiles
     for (auto it : projectileListToDelete) {
-        projectileVector.erase(projectileVector.begin() + it);
+        projectileVector[it] = projectileVector.back();
+        projectileVector.pop_back();
+        break;
     }
+
+    //Delete dead Monsters
     for (auto it : monsterListToDelete) {
-        monsterVector_.erase(monsterVector_.begin() + it);
+        monsterVector_[it] = monsterVector_.back();
+        monsterVector_.pop_back();
+        break;
+    }
+}
+
+void Game::checkWallCollisions()
+{
+    if (projectileVector.size() <= 0) {
+        return;
+    }
+
+    std::vector<int> projectileListToDelete;
+
+    for (auto row : room.tileVector_) {
+        for (auto tile : row) {
+            if (tile->isWalkable == false) {
+                int i = 0;
+                for (auto projectile : projectileVector) {
+                    if (projectile->GetSprite().getGlobalBounds().intersects(tile->tileSprite.getGlobalBounds())) {
+                        std::cout << "Crash" << std::endl;
+                        projectileListToDelete.push_back(i);
+                    }
+                    i += 1;
+                }
+            }
+        }
+    }
+
+    for (auto it : projectileListToDelete) {
+        projectileVector[it] = projectileVector.back();
+        projectileVector.pop_back();
+        break;
     }
 }
 

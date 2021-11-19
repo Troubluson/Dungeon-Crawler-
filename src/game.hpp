@@ -43,6 +43,7 @@ private:
     std::vector<Projectile*> projectileVector;
 
     void checkCollisions(std::vector<Character*> characterVector, Projectile::Type type);
+    void checkWallCollisions();
     void deleteProjectile(Projectile* p);
     void deleteMonster(Monster* m);
     void updateProjectiles();
