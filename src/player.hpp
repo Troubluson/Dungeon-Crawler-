@@ -14,7 +14,6 @@ public:
     int Attack(Character ch);
 
 private:
-    int hitpoints_;
 };
 
 #endif

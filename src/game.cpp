@@ -1,9 +1,9 @@
 #include "game.hpp"
 
 Game::Game()
-    : player_(new Player())
-    , monster_(new Monster(200, 200))
 {
+    player_ = new Player();
+    monster_ = new Monster(200, 200);
     initVariables();
     initWindow();
 }
@@ -116,7 +116,7 @@ void Game::manageInput()
     monster_->Move(dt);
 }
 
-void Game::checkCollisions(Entity* e, Projectile::Type type)
+void Game::checkCollisions(Character* e, Projectile::Type type)
 {
     if (projectileVector.size() <= 0) {
         return;
@@ -129,6 +129,10 @@ void Game::checkCollisions(Entity* e, Projectile::Type type)
                 e->GetSprite().getGlobalBounds())) {
             if (projectile->GetType() == type) {
                 std::cout << "Crash" << std::endl;
+                e->TakeDamage(10);
+                if (e->GetAlive() == false) {
+                    delete monster_;
+                }
                 listToDelete.push_back(i);
             }
         }

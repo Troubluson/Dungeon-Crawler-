@@ -23,8 +23,14 @@ public:
     bool MoveDown(float dt);
     bool MoveUp(float dt);
 
+    void TakeDamage(int value);
+
+    bool GetAlive();
+
 private:
     float speed_ = 200;
+    int hitpoints_;
+    bool alive_;
 };
 
 #endif
