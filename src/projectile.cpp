@@ -5,7 +5,7 @@ const std::string PROJECTILE_SPRITE = "content/sprites/projectile.png";
 }
 
 Projectile::Projectile(Type type, sf::Vector2f direction, float x, float y)
-    : Entity(PROJECTILE_SPRITE, x, y)
+    : Entity(PROJECTILE_SPRITE, x, y, 1)
 {
     initVariables();
     type_ = type;
@@ -13,7 +13,7 @@ Projectile::Projectile(Type type, sf::Vector2f direction, float x, float y)
 }
 
 Projectile::Projectile(float x, float y)
-    : Entity(PROJECTILE_SPRITE, x, y)
+    : Entity(PROJECTILE_SPRITE, x, y, 1)
 {
     initVariables();
     sprite_.setPosition(x, y);

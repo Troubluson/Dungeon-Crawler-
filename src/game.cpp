@@ -30,6 +30,9 @@ void Game::RenderGame()
 {
     window_->clear();
     room.Render(window_);
+    for (auto it : projectileVector) {
+        it->Render(window_);
+    }
     player_->Render(window_);
     monster_->Render(window_);
     window_->display();

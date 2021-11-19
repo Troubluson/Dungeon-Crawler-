@@ -1,7 +1,7 @@
 #include "character.hpp"
 
 Character::Character(const std::string& filename, float xPos, float yPos)
-    : Entity(filename, xPos, yPos)
+    : Entity(filename, xPos, yPos, 3)
 {
 }
 
