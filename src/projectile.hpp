@@ -11,16 +11,22 @@ public:
         EnemyProjectile };
 
 public:
-    Projectile(Type type, sf::Vector2f direction, float x, float y);
     Projectile(float x, float y);
 
     Projectile::Type GetType();
+
+    void SetType(Projectile::Type type);
+    void SetDirection(sf::Vector2f direction);
+    void SetDamage(int damage);
 
     void Update(float dt);
 
 private:
     Type type_;
     sf::Vector2f direction_;
+
+    int damage_;
+
     void initVariables();
 };
 

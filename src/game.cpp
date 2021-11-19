@@ -26,6 +26,8 @@ void Game::UpdateGame()
     for (auto it : projectileVector) {
         it->Update(dt);
     }
+    checkCollisions(player_, Projectile::Type::EnemyProjectile);
+    checkCollisions(monster_, Projectile::Type::PlayerProjectile);
     player_->Update();
     monster_->Update();
 }
@@ -60,7 +62,9 @@ void Game::Events()
         case sf::Event::KeyPressed:
             if (event_.key.code == sf::Keyboard::Space) {
                 sf::Vector2f direction = sf::Vector2f(1, 0);
-                Projectile* p = new Projectile(Projectile::EnemyProjectile, direction, 50, 50);
+                Projectile* p = new Projectile(50, 50);
+                p->SetDirection(direction);
+                p->SetType(Projectile::Type::EnemyProjectile);
                 projectileVector.push_back(p);
             }
             break;
@@ -69,9 +73,10 @@ void Game::Events()
                 sf::Vector2f direction = sf::Vector2f(
                     static_cast<float>(sf::Mouse::getPosition(*window_).x) - player_->GetSprite().getPosition().x,
                     static_cast<float>(sf::Mouse::getPosition(*window_).y) - player_->GetSprite().getPosition().y);
-                Projectile* p = new Projectile(Projectile::PlayerProjectile, direction,
-                    player_->GetSprite().getPosition().x,
-                    player_->GetSprite().getPosition().y);
+                Projectile* p = new Projectile(player_->GetSprite().getPosition().x, player_->GetSprite().getPosition().y);
+                p->SetType(Projectile::PlayerProjectile);
+                p->SetDamage(5);
+                p->SetDirection(direction);
                 projectileVector.push_back(p);
             }
             break;
@@ -105,4 +110,27 @@ void Game::manageInput()
         player_->MoveDown(dt);
     }
     monster_->Move(dt);
+}
+
+void Game::checkCollisions(Entity* e, Projectile::Type type)
+{
+    if (projectileVector.size() <= 0) {
+        return;
+    }
+
+    std::vector<int> listToDelete;
+    int i = 0;
+    for (auto projectile : projectileVector) {
+        if (projectile->GetSprite().getGlobalBounds().intersects(
+                e->GetSprite().getGlobalBounds())) {
+            if (projectile->GetType() == type) {
+                std::cout << "Crash" << std::endl;
+                listToDelete.push_back(i);
+            }
+        }
+        i += 1;
+    }
+    for (auto it : listToDelete) {
+        projectileVector.erase(projectileVector.begin() + it);
+    }
 }
