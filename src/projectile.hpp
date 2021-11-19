@@ -13,13 +13,14 @@ public:
 public:
     Projectile(Type type, sf::Vector2f direction, float x, float y);
     Projectile(float x, float y);
-    virtual ~Projectile();
+
+    Projectile::Type GetType();
+
     void Update(float dt);
 
 private:
     Type type_;
     sf::Vector2f direction_;
-    void initSprite();
     void initVariables();
 };
 

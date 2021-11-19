@@ -1,7 +1,15 @@
 #include "projectile.hpp"
 
 namespace {
-const std::string PROJECTILE_SPRITE = "content/sprites/squidman.png";
+const std::string PROJECTILE_SPRITE = "content/sprites/projectile.png";
+}
+
+Projectile::Projectile(Type type, sf::Vector2f direction, float x, float y)
+    : Entity(PROJECTILE_SPRITE, x, y)
+{
+    initVariables();
+    type_ = type;
+    direction_ = direction;
 }
 
 Projectile::Projectile(float x, float y)
@@ -11,8 +19,8 @@ Projectile::Projectile(float x, float y)
     sprite_.setPosition(x, y);
 }
 
-Projectile::~Projectile() { }
-
 void Projectile::Update(float dt) { MoveRight(dt); }
 
 void Projectile::initVariables() { }
+
+Projectile::Type Projectile::GetType() { return type_; }
