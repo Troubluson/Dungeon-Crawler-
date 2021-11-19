@@ -13,6 +13,7 @@ public:
     bool MoveRight(float dt);
     bool MoveDown(float dt);
     bool MoveUp(float dt);
+    bool Move(float dt, float x, float y);
 
 protected:
     sf::Sprite sprite_;

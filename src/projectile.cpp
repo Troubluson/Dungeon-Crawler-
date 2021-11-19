@@ -19,7 +19,7 @@ Projectile::Projectile(float x, float y)
     sprite_.setPosition(x, y);
 }
 
-void Projectile::Update(float dt) { MoveRight(dt); }
+void Projectile::Update(float dt) { Move(dt, direction_.x, direction_.y); }
 
 void Projectile::initVariables() { }
 
