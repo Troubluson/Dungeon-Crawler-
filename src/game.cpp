@@ -23,9 +23,7 @@ void Game::UpdateGame()
     manageInput();
 
     // Update projectiles
-    for (auto it : projectileVector) {
-        it->Update(dt);
-    }
+    updateProjectiles();
     checkCollisions(player_, Projectile::Type::EnemyProjectile);
     checkCollisions(monster_, Projectile::Type::PlayerProjectile);
     player_->Update();
@@ -71,12 +69,15 @@ void Game::Events()
         case sf::Event::MouseButtonPressed:
             if (event_.mouseButton.button == sf::Mouse::Button::Left) {
                 sf::Vector2f direction = sf::Vector2f(
-                    static_cast<float>(sf::Mouse::getPosition(*window_).x) - player_->GetSprite().getPosition().x,
-                    static_cast<float>(sf::Mouse::getPosition(*window_).y) - player_->GetSprite().getPosition().y);
-                Projectile* p = new Projectile(player_->GetSprite().getPosition().x, player_->GetSprite().getPosition().y);
+                    static_cast<float>(sf::Mouse::getPosition(*window_).x) - player_->GetPosition().x,
+                    static_cast<float>(sf::Mouse::getPosition(*window_).y) - player_->GetPosition().y);
+                int offset = 20 * 3;
+                Projectile* p = new Projectile(player_->GetPosition().x + offset, player_->GetPosition().y + offset);
                 p->SetType(Projectile::PlayerProjectile);
                 p->SetDamage(5);
+                p->SetProjectileSpeed(1000);
                 p->SetDirection(direction);
+                p->SetTimeLifeSpan(2);
                 projectileVector.push_back(p);
             }
             break;
@@ -132,5 +133,31 @@ void Game::checkCollisions(Entity* e, Projectile::Type type)
     }
     for (auto it : listToDelete) {
         projectileVector.erase(projectileVector.begin() + it);
+    }
+}
+
+void Game::deleteProjectile(Projectile* p)
+{
+    if (projectileVector.size() <= 0) {
+        return;
+    }
+
+    int i = 0;
+    for (auto it : projectileVector) {
+        if (it == p) {
+            projectileVector.erase(projectileVector.begin() + i);
+            return;
+        }
+        i += 1;
+    }
+}
+
+void Game::updateProjectiles()
+{
+    for (auto it : projectileVector) {
+        if (it->GetTimeExisted() >= it->GetTimeLifeSpan()) {
+            deleteProjectile(it);
+        }
+        it->Update(dt);
     }
 }

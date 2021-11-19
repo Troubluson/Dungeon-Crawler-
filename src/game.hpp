@@ -43,6 +43,8 @@ private:
     std::vector<Projectile*> projectileVector;
 
     void checkCollisions(Entity* e, Projectile::Type type);
+    void deleteProjectile(Projectile* p);
+    void updateProjectiles();
 };
 
 #endif

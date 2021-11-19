@@ -18,7 +18,13 @@ public:
     void initVariables();
     sf::Vector2f GetPosition();
 
+    bool MoveLeft(float dt);
+    bool MoveRight(float dt);
+    bool MoveDown(float dt);
+    bool MoveUp(float dt);
+
 private:
+    float speed_ = 200;
 };
 
 #endif
