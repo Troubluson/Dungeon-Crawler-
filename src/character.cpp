@@ -36,8 +36,6 @@ void Character::initVariables()
     hitpoints_ = 50;
 }
 
-sf::Vector2f Character::GetPosition() { return sprite_.getPosition(); }
-
 bool Character::MoveLeft(float dt)
 {
     xPos_ -= speed_ * dt;

@@ -3,8 +3,8 @@
 Game::Game()
 {
     player_ = new Player();
-    /* Monster* m = new Monster(200, 200);
-    monsterVector_.push_back(m); */
+    Monster* m = new Monster(300, 300);
+    monsterVector_.push_back(m);
     initVariables();
     initWindow();
 }
@@ -13,6 +13,9 @@ Game::~Game()
 {
     delete window_;
     delete player_;
+    for (auto monster : monsterVector_) {
+        delete monster;
+    }
 }
 
 void Game::UpdateGame()
@@ -24,11 +27,11 @@ void Game::UpdateGame()
 
     // Update projectiles
     updateProjectiles();
-    for (auto it : monsterVector_) {
-        it->Update();
-        static_cast<Monster*>(it)->Move(dt);
+    for (auto monster : monsterVector_) {
+        monster->Update();
+        monster->Move(dt);
     }
-    //checkCollisions(player_, Projectile::Type::EnemyProjectile);
+    // checkCollisions(player_, Projectile::Type::EnemyProjectile);
     checkCollisions(monsterVector_, Projectile::Type::PlayerProjectile);
     checkWallCollisions();
     player_->Update();
@@ -78,10 +81,10 @@ void Game::Events()
             if (event_.mouseButton.button == sf::Mouse::Button::Left) {
                 int offset = 20 * 3;
                 sf::Vector2f direction = sf::Vector2f(
-                    static_cast<float>(sf::Mouse::getPosition(*window_).x) - 20 - player_->GetPosition().x - offset,
-                    static_cast<float>(sf::Mouse::getPosition(*window_).y) - 20 - player_->GetPosition().y - offset);
+                    static_cast<float>(sf::Mouse::getPosition(*window_).x) - 20 - player_->GetPos().x - offset,
+                    static_cast<float>(sf::Mouse::getPosition(*window_).y) - 20 - player_->GetPos().y - offset);
 
-                Projectile* p = new Projectile(player_->GetPosition().x + offset, player_->GetPosition().y + offset);
+                Projectile* p = new Projectile(player_->GetPos().x + offset, player_->GetPos().y + offset);
                 p->SetType(Projectile::PlayerProjectile);
                 p->SetDamage(5);
                 p->SetProjectileSpeed(1000);
@@ -151,14 +154,14 @@ void Game::checkCollisions(std::vector<Character*> characterVector, Projectile::
         i += 1;
     }
 
-    //Delete colliding projectiles
+    // Delete colliding projectiles
     for (auto it : projectileListToDelete) {
         projectileVector[it] = projectileVector.back();
         projectileVector.pop_back();
         break;
     }
 
-    //Delete dead Monsters
+    // Delete dead Monsters
     for (auto it : monsterListToDelete) {
         monsterVector_[it] = monsterVector_.back();
         monsterVector_.pop_back();

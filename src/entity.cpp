@@ -21,3 +21,8 @@ void Entity::initSprite(const std::string& filename, int spriteSize)
 sf::Sprite Entity::GetSprite() { return sprite_; }
 
 sf::Vector2f Entity::GetPos() { return sf::Vector2f(xPos_, yPos_); }
+
+sf::Vector2f Entity::GetSpritePosition()
+{
+    return sprite_.getPosition();
+}

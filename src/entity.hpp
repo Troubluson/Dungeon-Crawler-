@@ -7,7 +7,9 @@ public:
     Entity(const std::string& filename, float xPos, float yPos, int spriteSize);
 
     sf::Sprite GetSprite();
-    sf::Vector2f GetPos();
+    sf::Vector2f GetPos() ;
+    sf::Vector2f GetSpritePosition();  //might be unnecessary, because sprite pos should be same as that returned of GetPos()
+
 
     void Render(sf::RenderTarget* target);
 
