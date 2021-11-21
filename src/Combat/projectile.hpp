@@ -13,15 +13,15 @@ public:
 public:
     Projectile(sf::Vector2f startPos, sf::Vector2f size);
 
-    int GetDamage();
-    Projectile::Type GetType();
-    sf::Vector2f GetDirection();
-    sf::Vector2f GetStartPosition();
-    float GetTimeExisted();
-    float GetTimeLifeSpan();
-    float GetProjectileSpeed();
-    float GetDistanceLifeSpan();
-    bool IsAlive();
+    int GetDamage() { return damage_; }
+    Projectile::Type GetType() { return type_; }
+    sf::Vector2f GetDirection() { return direction_; }
+    sf::Vector2f GetStartPosition() { return startPos_; }
+    float GetTimeExisted() { return timeExisted_; }
+    float GetTimeLifeSpan() { return timeLifeSpan_; }
+    float GetProjectileSpeed() { return projectileSpeed_; }
+    float GetDistanceLifeSpan() { return distanceLifeSpanSquared_; }
+    bool IsAlive() { return alive_; }
 
     void SetType(Projectile::Type type);
     void SetDirection(sf::Vector2f direction);

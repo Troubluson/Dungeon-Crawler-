@@ -39,17 +39,6 @@ void Projectile::initVariables()
     startPos_ = GetPos();
 }
 
-// Getters
-int Projectile::GetDamage() { return damage_; }
-Projectile::Type Projectile::GetType() { return type_; }
-sf::Vector2f Projectile::GetDirection() { return direction_; }
-sf::Vector2f Projectile::GetStartPosition() { return startPos_; }
-float Projectile::GetTimeExisted() { return timeExisted_; }
-float Projectile::GetTimeLifeSpan() { return timeLifeSpan_; }
-float Projectile::GetProjectileSpeed() { return projectileSpeed_; }
-float Projectile::GetDistanceLifeSpan() { return distanceLifeSpanSquared_; }
-bool Projectile::IsAlive() { return alive_; }
-
 // Setters
 void Projectile::SetDamage(int damage) { damage_ = damage; }
 void Projectile::SetDirection(sf::Vector2f direction) { direction_ = direction; }
