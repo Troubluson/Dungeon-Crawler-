@@ -5,6 +5,10 @@ Monster::Monster(float xPos, float yPos)
 {
 }
 
+Monster::~Monster()
+{
+}
+
 void Monster::Move(float dt)
 {
     int dir = rand() % 4 + 1;
