@@ -4,8 +4,9 @@ namespace {
 const std::string PROJECTILE_SPRITE = "content/sprites/projectile.png";
 }
 
-Projectile::Projectile(sf::Vector2f pos, sf::Vector2f size)
+Projectile::Projectile(sf::Vector2f pos, sf::Vector2f size, bool penetrates)
     : Entity(PROJECTILE_SPRITE, pos.x, pos.y, size)
+    , penetrates_(penetrates)
 {
     initVariables();
 }
@@ -26,8 +27,8 @@ void Projectile::Update(float dt)
 {
     timeExisted_ += dt;
     float distanceTravelledSquared = (std::abs(startPos_.x - xPos_) + std::abs(startPos_.y - yPos_));
-    if (distanceTravelledSquared > distanceLifeSpanSquared_) {
-        alive_ = false;
+    if (distanceTravelledSquared > distanceLifeSpanSquared_ || timeExisted_ > timeLifeSpan_) {
+        Kill();
     }
     move(dt, direction_.x, direction_.y);
 }

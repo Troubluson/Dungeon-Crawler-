@@ -33,17 +33,17 @@ private:
     bool paused = false;
     bool gameEnder_;
 
-    std::vector<Character*> monsterVector_;
-    std::vector<Projectile*> projectileVector;
+    std::list<Character*> monsters_;
+    std::list<Projectile*> projectiles_;
 
     void initVariables();
     void initWindow();
     void updateDt();
     void manageInput();
-    void checkCollisions(std::vector<Character*> characterVector, Projectile::Type type);
+    void checkCollisions(std::list<Character*> characterVector, Projectile::Type type);
     void checkWallCollisions();
     void deleteProjectile(Projectile* p);
-    void deleteMonster(Monster* m);
+    void deleteMonster(Character* m);
     void updateProjectiles();
 };
 

@@ -11,7 +11,7 @@ public:
         EnemyProjectile };
 
 public:
-    Projectile(sf::Vector2f startPos, sf::Vector2f size);
+    Projectile(sf::Vector2f startPos, sf::Vector2f size, bool penetratesObjects = false);
 
     int GetDamage() { return damage_; }
     Projectile::Type GetType() { return type_; }
@@ -21,6 +21,7 @@ public:
     float GetTimeLifeSpan() { return timeLifeSpan_; }
     float GetProjectileSpeed() { return projectileSpeed_; }
     float GetDistanceLifeSpan() { return distanceLifeSpanSquared_; }
+    bool Penetrates() { return penetrates_; }
     bool IsAlive() { return alive_; }
 
     void SetType(Projectile::Type type);
@@ -29,18 +30,20 @@ public:
     void SetProjectileSpeed(float projectileSpeed);
     void SetTimeLifeSpan(float timeLifeSpan);
     void SetDistanceLifeSpan(float distanceLifeSpan);
+    void Kill() { alive_ = false; };
 
     void Update(float dt);
 
 private:
     Type type_;
     sf::Vector2f direction_;
+    sf::Vector2f startPos_;
 
     int damage_;
     float projectileSpeed_;
 
     bool alive_;
-    sf::Vector2f startPos_;
+    bool penetrates_;
     float distanceLifeSpanSquared_;
     float timeExisted_;
     float timeLifeSpan_;
