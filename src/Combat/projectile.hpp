@@ -11,12 +11,12 @@ public:
         EnemyProjectile };
 
 public:
-    Projectile(sf::Vector2i, sf::Vector2f size);
+    Projectile(sf::Vector2f startPos, sf::Vector2f size);
 
     int GetDamage();
     Projectile::Type GetType();
     sf::Vector2f GetDirection();
-    sf::Vector2i GetStartPosition();
+    sf::Vector2f GetStartPosition();
     float GetTimeExisted();
     float GetTimeLifeSpan();
     float GetProjectileSpeed();
@@ -40,7 +40,7 @@ private:
     float projectileSpeed_;
 
     bool alive_;
-    sf::Vector2i startPos_;
+    sf::Vector2f startPos_;
     float distanceLifeSpanSquared_;
     float timeExisted_;
     float timeLifeSpan_;

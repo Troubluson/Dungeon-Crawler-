@@ -89,12 +89,12 @@ void Game::Events()
         case sf::Event::MouseButtonPressed:
             if (event_.mouseButton.button == sf::Mouse::Button::Left) {
                 int offset = 20 * 3;
-                sf::Vector2i playerPos = player_->GetPos();
+                sf::Vector2f playerPos = player_->GetPos();
                 sf::Vector2f direction = sf::Vector2f(
                     static_cast<float>(sf::Mouse::getPosition(*window_).x) - 20 - playerPos.x - offset,
                     static_cast<float>(sf::Mouse::getPosition(*window_).y) - 20 - playerPos.y - offset);
 
-                sf::Vector2i projectilePos = playerPos + sf::Vector2i(offset, offset);
+                sf::Vector2f projectilePos = playerPos + sf::Vector2f(offset, offset);
 
                 Projectile* p = new Projectile(projectilePos, PLACEHOLDER_PROJ_SIZE);
                 // could maybe be changed to be less lines
