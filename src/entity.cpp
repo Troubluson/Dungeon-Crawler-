@@ -1,6 +1,6 @@
 #include "entity.hpp"
 
-Entity::Entity(const std::string& spriteFile, int xPos, int yPos, sf::Vector2f spriteDims)
+Entity::Entity(const std::string& spriteFile, float xPos, float yPos, sf::Vector2f spriteDims)
 {
     xPos_ = xPos;
     yPos_ = yPos;

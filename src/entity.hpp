@@ -4,7 +4,7 @@
 #define _ENTITY_CLASS_
 class Entity {
 public:
-    Entity(const std::string& spriteLocation, int xPos, int yPos, sf::Vector2f spriteDims);
+    Entity(const std::string& spriteLocation, float xPos, float yPos, sf::Vector2f spriteDims);
 
     sf::Sprite GetSprite() { return sprite_; };
     sf::Vector2i GetPos() { return sf::Vector2i(xPos_, yPos_); }
@@ -18,7 +18,7 @@ protected:
     sf::Texture texture_;
     void initSprite(const std::string& spriteLocation, sf::Vector2f spriteDims);
 
-    int xPos_;
-    int yPos_;
+    float xPos_;
+    float yPos_;
 };
 #endif
