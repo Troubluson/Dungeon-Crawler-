@@ -9,6 +9,7 @@ class Weapon {
 protected:
     int damage_;
     int range_;
+    bool penetrates_ = false;
     const int maxPowerUps = 3;
     int getPowerUpCount();
     sf::Sprite sprite_;

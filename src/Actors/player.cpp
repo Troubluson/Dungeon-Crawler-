@@ -8,3 +8,7 @@ Player::Player()
     : Character(PLAYER_SPRITE, 0, 0)
 {
 }
+void Player::Equip(Weapon* weapon)
+{
+    weapon_ = weapon;
+}
