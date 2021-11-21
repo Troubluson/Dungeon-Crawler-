@@ -3,9 +3,9 @@
 #ifndef _GAME_CLASS_
 #define _GAME_CLASS_
 
-#include "monster.hpp"
-#include "player.hpp"
-#include "projectile.hpp"
+#include "Actors/monster.hpp"
+#include "Actors/player.hpp"
+#include "Combat/projectile.hpp"
 #include "roomInstance.hpp"
 
 class Game {
