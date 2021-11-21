@@ -1,9 +1,18 @@
 #include "game.hpp"
 
+namespace {
+const sf::Vector2f PLACEHOLDER_PROJ_SIZE = sf::Vector2f(1.0, 1.0);
+const int PLACEHOLDER_PROJ_SPEED = 1000;
+const int PLACEHOLDER_PROJ_DIST = 20;
+const int PLACEHOLDER_PROJ_DMG = 20;
+const float PLACEHOLDER_PROJ_LS = 0.5;
+
+}
+
 Game::Game()
 {
     player_ = new Player();
-    Monster* m = new Monster(300, 300);
+    Monster* m = new Monster(300, 300); // placeholder
     monsterVector_.push_back(m);
     initVariables();
     initWindow();
@@ -41,12 +50,12 @@ void Game::RenderGame()
 {
     window_->clear();
     room.Render(window_);
-    for (auto it : projectileVector) {
-        it->Render(window_);
-    }
     player_->Render(window_);
-    for (auto it : monsterVector_) {
-        it->Render(window_);
+    for (auto projectile : projectileVector) {
+        projectile->Render(window_);
+    }
+    for (auto monster : monsterVector_) {
+        monster->Render(window_);
     }
     window_->display();
 }
@@ -80,17 +89,21 @@ void Game::Events()
         case sf::Event::MouseButtonPressed:
             if (event_.mouseButton.button == sf::Mouse::Button::Left) {
                 int offset = 20 * 3;
+                sf::Vector2i playerPos = player_->GetPos();
                 sf::Vector2f direction = sf::Vector2f(
-                    static_cast<float>(sf::Mouse::getPosition(*window_).x) - 20 - player_->GetPos().x - offset,
-                    static_cast<float>(sf::Mouse::getPosition(*window_).y) - 20 - player_->GetPos().y - offset);
+                    static_cast<float>(sf::Mouse::getPosition(*window_).x) - 20 - playerPos.x - offset,
+                    static_cast<float>(sf::Mouse::getPosition(*window_).y) - 20 - playerPos.y - offset);
 
-                Projectile* p = new Projectile(player_->GetPos().x + offset, player_->GetPos().y + offset);
+                sf::Vector2i projectilePos = playerPos + sf::Vector2i(offset, offset);
+
+                Projectile* p = new Projectile(projectilePos, PLACEHOLDER_PROJ_SIZE);
+                // could maybe be changed to be less lines
                 p->SetType(Projectile::PlayerProjectile);
-                p->SetDamage(5);
-                p->SetProjectileSpeed(1000);
+                p->SetDamage(PLACEHOLDER_PROJ_DMG);
+                p->SetProjectileSpeed(PLACEHOLDER_PROJ_SPEED);
                 p->SetDirection(direction);
-                p->SetTimeLifeSpan(0.5);
-                p->SetDistanceLifeSpan(20);
+                p->SetTimeLifeSpan(PLACEHOLDER_PROJ_LS);
+                p->SetDistanceLifeSpan(PLACEHOLDER_PROJ_DIST);
 
                 projectileVector.push_back(p);
             }
@@ -142,8 +155,8 @@ void Game::checkCollisions(std::vector<Character*> characterVector, Projectile::
             if (projectile->GetType() == type) {
                 if (projectile->GetSprite().getGlobalBounds().intersects(character->GetSprite().getGlobalBounds())) {
                     std::cout << "Crash" << std::endl;
-                    character->TakeDamage(10);
-                    if (character->GetAlive() == false) {
+                    character->TakeDamage(projectile->GetDamage());
+                    if (character->IsAlive() == false) {
                         monsterListToDelete.push_back(i);
                     }
                     projectileListToDelete.push_back(j);
@@ -233,10 +246,10 @@ void Game::deleteMonster(Monster* m)
 
 void Game::updateProjectiles()
 {
-    for (auto it : projectileVector) {
-        if (it->GetAlive() == false) {
-            deleteProjectile(it);
+    for (auto projectile : projectileVector) {
+        if (projectile->IsAlive() == false) {
+            deleteProjectile(projectile);
         }
-        it->Update(dt);
+        projectile->Update(dt);
     }
 }

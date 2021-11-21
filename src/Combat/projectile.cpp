@@ -4,8 +4,8 @@ namespace {
 const std::string PROJECTILE_SPRITE = "content/sprites/projectile.png";
 }
 
-Projectile::Projectile(float x, float y)
-    : Entity(PROJECTILE_SPRITE, x, y, 1)
+Projectile::Projectile(sf::Vector2i pos, sf::Vector2f size)
+    : Entity(PROJECTILE_SPRITE, pos.x, pos.y, size)
 {
     initVariables();
 }
@@ -39,18 +39,18 @@ void Projectile::initVariables()
     startPos_ = GetPos();
 }
 
-//Getters
+// Getters
 int Projectile::GetDamage() { return damage_; }
 Projectile::Type Projectile::GetType() { return type_; }
 sf::Vector2f Projectile::GetDirection() { return direction_; }
-sf::Vector2f Projectile::GetStartPosition() { return startPos_; }
+sf::Vector2i Projectile::GetStartPosition() { return startPos_; }
 float Projectile::GetTimeExisted() { return timeExisted_; }
 float Projectile::GetTimeLifeSpan() { return timeLifeSpan_; }
 float Projectile::GetProjectileSpeed() { return projectileSpeed_; }
 float Projectile::GetDistanceLifeSpan() { return distanceLifeSpanSquared_; }
-bool Projectile::GetAlive() { return alive_; }
+bool Projectile::IsAlive() { return alive_; }
 
-//Setters
+// Setters
 void Projectile::SetDamage(int damage) { damage_ = damage; }
 void Projectile::SetDirection(sf::Vector2f direction) { direction_ = direction; }
 void Projectile::SetType(Projectile::Type type) { type_ = type; }

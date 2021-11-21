@@ -11,17 +11,17 @@ public:
         EnemyProjectile };
 
 public:
-    Projectile(float x, float y);
+    Projectile(sf::Vector2i, sf::Vector2f size);
 
     int GetDamage();
     Projectile::Type GetType();
     sf::Vector2f GetDirection();
-    sf::Vector2f GetStartPosition();
+    sf::Vector2i GetStartPosition();
     float GetTimeExisted();
     float GetTimeLifeSpan();
     float GetProjectileSpeed();
     float GetDistanceLifeSpan();
-    bool GetAlive();
+    bool IsAlive();
 
     void SetType(Projectile::Type type);
     void SetDirection(sf::Vector2f direction);
@@ -40,7 +40,7 @@ private:
     float projectileSpeed_;
 
     bool alive_;
-    sf::Vector2f startPos_;
+    sf::Vector2i startPos_;
     float distanceLifeSpanSquared_;
     float timeExisted_;
     float timeLifeSpan_;

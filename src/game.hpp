@@ -24,24 +24,22 @@ public:
 private:
     sf::VideoMode videomode_;
     sf::RenderWindow* window_;
-    bool gameEnder_;
     sf::Event event_;
+    sf::Clock dtClock;
     RoomInstance room;
     Player* player_;
 
-    void initVariables();
-    void initWindow();
-    void updateDt();
-
-    sf::Clock dtClock;
     float dt;
-
     bool paused = false;
-    void manageInput();
+    bool gameEnder_;
 
     std::vector<Character*> monsterVector_;
     std::vector<Projectile*> projectileVector;
 
+    void initVariables();
+    void initWindow();
+    void updateDt();
+    void manageInput();
     void checkCollisions(std::vector<Character*> characterVector, Projectile::Type type);
     void checkWallCollisions();
     void deleteProjectile(Projectile* p);

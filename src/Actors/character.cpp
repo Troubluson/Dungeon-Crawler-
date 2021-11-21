@@ -1,7 +1,7 @@
 #include "character.hpp"
 
 Character::Character(const std::string& filename, float xPos, float yPos)
-    : Entity(filename, xPos, yPos, 3)
+    : Entity(filename, xPos, yPos, sf::Vector2f(3, 3))
 {
     initVariables();
 }
@@ -65,4 +65,4 @@ void Character::TakeDamage(int value)
     hitpoints_ -= value;
 }
 
-bool Character::GetAlive() { return alive_; }
+bool Character::IsAlive() { return alive_; }

@@ -1,28 +1,19 @@
 #include "entity.hpp"
 
-Entity::Entity(const std::string& filename, float xPos, float yPos, int spriteSize)
+Entity::Entity(const std::string& spriteFile, int xPos, int yPos, sf::Vector2f spriteDims)
 {
     xPos_ = xPos;
     yPos_ = yPos;
-    initSprite(filename, spriteSize);
+    initSprite(spriteFile, spriteDims);
     sprite_.setPosition(xPos, yPos);
 }
 
 void Entity::Render(sf::RenderTarget* target) { target->draw(sprite_); }
 
-void Entity::initSprite(const std::string& filename, int spriteSize)
+void Entity::initSprite(const std::string& spriteFile, sf::Vector2f spriteDims)
 {
-    if (texture_.loadFromFile(filename)) {
+    if (texture_.loadFromFile(spriteFile)) {
         sprite_.setTexture(texture_);
-        sprite_.setScale(sf::Vector2f(spriteSize, spriteSize));
+        sprite_.setScale(spriteDims);
     }
-}
-
-sf::Sprite Entity::GetSprite() { return sprite_; }
-
-sf::Vector2f Entity::GetPos() { return sf::Vector2f(xPos_, yPos_); }
-
-sf::Vector2f Entity::GetSpritePosition()
-{
-    return sprite_.getPosition();
 }

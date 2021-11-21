@@ -21,13 +21,11 @@ public:
     bool MoveRight(float dt);
     bool MoveDown(float dt);
     bool MoveUp(float dt);
-    virtual void Move(float) {
-
-    };
+    virtual void Move(float) {};
 
     void TakeDamage(int value);
 
-    bool GetAlive();
+    bool IsAlive();
 
 private:
     float speed_ = 200;
