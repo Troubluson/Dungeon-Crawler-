@@ -1,11 +1,14 @@
+#pragma once
+#ifndef _SWORDWEAPON_CLASS_
+#define _SWORDWEAPON_CLASS_
 
-#include "Weapon.hpp";
+#include "Weapon.hpp"
 
 class SwordWeapon : public Weapon {
- private:
-  /* data */
- public:
-  SwordWeapon(/* args */) {}
-  virtual void Use(direction dir);
-  ~SwordWeapon() {}
+private:
+public:
+    SwordWeapon(int damage, int range, Vector2f projectileSize, const std::string& spriteLocation);
+    virtual ~SwordWeapon() { }
+    virtual void Use(Vector2f dir);
 };
+#endif
