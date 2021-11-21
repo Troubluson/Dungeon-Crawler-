@@ -30,6 +30,7 @@ public:
     void SetProjectileSpeed(float projectileSpeed);
     void SetTimeLifeSpan(float timeLifeSpan);
     void SetDistanceLifeSpan(float distanceLifeSpan);
+    void SetSprite(sf::Sprite sprite) { sprite_ = sprite; }
     void Kill() { alive_ = false; };
 
     void Update(float dt);
@@ -38,6 +39,7 @@ private:
     Type type_;
     sf::Vector2f direction_;
     sf::Vector2f startPos_;
+    sf::Sprite sprite_;
 
     int damage_;
     float projectileSpeed_;

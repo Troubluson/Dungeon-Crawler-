@@ -27,7 +27,7 @@ void Projectile::Update(float dt)
 {
     timeExisted_ += dt;
     float distanceTravelledSquared = (std::abs(startPos_.x - xPos_) + std::abs(startPos_.y - yPos_));
-    if (distanceTravelledSquared > distanceLifeSpanSquared_ || timeExisted_ > timeLifeSpan_) {
+    if (distanceTravelledSquared > distanceLifeSpanSquared_) {
         Kill();
     }
     move(dt, direction_.x, direction_.y);

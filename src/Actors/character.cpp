@@ -14,7 +14,6 @@ void Character::Update()
     if (hitpoints_ <= 0) {
         alive_ = false;
     }
-    std::cout << yPos_ << std::endl;
     xPos_ = clamp(xPos_, 50, 1050);
     yPos_ = clamp(yPos_, 0, 550);
 }

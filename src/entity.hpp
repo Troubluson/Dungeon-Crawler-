@@ -8,6 +8,7 @@ public:
 
     sf::Sprite GetSprite() { return sprite_; };
     sf::Vector2f GetPos() { return sf::Vector2f(xPos_, yPos_); }
+    sf::Vector2i GetPosI() { return sf::Vector2i(xPos_, yPos_); }
 
     sf::Vector2f GetSpritePosition() { return sprite_.getPosition(); } // might be unnecessary, because sprite pos should be same as that returned of GetPos()
 

@@ -3,6 +3,7 @@
 #ifndef _CHARACTER_CLASS_
 #define _CHARACTER_CLASS_
 
+#include "../Combat/projectile.hpp"
 #include "entity.hpp"
 
 class Character : public Entity {
@@ -22,6 +23,7 @@ public:
     bool MoveDown(float dt);
     bool MoveUp(float dt);
     virtual void Move(float) {};
+    virtual void Attack(sf::Vector2f, std::list<Projectile*>) {};
 
     void TakeDamage(int value);
 

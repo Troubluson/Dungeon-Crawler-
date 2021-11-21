@@ -88,15 +88,16 @@ void Game::Events()
             break;
         case sf::Event::MouseButtonPressed:
             if (event_.mouseButton.button == sf::Mouse::Button::Left) {
-                int offset = 20 * 3;
-                sf::Vector2f playerPos = player_->GetPos();
-                sf::Vector2f direction = sf::Vector2f(
-                    static_cast<float>(sf::Mouse::getPosition(*window_).x) - 20 - playerPos.x - offset,
-                    static_cast<float>(sf::Mouse::getPosition(*window_).y) - 20 - playerPos.y - offset);
+                auto mousePos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(*window_));
+                auto spriteOrigin = player_->GetPos();
+                auto localSpriteBounds = player_->GetSprite().getLocalBounds();
+                spriteOrigin.x += localSpriteBounds.width / 2;
+                spriteOrigin.y += localSpriteBounds.height / 2;
+                auto direction = mousePos - spriteOrigin;
+                std::cout << "dir: " << direction.x << "," << direction.y << ", mousePos: " << mousePos.x << "," << mousePos.y << std::endl;
+                // player_->Attack(direction, projectiles_);
 
-                sf::Vector2f projectilePos = playerPos + sf::Vector2f(offset, offset);
-
-                Projectile* p = new Projectile(projectilePos, PLACEHOLDER_PROJ_SIZE);
+                Projectile* p = new Projectile(spriteOrigin, PLACEHOLDER_PROJ_SIZE);
                 // could maybe be changed to be less lines
                 p->SetType(Projectile::PlayerProjectile);
                 p->SetDamage(PLACEHOLDER_PROJ_DMG);
@@ -151,7 +152,6 @@ void Game::checkCollisions(std::list<Character*> characters, Projectile::Type pr
         for (auto projectile : projectiles_) {
             if (projectile->GetType() == projectileType) {
                 if (projectile->GetSprite().getGlobalBounds().intersects(character->GetSprite().getGlobalBounds())) {
-                    std::cout << "Crash" << std::endl;
                     character->TakeDamage(projectile->GetDamage());
                     if (character->IsAlive() == false) {
                         monsterListToDelete.push_back(character);
@@ -182,7 +182,6 @@ void Game::checkWallCollisions()
             if (tile->isWalkable == false) {
                 for (auto projectile : projectiles_) {
                     if (projectile->GetSprite().getGlobalBounds().intersects(tile->tileSprite.getGlobalBounds())) {
-                        std::cout << "Crash" << std::endl;
                         projectile->Kill();
                     }
                 }
@@ -228,6 +227,7 @@ void Game::updateProjectiles()
             it = projectiles_.erase(it);
         } else {
             p->Update(dt);
+            std::cout << p->GetPos().x << "," << p->GetPos().y << std::endl;
         }
     }
 }
