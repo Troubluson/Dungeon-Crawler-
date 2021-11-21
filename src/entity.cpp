@@ -1,31 +1,19 @@
 #include "entity.hpp"
 
+Entity::Entity(const std::string& spriteFile, float xPos, float yPos, sf::Vector2f spriteDims)
+{
+    xPos_ = xPos;
+    yPos_ = yPos;
+    initSprite(spriteFile, spriteDims);
+    sprite_.setPosition(xPos, yPos);
+}
+
 void Entity::Render(sf::RenderTarget* target) { target->draw(sprite_); }
 
-bool Entity::MoveLeft(float dt) {
-  sprite_.move(-speed * dt, 0);
-  return true;
-}
-
-bool Entity::MoveRight(float dt) {
-  sprite_.move(speed * dt, 0);
-  return true;
-}
-
-bool Entity::MoveDown(float dt) {
-  sprite_.move(0, speed * dt);
-  return true;
-}
-
-bool Entity::MoveUp(float dt) {
-  sprite_.move(0, -speed * dt);
-  return true;
-}
-sf::Sprite Entity::GetSprite() { return sprite_; }
-
-void Entity::initSprite(std::string location) {
-  if (texture_.loadFromFile(location)) {
-    sprite_.setTexture(texture_);
-    sprite_.setScale(sf::Vector2f(1, 1));
-  }
+void Entity::initSprite(const std::string& spriteFile, sf::Vector2f spriteDims)
+{
+    if (texture_.loadFromFile(spriteFile)) {
+        sprite_.setTexture(texture_);
+        sprite_.setScale(spriteDims);
+    }
 }
