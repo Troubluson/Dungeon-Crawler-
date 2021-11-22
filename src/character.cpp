@@ -1,13 +1,13 @@
 #include "character.hpp"
 #define C_PIXELS 64
 
-Character::Character(const std::string& filename, const sf::Vector2f& pos)
+Character::Character(const std::string& filename, const sf::Vector2f& pos, bool isPlayer)
 {
     pos_ = pos;
     oldPos_ = pos_;
     dt_ = {1.0f / 60.0f};
-
-    if (filename == "content/spritesheet.png" ) {
+    isPlayer_ = isPlayer;
+    if (isPlayer_ == true) {
         sprite_.setTextureRect({0,0,C_PIXELS,C_PIXELS});
         sprite_.setScale(sf::Vector2f(2, 2));
         Animations[int(AnimationIndex::AnimationUp)] = new Animation(C_PIXELS , 0 , C_PIXELS, C_PIXELS,  filename);
@@ -15,7 +15,6 @@ Character::Character(const std::string& filename, const sf::Vector2f& pos)
         Animations[int(AnimationIndex::AnimationLeft)] = new Animation(C_PIXELS ,C_PIXELS * 2, C_PIXELS, C_PIXELS,  filename);
         Animations[int(AnimationIndex::AnimationRight)] = new Animation(C_PIXELS ,C_PIXELS * 3 , C_PIXELS, C_PIXELS,  filename);
         Animations[int(AnimationIndex::AnimationIdle)] = new Animation(C_PIXELS ,C_PIXELS , C_PIXELS, C_PIXELS,  filename);
-        player_char_ = true;
     }
 
     else {
@@ -31,7 +30,7 @@ Character::~Character() { }
 
 void Character::Update() {
 
-    if (player_char_ == true)
+    if (isPlayer_ == true)
     {
         if (oldPos_ == pos_)
         {

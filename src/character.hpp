@@ -18,7 +18,7 @@ private:
         Count
     };
 public:
-    Character(const std::string& filename, const sf::Vector2f& pos_);
+    Character(const std::string& filename, const sf::Vector2f& pos_, bool isPlayer);
 
     ~Character();
 
@@ -41,7 +41,7 @@ private:
     sf::Vector2f oldPos_;
     sf::Sprite sprite_;
     sf::Texture texture_;
-    bool player_char_;
+    bool isPlayer_;
     sf::Vector2f pos_;
     sf::Vector2f velocity_ = {0.0f, 0.0f};
     static constexpr float speed_ = 5.0f;

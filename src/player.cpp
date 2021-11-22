@@ -5,9 +5,10 @@ const std::string PLAYER_SPRITE = "content/spritesheet.png";
 }
 
 Player::Player()
-    : Character(PLAYER_SPRITE, {640.0f, 320.0f})
+    : Character(PLAYER_SPRITE, {640.0f, 320.0f}, true)
     , hitpoints_(100)
 {
+
 }
 
 int Player::GetHitPoints() const { return hitpoints_; }
