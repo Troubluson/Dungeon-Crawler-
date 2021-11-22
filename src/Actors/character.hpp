@@ -3,7 +3,7 @@
 #ifndef _CHARACTER_CLASS_
 #define _CHARACTER_CLASS_
 
-#include "../Combat/projectile.hpp"
+#include "../Combat/Projectile.hpp"
 #include "entity.hpp"
 
 class Character : public Entity {
