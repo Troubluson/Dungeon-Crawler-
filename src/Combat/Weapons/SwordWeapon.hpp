@@ -9,6 +9,6 @@ private:
 public:
     SwordWeapon(int damage, int range, Vector2f projectileSize, const std::string& spriteLocation);
     virtual ~SwordWeapon() { }
-    virtual void Use(Vector2f dir);
+    virtual list<Projectile*> Use(Vector2f dir, Vector2f origin);
 };
 #endif

@@ -12,6 +12,9 @@ const float PLACEHOLDER_PROJ_LS = 0.5;
 Game::Game()
 {
     player_ = new Player();
+    SwordWeapon* sword = new SwordWeapon(200, 100, sf::Vector2f(3, 2), "content/sprites/projectile.png");
+    player_->Equip(sword);
+
     Monster* m = new Monster(300, 300); // placeholder
     monsters_.push_back(m);
     initVariables();
@@ -89,24 +92,7 @@ void Game::Events()
         case sf::Event::MouseButtonPressed:
             if (event_.mouseButton.button == sf::Mouse::Button::Left) {
                 auto mousePos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(*window_));
-                auto spriteOrigin = player_->GetPos();
-                auto localSpriteBounds = player_->GetSprite().getLocalBounds();
-                spriteOrigin.x += localSpriteBounds.width / 2;
-                spriteOrigin.y += localSpriteBounds.height / 2;
-                auto direction = mousePos - spriteOrigin;
-                std::cout << "dir: " << direction.x << "," << direction.y << ", mousePos: " << mousePos.x << "," << mousePos.y << std::endl;
-                // player_->Attack(direction, projectiles_);
-
-                Projectile* p = new Projectile(spriteOrigin, PLACEHOLDER_PROJ_SIZE);
-                // could maybe be changed to be less lines
-                p->SetType(Projectile::PlayerProjectile);
-                p->SetDamage(PLACEHOLDER_PROJ_DMG);
-                p->SetProjectileSpeed(PLACEHOLDER_PROJ_SPEED);
-                p->SetDirection(direction);
-                p->SetTimeLifeSpan(PLACEHOLDER_PROJ_LS);
-                p->SetDistanceLifeSpan(PLACEHOLDER_PROJ_DIST);
-
-                projectiles_.push_back(p);
+                player_->Attack(mousePos, projectiles_);
             }
             break;
         default:
@@ -227,7 +213,6 @@ void Game::updateProjectiles()
             it = projectiles_.erase(it);
         } else {
             p->Update(dt);
-            std::cout << p->GetPos().x << "," << p->GetPos().y << std::endl;
         }
     }
 }

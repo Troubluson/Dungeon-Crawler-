@@ -24,6 +24,7 @@ public:
     bool MoveUp(float dt);
     virtual void Move(float) {};
     virtual void Attack(sf::Vector2f, std::list<Projectile*>) {};
+    sf::Vector2f GetSpriteCenter();
 
     void TakeDamage(int value);
 

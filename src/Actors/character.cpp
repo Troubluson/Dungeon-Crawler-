@@ -59,6 +59,15 @@ bool Character::MoveUp(float dt)
     return true;
 }
 
+sf::Vector2f Character::GetSpriteCenter()
+{
+    auto spriteOrigin = GetPos();
+    auto localSpriteBounds = sprite_.getLocalBounds();
+    spriteOrigin.x += localSpriteBounds.width;
+    spriteOrigin.y += localSpriteBounds.height;
+    return spriteOrigin;
+}
+
 void Character::TakeDamage(int value)
 {
     hitpoints_ -= value;

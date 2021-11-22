@@ -39,7 +39,6 @@ private:
     Type type_;
     sf::Vector2f direction_;
     sf::Vector2f startPos_;
-    sf::Sprite sprite_;
 
     int damage_;
     float projectileSpeed_;

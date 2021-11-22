@@ -19,9 +19,4 @@ void Weapon::AddPowerUp(PowerUp* up)
     }
 }
 
-void Weapon::EquipFor(Player* owner)
-{
-    owner_=owner;
-}
-
 int Weapon::getPowerUpCount() { return powerUps_.size(); }

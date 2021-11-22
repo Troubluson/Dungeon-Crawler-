@@ -12,7 +12,7 @@ public:
     ~Player() {};
     int GetHitPoints() const;
 
-    void Attack(sf::Vector2f dir, std::list<Projectile*>& worldProjectiles);
+    void Attack(sf::Vector2f mousePos, std::list<Projectile*>& worldProjectiles);
     void Equip(Weapon* weapon);
 
 private:
