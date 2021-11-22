@@ -1,4 +1,5 @@
 #include "game.hpp"
+#include "Collision.hpp"
 
 namespace {
 const sf::Vector2f PLACEHOLDER_PROJ_SIZE = sf::Vector2f(1.0, 1.0);
@@ -128,6 +129,7 @@ void Game::manageInput()
 
 void Game::checkCollisions(std::list<Character*> characters, Projectile::Type projectileType)
 {
+
     if (projectiles_.empty()) {
         return;
     }
@@ -137,7 +139,8 @@ void Game::checkCollisions(std::list<Character*> characters, Projectile::Type pr
     for (auto character : characters) {
         for (auto projectile : projectiles_) {
             if (projectile->GetType() == projectileType) {
-                if (projectile->GetSprite().getGlobalBounds().intersects(character->GetSprite().getGlobalBounds())) {
+                if (Collision::PixelPerfectTest(projectile->GetSprite(), character->GetSprite())) {
+                    std::cout << "Collision" << std::endl;
                     character->TakeDamage(projectile->GetDamage());
                     if (character->IsAlive() == false) {
                         monsterListToDelete.push_back(character);
@@ -145,6 +148,8 @@ void Game::checkCollisions(std::list<Character*> characters, Projectile::Type pr
                     if (!projectile->Penetrates()) {
                         projectile->Kill();
                     }
+                } else {
+                    std::cout << "No Collision" << std::endl;
                 }
             }
         }
