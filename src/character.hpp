@@ -14,6 +14,7 @@ private:
         AnimationDown,
         AnimationLeft,
         AnimationRight,
+        AnimationIdle,
         Count
     };
 public:
@@ -27,7 +28,7 @@ public:
 
     void initSprite(const std::string& filename);
 
-
+    bool Idle();
     bool MoveLeft();
     bool MoveRight();
     bool MoveDown();
@@ -37,7 +38,7 @@ public:
     sf::Vector2f GetPosition();
 
 private:
-
+    sf::Vector2f oldPos_;
     sf::Sprite sprite_;
     sf::Texture texture_;
     bool player_char_;
