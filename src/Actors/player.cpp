@@ -17,7 +17,7 @@ void Player::Attack(sf::Vector2f mousePosition, std::list<Projectile*>& projecti
     auto spriteCenter = GetSpriteCenter();
     auto direction = mousePosition - spriteCenter;
     auto newProjectiles = weapon_->Use(direction, spriteCenter);
-    projectiles.splice(projectiles.end(), newProjectiles); //moves new projectiles to the back of projectiles_
+    projectiles.splice(projectiles.end(), newProjectiles); // moves new projectiles to the back of projectiles_
 }
 
 void Player::Equip(Weapon* weapon)
