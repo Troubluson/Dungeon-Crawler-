@@ -4,7 +4,7 @@
 
 #include "../../Actors/player.hpp"
 #include "../PowerUps/PowerUp.hpp"
-#include "../projectile.hpp"
+#include "../Projectile.hpp"
 #include "SpriteHelper.hpp"
 
 using namespace std;

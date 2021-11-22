@@ -5,7 +5,7 @@
 
 #include "Actors/monster.hpp"
 #include "Actors/player.hpp"
-#include "Combat/projectile.hpp"
+#include "Combat/Projectile.hpp"
 #include "roomInstance.hpp"
 
 class Game {
