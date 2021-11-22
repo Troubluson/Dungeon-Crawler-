@@ -1,4 +1,5 @@
 #include "game.hpp"
+#include "Collision.hpp"
 
 namespace {
 const sf::Vector2f PLACEHOLDER_PROJ_SIZE = sf::Vector2f(1.0, 1.0);
@@ -12,6 +13,9 @@ const float PLACEHOLDER_PROJ_LS = 0.5;
 Game::Game()
 {
     player_ = new Player();
+    SwordWeapon* sword = new SwordWeapon(5, 10, sf::Vector2f(50, 100), "content/sprites/projectiles.png");
+    player_->Equip(sword);
+
     Monster* m = new Monster(300, 300); // placeholder
     monsters_.push_back(m);
     initVariables();
@@ -88,24 +92,8 @@ void Game::Events()
             break;
         case sf::Event::MouseButtonPressed:
             if (event_.mouseButton.button == sf::Mouse::Button::Left) {
-                int offset = 20 * 3;
-                sf::Vector2f playerPos = player_->GetPos();
-                sf::Vector2f direction = sf::Vector2f(
-                    static_cast<float>(sf::Mouse::getPosition(*window_).x) - 20 - playerPos.x - offset,
-                    static_cast<float>(sf::Mouse::getPosition(*window_).y) - 20 - playerPos.y - offset);
-
-                sf::Vector2f projectilePos = playerPos + sf::Vector2f(offset, offset);
-
-                Projectile* p = new Projectile(projectilePos, PLACEHOLDER_PROJ_SIZE);
-                // could maybe be changed to be less lines
-                p->SetType(Projectile::PlayerProjectile);
-                p->SetDamage(PLACEHOLDER_PROJ_DMG);
-                p->SetProjectileSpeed(PLACEHOLDER_PROJ_SPEED);
-                p->SetDirection(direction);
-                p->SetTimeLifeSpan(PLACEHOLDER_PROJ_LS);
-                p->SetDistanceLifeSpan(PLACEHOLDER_PROJ_DIST);
-
-                projectiles_.push_back(p);
+                auto mousePos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(*window_));
+                player_->Attack(mousePos, projectiles_);
             }
             break;
         default:
@@ -141,6 +129,7 @@ void Game::manageInput()
 
 void Game::checkCollisions(std::list<Character*> characters, Projectile::Type projectileType)
 {
+
     if (projectiles_.empty()) {
         return;
     }
@@ -150,8 +139,7 @@ void Game::checkCollisions(std::list<Character*> characters, Projectile::Type pr
     for (auto character : characters) {
         for (auto projectile : projectiles_) {
             if (projectile->GetType() == projectileType) {
-                if (projectile->GetSprite().getGlobalBounds().intersects(character->GetSprite().getGlobalBounds())) {
-                    std::cout << "Crash" << std::endl;
+                if (Collision::PixelPerfectTest(projectile->GetSprite(), character->GetSprite())) {
                     character->TakeDamage(projectile->GetDamage());
                     if (character->IsAlive() == false) {
                         monsterListToDelete.push_back(character);
@@ -159,6 +147,7 @@ void Game::checkCollisions(std::list<Character*> characters, Projectile::Type pr
                     if (!projectile->Penetrates()) {
                         projectile->Kill();
                     }
+                    
                 }
             }
         }
@@ -182,7 +171,6 @@ void Game::checkWallCollisions()
             if (tile->isWalkable == false) {
                 for (auto projectile : projectiles_) {
                     if (projectile->GetSprite().getGlobalBounds().intersects(tile->tileSprite.getGlobalBounds())) {
-                        std::cout << "Crash" << std::endl;
                         projectile->Kill();
                     }
                 }

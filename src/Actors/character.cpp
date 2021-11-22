@@ -14,7 +14,6 @@ void Character::Update()
     if (hitpoints_ <= 0) {
         alive_ = false;
     }
-    std::cout << yPos_ << std::endl;
     xPos_ = clamp(xPos_, 50, 1050);
     yPos_ = clamp(yPos_, 0, 550);
 }
@@ -58,6 +57,16 @@ bool Character::MoveUp(float dt)
 {
     yPos_ -= speed_ * dt;
     return true;
+}
+
+sf::Vector2f Character::GetSpriteCenter()
+{
+    auto spriteOrigin = GetPos();
+    auto localSpriteBounds = sprite_.getLocalBounds();
+    auto spriteScale = sprite_.getScale();
+    spriteOrigin.x += 1.0f / 2 * localSpriteBounds.width * spriteScale.x;
+    spriteOrigin.y += 1.0f / 2 * localSpriteBounds.height * spriteScale.y;
+    return spriteOrigin;
 }
 
 void Character::TakeDamage(int value)

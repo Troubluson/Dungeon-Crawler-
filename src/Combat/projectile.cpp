@@ -1,11 +1,11 @@
-#include "projectile.hpp"
+#include "Projectile.hpp"
 
 namespace {
 const std::string PROJECTILE_SPRITE = "content/sprites/projectile.png";
 }
 
-Projectile::Projectile(sf::Vector2f pos, sf::Vector2f size, bool penetrates)
-    : Entity(PROJECTILE_SPRITE, pos.x, pos.y, size)
+Projectile::Projectile(sf::Sprite& sprite, sf::Vector2f pos, bool penetrates)
+    : Entity(sprite, pos.x, pos.y)
     , penetrates_(penetrates)
 {
     initVariables();
@@ -27,7 +27,7 @@ void Projectile::Update(float dt)
 {
     timeExisted_ += dt;
     float distanceTravelledSquared = (std::abs(startPos_.x - xPos_) + std::abs(startPos_.y - yPos_));
-    if (distanceTravelledSquared > distanceLifeSpanSquared_ || timeExisted_ > timeLifeSpan_) {
+    if (distanceTravelledSquared > distanceLifeSpanSquared_) {
         Kill();
     }
     move(dt, direction_.x, direction_.y);
