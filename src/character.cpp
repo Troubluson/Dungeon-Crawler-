@@ -1,5 +1,5 @@
 #include "character.hpp"
-
+#define C_PIXELS 64
 
 Character::Character(const std::string& filename, const sf::Vector2f& pos)
 {
@@ -8,13 +8,13 @@ Character::Character(const std::string& filename, const sf::Vector2f& pos)
     dt_ = {1.0f / 60.0f};
 
     if (filename == "content/spritesheet.png" ) {
-        sprite_.setTextureRect({0,0,64,64});
+        sprite_.setTextureRect({0,0,C_PIXELS,C_PIXELS});
         sprite_.setScale(sf::Vector2f(2, 2));
-        Animations[int(AnimationIndex::AnimationUp)] = new Animation(64 , 0 , 64, 64,  filename);
-        Animations[int(AnimationIndex::AnimationDown)] = new Animation(64 ,64 * 4 , 64, 64,  filename);
-        Animations[int(AnimationIndex::AnimationLeft)] = new Animation(64 ,64 * 2, 64, 64,  filename);
-        Animations[int(AnimationIndex::AnimationRight)] = new Animation(64 ,64 * 3 , 64, 64,  filename);
-        Animations[int(AnimationIndex::AnimationIdle)] = new Animation(64 ,64 , 64, 64,  filename);
+        Animations[int(AnimationIndex::AnimationUp)] = new Animation(C_PIXELS , 0 , C_PIXELS, C_PIXELS,  filename);
+        Animations[int(AnimationIndex::AnimationDown)] = new Animation(C_PIXELS ,C_PIXELS * 4 , C_PIXELS, C_PIXELS,  filename);
+        Animations[int(AnimationIndex::AnimationLeft)] = new Animation(C_PIXELS ,C_PIXELS * 2, C_PIXELS, C_PIXELS,  filename);
+        Animations[int(AnimationIndex::AnimationRight)] = new Animation(C_PIXELS ,C_PIXELS * 3 , C_PIXELS, C_PIXELS,  filename);
+        Animations[int(AnimationIndex::AnimationIdle)] = new Animation(C_PIXELS ,C_PIXELS , C_PIXELS, C_PIXELS,  filename);
         player_char_ = true;
     }
 
@@ -22,7 +22,7 @@ Character::Character(const std::string& filename, const sf::Vector2f& pos)
         initSprite(filename);
     }
 
-    tp = std::chrono::steady_clock::now();
+
 
 }
 
@@ -30,11 +30,10 @@ Character::Character(const std::string& filename, const sf::Vector2f& pos)
 Character::~Character() { }
 
 void Character::Update() {
-    getDt();
 
     if (player_char_ == true)
     {
-        if ( oldPos_ == pos_)
+        if (oldPos_ == pos_)
         {
             Idle();
         }
@@ -94,12 +93,6 @@ bool Character::MoveUp()
     return true;
 }
 
-void Character::getDt()
-{
-	const auto new_tp = std::chrono::steady_clock::now();
-	dt_ = std::chrono::duration<float>(new_tp - tp).count();
-	tp = new_tp;
-}
 
 bool Character::Idle()
 {

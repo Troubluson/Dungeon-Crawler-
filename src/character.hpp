@@ -4,7 +4,7 @@
 #define _CHARACTER_CLASS_
 
 #include "animation.hpp"
-#include <chrono>
+
 
 
 class Character {
@@ -33,7 +33,7 @@ public:
     bool MoveRight();
     bool MoveDown();
     bool MoveUp();
-    void getDt();
+
     void initVariables();
     sf::Vector2f GetPosition();
 
@@ -46,7 +46,6 @@ private:
     sf::Vector2f velocity_ = {0.0f, 0.0f};
     static constexpr float speed_ = 5.0f;
     float dt_ = 0;
-    std::chrono::_V2::steady_clock::time_point tp;
     Animation* Animations[int(AnimationIndex::Count)];
     AnimationIndex currentAnimation = AnimationIndex::AnimationDown;
 
