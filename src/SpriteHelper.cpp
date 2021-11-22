@@ -1,12 +1,9 @@
 #include "SpriteHelper.hpp"
 
-sf::Sprite SpriteHelper::CreateSpriteFrom(const std::string& spriteFile, sf::Vector2f dimensions)
+void SpriteHelper::CreateSpriteFrom(const std::string& spriteFile, sf::Vector2f dimensions, sf::Sprite& sprite, sf::Texture& texture)
 {
-    sf::Texture texture;
-    sf::Sprite sprite;
     if (texture.loadFromFile(spriteFile)) {
         sprite.setTexture(texture);
         sprite.setScale(dimensions);
     }
-    return sprite;
 }

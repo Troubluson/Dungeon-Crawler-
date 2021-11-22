@@ -7,7 +7,7 @@ private:
     /* data */
 public:
     SpriteHelper(/* args */) {};
-    sf::Sprite CreateSpriteFrom(const std::string& spriteFile, sf::Vector2f dimensions);
+    void CreateSpriteFrom(const std::string& spriteFile, sf::Vector2f dimensions, sf::Sprite& sprite, sf::Texture& texture);
 };
 
 #endif

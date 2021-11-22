@@ -8,8 +8,7 @@ SwordWeapon::SwordWeapon(int damage, int range, Vector2f projectileSize, const s
 }
 list<Projectile*> SwordWeapon::Use(Vector2f dir, Vector2f origin)
 {
-    auto p = new Projectile(origin, projectileSize_, true);
-    p->SetSprite(sprite_);
+    auto p = new Projectile(sprite_, origin, true);
     p->SetDirection(dir);
     p->SetDamage(damage_);
     p->SetDistanceLifeSpan(range_);

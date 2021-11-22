@@ -4,8 +4,8 @@ namespace {
 const std::string PROJECTILE_SPRITE = "content/sprites/projectile.png";
 }
 
-Projectile::Projectile(sf::Vector2f pos, sf::Vector2f size, bool penetrates)
-    : Entity(PROJECTILE_SPRITE, pos.x, pos.y, size)
+Projectile::Projectile(sf::Sprite& sprite, sf::Vector2f pos, bool penetrates)
+    : Entity(sprite, pos.x, pos.y)
     , penetrates_(penetrates)
 {
     initVariables();

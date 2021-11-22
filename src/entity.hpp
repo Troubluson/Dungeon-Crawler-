@@ -5,6 +5,7 @@
 class Entity {
 public:
     Entity(const std::string& spriteLocation, float xPos, float yPos, sf::Vector2f spriteDims);
+    Entity(sf::Sprite& sprite, float xPos, float yPos);
 
     sf::Sprite GetSprite() { return sprite_; };
     sf::Vector2f GetPos() { return sf::Vector2f(xPos_, yPos_); }

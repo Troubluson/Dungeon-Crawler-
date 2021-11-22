@@ -11,7 +11,7 @@ public:
         EnemyProjectile };
 
 public:
-    Projectile(sf::Vector2f startPos, sf::Vector2f size, bool penetratesObjects = false);
+    Projectile(sf::Sprite& sprite, sf::Vector2f startPos, bool penetratesObjects = false);
 
     int GetDamage() { return damage_; }
     Projectile::Type GetType() { return type_; }

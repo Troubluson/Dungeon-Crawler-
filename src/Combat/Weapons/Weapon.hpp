@@ -17,6 +17,7 @@ protected:
     const int maxPowerUps = 3;
     int getPowerUpCount();
     Sprite sprite_;
+    Texture texture_;
     vector<PowerUp*> powerUps_;
 
 public:
