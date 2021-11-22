@@ -11,24 +11,15 @@ Monster::Monster(float xPos, float yPos)
 {
 }
 
-void Monster::Move()
+void Monster::Move(float dt)
 {
     int dir = rand() % 4 + 1;
     if (dir == 1) {
-        MoveDown();
+        this->MoveDown(dt);
     } else if (dir == 2) {
-        MoveLeft();
+        this->MoveLeft(dt);
     } else if (dir == 3) {
-        MoveUp();
+        this->MoveUp(dt);
     } else
-        MoveRight();
-}
-
-void Monster::Attack(Player player)
-{
-    sf::Vector2f playerPos = player.GetPosition();
-    sf::Vector2f monsterPos = GetPosition();
-    if (Vector2length(playerPos - monsterPos) < 20 && Vector2length(playerPos - monsterPos) > -20) {
-        player.ReduceHitpoints();
-    }
+        this->MoveRight(dt);
 }

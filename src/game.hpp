@@ -6,6 +6,7 @@
 #include "gamebar.hpp"
 #include "monster.hpp"
 #include "player.hpp"
+#include "projectile.hpp"
 #include "roomInstance.hpp"
 
 class Game {
@@ -32,9 +33,17 @@ private:
 
     void initVariables();
     void initWindow();
+    void updateDt();
+
+    sf::Clock dtClock;
+    float dt;
 
     bool paused = false;
     void manageInput();
+
+    std::vector<Projectile*> projectileVector;
+
+    void checkCollisions(Entity* e, Projectile::Type type);
 };
 
 #endif
