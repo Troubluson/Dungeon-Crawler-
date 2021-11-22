@@ -12,7 +12,7 @@ const float PLACEHOLDER_PROJ_LS = 0.5;
 Game::Game()
 {
     player_ = new Player();
-    SwordWeapon* sword = new SwordWeapon(5, 10, sf::Vector2f(100, 200), "content/sprites/projectiles.png");
+    SwordWeapon* sword = new SwordWeapon(5, 10, sf::Vector2f(50, 100), "content/sprites/projectiles.png");
     player_->Equip(sword);
 
     Monster* m = new Monster(300, 300); // placeholder

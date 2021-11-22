@@ -63,8 +63,9 @@ sf::Vector2f Character::GetSpriteCenter()
 {
     auto spriteOrigin = GetPos();
     auto localSpriteBounds = sprite_.getLocalBounds();
-    spriteOrigin.x += localSpriteBounds.width;
-    spriteOrigin.y += localSpriteBounds.height;
+    auto spriteScale = sprite_.getScale();
+    spriteOrigin.x += 1.0f / 2 * localSpriteBounds.width * spriteScale.x;
+    spriteOrigin.y += 1.0f / 2 * localSpriteBounds.height * spriteScale.y;
     return spriteOrigin;
 }
 

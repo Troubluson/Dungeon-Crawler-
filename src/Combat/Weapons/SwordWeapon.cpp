@@ -13,7 +13,7 @@ SwordWeapon::SwordWeapon(int damage, int range, Vector2f projectileSize, const s
     auto scaleX = projectileSize.x / bounds.width;
     auto scaleY = projectileSize.y / bounds.height;
     sprite_.setScale(0.9 * scaleX, scaleY);
-    sprite_.setOrigin(bounds.width / 2, bounds.height / 2);
+    sprite_.setOrigin(bounds.width / 2, bounds.height);
 }
 list<Projectile*> SwordWeapon::Use(Vector2f dir, Vector2f origin)
 {
@@ -24,7 +24,7 @@ list<Projectile*> SwordWeapon::Use(Vector2f dir, Vector2f origin)
     p->SetDirection(dir);
     p->SetDamage(damage_);
     p->SetDistanceLifeSpan(range_);
-    p->SetProjectileSpeed(10);
+    p->SetProjectileSpeed(1000);
     p->SetType(Projectile::Type::PlayerProjectile); // should maybe be set in players attack function instead
     return list<Projectile*> { p };
 }

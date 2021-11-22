@@ -5,7 +5,7 @@ const std::string PLAYER_SPRITE = "content/sprites/squidman.png";
 }
 
 Player::Player()
-    : Character(PLAYER_SPRITE, 0, 0)
+    : Character(PLAYER_SPRITE, 200, 200)
 {
 }
 
