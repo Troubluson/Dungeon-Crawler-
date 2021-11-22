@@ -6,7 +6,7 @@ const std::string PLAYER_SPRITE = "content/sprites/squidman.png";
 
 Player::Player()
     : Character(PLAYER_SPRITE, 0, 0)
-    , gamebar_(Gamebar(*this))
+    , gamebar_(Gamebar(100))
 {
 }
 

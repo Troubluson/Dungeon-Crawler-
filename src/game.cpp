@@ -30,7 +30,7 @@ void Game::UpdateGame()
     checkCollisions(monster_, Projectile::Type::PlayerProjectile);
     player_->Update();
     monster_->Update();
-    monster_->Attack(*player_);
+    //monster_->Attack(*player_);
 }
 // render game frames
 void Game::RenderGame()

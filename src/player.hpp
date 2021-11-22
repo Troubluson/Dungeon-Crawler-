@@ -12,7 +12,7 @@ public:
 
     int Attack(Character ch);
 
-    virtual void Render(sf::RenderTarget* target);
+    void Render(sf::RenderTarget* target);
 
 private:
     Gamebar gamebar_;
