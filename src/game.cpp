@@ -140,7 +140,6 @@ void Game::checkCollisions(std::list<Character*> characters, Projectile::Type pr
         for (auto projectile : projectiles_) {
             if (projectile->GetType() == projectileType) {
                 if (Collision::PixelPerfectTest(projectile->GetSprite(), character->GetSprite())) {
-                    std::cout << "Collision" << std::endl;
                     character->TakeDamage(projectile->GetDamage());
                     if (character->IsAlive() == false) {
                         monsterListToDelete.push_back(character);
@@ -148,8 +147,7 @@ void Game::checkCollisions(std::list<Character*> characters, Projectile::Type pr
                     if (!projectile->Penetrates()) {
                         projectile->Kill();
                     }
-                } else {
-                    std::cout << "No Collision" << std::endl;
+                    
                 }
             }
         }
