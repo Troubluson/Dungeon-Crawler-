@@ -12,5 +12,6 @@ Player::Player()
 
 void Player::Render(sf::RenderTarget* target)
 {
+    target->draw(sprite_);
     gamebar_.Render(target);
 }

@@ -14,6 +14,8 @@ public:
 private:
     int hitpoints_;
     sf::RectangleShape background_;
-    sf::RectangleShape playerBar_;
+    sf::RectangleShape greenBar_;
+    sf::RectangleShape redBar_;
+    sf::Text hp_;
 };
 #endif
