@@ -29,9 +29,7 @@ void Character::Update(float dt)
     }
     pos_.x = clamp(pos_.x, 50, 1050);
     pos_.y = clamp(pos_.y, 0, 550);
-    std::cout << pos_.x << "," << pos_.y << std::endl;
-    std::cout << oldPos_.x << "," << oldPos_.y << std::endl;
-    std::cout << "------------" << std::endl;
+
     if (hasAnimation_) {
         if (oldPos_ == pos_) {
             Idle();
