@@ -52,5 +52,4 @@ private:
     void initVariables();
     bool move(float dt, float x, float y);
 };
-
 #endif

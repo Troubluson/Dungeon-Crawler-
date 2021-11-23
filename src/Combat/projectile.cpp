@@ -17,16 +17,16 @@ bool Projectile::move(float dt, float x, float y)
     float yMovement = (y / (std::abs(x) + std::abs(y))) * projectileSpeed_;
     xMovement *= dt;
     yMovement *= dt;
-    xPos_ += xMovement;
-    yPos_ += yMovement;
-    sprite_.setPosition(xPos_, yPos_);
+    pos_.x += xMovement;
+    pos_.y += yMovement;
+    sprite_.setPosition(pos_);
     return true;
 }
 
 void Projectile::Update(float dt)
 {
     timeExisted_ += dt;
-    float distanceTravelledSquared = (std::abs(startPos_.x - xPos_) + std::abs(startPos_.y - yPos_));
+    float distanceTravelledSquared = (std::abs(startPos_.x - pos_.x) + std::abs(startPos_.y - pos_.y));
     if (distanceTravelledSquared > distanceLifeSpanSquared_) {
         Kill();
     }

@@ -1,11 +1,11 @@
 #include "player.hpp"
 
 namespace {
-const std::string PLAYER_SPRITE = "content/sprites/squidman.png";
+const std::string PLAYER_SPRITE = "content/spritesheet.png";
 }
 
 Player::Player()
-    : Character(PLAYER_SPRITE, 200, 200)
+    : Character(PLAYER_SPRITE, sf::Vector2f(200, 200), true)
 {
 }
 

@@ -41,13 +41,13 @@ void Game::UpdateGame()
     // Update projectiles
     updateProjectiles();
     for (auto monster : monsters_) {
-        monster->Update();
+        monster->Update(dt);
         monster->Move(dt);
     }
     // checkCollisions(player_, Projectile::Type::EnemyProjectile);
     checkCollisions(monsters_, Projectile::Type::PlayerProjectile);
     checkWallCollisions();
-    player_->Update();
+    player_->Update(dt);
 }
 // render game frames
 void Game::RenderGame()
@@ -147,7 +147,6 @@ void Game::checkCollisions(std::list<Character*> characters, Projectile::Type pr
                     if (!projectile->Penetrates()) {
                         projectile->Kill();
                     }
-                    
                 }
             }
         }

@@ -8,6 +8,7 @@
 class Monster : public Character {
 public:
     Monster(float xPos, float yPos);
+    Monster(sf::Vector2f pos);
     ~Monster();
     void Move(float dt);
 };

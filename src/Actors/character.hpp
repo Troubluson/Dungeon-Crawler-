@@ -4,20 +4,22 @@
 #define _CHARACTER_CLASS_
 
 #include "../Combat/Projectile.hpp"
+#include "animation.hpp"
 #include "entity.hpp"
 
 class Character : public Entity {
 public:
-    Character(const std::string& filename, float xPos, float yPos);
+    Character(const std::string& filename, sf::Vector2f pos, bool animated = false);
 
     virtual ~Character();
 
-    void Update();
+    void Update(float dt);
 
     void initSprite(const std::string& filename);
 
     void initVariables();
 
+    bool Idle();
     bool MoveLeft(float dt);
     bool MoveRight(float dt);
     bool MoveDown(float dt);
@@ -30,11 +32,25 @@ public:
 
     bool IsAlive();
 
-private:
-    float speed_ = 200;
+protected:
     int hitpoints_;
     bool alive_;
     float clamp(float value, float low, float high);
-};
+    bool hasAnimation_;
+    sf::Vector2f velocity_ = { 0.0f, 0.0f };
+    static constexpr float speed_ = 200.0f;
+    sf::Vector2f oldPos_;
 
+    enum class AnimationIndex {
+        AnimationUp,
+        AnimationDown,
+        AnimationLeft,
+        AnimationRight,
+        AnimationIdle,
+        Count
+    };
+
+    Animation* Animations[int(AnimationIndex::Count)];
+    AnimationIndex currentAnimation = AnimationIndex::AnimationDown;
+};
 #endif
