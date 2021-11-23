@@ -7,9 +7,10 @@
 
 class Monster : public Character {
 public:
-    Monster(sf::Vector2f);
-
-    void Move();
+    Monster(float xPos, float yPos);
+    Monster(sf::Vector2f pos);
+    ~Monster();
+    void Move(float dt);
 };
 
 #endif

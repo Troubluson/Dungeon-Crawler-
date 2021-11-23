@@ -17,7 +17,6 @@ void Animation::AnimationToSprite(sf::Sprite& sprite) const
 
 void Animation::Update(float dt)
 {
-
     time_ = time_ + dt;
     while (time_ >= holdTime_) {
         time_ -= holdTime_;
