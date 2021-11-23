@@ -15,7 +15,7 @@ public:
 
 private:
 	static constexpr int nFrames_ = 5;
-	static constexpr float holdTime_ = 0.1f;
+	static constexpr float holdTime_ = 0.15f;
 	sf::Texture texture_;
 	sf::IntRect frames_[nFrames_];
 	int iFrame_ = 0;

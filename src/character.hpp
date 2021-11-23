@@ -18,7 +18,7 @@ private:
         Count
     };
 public:
-    Character(const std::string& filename, const sf::Vector2f& pos_, bool isPlayer);
+    Character(const std::string& filename, const sf::Vector2f& pos_, bool isPlayer = false);
 
     ~Character();
 
