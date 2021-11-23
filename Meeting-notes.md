@@ -157,7 +157,7 @@ A little recap on what we've done since monday and discuss issues.
 
 
 # Meeting 16.11.2021 13::00
-We started the meeting with disussing what has been done on the project. We started merging some branches into main as we have a lot of branches with some working features and we wanted to avoid merge issues if we develop the branches further. The majority of the meeting was spent on doing these merges and handling the merge requests. As a result of the meeting the branches with the roomtiles and characters were merged. 
+We started the meeting with disussing what has been done on the project. We started merging some branches into main as we have a lot of branches with some working features and we wanted to avoid merge issues if we develop the branches further. The majority of the meeting was spent on doing these merges and handling the merge requests. As a result of the meeting the branches with the roomtiles and characters were merged.
 
 **Participants**:
 1. Jonas
@@ -193,4 +193,41 @@ We have some basic features like movement and projectiles implemented to some ex
 2. Henrik: Continue implementing combat, weapons and powerups and maybe improving code structure
 3. Oskar: Adding collisions with walls, make it possible to move between rooms and implement a walking animation.
 4. Mikael: Continue to work on projectiles and restrict their range. Help Henrik with the weapons.
+
+# Meeting 23.11.2021 15::15
+Started meeting with discussing a lot of problems we have had while working with git. Talked through some game structure implementations.
+**Participants**:
+1. Jonas
+2. Oskar
+3. Henrik
+4. Mikael
+
+## Summary of works
+1. Jonas
+   Implemented basic form of health bar for player, still in progress
+
+2. Mikael
+   Implemented a basic for of bullet/projectile that does damage to enemies and found collision class we can use in our further implementation, clamped player position between the walls and projectiles collide with the walls.
+
+3. Henrik
+   Worked weapon classes, helped with merging, fixed other group members code and penetrating projectiles. Added more issues with Mikael into the gitlab.
+
+4. Oskar
+   Added animation to player character, worked on a other collision class (which may be unused, could be used if we add platform the player can push), started looking at how to implement the map/dungeon (interconnetec rooms)
+
+## Challenges
+
+1. Chanllenges with circular dependencies, struggled with the project structur and we all have had issues working with git. Oskar hasn't gotten                 clang-formatting to work. A lot of merging issues. Documatation is a bit lacking at the moment as well.
+
+## Actions
+1. Starting documation to keep track of the growing project (extra meeting to go through how we will do this), members getting a more familiar overlook on the existing code.
+
+## Project status
+We have a basic form of monsters, weapons, projectiles, rooms and player which we will continue to work upon. We have to start accelerating the progress, which should be easier now when we have a basic forms of these things we have already implemented.
+
+### TODOs
+1. Jonas: Work on the monster types, add different AIs to the monsters and improve game bar UI.
+2. Henrik: Implement the rest of weapons we want to add.
+3. Oskar: Start working on the map structure, add rooms that you can walk between and change how the rooms generate.
+4. Mikael: Implement a check that checks if tile is walkable, cooldowns and dash function.
 
