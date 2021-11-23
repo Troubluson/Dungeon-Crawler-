@@ -207,7 +207,7 @@ Started meeting with discussing a lot of problems we have had while working with
    Implemented basic form of health bar for player, still in progress
 
 2. Mikael
-   Implemented a basic for of bullet/projectile that does damage to enemies and found collision class we can use in our further implementation, clamped player position between the walls and projectiles collide with the walls.
+   Implemented a projectiles that do damage to enemies. Clamped player position between the walls of our rectangular room and now projectiles collide with the walls. Also found a file for pixelperfect collsion checks between sprites online.
 
 3. Henrik
    Worked weapon classes, helped with merging, fixed other group members code and penetrating projectiles. Added more issues with Mikael into the gitlab.
@@ -217,7 +217,7 @@ Started meeting with discussing a lot of problems we have had while working with
 
 ## Challenges
 
-1. Chanllenges with circular dependencies, struggled with the project structur and we all have had issues working with git. Oskar hasn't gotten                 clang-formatting to work. A lot of merging issues. Documatation is a bit lacking at the moment as well.
+1. challenges with circular dependencies, struggled with the project structur and we all have had issues working with git. Oskar hasn't gotten clang-formatting to work. A lot of merging issues. Documatation is a bit lacking at the moment as well.
 
 ## Actions
 1. Starting documation to keep track of the growing project (extra meeting to go through how we will do this), members getting a more familiar overlook on the existing code.
@@ -229,5 +229,5 @@ We have a basic form of monsters, weapons, projectiles, rooms and player which w
 1. Jonas: Work on the monster types, add different AIs to the monsters and improve game bar UI.
 2. Henrik: Implement the rest of weapons we want to add.
 3. Oskar: Start working on the map structure, add rooms that you can walk between and change how the rooms generate.
-4. Mikael: Implement a check that checks if tile is walkable, cooldowns and dash function.
+4. Mikael: Implement a check that checks if tile is walkable before allowing characters to move. Implement cooldowns for shooting and a dash function.
 
