@@ -53,7 +53,7 @@ void Game::UpdateGame()
 void Game::RenderGame()
 {
     window_->clear();
-    room.Render(window_);
+    dungeonMap_.loadRoom(window_);
     player_->Render(window_);
     for (auto projectile : projectiles_) {
         projectile->Render(window_);
@@ -165,7 +165,7 @@ void Game::checkWallCollisions()
 
     std::vector<Projectile*> projectileListToDelete;
 
-    for (auto row : room.tileVector_) {
+    for (auto row : dungeonMap_.dungeon[0]->tileVector_) {
         for (auto tile : row) {
             if (tile->isWalkable == false) {
                 for (auto projectile : projectiles_) {

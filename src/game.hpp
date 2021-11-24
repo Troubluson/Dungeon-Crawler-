@@ -7,7 +7,8 @@
 #include "Actors/player.hpp"
 #include "Combat/Projectile.hpp"
 #include "Combat/Weapons/SwordWeapon.hpp"
-#include "roomInstance.hpp"
+#include "Dungeon/roomInstance.hpp"
+#include "Dungeon/map.hpp"
 
 class Game {
 public:
@@ -27,9 +28,8 @@ private:
     sf::RenderWindow* window_;
     sf::Event event_;
     sf::Clock dtClock;
-    RoomInstance room;
+    Map dungeonMap_;
     Player* player_;
-
     float dt;
     bool paused = false;
     bool gameEnder_;
