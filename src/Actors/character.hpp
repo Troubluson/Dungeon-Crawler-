@@ -27,6 +27,7 @@ public:
     virtual void Move(float) {};
     virtual void Attack(sf::Vector2f, std::list<Projectile*>) {};
     sf::Vector2f GetSpriteCenter();
+    const sf::Vector2f& getOldPosition() const;
 
     void TakeDamage(int value);
 
@@ -38,7 +39,7 @@ protected:
     float clamp(float value, float low, float high);
     bool hasAnimation_;
     sf::Vector2f velocity_ = { 0.0f, 0.0f };
-    static constexpr float speed_ = 200.0f;
+    static constexpr float speed_ = 400.0f;
     sf::Vector2f oldPos_;
 
     enum class AnimationIndex {

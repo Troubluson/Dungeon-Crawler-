@@ -9,11 +9,11 @@ public:
     Entity(sf::Sprite& sprite, float xPos, float yPos);
     Entity(sf::Sprite& sprite, sf::Vector2f pos);
 
-    sf::Sprite GetSprite() { return sprite_; };
-    sf::Vector2f GetPos() { return pos_; }
+    sf::Sprite& GetSprite() { return sprite_; };
+    sf::Vector2f& GetPos() { return pos_; }
     sf::Vector2i GetPosI() { return sf::Vector2i(pos_); }
-
     sf::Vector2f GetSpritePosition() { return sprite_.getPosition(); } // might be unnecessary, because sprite pos should be same as that returned of GetPos()
+    void setPos(sf::Vector2f newPos) { pos_ = newPos; } // might be unnecessary, because sprite pos should be same as that returned of GetPos()
 
     void Render(sf::RenderTarget* target);
 

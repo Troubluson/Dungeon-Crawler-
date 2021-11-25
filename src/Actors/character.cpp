@@ -27,8 +27,6 @@ void Character::Update(float dt)
     if (hitpoints_ <= 0) {
         alive_ = false;
     }
-    pos_.x = clamp(pos_.x, 50, 1050);
-    pos_.y = clamp(pos_.y, 0, 550);
 
     if (hasAnimation_) {
         if (oldPos_ == pos_) {
@@ -93,6 +91,11 @@ sf::Vector2f Character::GetSpriteCenter()
     spriteOrigin.x += 1.0f / 2 * localSpriteBounds.width * spriteScale.x;
     spriteOrigin.y += 1.0f / 2 * localSpriteBounds.height * spriteScale.y;
     return spriteOrigin;
+}
+
+const sf::Vector2f& Character::getOldPosition() const
+{
+    return oldPos_;
 }
 
 void Character::TakeDamage(int value)

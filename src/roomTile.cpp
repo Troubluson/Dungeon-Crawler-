@@ -8,7 +8,7 @@ RoomTile::RoomTile(std::string texture, float x, float y, bool walkable, bool ex
 
     position = sf::Vector2f(x, y);
     tileSprite.setPosition(position);
-    isWalkable = walkable;
+    walkable_ = walkable;
     exitTile = exit;
 }
 
@@ -22,4 +22,28 @@ bool RoomTile::setTileTexture(std::string textureLocation)
     tileSprite.setTexture(tileTexture);
     tileSprite.setTextureRect(sf::IntRect(0, 0, 64, 64));
     return true;
+}
+
+const sf::Vector2f RoomTile::getSize() const
+{
+    auto bounds = tileSprite.getLocalBounds();
+    return sf::Vector2f(bounds.width, bounds.height);
+}
+const sf::Vector2f& RoomTile::getPosition() const
+{
+    return tileSprite.getPosition();
+}
+const sf::FloatRect RoomTile::getBoundingBox() const
+{
+    return tileSprite.getGlobalBounds();
+}
+
+const sf::Sprite& RoomTile::getSprite() const
+{
+    return tileSprite;
+}
+
+bool RoomTile::isWalkable() const
+{
+    return walkable_;
 }

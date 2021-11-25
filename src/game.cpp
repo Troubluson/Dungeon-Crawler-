@@ -1,5 +1,5 @@
-#include "game.hpp"
-#include "Collision.hpp"
+#include <Collision.hpp>
+#include <game.hpp>
 
 namespace {
 const sf::Vector2f PLACEHOLDER_PROJ_SIZE = sf::Vector2f(1.0, 1.0);
@@ -114,16 +114,23 @@ void Game::updateDt() { dt = dtClock.restart().asSeconds(); }
 
 void Game::manageInput()
 {
+    bool triedMoving = false;
+    sf::Vector2f oldPos = player_->getOldPosition();
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-        player_->MoveLeft(dt);
+        triedMoving = player_->MoveLeft(dt);
     } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-        player_->MoveRight(dt);
+        triedMoving = player_->MoveRight(dt);
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-        player_->MoveUp(dt);
+        triedMoving = player_->MoveUp(dt);
     } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-        player_->MoveDown(dt);
+        triedMoving = player_->MoveDown(dt);
+    }
+    if (triedMoving) {
+        if (!room.positionIsWalkable(player_->GetPos())) {
+            player_->setPos(oldPos); // if we can't move set back to old position
+        }
     }
 }
 
@@ -165,11 +172,11 @@ void Game::checkWallCollisions()
 
     std::vector<Projectile*> projectileListToDelete;
 
-    for (auto row : room.tileVector_) {
+    for (auto row : room.getTiles()) {
         for (auto tile : row) {
-            if (tile->isWalkable == false) {
+            if (!tile->isWalkable()) {
                 for (auto projectile : projectiles_) {
-                    if (projectile->GetSprite().getGlobalBounds().intersects(tile->tileSprite.getGlobalBounds())) {
+                    if (projectile->GetSprite().getGlobalBounds().intersects(tile->getSprite().getGlobalBounds())) {
                         projectile->Kill();
                     }
                 }
