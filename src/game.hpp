@@ -30,6 +30,7 @@ private:
     sf::Clock dtClock;
     RoomInstance room;
     Player* player_;
+    Gamebar gamebar_;
 
     float dt;
     bool paused = false;

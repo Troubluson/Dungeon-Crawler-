@@ -18,6 +18,8 @@ Game::Game()
 
     Monster* m = new Monster(300, 300); // placeholder
     monsters_.push_back(m);
+
+    gamebar_ = Gamebar(*player_);
     initVariables();
     initWindow();
 }
@@ -55,6 +57,7 @@ void Game::RenderGame()
     window_->clear();
     room.Render(window_);
     player_->Render(window_);
+    gamebar_.Render(window_);
     for (auto projectile : projectiles_) {
         projectile->Render(window_);
     }

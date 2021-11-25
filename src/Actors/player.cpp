@@ -9,6 +9,8 @@ Player::Player()
 {
 }
 
+int Player::GetHitPoints() const { return hitpoints_; }
+
 void Player::Attack(sf::Vector2f mousePosition, std::list<Projectile*>& projectiles)
 {
     if (weapon_ == nullptr) {
