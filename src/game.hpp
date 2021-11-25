@@ -7,7 +7,6 @@
 #include "Actors/player.hpp"
 #include "Combat/Projectile.hpp"
 #include "Combat/Weapons/SwordWeapon.hpp"
-#include "Dungeon/roomInstance.hpp"
 #include "Dungeon/map.hpp"
 
 class Game {

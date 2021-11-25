@@ -14,18 +14,20 @@ Game::Game()
 {
     player_ = new Player();
     SwordWeapon* sword = new SwordWeapon(5, 10, sf::Vector2f(50, 100), "content/sprites/projectiles.png");
-    player_->Equip(sword);
 
+    player_->Equip(sword);
     Monster* m = new Monster(300, 300); // placeholder
     monsters_.push_back(m);
     initVariables();
     initWindow();
+    dungeonMap_ = Map(window_->getSize());
 }
 
 Game::~Game()
 {
     delete window_;
     delete player_;
+
     for (auto monster : monsters_) {
         delete monster;
     }
@@ -164,8 +166,8 @@ void Game::checkWallCollisions()
     }
 
     std::vector<Projectile*> projectileListToDelete;
-
-    for (auto row : dungeonMap_.dungeon[0]->tileVector_) {
+    RoomInstance* room = dungeonMap_.GetRoom();
+    for (auto row : room->tileVector_) {
         for (auto tile : row) {
             if (tile->isWalkable == false) {
                 for (auto projectile : projectiles_) {

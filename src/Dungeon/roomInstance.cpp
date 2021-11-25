@@ -1,9 +1,9 @@
 #include "roomInstance.hpp"
 
-RoomInstance::RoomInstance()
+RoomInstance::RoomInstance(sf::Vector2u window_size)
 {
     gridLen_ = 20;
-    setUpRoomInstance();
+    setUpRoomInstance(window_size);
 }
 
 void RoomInstance::Render(sf::RenderTarget* target)
@@ -11,14 +11,14 @@ void RoomInstance::Render(sf::RenderTarget* target)
     target->draw(roomBackground);
 }
 
-void RoomInstance::setUpRoomInstance()
+void RoomInstance::setUpRoomInstance(sf::Vector2u window_size)
 {
     exitPosition = sf::Vector2i(1, 0);
     playerPosition = sf::Vector2i(gridLen_ - 4, gridLen_ - 4);
-    setTiles();
+    setTiles(window_size);
 }
 
-void RoomInstance::setTiles()
+void RoomInstance::setTiles(sf::Vector2u window_size)
 {
     tileVector_.clear();
     int n = 0;
@@ -57,12 +57,14 @@ void RoomInstance::setTiles()
         n += 64;
         tileVector_.push_back(row);
     }
-    renderSpriteBackground();
+    renderSpriteBackground(window_size);
 }
 
-void RoomInstance::renderSpriteBackground()
+void RoomInstance::renderSpriteBackground(sf::Vector2u window_size)
 {
-    roomTexture.create(1280, 768);
+    int x = window_size.x / 64;
+    std::cout << x << std::endl;
+    roomTexture.create(window_size.x, window_size.y);
     for (int i = 0; i < this->gridLen_; i++) {
         for (int j = 0; j < this->gridLen_; j++) {
             roomTexture.draw(this->tileVector_[i][j]->tileSprite);

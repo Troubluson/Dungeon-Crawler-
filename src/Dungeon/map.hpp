@@ -1,3 +1,4 @@
+#pragma once
 #ifndef _MAP_
 #define _MAP_
 #include "PCH.hpp"
@@ -6,10 +7,12 @@
 class Map {
 private:
 public:
-    Map();
+    Map(sf::Vector2u size);
+    Map() { }
     ~Map() { }
     void loadRoom(sf::RenderTarget*);
-    std::vector<RoomInstance*> dungeon;
+    RoomInstance* GetRoom();
+    std::vector<RoomInstance*> dungeon_;
 };
 
 #endif
