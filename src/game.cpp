@@ -108,7 +108,7 @@ void Game::initVariables() { gameEnder_ = false; }
 // initalize window
 void Game::initWindow()
 {
-    videomode_ = sf::VideoMode(1280, 768);
+    videomode_ = sf::VideoMode(1600, 1280);
     window_ = new sf::RenderWindow(videomode_, "Dungeon Crawler");
 }
 
