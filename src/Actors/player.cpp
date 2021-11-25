@@ -1,4 +1,4 @@
-#include "player.hpp"
+#include "Actors/player.hpp"
 
 namespace {
 const std::string PLAYER_SPRITE = "content/spritesheet.png";

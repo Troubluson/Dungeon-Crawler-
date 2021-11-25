@@ -1,11 +1,13 @@
 #include "entity.hpp"
 
-Entity::Entity(const std::string& spriteFile, float xPos, float yPos, sf::Vector2f spriteDims) : pos_(sf::Vector2f(xPos, yPos))
+Entity::Entity(const std::string& spriteFile, float xPos, float yPos, sf::Vector2f spriteDims)
+    : pos_(sf::Vector2f(xPos, yPos))
 {
     initSprite(spriteFile, spriteDims);
     sprite_.setPosition(xPos, yPos);
 }
-Entity::Entity(const std::string& spriteFile, sf::Vector2f pos, sf::Vector2f spriteDims) : pos_(pos)
+Entity::Entity(const std::string& spriteFile, sf::Vector2f pos, sf::Vector2f spriteDims)
+    : pos_(pos)
 {
     initSprite(spriteFile, spriteDims);
     sprite_.setPosition(pos);

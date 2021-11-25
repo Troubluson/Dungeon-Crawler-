@@ -1,7 +1,8 @@
-#include "SpriteHelper.hpp"
+#include "Utils/SpriteHelper.hpp"
 #define PI 3.14159265
 
-void SpriteHelper::CreateSpriteFrom(const std::string& spriteFile, sf::Vector2f dimensions, sf::Sprite& sprite, sf::Texture& texture)
+namespace sprite {
+void CreateSpriteFrom(const std::string& spriteFile, sf::Vector2f dimensions, sf::Sprite& sprite, sf::Texture& texture)
 {
     if (texture.loadFromFile(spriteFile)) {
         sprite.setTexture(texture);
@@ -9,7 +10,7 @@ void SpriteHelper::CreateSpriteFrom(const std::string& spriteFile, sf::Vector2f 
     }
 }
 
-void SpriteHelper::SetScale(sf::Vector2f wantedDimension, sf::Sprite& sprite)
+void SetScale(sf::Vector2f wantedDimension, sf::Sprite& sprite)
 {
     auto bounds = sprite.getLocalBounds();
     auto scaleX = wantedDimension.x / bounds.width;
@@ -18,8 +19,9 @@ void SpriteHelper::SetScale(sf::Vector2f wantedDimension, sf::Sprite& sprite)
     sprite.setOrigin(bounds.width / 2, bounds.height);
 }
 
-void SpriteHelper::RotateSprite(sf::Vector2f directionOfRotation, sf::Sprite& sprite)
+void RotateSprite(sf::Vector2f directionOfRotation, sf::Sprite& sprite)
 {
     auto angle = atan2(directionOfRotation.y, directionOfRotation.x) * 180 / PI + 90;
     sprite.setRotation(angle);
 }
+} // namespace
