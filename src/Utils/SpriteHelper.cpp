@@ -1,4 +1,4 @@
-#include "SpriteHelper.hpp"
+#include "Utils/SpriteHelper.hpp"
 #define PI 3.14159265
 
 namespace sprite {

@@ -1,5 +1,5 @@
 
-#include "Weapon.hpp"
+#include "Combat/Weapons/Weapon.hpp"
 
 Weapon::Weapon(int damage, int range, Vector2f projectileSize, const std::string& spriteLocation)
     : damage_(damage)

@@ -1,5 +1,5 @@
 
-#include "SwordWeapon.hpp"
+#include "Combat/Weapons/SwordWeapon.hpp"
 #include <cmath>
 
 SwordWeapon::SwordWeapon(int damage, int range, Vector2f projectileSize, const std::string& spriteLocation)
