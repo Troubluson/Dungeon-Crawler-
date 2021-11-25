@@ -128,7 +128,7 @@ void Game::manageInput()
         triedMoving = player_->MoveDown(dt);
     }
     if (triedMoving) {
-        if (!room.positionIsWalkable(player_->GetPos())) {
+        if (!room.positionIsWalkable(player_->GetSprite().getGlobalBounds())) {
             player_->setPos(oldPos); // if we can't move set back to old position
         }
     }

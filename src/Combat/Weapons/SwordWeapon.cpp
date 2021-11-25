@@ -14,6 +14,7 @@ list<Projectile*> SwordWeapon::Use(Vector2f dir, Vector2f origin)
 {
     // have to rotate the projectile
     sprite::RotateSprite(dir, sprite_);
+    sprite::SetOriginBottomCenter(sprite_);
     auto p = new Projectile(sprite_, origin, true);
     p->SetDirection(dir);
     p->SetDamage(damage_);

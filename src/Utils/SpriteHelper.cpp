@@ -16,12 +16,16 @@ void SetScale(sf::Vector2f wantedDimension, sf::Sprite& sprite)
     auto scaleX = wantedDimension.x / bounds.width;
     auto scaleY = wantedDimension.y / bounds.height;
     sprite.setScale(scaleX, scaleY);
-    sprite.setOrigin(bounds.width / 2, bounds.height);
 }
 
 void RotateSprite(sf::Vector2f directionOfRotation, sf::Sprite& sprite)
 {
     auto angle = atan2(directionOfRotation.y, directionOfRotation.x) * 180 / PI + 90;
     sprite.setRotation(angle);
+}
+void SetOriginBottomCenter(sf::Sprite& sprite)
+{
+    auto bounds = sprite.getLocalBounds();
+    sprite.setOrigin(bounds.width / 2, 3.0f / 4 * bounds.height);
 }
 } // namespace

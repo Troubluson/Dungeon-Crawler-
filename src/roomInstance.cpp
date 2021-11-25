@@ -29,24 +29,24 @@ void RoomInstance::setTiles()
             if (i == 0) {
                 if (j == 0) {
                     row.push_back(new RoomTile("content/sprites/walls/topwallleft.png", k, n, false, false));
-                } else if (j == gridLen_-1) {
+                } else if (j == gridLen_ - 1) {
                     row.push_back(new RoomTile("content/sprites/walls/topwallbottomleft.png", k, n, false, false));
                 } else {
                     row.push_back(new RoomTile("content/sprites/walls/toppartofwall1.png", k, n, false, false));
                 }
-            } else if (i == 1 && j != 0 && j != gridLen_-1) {
+            } else if (i == 1 && j != 0 && j != gridLen_ - 1) {
                 row.push_back(new RoomTile("content/sprites/walls/wallfront1.png", k, n, false, false));
             } else if (i == 11) {
                 if (j == 0) {
                     row.push_back(new RoomTile("content/sprites/walls/topwallright.png", k, n, false, false));
-                } else if (j == gridLen_-1) {
+                } else if (j == gridLen_ - 1) {
                     row.push_back(new RoomTile("content/sprites/walls/topwallbottomright.png", k, n, false, false));
                 } else {
                     row.push_back(new RoomTile("content/sprites/walls/topwallbottom.png", k, n, false, false));
                 }
             } else if (i != 0 && j == 0) {
                 row.push_back(new RoomTile("content/sprites/walls/topwallLEFTSIDE.png", k, n, false, false));
-            } else if (i != 0 && j == gridLen_-1) {
+            } else if (i != 0 && j == gridLen_ - 1) {
                 row.push_back(new RoomTile("content/sprites/walls/topwallRIGHTSIDE.png", k, n, false, false));
             } else {
                 row.push_back(new RoomTile("content/sprites/floors/tile1.png", k, n, true, false));
@@ -72,25 +72,28 @@ void RoomInstance::renderSpriteBackground()
     roomBackground.setTexture(roomTexture.getTexture());
 }
 
-RoomTile* RoomInstance::getRoomTileAt(sf::Vector2f position)
+std::vector<RoomTile*> RoomInstance::getRoomTilesAt(sf::FloatRect entityBounds)
 {
     // change this to calculate which tile from position
+    std::vector<RoomTile*> tilesInBounds;
     for (auto tileRow : tileVector_) {
         for (auto tile : tileRow) {
-            if (tile->getBoundingBox().contains(position.x, position.y)) {
-                return tile;
+            if (tile->getBoundingBox().intersects(entityBounds)) {
+                tilesInBounds.push_back(tile);
             }
         }
     }
-    return nullptr;
+    return tilesInBounds;
 }
-
-bool RoomInstance::positionIsWalkable(sf::Vector2f position)
+// we end up needing to use the bounding box if we don't due to a character being in multiple tiles simultaneously
+bool RoomInstance::positionIsWalkable(sf::FloatRect entityBounds)
 {
-    auto tile = getRoomTileAt(position);
-    if (tile != nullptr) {
-        return tile->isWalkable();
+    auto tilesInBounds = getRoomTilesAt(entityBounds);
+    for(auto tile : tilesInBounds) {
+        if(!tile->isWalkable()) {
+            return false;
+        }
     }
-    return false;
+    return true;
 }
 std::vector<std::vector<RoomTile*>> RoomInstance::getTiles() const { return tileVector_; }

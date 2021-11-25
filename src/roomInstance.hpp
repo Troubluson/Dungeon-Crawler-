@@ -13,8 +13,8 @@ public:
     void setUpRoomInstance();
     void setTiles();
     void renderSpriteBackground();
-    RoomTile* getRoomTileAt(sf::Vector2f position);
-    bool positionIsWalkable(sf::Vector2f position);
+    std::vector<RoomTile*> getRoomTilesAt(sf::FloatRect bounds);
+    bool positionIsWalkable(sf::FloatRect bounds);
     std::vector<std::vector<RoomTile*>> getTiles() const;
 
 private:

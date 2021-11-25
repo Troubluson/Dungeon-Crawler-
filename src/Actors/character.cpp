@@ -1,4 +1,5 @@
 #include "Actors/character.hpp"
+#include "utils/SpriteHelper.hpp"
 #define C_PIXELS 64
 #define C_SCALE 2
 
