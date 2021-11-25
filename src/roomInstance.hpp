@@ -8,7 +8,7 @@
 class RoomInstance {
 public:
     RoomInstance();
-    std::vector<std::vector<RoomTile*>> tile_;
+    std::vector<std::vector<RoomTile*>> tileVector_;
     int gridLen_;
     sf::RenderTexture roomTexture;
     sf::Sprite roomBackground;

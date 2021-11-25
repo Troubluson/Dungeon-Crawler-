@@ -1,58 +1,34 @@
 #include "entity.hpp"
 
-Entity::Entity(const std::string& filename, float xPos, float yPos, int spriteSize)
+Entity::Entity(const std::string& spriteFile, float xPos, float yPos, sf::Vector2f spriteDims) : pos_(sf::Vector2f(xPos, yPos))
 {
-    xPos_ = xPos;
-    yPos_ = yPos;
-    initSprite(filename, spriteSize);
+    initSprite(spriteFile, spriteDims);
     sprite_.setPosition(xPos, yPos);
+}
+Entity::Entity(const std::string& spriteFile, sf::Vector2f pos, sf::Vector2f spriteDims) : pos_(pos)
+{
+    initSprite(spriteFile, spriteDims);
+    sprite_.setPosition(pos);
+}
+
+Entity::Entity(sf::Sprite& sprite, float xPos, float yPos)
+    : sprite_(sprite)
+    , pos_(sf::Vector2f(xPos, yPos))
+{
+}
+
+Entity::Entity(sf::Sprite& sprite, sf::Vector2f pos)
+    : sprite_(sprite)
+    , pos_(pos)
+{
 }
 
 void Entity::Render(sf::RenderTarget* target) { target->draw(sprite_); }
 
-void Entity::initSprite(const std::string& filename, int spriteSize)
+void Entity::initSprite(const std::string& spriteFile, sf::Vector2f spriteDims)
 {
-    std::cout << filename << std::endl;
-    if (texture_.loadFromFile(filename)) {
+    if (texture_.loadFromFile(spriteFile)) {
         sprite_.setTexture(texture_);
-        sprite_.setScale(sf::Vector2f(spriteSize, spriteSize));
+        sprite_.setScale(spriteDims);
     }
-}
-
-sf::Sprite Entity::GetSprite() { return sprite_; }
-
-bool Entity::MoveLeft(float dt)
-{
-    xPos_ -= speed_ * dt;
-    return true;
-}
-
-bool Entity::MoveRight(float dt)
-{
-    xPos_ += speed_ * dt;
-    return true;
-}
-
-bool Entity::MoveDown(float dt)
-{
-    yPos_ += speed_ * dt;
-    return true;
-}
-
-bool Entity::MoveUp(float dt)
-{
-    yPos_ -= speed_ * dt;
-    return true;
-}
-
-bool Entity::Move(float dt, float x, float y)
-{
-    float xMovement = (x / (std::abs(x) + std::abs(y))) * speed_;
-    float yMovement = (y / (std::abs(x) + std::abs(y))) * speed_;
-    xMovement *= dt;
-    yMovement *= dt;
-    xPos_ += xMovement;
-    yPos_ += yMovement;
-    sprite_.setPosition(xPos_, yPos_);
-    return true;
 }
