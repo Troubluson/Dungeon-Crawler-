@@ -14,7 +14,7 @@ RandomMonster::~RandomMonster() { }
 void RandomMonster::Move(float dt)
 {
     float elapsedTime = clock_.getElapsedTime().asSeconds();
-    if (elapsedTime > 1) {
+    if (elapsedTime > 0.3) {
         clock_.restart();
         int dir = rand() % 4 + 1;
         currentDir_ = dir;

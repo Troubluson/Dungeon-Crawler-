@@ -21,5 +21,5 @@ void SearchingMonster::Move(float dt)
     float distance = std::sqrt(distanceVec.x * distanceVec.x + distanceVec.y * distanceVec.y);
     sf::Vector2f velocityVec = distanceVec / distance;
     MoveRight(dt * velocityVec.x);
-    MoveUp(-dt * velocityVec.y);
+    MoveDown(dt * velocityVec.y);
 }
