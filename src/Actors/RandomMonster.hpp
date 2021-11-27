@@ -13,6 +13,7 @@ public:
     RandomMonster(sf::Vector2f pos);
     ~RandomMonster();
     virtual void Move(float dt);
+    virtual void MonsterAttack(Player& player);
 
 private:
     sf::Clock clock_;

@@ -12,6 +12,7 @@ public:
     Monster(sf::Vector2f pos);
     ~Monster();
     virtual void Move(float dt) = 0;
+    virtual void MonsterAttack(Player& player) = 0;
 };
 
 #endif

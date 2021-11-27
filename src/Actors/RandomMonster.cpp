@@ -29,3 +29,8 @@ void RandomMonster::Move(float dt)
             MoveRight(dt);
     }
 }
+
+void RandomMonster::MonsterAttack(Player& player)
+{
+    player.TakeDamage(0); //placeholder
+}
