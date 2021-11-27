@@ -4,6 +4,7 @@
 #define _GAME_CLASS_
 
 #include "Actors/RandomMonster.hpp"
+#include "Actors/SearchingMonster.hpp"
 #include "Actors/monster.hpp"
 #include "Actors/player.hpp"
 #include "Combat/Projectile.hpp"

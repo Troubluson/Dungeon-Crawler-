@@ -17,7 +17,9 @@ Game::Game()
     player_->Equip(sword);
 
     Monster* m = new RandomMonster(300, 300); // placeholder
+    Monster* m2 = new SearchingMonster(player_, 200, 200);
     monsters_.push_back(m);
+    monsters_.push_back(m2);
 
     gamebar_ = Gamebar(*player_);
     initVariables();
