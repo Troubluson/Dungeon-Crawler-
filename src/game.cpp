@@ -119,16 +119,37 @@ void Game::updateDt() { dt = dtClock.restart().asSeconds(); }
 
 void Game::manageInput()
 {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-        player_->MoveLeft(dt);
-    } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-        player_->MoveRight(dt);
-    }
+    bool W = sf::Keyboard::isKeyPressed(sf::Keyboard::W);
+    bool A = sf::Keyboard::isKeyPressed(sf::Keyboard::A);
+    bool S = sf::Keyboard::isKeyPressed(sf::Keyboard::S);
+    bool D = sf::Keyboard::isKeyPressed(sf::Keyboard::D);
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-        player_->MoveUp(dt);
-    } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-        player_->MoveDown(dt);
+    bool twoKeys = ((W || S) && (A || D));
+
+    if (twoKeys) {
+        if (A) {
+            player_->MoveLeft(dt / sqrt(2));
+        } else if (D) {
+            player_->MoveRight(dt / sqrt(2));
+        }
+
+        if (W) {
+            player_->MoveUp(dt / sqrt(2));
+        } else if (S) {
+            player_->MoveDown(dt / sqrt(2));
+        }
+    } else {
+        if (A) {
+            player_->MoveLeft(dt);
+        } else if (D) {
+            player_->MoveRight(dt);
+        }
+
+        if (W) {
+            player_->MoveUp(dt);
+        } else if (S) {
+            player_->MoveDown(dt);
+        }
     }
 }
 
