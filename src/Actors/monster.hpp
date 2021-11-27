@@ -11,7 +11,7 @@ public:
     Monster(float xPos, float yPos);
     Monster(sf::Vector2f pos);
     ~Monster();
-    void Move(float dt);
+    virtual void Move(float dt) = 0;
 };
 
 #endif

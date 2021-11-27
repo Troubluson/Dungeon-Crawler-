@@ -12,16 +12,3 @@ Monster::Monster(float xPos, float yPos)
 Monster::~Monster()
 {
 }
-
-void Monster::Move(float dt)
-{
-    int dir = rand() % 4 + 1;
-    if (dir == 1) {
-        MoveDown(dt);
-    } else if (dir == 2) {
-        MoveLeft(dt);
-    } else if (dir == 3) {
-        MoveUp(dt);
-    } else
-        MoveRight(dt);
-}

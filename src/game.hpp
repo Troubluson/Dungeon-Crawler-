@@ -3,6 +3,7 @@
 #ifndef _GAME_CLASS_
 #define _GAME_CLASS_
 
+#include "Actors/RandomMonster.hpp"
 #include "Actors/monster.hpp"
 #include "Actors/player.hpp"
 #include "Combat/Projectile.hpp"
