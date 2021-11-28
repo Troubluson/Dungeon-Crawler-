@@ -16,7 +16,7 @@ Gamebar::Gamebar(Player* player)
 
     sf::RectangleShape greenBar(sf::Vector2f(2 * hitpoints_, 30));
     greenBar.setFillColor(sf::Color::Green);
-    greenBar.setPosition(30, 30);
+    greenBar.setPosition(50, 5);
     greenBar_ = greenBar;
 
     redBar_ = greenBar;
@@ -37,7 +37,7 @@ Gamebar::Gamebar(Player* player)
 
 void Gamebar::Render(sf::RenderTarget* target)
 {
-    target->draw(background_);
+    //target->draw(background_);
     target->draw(redBar_);
     target->draw(greenBar_);
     //target->draw(hp_);
