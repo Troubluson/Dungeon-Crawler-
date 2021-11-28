@@ -11,6 +11,26 @@ Player::Player()
 
 int Player::GetHitPoints() const { return hitpoints_; }
 
+void Player::Update(float dt)
+{
+    sprite_.setPosition(pos_);
+    if (hitpoints_ <= 0) {
+        alive_ = false;
+    }
+    pos_.x = clamp(pos_.x, 50, 1050);
+    pos_.y = clamp(pos_.y, 0, 550);
+
+    if (hasAnimation_) {
+        if (oldPos_ == pos_) {
+            Idle();
+        }
+        Animations[int(currentAnimation)]->Update(dt);
+        Animations[int(currentAnimation)]->AnimationToSprite(sprite_);
+    }
+
+    oldPos_ = pos_;
+}
+
 void Player::Attack(sf::Vector2f mousePosition, std::list<Projectile*>& projectiles)
 {
     if (weapon_ == nullptr) {
