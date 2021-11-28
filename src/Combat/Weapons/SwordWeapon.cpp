@@ -7,14 +7,14 @@ SwordWeapon::SwordWeapon(int damage, int range, Vector2f projectileSize, const s
 {
     penetrates_ = true;
     sprite_.setTextureRect({ 400, 215, 10, 15 });
-    sprite::SetScale(projectileSize, sprite_);
+    spritehelper::SetScale(projectileSize, sprite_);
     // sets scale and origin of sprite
 }
 list<Projectile*> SwordWeapon::Use(Vector2f dir, Vector2f origin)
 {
     // have to rotate the projectile
-    sprite::RotateSprite(dir, sprite_);
-    sprite::SetOriginBottomCenter(sprite_);
+    spritehelper::RotateSprite(dir, sprite_);
+    spritehelper::SetOriginBottomCenter(sprite_);
     auto p = new Projectile(sprite_, origin, true);
     p->SetDirection(dir);
     p->SetDamage(damage_);

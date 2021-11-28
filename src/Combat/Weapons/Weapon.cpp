@@ -7,7 +7,7 @@ Weapon::Weapon(int damage, int range, Vector2f projectileSize, const std::string
     , projectileSize_(projectileSize)
     , powerUps_(vector<PowerUp*>())
 {
-    sprite::CreateSpriteFrom(spriteLocation, projectileSize, sprite_, texture_);
+    spritehelper::CreateSpriteFrom(spriteLocation, projectileSize, sprite_, texture_);
 }
 
 void Weapon::AddPowerUp(PowerUp* up)
