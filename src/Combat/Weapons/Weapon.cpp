@@ -1,5 +1,5 @@
 
-#include "Weapon.hpp"
+#include "Combat/Weapons/Weapon.hpp"
 
 Weapon::Weapon(int damage, int range, Vector2f projectileSize, const std::string& spriteLocation)
     : damage_(damage)
@@ -7,7 +7,7 @@ Weapon::Weapon(int damage, int range, Vector2f projectileSize, const std::string
     , projectileSize_(projectileSize)
     , powerUps_(vector<PowerUp*>())
 {
-    SpriteHelper().CreateSpriteFrom(spriteLocation, projectileSize, sprite_, texture_);
+    sprite::CreateSpriteFrom(spriteLocation, projectileSize, sprite_, texture_);
 }
 
 void Weapon::AddPowerUp(PowerUp* up)

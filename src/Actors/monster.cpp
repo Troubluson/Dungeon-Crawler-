@@ -1,4 +1,4 @@
-#include "monster.hpp"
+#include "Actors/monster.hpp"
 
 Monster::Monster(sf::Vector2f pos)
     : Character("content/monster1.png", pos)

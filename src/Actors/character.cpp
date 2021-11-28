@@ -1,4 +1,4 @@
-#include "character.hpp"
+#include "Actors/character.hpp"
 #define C_PIXELS 64
 #define C_SCALE 2
 
