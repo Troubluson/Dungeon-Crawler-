@@ -9,11 +9,11 @@
 
 class RandomMonster : public Monster {
 public:
-    RandomMonster(float xPos, float yPos);
-    RandomMonster(sf::Vector2f pos);
+    RandomMonster(Player* player, float xPos, float yPos);
+    RandomMonster(Player* player, sf::Vector2f pos);
     ~RandomMonster();
     virtual void Move(float dt);
-    virtual void MonsterAttack(Player& player);
+    virtual void MonsterAttack();
 
 private:
     sf::Clock clock_;

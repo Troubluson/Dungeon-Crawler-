@@ -1,11 +1,11 @@
 #include "RandomMonster.hpp"
 
-RandomMonster::RandomMonster(sf::Vector2f pos)
-    : Monster(pos)
+RandomMonster::RandomMonster(Player* player, sf::Vector2f pos)
+    : Monster(player, pos)
 {
 }
-RandomMonster::RandomMonster(float xPos, float yPos)
-    : Monster(sf::Vector2f(xPos, yPos))
+RandomMonster::RandomMonster(Player* player, float xPos, float yPos)
+    : Monster(player, sf::Vector2f(xPos, yPos))
 {
 }
 
@@ -30,7 +30,7 @@ void RandomMonster::Move(float dt)
     }
 }
 
-void RandomMonster::MonsterAttack(Player& player)
+void RandomMonster::MonsterAttack()
 {
-    player.TakeDamage(0); //placeholder
+    GetPlayer().TakeDamage(0); //placeholder
 }
