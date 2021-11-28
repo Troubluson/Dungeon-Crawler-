@@ -16,7 +16,7 @@ Game::Game()
     SwordWeapon* sword = new SwordWeapon(5, 10, sf::Vector2f(50, 100), "content/sprites/projectiles.png");
     player_->Equip(sword);
 
-    Monster* m = new RandomMonster(300, 300); // placeholder
+    Monster* m = new RandomMonster(player_, 300, 300); // placeholder
     Monster* m2 = new SearchingMonster(player_, 200, 200);
     monsters_.push_back(m);
     monsters_.push_back(m2);
@@ -46,7 +46,6 @@ void Game::UpdateGame()
     updateProjectiles();
     for (auto monster : monsters_) {
         monster->Update(dt);
-        monster->Move(dt);
     }
     // checkCollisions(player_, Projectile::Type::EnemyProjectile);
     checkCollisions(monsters_, Projectile::Type::PlayerProjectile);
@@ -86,7 +85,7 @@ void Game::Events()
             break;
         case sf::Event::KeyPressed:
             if (event_.key.code == sf::Keyboard::Space) {
-                Monster* m = new RandomMonster(player_->GetPos().x, player_->GetPos().y);
+                Monster* m = new RandomMonster(player_, player_->GetPos().x, player_->GetPos().y);
                 monsters_.push_back(m);
                 /* sf::Vector2f direction = sf::Vector2f(1, 0);
                 Projectile* p = new Projectile(50, 50);
