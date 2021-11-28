@@ -8,11 +8,17 @@
 
 class Monster : public Character {
 public:
-    Monster(float xPos, float yPos);
-    Monster(sf::Vector2f pos);
+    Monster(Player* player, float xPos, float yPos);
+    Monster(Player* player, sf::Vector2f pos);
     ~Monster();
+
+    Player& GetPlayer() const;
+    virtual void Update(float dt);
     virtual void Move(float dt) = 0;
-    virtual void MonsterAttack(Player& player) = 0;
+    virtual void MonsterAttack() = 0;
+
+private:
+    Player* player_;
 };
 
 #endif
