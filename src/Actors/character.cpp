@@ -79,7 +79,6 @@ sf::Vector2f Character::GetSpriteCenter()
 void Character::TakeDamage(int value)
 {
     hitpoints_ -= value;
-    std::cout << hitpoints_ << std::endl;
 }
 
 bool Character::IsAlive() { return alive_; }
