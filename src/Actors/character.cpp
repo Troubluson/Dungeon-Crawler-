@@ -3,7 +3,6 @@
 #define C_X 8
 #define C_PIXELS_X 44
 #define C_PIXELS_delta 20
-#define C_PIXELS 64
 #define C_PIXELS_Y 64
 #define C_SCALE 2
 
