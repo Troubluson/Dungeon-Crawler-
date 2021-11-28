@@ -9,7 +9,6 @@ const int PLACEHOLDER_PROJ_DMG = 20;
 const float PLACEHOLDER_PROJ_LS = 0.5;
 
 }
-
 Game::Game()
 {
     player_ = new Player();
@@ -41,7 +40,12 @@ void Game::UpdateGame()
     // Update projectiles
     updateProjectiles();
     for (auto monster : monsters_) {
-        monster->Move(dt);
+        // if moved, check collision with walls
+        if (monster->Move(dt)) {
+            if (!room.positionIsWalkable(monster->GetBaseBoxAt(monster->GetPos()))) {
+                monster->RevertMove();
+            }
+        }
         monster->Update(dt);
     }
     // checkCollisions(player_, Projectile::Type::EnemyProjectile);
@@ -63,7 +67,6 @@ void Game::RenderGame()
     }
     window_->display();
 }
-// Keeps the game running when window is open
 bool Game::Running() const { return window_->isOpen(); }
 
 void Game::Events()
@@ -115,7 +118,6 @@ void Game::updateDt() { dt = dtClock.restart().asSeconds(); }
 void Game::manageInput()
 {
     bool triedMoving = false;
-    sf::Vector2f oldPos = player_->getOldPosition();
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
         triedMoving = player_->MoveLeft(dt);
     } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
@@ -129,7 +131,7 @@ void Game::manageInput()
     }
     if (triedMoving) {
         if (!room.positionIsWalkable(player_->GetBaseBoxAt(player_->GetPos()))) {
-            player_->setPos(oldPos); // if we can't move set back to old position
+            player_->RevertMove();
         }
     }
 }

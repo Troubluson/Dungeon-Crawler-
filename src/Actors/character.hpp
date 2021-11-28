@@ -35,7 +35,8 @@ public:
     bool MoveDown(float dt);
     bool MoveUp(float dt);
     // For subclasses, should be = 0
-    virtual void Move(float) {};
+    virtual bool Move(float) { return false; }
+    void RevertMove();
     virtual void Attack(sf::Vector2f, std::list<Projectile*>) {};
     /*
     // for ICollidable

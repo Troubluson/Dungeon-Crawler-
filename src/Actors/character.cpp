@@ -88,6 +88,11 @@ bool Character::MoveUp(float dt)
     return true;
 }
 
+void Character::RevertMove()
+{
+    pos_ = oldPos_;
+}
+
 sf::Vector2f Character::GetSpriteCenter()
 {
     auto spriteOrigin = GetPos();

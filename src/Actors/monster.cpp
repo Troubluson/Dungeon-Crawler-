@@ -13,8 +13,9 @@ Monster::~Monster()
 {
 }
 
-void Monster::Move(float dt)
+bool Monster::Move(float dt)
 {
+    oldPos_ = pos_;
     int dir = rand() % 4 + 1;
     if (dir == 1) {
         MoveDown(dt);
@@ -24,4 +25,5 @@ void Monster::Move(float dt)
         MoveUp(dt);
     } else
         MoveRight(dt);
+    return true;
 }
