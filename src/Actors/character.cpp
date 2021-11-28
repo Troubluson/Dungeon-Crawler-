@@ -1,5 +1,5 @@
 #include "Actors/character.hpp"
-#include "utility/SpriteHelper.hpp"
+#include "Utility/SpriteHelper.hpp"
 #define C_PIXELS 64
 #define C_SCALE 2
 
@@ -9,9 +9,9 @@ Character::Character(const std::string& filename, sf::Vector2f pos, bool animate
     , oldPos_(pos)
 {
     initVariables();
+
     if (hasAnimation_) {
         sprite_.setTextureRect({ 0, 0, C_PIXELS, C_PIXELS });
-        sprite_.setScale(sf::Vector2f(2, 2));
         Animations[int(AnimationIndex::AnimationUp)] = new Animation(C_PIXELS, 0, C_PIXELS, C_PIXELS, filename);
         Animations[int(AnimationIndex::AnimationDown)] = new Animation(C_PIXELS, C_PIXELS * 4, C_PIXELS, C_PIXELS, filename);
         Animations[int(AnimationIndex::AnimationLeft)] = new Animation(C_PIXELS, C_PIXELS * 2, C_PIXELS, C_PIXELS, filename);
@@ -114,14 +114,13 @@ bool Character::Idle()
 
 sf::FloatRect Character::GetBaseBoxAt(sf::Vector2f pos)
 {
-    auto spriteBounds = sprite_.getLocalBounds();
+    auto spriteBounds = sprite_.getGlobalBounds();
     // set to use new position
     spriteBounds.left = pos.x;
     spriteBounds.top = pos.y;
     // use only lower half
     spriteBounds.height *= 1.0f / 2;
     spriteBounds.top += spriteBounds.height;
-    std::cout << spriteBounds.left << "," << spriteBounds.top << std::endl;
     return spriteBounds;
 }
 
