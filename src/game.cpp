@@ -41,8 +41,8 @@ void Game::UpdateGame()
     // Update projectiles
     updateProjectiles();
     for (auto monster : monsters_) {
-        monster->Update(dt);
         monster->Move(dt);
+        monster->Update(dt);
     }
     // checkCollisions(player_, Projectile::Type::EnemyProjectile);
     checkCollisions(monsters_, Projectile::Type::PlayerProjectile);
@@ -128,7 +128,7 @@ void Game::manageInput()
         triedMoving = player_->MoveDown(dt);
     }
     if (triedMoving) {
-        if (!room.positionIsWalkable(player_->GetSprite().getGlobalBounds())) {
+        if (!room.positionIsWalkable(player_->GetBaseBoxAt(player_->GetPos()))) {
             player_->setPos(oldPos); // if we can't move set back to old position
         }
     }

@@ -19,6 +19,7 @@ public:
     void initSprite(const std::string& filename);
 
     void initVariables();
+    sf::FloatRect GetBaseBoxAt(sf::Vector2f pos);
 
     sf::Vector2f GetSpriteCenter();
     const sf::Vector2f& getOldPosition() const;
@@ -33,7 +34,7 @@ public:
     bool MoveRight(float dt);
     bool MoveDown(float dt);
     bool MoveUp(float dt);
-    // for Entity
+    // For subclasses, should be = 0
     virtual void Move(float) {};
     virtual void Attack(sf::Vector2f, std::list<Projectile*>) {};
     /*

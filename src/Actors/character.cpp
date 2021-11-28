@@ -111,6 +111,20 @@ bool Character::Idle()
     currentAnimation = AnimationIndex::AnimationIdle;
     return true;
 }
+
+sf::FloatRect Character::GetBaseBoxAt(sf::Vector2f pos)
+{
+    auto spriteBounds = sprite_.getLocalBounds();
+    // set to use new position
+    spriteBounds.left = pos.x;
+    spriteBounds.top = pos.y;
+    // use only lower half
+    spriteBounds.height *= 1.0f / 2;
+    spriteBounds.top += spriteBounds.height;
+    std::cout << spriteBounds.left << "," << spriteBounds.top << std::endl;
+    return spriteBounds;
+}
+
 /*
 void Character::ProcessCollision(ICollidable* object)
 {

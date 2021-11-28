@@ -89,8 +89,8 @@ std::vector<RoomTile*> RoomInstance::getRoomTilesAt(sf::FloatRect entityBounds)
 bool RoomInstance::positionIsWalkable(sf::FloatRect entityBounds)
 {
     auto tilesInBounds = getRoomTilesAt(entityBounds);
-    for(auto tile : tilesInBounds) {
-        if(!tile->isWalkable()) {
+    for (auto tile : tilesInBounds) {
+        if (!tile->isWalkable()) {
             return false;
         }
     }
