@@ -1,6 +1,10 @@
 #include "Actors/character.hpp"
 #include "Utility/SpriteHelper.hpp"
+#define C_X 8
+#define C_PIXELS_X 44
+#define C_PIXELS_delta 20
 #define C_PIXELS 64
+#define C_PIXELS_Y 64
 #define C_SCALE 2
 
 Character::Character(const std::string& filename, sf::Vector2f pos, bool animated)
@@ -11,12 +15,12 @@ Character::Character(const std::string& filename, sf::Vector2f pos, bool animate
     initVariables();
 
     if (hasAnimation_) {
-        sprite_.setTextureRect({ 0, 0, C_PIXELS, C_PIXELS });
-        Animations[int(AnimationIndex::AnimationUp)] = new Animation(C_PIXELS, 0, C_PIXELS, C_PIXELS, filename);
-        Animations[int(AnimationIndex::AnimationDown)] = new Animation(C_PIXELS, C_PIXELS * 4, C_PIXELS, C_PIXELS, filename);
-        Animations[int(AnimationIndex::AnimationLeft)] = new Animation(C_PIXELS, C_PIXELS * 2, C_PIXELS, C_PIXELS, filename);
-        Animations[int(AnimationIndex::AnimationRight)] = new Animation(C_PIXELS, C_PIXELS * 3, C_PIXELS, C_PIXELS, filename);
-        Animations[int(AnimationIndex::AnimationIdle)] = new Animation(C_PIXELS, C_PIXELS, C_PIXELS, C_PIXELS, filename);
+        sprite_.setTextureRect({ 0, 0, C_PIXELS_X, C_PIXELS_Y });
+        Animations[int(AnimationIndex::AnimationIdle)] = new Animation(1, 0, C_PIXELS_X, C_PIXELS_Y, C_PIXELS_delta, filename);
+        Animations[int(AnimationIndex::AnimationLeft)] = new Animation(1, C_PIXELS_Y, C_PIXELS_X, C_PIXELS_Y, C_PIXELS_delta, filename);
+        Animations[int(AnimationIndex::AnimationRight)] = new Animation(1, C_PIXELS_Y * 2, C_PIXELS_X, C_PIXELS_Y, C_PIXELS_delta, filename);
+        Animations[int(AnimationIndex::AnimationUp)] = new Animation(1, C_PIXELS_Y * 3, C_PIXELS_X, C_PIXELS_Y, C_PIXELS_delta, filename);
+        Animations[int(AnimationIndex::AnimationDown)] = new Animation(1, C_PIXELS_Y * 4, C_PIXELS_X, C_PIXELS_Y, C_PIXELS_delta, filename);
     }
 }
 

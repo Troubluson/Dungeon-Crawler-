@@ -1,7 +1,7 @@
 #include "Actors/player.hpp"
 
 namespace {
-const std::string PLAYER_SPRITE = "content/spritesheet.png";
+const std::string PLAYER_SPRITE = "content/sprites/characters/SpriteSheet.png";
 }
 
 Player::Player()
