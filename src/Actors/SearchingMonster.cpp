@@ -17,8 +17,8 @@ void SearchingMonster::Move(float dt)
     sf::Vector2f distanceVec = playerpos - GetSpriteCenter();
     float distance = std::sqrt(distanceVec.x * distanceVec.x + distanceVec.y * distanceVec.y);
     sf::Vector2f velocityVec = distanceVec / distance;
-    MoveRight(dt * velocityVec.x * 0.8);
-    MoveDown(dt * velocityVec.y * 0.8);
+    MoveRight(dt * velocityVec.x * 0.3);
+    MoveDown(dt * velocityVec.y * 0.3);
 }
 
 void SearchingMonster::MonsterAttack()
@@ -28,7 +28,7 @@ void SearchingMonster::MonsterAttack()
         sf::Vector2f playerPos = GetPlayer().GetSpriteCenter();
         sf::Vector2f distanceVec = playerPos - GetSpriteCenter();
         float distance = std::sqrt(distanceVec.x * distanceVec.x + distanceVec.y * distanceVec.y);
-        if (distance < 100) {
+        if (distance < 50) {
             GetPlayer().TakeDamage(10);
         }
     }

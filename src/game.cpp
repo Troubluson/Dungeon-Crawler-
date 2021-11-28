@@ -21,7 +21,7 @@ Game::Game()
     monsters_.push_back(m);
     monsters_.push_back(m2);
 
-    gamebar_ = Gamebar(*player_);
+    gamebar_ = Gamebar(player_);
     initVariables();
     initWindow();
 }
@@ -51,6 +51,7 @@ void Game::UpdateGame()
     checkCollisions(monsters_, Projectile::Type::PlayerProjectile);
     checkWallCollisions();
     player_->Update(dt);
+    gamebar_.Update();
 }
 // render game frames
 void Game::RenderGame()

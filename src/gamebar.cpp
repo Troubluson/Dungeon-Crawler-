@@ -5,9 +5,9 @@ const float HEIGHT = 100;
 const float WIDTH = 1280;
 }
 
-Gamebar::Gamebar(Player& player)
+Gamebar::Gamebar(Player* player)
     : player_(player)
-    , hitpoints_(player.GetHitPoints())
+    , hitpoints_(player->GetHitPoints())
 {
     sf::RectangleShape background(sf::Vector2f(WIDTH, HEIGHT));
     background.setFillColor(sf::Color::Black);
@@ -45,7 +45,7 @@ void Gamebar::Render(sf::RenderTarget* target)
 
 void Gamebar::Update()
 {
-    int hp = player_.GetHitPoints();
-    int newWidth = std::min(100, std::max(0, 2 * (hitpoints_ + hp)));
+    int hitpoints_ = player_->GetHitPoints();
+    int newWidth = std::min(100, std::max(0, 2 * (hitpoints_)));
     greenBar_.setSize(sf::Vector2f(newWidth, 30));
 }
