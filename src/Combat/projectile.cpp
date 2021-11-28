@@ -1,4 +1,4 @@
-#include "Projectile.hpp"
+#include "Combat/Projectile.hpp"
 
 namespace {
 const std::string PROJECTILE_SPRITE = "content/sprites/projectile.png";
