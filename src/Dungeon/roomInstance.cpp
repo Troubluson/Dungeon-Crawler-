@@ -21,7 +21,7 @@ void RoomInstance::setUpRoomInstance(sf::Vector2u window_size)
 void RoomInstance::setTiles(sf::Vector2u window_size)
 {
     tileVector_.clear();
-    int height = window_size.y / 64;
+
     int n = 0;
     for (int i = 0; i < gridLen_; i++) {
         std::vector<RoomTile*> row;
@@ -37,11 +37,13 @@ void RoomInstance::setTiles(sf::Vector2u window_size)
                 }
             } else if (i == 1 && j != 0 && j != gridLen_ - 1) {
                 row.push_back(new RoomTile("content/sprites/walls/wallfront1.png", k, n, false, false));
-            } else if (i == height + 1) {
+            } else if (i == 11) {
                 if (j == 0) {
                     row.push_back(new RoomTile("content/sprites/walls/topwallright.png", k, n, false, false));
                 } else if (j == gridLen_ - 1) {
                     row.push_back(new RoomTile("content/sprites/walls/topwallbottomright.png", k, n, false, false));
+                } else if (j == gridLen_ / 2 - 1) {
+                    row.push_back(new RoomTile("content/sprites/floors/tile1.png", k, n, true, true));
                 } else {
                     row.push_back(new RoomTile("content/sprites/walls/topwallbottom.png", k, n, false, false));
                 }
