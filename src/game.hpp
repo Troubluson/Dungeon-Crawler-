@@ -3,11 +3,12 @@
 #ifndef _GAME_CLASS_
 #define _GAME_CLASS_
 
-#include "roomInstance.hpp"
 #include "Actors/monster.hpp"
 #include "Actors/player.hpp"
+/*#include "CollisionSystem.hpp"*/
 #include "Combat/Projectile.hpp"
 #include "Combat/Weapons/SwordWeapon.hpp"
+#include "roomInstance.hpp"
 
 class Game {
 public:
@@ -36,6 +37,7 @@ private:
 
     std::list<Character*> monsters_;
     std::list<Projectile*> projectiles_;
+    // CollisionSystem collisionSys;
 
     void initVariables();
     void initWindow();

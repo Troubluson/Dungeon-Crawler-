@@ -1,5 +1,5 @@
 #include "Actors/character.hpp"
-#include "utils/SpriteHelper.hpp"
+#include "utility/SpriteHelper.hpp"
 #define C_PIXELS 64
 #define C_SCALE 2
 
@@ -111,3 +111,32 @@ bool Character::Idle()
     currentAnimation = AnimationIndex::AnimationIdle;
     return true;
 }
+/*
+void Character::ProcessCollision(ICollidable* object)
+{
+    sf::FloatRect charBounds = GetBoundingBox();
+    EntityType collidingType = object->GetEntityType();
+    // if tile use only lower half of bounds for collision
+    if (collidingType == EntityType::tile) {
+        charBounds.height *= 1.0f / 2;
+        charBounds.top += charBounds.height;
+        if (object->GetBoundingBox().intersects(charBounds)) {
+            pos_ = oldPos_; // reset position to previous logged position
+        }
+    } else if (collidingType == EntityType::projectile) {
+        // change to better collision
+        if (object->GetBoundingBox().intersects(charBounds)) {
+        }
+    }
+}
+
+ICollidable::EntityType Character::GetEntityType() { return ICollidable::EntityType::character; }
+
+void Character::GetHitBy(Projectile* projectile)
+{
+    if (projectile->GetType() == Projectile::PlayerProjectile) { // change this implementation in projectile
+        return;
+    }
+    TakeDamage(projectile->GetDamage());
+}
+*/
