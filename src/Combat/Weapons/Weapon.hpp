@@ -4,7 +4,7 @@
 
 #include "Combat/PowerUps/PowerUp.hpp"
 #include "Combat/Projectile.hpp"
-#include "Utils/SpriteHelper.hpp"
+#include "Utility/SpriteHelper.hpp"
 
 using namespace std;
 using namespace sf;
