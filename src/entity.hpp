@@ -4,24 +4,24 @@
 #define _ENTITY_CLASS_
 class Entity {
 public:
-    Entity(const std::string& filename, float xPos, float yPos, int spriteSize);
-    sf::Sprite GetSprite();
+    Entity(const std::string& spriteLocation, float xPos, float yPos, sf::Vector2f spriteDims);
+    Entity(const std::string& spirteLocation, sf::Vector2f pos, sf::Vector2f spriteDims);
+    Entity(sf::Sprite& sprite, float xPos, float yPos);
+    Entity(sf::Sprite& sprite, sf::Vector2f pos);
 
-    void Render(sf::RenderTarget* target);
+    sf::Sprite GetSprite() { return sprite_; };
+    sf::Vector2f GetPos() { return pos_; }
+    sf::Vector2i GetPosI() { return sf::Vector2i(pos_); }
 
-    bool MoveLeft(float dt);
-    bool MoveRight(float dt);
-    bool MoveDown(float dt);
-    bool MoveUp(float dt);
-    bool Move(float dt, float x, float y);
+    sf::Vector2f GetSpritePosition() { return sprite_.getPosition(); } // might be unnecessary, because sprite pos should be same as that returned of GetPos()
+
+    virtual void Render(sf::RenderTarget* target);
 
 protected:
     sf::Sprite sprite_;
     sf::Texture texture_;
-    void initSprite(const std::string& filename, int spriteSize);
+    void initSprite(const std::string& spriteLocation, sf::Vector2f spriteDims);
 
-    float xPos_;
-    float yPos_;
-    float speed_ = 200;
+    sf::Vector2f pos_;
 };
 #endif

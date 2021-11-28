@@ -4,7 +4,6 @@
 int main()
 {
     Game dungeonCrawler;
-
     // Game loop
     while (dungeonCrawler.Running()) {
         dungeonCrawler.UpdateGame();
