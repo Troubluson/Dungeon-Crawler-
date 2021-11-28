@@ -2,12 +2,14 @@
 #ifndef _WEAPON_CLASS_
 #define _WEAPON_CLASS_
 
-#include "../PowerUps/PowerUp.hpp"
-#include "../Projectile.hpp"
-#include "SpriteHelper.hpp"
+#include "Combat/PowerUps/PowerUp.hpp"
+#include "Combat/Projectile.hpp"
+#include "Utility/SpriteHelper.hpp"
 
 using namespace std;
 using namespace sf;
+using namespace sprite;
+
 class Weapon {
 protected:
     int damage_;

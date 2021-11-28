@@ -1,4 +1,4 @@
-#include "Projectile.hpp"
+#include "Combat/Projectile.hpp"
 
 namespace {
 const std::string PROJECTILE_SPRITE = "content/sprites/projectile.png";
@@ -9,6 +9,16 @@ Projectile::Projectile(sf::Sprite& sprite, sf::Vector2f pos, bool penetrates)
     , penetrates_(penetrates)
 {
     initVariables();
+}
+bool Projectile::hasHit(Character* element)
+{
+    auto it = charactersHit.find(element);
+    return it != charactersHit.end();
+}
+
+void Projectile::hit(Character* c)
+{
+    charactersHit.insert(c);
 }
 
 bool Projectile::move(float dt, float x, float y)

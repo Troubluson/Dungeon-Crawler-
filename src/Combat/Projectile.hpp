@@ -3,7 +3,10 @@
 #ifndef _Projectile_CLASS_
 #define _Projectile_CLASS_
 
+#include "Actors/character.hpp"
 #include "entity.hpp"
+
+class Character;
 
 class Projectile : public Entity {
 public:
@@ -13,6 +16,8 @@ public:
 public:
     Projectile(sf::Sprite& sprite, sf::Vector2f startPos, bool penetratesObjects = false);
 
+    bool hasHit(Character* c);
+    void hit(Character* c);
     int GetDamage() { return damage_; }
     Projectile::Type GetType() { return type_; }
     sf::Vector2f GetDirection() { return direction_; }
@@ -39,7 +44,7 @@ private:
     Type type_;
     sf::Vector2f direction_;
     sf::Vector2f startPos_;
-
+    std::set<Character*> charactersHit;
     int damage_;
     float projectileSpeed_;
 

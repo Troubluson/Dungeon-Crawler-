@@ -3,8 +3,9 @@
 #ifndef _PLAYER_CLASS_
 #define _PLAYER_CLASS_
 
+#include "Actors/character.hpp"
 #include "Combat/Weapons/Weapon.hpp"
-#include "character.hpp"
+
 class Weapon;
 class Player : public Character {
 public:

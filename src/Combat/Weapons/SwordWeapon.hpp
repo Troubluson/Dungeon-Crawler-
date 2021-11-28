@@ -2,7 +2,7 @@
 #ifndef _SWORDWEAPON_CLASS_
 #define _SWORDWEAPON_CLASS_
 
-#include "Weapon.hpp"
+#include "Combat/Weapons/Weapon.hpp"
 
 class SwordWeapon : public Weapon {
 private:
