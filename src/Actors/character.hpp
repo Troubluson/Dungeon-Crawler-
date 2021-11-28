@@ -13,7 +13,7 @@ public:
 
     virtual ~Character();
 
-    void Update(float dt);
+    virtual void Update(float dt) = 0;
 
     void initSprite(const std::string& filename);
 

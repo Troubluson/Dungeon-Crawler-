@@ -21,25 +21,6 @@ Character::Character(const std::string& filename, sf::Vector2f pos, bool animate
 
 Character::~Character() { }
 
-void Character::Update(float dt)
-{
-    sprite_.setPosition(pos_);
-    if (hitpoints_ <= 0) {
-        alive_ = false;
-    }
-    pos_.x = clamp(pos_.x, 50, 1050);
-    pos_.y = clamp(pos_.y, 0, 550);
-
-    if (hasAnimation_) {
-        if (oldPos_ == pos_) {
-            Idle();
-        }
-        Animations[int(currentAnimation)]->Update(dt);
-        Animations[int(currentAnimation)]->AnimationToSprite(sprite_);
-    }
-    oldPos_ = pos_;
-}
-
 float Character::clamp(float value, float low, float high)
 {
     if (value < low) {
@@ -98,6 +79,7 @@ sf::Vector2f Character::GetSpriteCenter()
 void Character::TakeDamage(int value)
 {
     hitpoints_ -= value;
+    std::cout << hitpoints_ << std::endl;
 }
 
 bool Character::IsAlive() { return alive_; }
