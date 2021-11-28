@@ -16,9 +16,11 @@ public:
     virtual void Update(float dt);
     virtual void Move(float dt) = 0;
     virtual void MonsterAttack() = 0;
+    virtual void Render(sf::RenderTarget* target);
 
 private:
     Player* player_;
+    sf::RectangleShape greenbar_;
 };
 
 #endif
