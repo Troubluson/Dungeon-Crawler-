@@ -8,6 +8,7 @@
 #include "animation.hpp"
 #include "entity.hpp"
 
+class Projectile;
 class Character : public Entity /*, public ICollidable*/ {
 public:
     Character(const std::string& filename, sf::Vector2f pos, bool animated = false);
