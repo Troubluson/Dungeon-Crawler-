@@ -13,10 +13,9 @@ public:
     SearchingMonster(Player* player, sf::Vector2f pos);
     ~SearchingMonster();
     virtual void Move(float dt);
-    void MonsterAttack(Player& player);
+    void MonsterAttack();
 
 private:
-    Player* player_;
     sf::Clock cooldown_;
 };
 
