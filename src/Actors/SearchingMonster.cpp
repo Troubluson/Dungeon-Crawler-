@@ -11,7 +11,7 @@ SearchingMonster::SearchingMonster(Player* player, float xPos, float yPos)
 
 SearchingMonster::~SearchingMonster() { }
 
-void SearchingMonster::Move(float dt)
+bool SearchingMonster::Move(float dt)
 {
     sf::Vector2f playerpos = GetPlayer().GetSpriteCenter();
     sf::Vector2f distanceVec = playerpos - GetSpriteCenter();
@@ -22,6 +22,7 @@ void SearchingMonster::Move(float dt)
     }
     MoveRight(dt * velocityVec.x * 0.3);
     MoveDown(dt * velocityVec.y * 0.3);
+    return true;
 }
 
 void SearchingMonster::MonsterAttack()

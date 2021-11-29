@@ -1,7 +1,7 @@
 #include "Utility/SpriteHelper.hpp"
 #define PI 3.14159265
 
-namespace sprite {
+namespace spritehelper {
 void CreateSpriteFrom(const std::string& spriteFile, sf::Vector2f dimensions, sf::Sprite& sprite, sf::Texture& texture)
 {
     if (texture.loadFromFile(spriteFile)) {
@@ -24,4 +24,11 @@ void RotateSprite(sf::Vector2f directionOfRotation, sf::Sprite& sprite)
     auto angle = atan2(directionOfRotation.y, directionOfRotation.x) * 180 / PI + 90;
     sprite.setRotation(angle);
 }
+
+void SetOriginBottomCenter(sf::Sprite& sprite)
+{
+    auto bounds = sprite.getLocalBounds();
+    sprite.setOrigin(bounds.width / 2, 3.0f / 4 * bounds.height);
+}
+
 } // namespace

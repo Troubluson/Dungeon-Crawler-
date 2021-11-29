@@ -7,7 +7,7 @@ Weapon::Weapon(int damage, int range, Vector2f projectileSize, int rateOfFire, c
     , projectileSize_(projectileSize)
     , powerUps_(vector<PowerUp*>())
 {
-    sprite::CreateSpriteFrom(spriteLocation, projectileSize, sprite_, texture_);
+    spritehelper::CreateSpriteFrom(spriteLocation, projectileSize, sprite_, texture_);
     cooldown_ = 60.0f / rateOfFire;
 }
 

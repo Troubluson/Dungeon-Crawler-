@@ -1,7 +1,7 @@
 #include "Actors/player.hpp"
 
 namespace {
-const std::string PLAYER_SPRITE = "content/spritesheet.png";
+const std::string PLAYER_SPRITE = "content/sprites/characters/SpriteSheet.png";
 }
 
 Player::Player()
@@ -18,8 +18,6 @@ void Player::Update(float dt)
     if (hitpoints_ <= 0) {
         alive_ = false;
     }
-    pos_.x = clamp(pos_.x, 50, 1050);
-    pos_.y = clamp(pos_.y, 0, 550);
 
     if (hasAnimation_) {
         if (oldPos_ == pos_) {
