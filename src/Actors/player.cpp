@@ -33,10 +33,8 @@ void Player::Update(float dt)
     updateDashCooldown(dt);
 
     if (IsDashing) {
-        // std::cout << "DashSpeed = " << dashSpeed << std::endl;
         currentSpeed_ = dashSpeed;
     } else {
-        // std::cout << "NormalSpeed = " << normalSpeed_ << std::endl;
         currentSpeed_ = normalSpeed_;
     }
 }
