@@ -45,13 +45,10 @@ void Game::UpdateGame()
     updateProjectiles();
     for (auto monster : monsters_) {
         // if moved, check collision with walls
-        Vector2f oldoldPos = monster->getOldPosition();
         bool monsterMoved = monster->Move(dt);
         if (monsterMoved && collidesWithWall(monster)) {
             monster->RevertMove();
-            monster->SetOldPos(oldoldPos);
         }
-        std::cout << std::endl;
         monster->Update(dt);
     }
     // checkCollisions(player_, Projectile::Type::EnemyProjectile);
@@ -94,11 +91,6 @@ void Game::Events()
             if (event_.key.code == sf::Keyboard::Space) {
                 Monster* m = new RandomMonster(player_, player_->GetPos().x, player_->GetPos().y);
                 monsters_.push_back(m);
-                /* sf::Vector2f direction = sf::Vector2f(1, 0);
-                Projectile* p = new Projectile(50, 50);
-                p->SetDirection(direction);
-                p->SetType(Projectile::Type::EnemyProjectile);
-                projectiles_.push_back(p); */
             }
             break;
         default:

@@ -40,11 +40,6 @@ void Character::Update(float dt)
     }
 }
 
-void Character::SetOldPos(sf::Vector2f v)
-{
-    oldPos_ = v;
-}
-
 void Character::initVariables()
 {
     alive_ = true;

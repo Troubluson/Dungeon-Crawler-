@@ -13,7 +13,6 @@ RandomMonster::~RandomMonster() { }
 
 bool RandomMonster::Move(float dt)
 {
-
     oldPos_ = GetPos();
     float elapsedTime = clock_.getElapsedTime().asSeconds();
     if (elapsedTime > 0.3) {
