@@ -3,9 +3,9 @@
 #ifndef _GAME_CLASS_
 #define _GAME_CLASS_
 
-#include "roomInstance.hpp"
 #include "Actors/monster.hpp"
 #include "Actors/player.hpp"
+#include "roomInstance.hpp"
 /*#include "CollisionSystem.hpp"*/
 #include "Combat/Projectile.hpp"
 #include "Combat/Weapons/SwordWeapon.hpp"
@@ -44,10 +44,12 @@ private:
     void updateDt();
     void manageInput();
     void checkCollisions(std::list<Character*> characterVector, Projectile::Type type);
-    void checkWallCollisions();
+    void checkAndHandleProjectileWallCollisions();
     void deleteProjectile(Projectile* p);
     void deleteMonster(Character* m);
     void updateProjectiles();
+    bool collidesWithWall(Character* character);
+    bool collidesWithWall(Entity* object);
 };
 
 #endif

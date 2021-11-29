@@ -41,16 +41,14 @@ void Game::UpdateGame()
     updateProjectiles();
     for (auto monster : monsters_) {
         // if moved, check collision with walls
-        if (monster->Move(dt)) {
-            if (!room.positionIsWalkable(monster->GetBaseBoxAt(monster->GetPos()))) {
-                monster->RevertMove();
-            }
+        if (monster->Move(dt) && collidesWithWall(monster)) {
+            monster->RevertMove();
         }
         monster->Update(dt);
     }
     // checkCollisions(player_, Projectile::Type::EnemyProjectile);
     checkCollisions(monsters_, Projectile::Type::PlayerProjectile);
-    checkWallCollisions();
+    checkAndHandleProjectileWallCollisions();
     player_->Update(dt);
 }
 // render game frames
@@ -123,14 +121,13 @@ void Game::manageInput()
     } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
         triedMoving = player_->MoveRight(dt);
     }
-
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
         triedMoving = player_->MoveUp(dt);
     } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
         triedMoving = player_->MoveDown(dt);
     }
     if (triedMoving) {
-        if (!room.positionIsWalkable(player_->GetBaseBoxAt(player_->GetPos()))) {
+        if (collidesWithWall(player_)) {
             player_->RevertMove();
         }
     }
@@ -167,19 +164,16 @@ void Game::checkCollisions(std::list<Character*> characters, Projectile::Type pr
     }
 }
 
-void Game::checkWallCollisions()
+void Game::checkAndHandleProjectileWallCollisions()
 {
     if (projectiles_.empty()) {
         return;
     }
-
-    std::vector<Projectile*> projectileListToDelete;
-
     for (auto row : room.getTiles()) {
         for (auto tile : row) {
-            if (!tile->isWalkable()) {
+            if (!tile->isWalkable()) { // change this from walkable to penetratable and add it to tile
                 for (auto projectile : projectiles_) {
-                    if (projectile->GetSprite().getGlobalBounds().intersects(tile->getSprite().getGlobalBounds())) {
+                    if (collidesWithWall(projectile)) {
                         projectile->Kill();
                     }
                 }
@@ -227,4 +221,12 @@ void Game::updateProjectiles()
             p->Update(dt);
         }
     }
+}
+bool Game::collidesWithWall(Character* character)
+{
+    return !room.positionIsWalkable(character->GetBaseBoxAt(character->GetPos()));
+}
+bool Game::collidesWithWall(Entity* object)
+{
+    return !room.positionIsWalkable(object->getSpriteBounds());
 }

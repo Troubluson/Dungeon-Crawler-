@@ -9,7 +9,6 @@
 Character::Character(const std::string& filename, sf::Vector2f pos, bool animated)
     : Entity(filename, pos, sf::Vector2f(C_SCALE, C_SCALE))
     , hasAnimation_(animated)
-    , oldPos_(pos)
 {
     initVariables();
 
@@ -90,21 +89,6 @@ bool Character::MoveUp(float dt)
 void Character::RevertMove()
 {
     pos_ = oldPos_;
-}
-
-sf::Vector2f Character::GetSpriteCenter()
-{
-    auto spriteOrigin = GetPos();
-    auto localSpriteBounds = sprite_.getLocalBounds();
-    auto spriteScale = sprite_.getScale();
-    spriteOrigin.x += 1.0f / 2 * localSpriteBounds.width * spriteScale.x;
-    spriteOrigin.y += 1.0f / 2 * localSpriteBounds.height * spriteScale.y;
-    return spriteOrigin;
-}
-
-const sf::Vector2f& Character::getOldPosition() const
-{
-    return oldPos_;
 }
 
 void Character::TakeDamage(int value)

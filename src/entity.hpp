@@ -9,11 +9,15 @@ public:
     Entity(sf::Sprite& sprite, float xPos, float yPos);
     Entity(sf::Sprite& sprite, sf::Vector2f pos);
 
-    sf::Sprite& GetSprite() { return sprite_; };
-    sf::Vector2f& GetPos() { return pos_; }
-    sf::Vector2i GetPosI() { return sf::Vector2i(pos_); }
-    sf::Vector2f GetSpritePosition() { return sprite_.getPosition(); } // might be unnecessary, because sprite pos should be same as that returned of GetPos()
-    void setPos(sf::Vector2f newPos) { pos_ = newPos; } // might be unnecessary, because sprite pos should be same as that returned of GetPos()
+    const sf::Sprite& GetSprite() const { return sprite_; };
+    const sf::Vector2f& GetPos() const { return pos_; }
+    const sf::Vector2i GetPosI() { return sf::Vector2i(pos_); }
+    sf::Vector2f GetSpritePosition() const { return sprite_.getPosition(); } // might be unnecessary, because sprite pos should be same as that returned of GetPos()
+    sf::Vector2f GetSpriteCenter() const;
+    const sf::Vector2f& getOldPosition() const;
+    sf::FloatRect getSpriteBounds() const;
+
+    void setPos(sf::Vector2f newPos) { pos_ = newPos; }
 
     void Render(sf::RenderTarget* target);
 
@@ -23,5 +27,6 @@ protected:
     void initSprite(const std::string& spriteLocation, sf::Vector2f spriteDims);
 
     sf::Vector2f pos_;
+    sf::Vector2f oldPos_;
 };
 #endif

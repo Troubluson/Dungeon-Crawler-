@@ -17,15 +17,15 @@ public:
 
     void Update(float dt);
 
-    void initSprite(const std::string& filename);
-
     void initVariables();
+    /**
+     * @brief Get the lower half of bounding box if the character was at the position given as argument
+     *
+     * @param    pos                  the wanted position
+     * @return sf::FloatRect
+     */
     sf::FloatRect GetBaseBoxAt(sf::Vector2f pos);
 
-    sf::Vector2f GetSpriteCenter();
-    const sf::Vector2f& getOldPosition() const;
-
-    void GetHitBy(Projectile* projectile);
     void TakeDamage(int value);
 
     bool IsAlive();
@@ -55,7 +55,6 @@ protected:
     bool hasAnimation_;
     sf::Vector2f velocity_ = { 0.0f, 0.0f };
     static constexpr float speed_ = 400.0f;
-    sf::Vector2f oldPos_;
 
     enum class AnimationIndex {
         AnimationUp,
