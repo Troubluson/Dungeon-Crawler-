@@ -16,6 +16,7 @@ public:
     virtual ~Character();
 
     virtual void Update(float dt) = 0;
+    void UpdateCooldowns(float dt);
 
     void initSprite(const std::string& filename);
 
@@ -31,6 +32,8 @@ public:
     sf::Vector2f GetSpriteCenter();
 
     void TakeDamage(int value);
+    void ResetAttackCooldown();
+    bool CanAttack;
 
     bool IsAlive();
 
@@ -42,6 +45,9 @@ protected:
     sf::Vector2f velocity_ = { 0.0f, 0.0f };
     static constexpr float speed_ = 200.0f;
     sf::Vector2f oldPos_;
+
+    float attackCooldownLength;
+    float attackCooldownLeft;
 
     enum class AnimationIndex {
         AnimationUp,

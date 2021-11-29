@@ -21,6 +21,14 @@ Character::Character(const std::string& filename, sf::Vector2f pos, bool animate
 
 Character::~Character() { }
 
+void Character::UpdateCooldowns(float dt)
+{
+    attackCooldownLeft = std::max(0.0f, attackCooldownLeft - dt);
+    if (attackCooldownLeft <= 0) {
+        CanAttack = true;
+    }
+}
+
 float Character::clamp(float value, float low, float high)
 {
     if (value < low) {
@@ -36,6 +44,9 @@ void Character::initVariables()
 {
     alive_ = true;
     hitpoints_ = 50;
+    attackCooldownLength = 5.0f;
+    attackCooldownLeft = 0.0f;
+    CanAttack = true;
 }
 
 bool Character::MoveLeft(float dt)
@@ -79,6 +90,12 @@ sf::Vector2f Character::GetSpriteCenter()
 void Character::TakeDamage(int value)
 {
     hitpoints_ -= value;
+}
+
+void Character::ResetAttackCooldown()
+{
+    attackCooldownLeft = attackCooldownLength;
+    CanAttack = false;
 }
 
 bool Character::IsAlive() { return alive_; }

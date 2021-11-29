@@ -40,12 +40,14 @@ void Game::UpdateGame()
     Events();
 
     updateDt();
+    player_->UpdateCooldowns(dt);
     manageInput();
 
     // Update projectiles
     updateProjectiles();
     for (auto monster : monsters_) {
         monster->Update(dt);
+        monster->UpdateCooldowns(dt);
     }
     // checkCollisions(player_, Projectile::Type::EnemyProjectile);
     checkCollisions(monsters_, Projectile::Type::PlayerProjectile);
@@ -96,7 +98,7 @@ void Game::Events()
             }
             break;
         case sf::Event::MouseButtonPressed:
-            if (event_.mouseButton.button == sf::Mouse::Button::Left) {
+            if (event_.mouseButton.button == sf::Mouse::Button::Left && player_->CanAttack) {
                 auto mousePos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(*window_));
                 player_->Attack(mousePos, projectiles_);
             }

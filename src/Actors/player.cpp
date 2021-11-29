@@ -36,6 +36,7 @@ void Player::Attack(sf::Vector2f mousePosition, std::list<Projectile*>& projecti
     if (weapon_ == nullptr) {
         return;
     }
+    ResetAttackCooldown();
     auto spriteCenter = GetSpriteCenter();
     auto direction = mousePosition - spriteCenter;
     auto newProjectiles = weapon_->Use(direction, spriteCenter);
