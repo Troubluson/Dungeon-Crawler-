@@ -16,10 +16,10 @@ Game::Game()
     SwordWeapon* sword = new SwordWeapon(5, 10, sf::Vector2f(50, 100), "content/sprites/projectiles.png");
     player_->Equip(sword);
 
-    /* Monster* m = new RandomMonster(player_, 300, 300); // placeholder
+    Monster* m = new RandomMonster(player_, 300, 300); // placeholder
     Monster* m2 = new SearchingMonster(player_, 200, 200);
     monsters_.push_back(m);
-    monsters_.push_back(m2); */
+    monsters_.push_back(m2);
 
     gamebar_ = Gamebar(player_);
     initVariables();
@@ -40,14 +40,12 @@ void Game::UpdateGame()
     Events();
 
     updateDt();
-    player_->UpdateCooldowns(dt);
     manageInput();
 
     // Update projectiles
     updateProjectiles();
     for (auto monster : monsters_) {
         monster->Update(dt);
-        monster->UpdateCooldowns(dt);
     }
     // checkCollisions(player_, Projectile::Type::EnemyProjectile);
     checkCollisions(monsters_, Projectile::Type::PlayerProjectile);

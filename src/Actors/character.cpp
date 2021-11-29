@@ -21,17 +21,6 @@ Character::Character(const std::string& filename, sf::Vector2f pos, bool animate
 
 Character::~Character() { }
 
-void Character::UpdateCooldowns(float dt)
-{
-    updateAttackCooldown(dt);
-    updateDashCooldown(dt);
-    if (IsDashing) {
-        currentSpeed_ = dashSpeed;
-    } else {
-        currentSpeed_ = normalSpeed_;
-    }
-}
-
 float Character::clamp(float value, float low, float high)
 {
     if (value < low) {
@@ -43,47 +32,10 @@ float Character::clamp(float value, float low, float high)
     return value;
 }
 
-void Character::updateAttackCooldown(float dt)
-{
-    attackCooldownLeft = std::max(0.0f, attackCooldownLeft - dt);
-    if (attackCooldownLeft <= 0.0f) {
-        CanAttack = true;
-    }
-}
-
-void Character::updateDashCooldown(float dt)
-{
-    dashCooldownLeft = std::max(0.0f, dashCooldownLeft - dt);
-    if (dashCooldownLeft <= 0.0f) {
-        CanDash = true;
-    }
-
-    if (IsDashing) {
-        dashDurationLeft -= dt;
-    }
-    if (dashDurationLeft <= 0) {
-        IsDashing = false;
-    }
-}
-
 void Character::initVariables()
 {
     alive_ = true;
     hitpoints_ = 50;
-    normalSpeed_ = 400.0f;
-    currentSpeed_ = normalSpeed_;
-    dashSpeed = 1000.0f;
-
-    attackCooldownLength = 2.0f;
-    attackCooldownLeft = 0.0f;
-    CanAttack = true;
-    dashCooldownLength = 2.0f;
-    dashCooldownLeft = 0.0f;
-    CanDash = true;
-
-    IsDashing = false;
-    dashDurationLength = 1.0f;
-    dashDurationLeft = dashDurationLength;
 }
 
 bool Character::MoveLeft(float dt)
@@ -114,15 +66,6 @@ bool Character::MoveUp(float dt)
     return true;
 }
 
-void Character::Dash()
-{
-    if (CanDash) {
-        IsDashing = true;
-        dashDurationLeft = dashDurationLength;
-        ResetDashCooldown();
-    }
-}
-
 sf::Vector2f Character::GetSpriteCenter()
 {
     auto spriteOrigin = GetPos();
@@ -136,18 +79,6 @@ sf::Vector2f Character::GetSpriteCenter()
 void Character::TakeDamage(int value)
 {
     hitpoints_ -= value;
-}
-
-void Character::ResetAttackCooldown()
-{
-    attackCooldownLeft = attackCooldownLength;
-    CanAttack = false;
-}
-
-void Character::ResetDashCooldown()
-{
-    dashCooldownLeft = dashCooldownLength;
-    CanDash = false;
 }
 
 bool Character::IsAlive() { return alive_; }
