@@ -15,7 +15,7 @@ public:
 
     sf::Vector2f GetSpritePosition() { return sprite_.getPosition(); } // might be unnecessary, because sprite pos should be same as that returned of GetPos()
 
-    void Render(sf::RenderTarget* target);
+    virtual void Render(sf::RenderTarget* target);
 
 protected:
     sf::Sprite sprite_;

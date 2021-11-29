@@ -3,10 +3,13 @@
 #ifndef _GAME_CLASS_
 #define _GAME_CLASS_
 
+#include "Actors/RandomMonster.hpp"
+#include "Actors/SearchingMonster.hpp"
 #include "Actors/monster.hpp"
 #include "Actors/player.hpp"
 #include "Combat/Projectile.hpp"
 #include "Combat/Weapons/SwordWeapon.hpp"
+#include "gamebar.hpp"
 #include "roomInstance.hpp"
 
 class Game {
@@ -29,6 +32,7 @@ private:
     sf::Clock dtClock;
     RoomInstance room;
     Player* player_;
+    Gamebar gamebar_;
 
     float dt;
     bool paused = false;

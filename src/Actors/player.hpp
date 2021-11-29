@@ -3,8 +3,9 @@
 #ifndef _PLAYER_CLASS_
 #define _PLAYER_CLASS_
 
+#include "Actors/character.hpp"
 #include "Combat/Weapons/Weapon.hpp"
-#include "character.hpp"
+
 class Weapon;
 class Player : public Character {
 public:
@@ -12,6 +13,7 @@ public:
     ~Player() {};
     int GetHitPoints() const;
 
+    virtual void Update(float dt);
     void Attack(sf::Vector2f mousePos, std::list<Projectile*>& worldProjectiles);
     void Equip(Weapon* weapon);
 

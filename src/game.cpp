@@ -16,8 +16,12 @@ Game::Game()
     SwordWeapon* sword = new SwordWeapon(5, 10, sf::Vector2f(50, 100), "content/sprites/projectiles.png");
     player_->Equip(sword);
 
-    Monster* m = new Monster(300, 300); // placeholder
+    Monster* m = new RandomMonster(player_, 300, 300); // placeholder
+    Monster* m2 = new SearchingMonster(player_, 200, 200);
     monsters_.push_back(m);
+    monsters_.push_back(m2);
+
+    gamebar_ = Gamebar(player_);
     initVariables();
     initWindow();
 }
@@ -42,12 +46,12 @@ void Game::UpdateGame()
     updateProjectiles();
     for (auto monster : monsters_) {
         monster->Update(dt);
-        monster->Move(dt);
     }
     // checkCollisions(player_, Projectile::Type::EnemyProjectile);
     checkCollisions(monsters_, Projectile::Type::PlayerProjectile);
     checkWallCollisions();
     player_->Update(dt);
+    gamebar_.Update();
 }
 // render game frames
 void Game::RenderGame()
@@ -55,6 +59,7 @@ void Game::RenderGame()
     window_->clear();
     room.Render(window_);
     player_->Render(window_);
+    gamebar_.Render(window_);
     for (auto projectile : projectiles_) {
         projectile->Render(window_);
     }
@@ -81,7 +86,7 @@ void Game::Events()
             break;
         case sf::Event::KeyPressed:
             if (event_.key.code == sf::Keyboard::Space) {
-                Monster* m = new Monster(player_->GetPos().x, player_->GetPos().y);
+                Monster* m = new RandomMonster(player_, player_->GetPos().x, player_->GetPos().y);
                 monsters_.push_back(m);
                 /* sf::Vector2f direction = sf::Vector2f(1, 0);
                 Projectile* p = new Projectile(50, 50);
@@ -114,16 +119,37 @@ void Game::updateDt() { dt = dtClock.restart().asSeconds(); }
 
 void Game::manageInput()
 {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-        player_->MoveLeft(dt);
-    } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-        player_->MoveRight(dt);
-    }
+    bool W = sf::Keyboard::isKeyPressed(sf::Keyboard::W);
+    bool A = sf::Keyboard::isKeyPressed(sf::Keyboard::A);
+    bool S = sf::Keyboard::isKeyPressed(sf::Keyboard::S);
+    bool D = sf::Keyboard::isKeyPressed(sf::Keyboard::D);
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-        player_->MoveUp(dt);
-    } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-        player_->MoveDown(dt);
+    bool twoKeys = ((W || S) && (A || D));
+
+    if (twoKeys) {
+        if (A) {
+            player_->MoveLeft(dt / sqrt(2));
+        } else if (D) {
+            player_->MoveRight(dt / sqrt(2));
+        }
+
+        if (W) {
+            player_->MoveUp(dt / sqrt(2));
+        } else if (S) {
+            player_->MoveDown(dt / sqrt(2));
+        }
+    } else {
+        if (A) {
+            player_->MoveLeft(dt);
+        } else if (D) {
+            player_->MoveRight(dt);
+        }
+
+        if (W) {
+            player_->MoveUp(dt);
+        } else if (S) {
+            player_->MoveDown(dt);
+        }
     }
 }
 
@@ -138,8 +164,9 @@ void Game::checkCollisions(std::list<Character*> characters, Projectile::Type pr
 
     for (auto character : characters) {
         for (auto projectile : projectiles_) {
-            if (projectile->GetType() == projectileType) {
+            if (projectile->GetType() == projectileType && !projectile->hasHit(character)) {
                 if (Collision::PixelPerfectTest(projectile->GetSprite(), character->GetSprite())) {
+                    projectile->hit(character);
                     character->TakeDamage(projectile->GetDamage());
                     if (character->IsAlive() == false) {
                         monsterListToDelete.push_back(character);

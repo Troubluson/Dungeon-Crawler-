@@ -3,9 +3,11 @@
 #ifndef _CHARACTER_CLASS_
 #define _CHARACTER_CLASS_
 
-#include "../Combat/Projectile.hpp"
+#include "Combat/Projectile.hpp"
 #include "animation.hpp"
 #include "entity.hpp"
+
+class Projectile;
 
 class Character : public Entity {
 public:
@@ -13,7 +15,7 @@ public:
 
     virtual ~Character();
 
-    void Update(float dt);
+    virtual void Update(float dt) = 0;
 
     void initSprite(const std::string& filename);
 
