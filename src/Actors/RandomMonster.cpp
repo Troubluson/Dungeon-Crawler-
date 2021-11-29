@@ -11,7 +11,7 @@ RandomMonster::RandomMonster(Player* player, float xPos, float yPos)
 
 RandomMonster::~RandomMonster() { }
 
-void RandomMonster::Move(float dt)
+bool RandomMonster::Move(float dt)
 {
     float elapsedTime = clock_.getElapsedTime().asSeconds();
     if (elapsedTime > 0.3) {
@@ -25,12 +25,15 @@ void RandomMonster::Move(float dt)
             MoveLeft(dt);
         } else if (currentDir_ == 3) {
             MoveUp(dt);
-        } else
+        } else {
             MoveRight(dt);
+        }
+        return true;
     }
+    return false;
 }
 
 void RandomMonster::MonsterAttack()
 {
-    GetPlayer().TakeDamage(0); //placeholder
+    GetPlayer().TakeDamage(0); // placeholder
 }
