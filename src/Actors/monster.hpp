@@ -3,14 +3,24 @@
 #ifndef _MONSTER_CLASS_
 #define _MONSTER_CLASS_
 
-#include "Actors/character.hpp"
+#include "character.hpp"
+#include "player.hpp"
 
 class Monster : public Character {
 public:
-    Monster(float xPos, float yPos);
-    Monster(sf::Vector2f pos);
+    Monster(Player* player, float xPos, float yPos);
+    Monster(Player* player, sf::Vector2f pos);
     ~Monster();
-    void Move(float dt);
+
+    Player& GetPlayer() const;
+    virtual void Update(float dt);
+    virtual void Move(float dt) = 0;
+    virtual void MonsterAttack() = 0;
+    virtual void Render(sf::RenderTarget* target);
+
+private:
+    Player* player_;
+    sf::RectangleShape greenbar_;
 };
 
 #endif
