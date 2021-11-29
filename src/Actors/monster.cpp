@@ -41,8 +41,6 @@ void Monster::Update(float dt)
     if (hitpoints_ <= 0) {
         alive_ = false;
     }
-    pos_.x = clamp(pos_.x, 50, 1050);
-    pos_.y = clamp(pos_.y, 0, 550);
 
     MonsterAttack();
 
