@@ -12,7 +12,7 @@ public:
     RandomMonster(Player* player, float xPos, float yPos);
     RandomMonster(Player* player, sf::Vector2f pos);
     ~RandomMonster();
-    virtual void Move(float dt);
+    virtual bool Move(float dt);
     virtual void MonsterAttack();
 
 private:

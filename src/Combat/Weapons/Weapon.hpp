@@ -8,7 +8,6 @@
 
 using namespace std;
 using namespace sf;
-using namespace sprite;
 
 class Weapon {
 protected:

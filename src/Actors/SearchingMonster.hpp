@@ -12,7 +12,7 @@ public:
     SearchingMonster(Player* player, float xPos, float yPos);
     SearchingMonster(Player* player, sf::Vector2f pos);
     ~SearchingMonster();
-    virtual void Move(float dt);
+    virtual bool Move(float dt);
     void MonsterAttack();
 
 private:

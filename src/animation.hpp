@@ -6,7 +6,7 @@
 class Animation {
 public:
     Animation() = default;
-    Animation(int x, int y , int width, int height, const std::string& textureName);
+    Animation(int x, int y , int width, int height, int spacing,  const std::string& textureName);
     ~Animation() { }
     void AnimationToSprite(sf::Sprite& sprite) const;
     void Update(float dt);
