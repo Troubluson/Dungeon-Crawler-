@@ -48,6 +48,9 @@ void Player::Attack(sf::Vector2f mousePosition, std::list<Projectile*>& projecti
     if (weapon_ == nullptr) {
         return;
     }
+    if (!CanAttack) {
+        return;
+    }
     ResetAttackCooldown();
     auto spriteCenter = GetSpriteCenter();
     auto direction = mousePosition - spriteCenter;
@@ -74,7 +77,7 @@ void Player::initVariables()
     normalSpeed_ = 200.0f;
     dashSpeed = 400.0f;
 
-    attackCooldownLength = 1.0f;
+    attackCooldownLength = 1.66f;
     attackCooldownLeft = 0.0f;
     CanAttack = true;
     dashCooldownLength = 1.0f;

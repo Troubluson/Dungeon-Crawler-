@@ -95,12 +95,6 @@ void Game::Events()
                 projectiles_.push_back(p); */
             }
             break;
-        case sf::Event::MouseButtonPressed:
-            if (event_.mouseButton.button == sf::Mouse::Button::Left && player_->CanAttack) {
-                auto mousePos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(*window_));
-                player_->Attack(mousePos, projectiles_);
-            }
-            break;
         default:
             break;
         }
@@ -124,8 +118,10 @@ void Game::manageInput()
     bool S = sf::Keyboard::isKeyPressed(sf::Keyboard::S);
     bool D = sf::Keyboard::isKeyPressed(sf::Keyboard::D);
     bool LSHIFT = sf::Keyboard::isKeyPressed(sf::Keyboard::LShift);
+    bool LMOUSE = sf::Mouse::isButtonPressed(sf::Mouse::Left);
 
-    bool twoKeys = ((W || S) && (A || D));
+    bool twoKeys
+        = ((W || S) && (A || D));
 
     if (twoKeys) {
         if (A) {
@@ -155,6 +151,11 @@ void Game::manageInput()
 
     if (LSHIFT) {
         player_->Dash();
+    }
+
+    if (LMOUSE) {
+        auto mousePos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(*window_));
+        player_->Attack(mousePos, projectiles_);
     }
 }
 
