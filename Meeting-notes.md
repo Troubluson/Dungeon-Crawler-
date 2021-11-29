@@ -234,7 +234,7 @@ We have a basic form of monsters, weapons, projectiles, rooms and player which w
 
 
 # Meeting 29.11.2021 11::15
-Started meeting with discussing a lot of problems we have had while working with git. Talked through some game structure implementations.
+Started the meeting with a slight worry about the approaching deadline.
 **Participants**:
 1. Jonas
 2. Oskar
