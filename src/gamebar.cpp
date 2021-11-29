@@ -8,8 +8,8 @@ const float WIDTH = 1280;
 Gamebar::Gamebar(Player* player)
     : player_(player)
     , hitpoints_(player->GetHitPoints())
-    , attackCooldown_(player->AttackCooldownLeft())
-    , dashCooldown_(player->DashCooldownLeft())
+    , attackCooldown_(player->GetAttackCooldownLeft())
+    , dashCooldown_(player->GetDashCooldownLeft())
 {
     sf::RectangleShape background(sf::Vector2f(WIDTH, HEIGHT));
     background.setFillColor(sf::Color::Black);
@@ -27,7 +27,9 @@ Gamebar::Gamebar(Player* player)
     violetBar_ = greenBar;
     violetBar_.setFillColor(sf::Color::Magenta);
     violetBar_.setPosition(200, 5);
-    violetBar_.setSize(sf::Vector2f(100 - attackCooldown_ * 50, 30));
+    violetBar_.setSize(sf::Vector2f(100 - 100 * (attackCooldown_ / player_->GetAttackCooldownLength()), 30));
+    std::cout << "AttackCooldown = " << attackCooldown_ << std::endl;
+    std::cout << "AttackCooldownLength = " << player_->GetAttackCooldownLength() << std::endl;
 
     yellowBar_ = greenBar;
     yellowBar_.setFillColor(sf::Color::Yellow);
@@ -37,14 +39,6 @@ Gamebar::Gamebar(Player* player)
     if (!font_.loadFromFile("content/fonts/arial.ttf")) {
         std::cout << "load failed" << std::endl;
     }
-
-    sf::Text hp;
-    hp.setFont(font_);
-    hp.setString(std::to_string(hitpoints_));
-    hp.setCharacterSize(15);
-    hp.setPosition(40, 30);
-    hp.setFillColor(sf::Color::White);
-    hp_ = hp;
 }
 
 void Gamebar::Render(sf::RenderTarget* target)
@@ -54,21 +48,25 @@ void Gamebar::Render(sf::RenderTarget* target)
     target->draw(greenBar_);
     target->draw(violetBar_);
     target->draw(yellowBar_);
-    //target->draw(hp_);
+
+    sf::Text hp;
+    hp.setFont(font_);
+    hp.setString(std::to_string(hitpoints_));
+    hp.setCharacterSize(15);
+    hp.setPosition(40, 30);
+    hp.setFillColor(sf::Color::White);
+
+    target->draw(hp);
 }
 
 void Gamebar::Update()
 {
-    hitpoints_ = player_->GetHitPoints();
-    attackCooldown_ = player_->AttackCooldownLeft();
-    dashCooldown_ = player_->DashCooldownLeft();
-
-    int newGreenWidth = std::min(100, std::max(0, 2 * (hitpoints_)));
+    int newGreenWidth = std::min(100, std::max(0, 2 * (player_->GetHitPoints())));
     greenBar_.setSize(sf::Vector2f(newGreenWidth, 30));
 
-    int newVioletWidth = 100 - attackCooldown_ * 50;
+    int newVioletWidth = 100 - 100 * (player_->GetAttackCooldownLeft() / player_->GetAttackCooldownLength());
     violetBar_.setSize(sf::Vector2f(newVioletWidth, 30));
 
-    int newYellowWidth = 100 - dashCooldown_ * 50;
+    int newYellowWidth = 100 - 100 * (player_->GetDashCooldownLeft() / player_->GetDashCooldownLength());
     yellowBar_.setSize(sf::Vector2f(newYellowWidth, 30));
 }

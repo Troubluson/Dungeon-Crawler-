@@ -30,7 +30,6 @@ void Player::Update(float dt)
     }
 
     oldPos_ = pos_;
-    std::cout << currentSpeed_ << std::endl;
 
     updateAttackCooldown(dt);
     updateDashCooldown(dt);
@@ -75,10 +74,10 @@ void Player::initVariables()
     normalSpeed_ = 200.0f;
     dashSpeed = 400.0f;
 
-    attackCooldownLength = 2.0f;
+    attackCooldownLength = 1.0f;
     attackCooldownLeft = 0.0f;
     CanAttack = true;
-    dashCooldownLength = 2.0f;
+    dashCooldownLength = 1.0f;
     dashCooldownLeft = 0.0f;
     CanDash = true;
 
@@ -122,12 +121,22 @@ void Player::updateDashCooldown(float dt)
     }
 }
 
-float Player::AttackCooldownLeft() const
+float Player::GetAttackCooldownLeft() const
 {
     return attackCooldownLeft;
 }
 
-float Player::DashCooldownLeft() const
+float Player::GetDashCooldownLeft() const
 {
     return dashCooldownLeft;
+}
+
+float Player::GetAttackCooldownLength()
+{
+    return attackCooldownLength;
+}
+
+float Player::GetDashCooldownLength()
+{
+    return dashCooldownLength;
 }
