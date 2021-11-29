@@ -23,15 +23,14 @@ public:
     void ResetAttackCooldown();
     void ResetDashCooldown();
 
-    float GetAttackCooldownLeft() const;
-    float GetDashCooldownLeft() const;
+    float GetAttackCooldownLeft() const { return attackCooldownLeft; };
+    float GetDashCooldownLeft() const { return dashCooldownLeft; };
+    float GetAttackCooldownLength() const { return attackCooldownLength; };
+    float GetDashCooldownLength() const { return dashDurationLeft; };
 
     bool CanAttack;
     bool CanDash;
     bool IsDashing;
-
-    float GetAttackCooldownLength();
-    float GetDashCooldownLength();
 
 private:
     Weapon* weapon_;

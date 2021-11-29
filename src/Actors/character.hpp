@@ -54,7 +54,6 @@ protected:
     int hitpoints_;
     bool alive_;
     bool hasAnimation_;
-    sf::Vector2f velocity_ = { 0.0f, 0.0f };
     float currentSpeed_ = 200.0f;
 
     enum class AnimationIndex {

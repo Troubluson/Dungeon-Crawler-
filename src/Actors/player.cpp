@@ -120,23 +120,3 @@ void Player::updateDashCooldown(float dt)
         IsDashing = false;
     }
 }
-
-float Player::GetAttackCooldownLeft() const
-{
-    return attackCooldownLeft;
-}
-
-float Player::GetDashCooldownLeft() const
-{
-    return dashCooldownLeft;
-}
-
-float Player::GetAttackCooldownLength()
-{
-    return attackCooldownLength;
-}
-
-float Player::GetDashCooldownLength()
-{
-    return dashCooldownLength;
-}
