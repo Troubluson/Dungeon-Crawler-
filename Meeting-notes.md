@@ -231,3 +231,41 @@ We have a basic form of monsters, weapons, projectiles, rooms and player which w
 3. Oskar: Start working on the map structure, add rooms that you can walk between and change how the rooms generate.
 4. Mikael: Implement a check that checks if tile is walkable before allowing characters to move. Implement cooldowns for shooting and a dash function.
 
+
+
+# Meeting 29.11.2021 11::15
+Started meeting with discussing a lot of problems we have had while working with git. Talked through some game structure implementations.
+**Participants**:
+1. Jonas
+2. Oskar
+3. Henrik
+4. Mikael
+
+## Summary of works
+1. Jonas
+   Implemented two diffrent monsters. One seeking monster which attacks the player and one randomly moving monster.
+
+2. Mikael
+   Implemented a dash ability that might need to change. Done research on the best way to Implement cooldowns. Still a bit confused.
+
+3. Henrik
+   Done a lot of house keeping. Implemented a working wall collision detection. Gottten doxygen working.
+
+4. Oskar
+   Started working on map and how the player walks from one room to another. Worked on a death function and on power ups. Fine tuned some sprites.
+
+## Challenges
+
+1. Henrik had a lot of struggles with interfaces. Jonas computer experiences a bug where the monsters spawn in the wrong location. We all struggled with our code beeing too messy and having duplicated code.
+
+## Actions
+1. Starting documation to keep track of the growing project (extra meeting to go through how we will do this), members getting a more familiar overlook on the existing code.
+
+## Project status
+We have most of the crucial game features are now implemented but we are now struggling with time and our code being a little messy. Next step is to make our player able to enter and exit rooms. Then we soon have a quite playable game. We are still lacking in documentation and testing.
+
+### TODOs
+1. Jonas: Make one more monster class. Help henrik with developing powerups. Develop some AI types for the monsters.
+2. Henrik: Find a test framework. Continue developing weapons, powerups and collsions. Maybe look into some UI stuff. 
+3. Oskar: Make player able to walk from room to a diffrent room.
+4. Mikael: Make the cooldown work. Help with AI development. Maybe start working on a leveling up system.
