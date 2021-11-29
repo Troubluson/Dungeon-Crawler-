@@ -15,8 +15,12 @@ Game::Game()
     SwordWeapon* sword = new SwordWeapon(5, 10, sf::Vector2f(50, 100), "content/sprites/projectiles.png");
     player_->Equip(sword);
 
-    Monster* m = new Monster(300, 300); // placeholder
+    Monster* m = new RandomMonster(player_, 300, 300); // placeholder
+    // Monster* m2 = new SearchingMonster(player_, 200, 200);
     monsters_.push_back(m);
+    // monsters_.push_back(m2);
+
+    gamebar_ = Gamebar(player_);
     initVariables();
     initWindow();
 }
@@ -42,7 +46,9 @@ void Game::UpdateGame()
     for (auto monster : monsters_) {
         // if moved, check collision with walls
         if (monster->Move(dt) && collidesWithWall(monster)) {
+            std::cout << "Before: " << monster->GetPos().x << "," << monster->GetPos().y << std::endl;
             monster->RevertMove();
+            std::cout << "After: " << monster->GetPos().x << "," << monster->GetPos().y << std::endl;
         }
         monster->Update(dt);
     }
@@ -50,6 +56,7 @@ void Game::UpdateGame()
     checkCollisions(monsters_, Projectile::Type::PlayerProjectile);
     checkAndHandleProjectileWallCollisions();
     player_->Update(dt);
+    gamebar_.Update();
 }
 // render game frames
 void Game::RenderGame()
@@ -57,6 +64,7 @@ void Game::RenderGame()
     window_->clear();
     room.Render(window_);
     player_->Render(window_);
+    gamebar_.Render(window_);
     for (auto projectile : projectiles_) {
         projectile->Render(window_);
     }
@@ -82,7 +90,7 @@ void Game::Events()
             break;
         case sf::Event::KeyPressed:
             if (event_.key.code == sf::Keyboard::Space) {
-                Monster* m = new Monster(player_->GetPos().x, player_->GetPos().y);
+                Monster* m = new RandomMonster(player_, player_->GetPos().x, player_->GetPos().y);
                 monsters_.push_back(m);
                 /* sf::Vector2f direction = sf::Vector2f(1, 0);
                 Projectile* p = new Projectile(50, 50);
@@ -109,22 +117,44 @@ void Game::initWindow()
 {
     videomode_ = sf::VideoMode(1280, 768);
     window_ = new sf::RenderWindow(videomode_, "Dungeon Crawler");
+    window_->setFramerateLimit(60);
 }
 
 void Game::updateDt() { dt = dtClock.restart().asSeconds(); }
 
 void Game::manageInput()
 {
-    bool triedMoving = false;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-        triedMoving = player_->MoveLeft(dt);
-    } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-        triedMoving = player_->MoveRight(dt);
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-        triedMoving = player_->MoveUp(dt);
-    } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-        triedMoving = player_->MoveDown(dt);
+    bool W = sf::Keyboard::isKeyPressed(sf::Keyboard::W);
+    bool A = sf::Keyboard::isKeyPressed(sf::Keyboard::A);
+    bool S = sf::Keyboard::isKeyPressed(sf::Keyboard::S);
+    bool D = sf::Keyboard::isKeyPressed(sf::Keyboard::D);
+    bool triedMoving = W || A || S || D;
+    bool twoKeys = ((W || S) && (A || D));
+
+    if (twoKeys) {
+        if (A) {
+            player_->MoveLeft(dt / sqrt(2));
+        } else if (D) {
+            player_->MoveRight(dt / sqrt(2));
+        }
+
+        if (W) {
+            player_->MoveUp(dt / sqrt(2));
+        } else if (S) {
+            player_->MoveDown(dt / sqrt(2));
+        }
+    } else {
+        if (A) {
+            player_->MoveLeft(dt);
+        } else if (D) {
+            player_->MoveRight(dt);
+        }
+
+        if (W) {
+            player_->MoveUp(dt);
+        } else if (S) {
+            player_->MoveDown(dt);
+        }
     }
     if (triedMoving) {
         if (collidesWithWall(player_)) {

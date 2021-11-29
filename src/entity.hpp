@@ -33,7 +33,7 @@ public:
 
     void setPos(sf::Vector2f newPos) { pos_ = newPos; }
 
-    void Render(sf::RenderTarget* target);
+    virtual void Render(sf::RenderTarget* target);
 
 protected:
     sf::Sprite sprite_;
