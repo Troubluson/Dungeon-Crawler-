@@ -23,6 +23,9 @@ public:
     void ResetAttackCooldown();
     void ResetDashCooldown();
 
+    float AttackCooldownLeft() const;
+    float DashCooldownLeft() const;
+
     bool CanAttack;
     bool CanDash;
     bool IsDashing;

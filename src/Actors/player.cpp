@@ -36,10 +36,10 @@ void Player::Update(float dt)
     updateDashCooldown(dt);
 
     if (IsDashing) {
-        std::cout << "DashSpeed = " << dashSpeed << std::endl;
+        //std::cout << "DashSpeed = " << dashSpeed << std::endl;
         currentSpeed_ = dashSpeed;
     } else {
-        std::cout << "NormalSpeed = " << normalSpeed_ << std::endl;
+        //std::cout << "NormalSpeed = " << normalSpeed_ << std::endl;
         currentSpeed_ = normalSpeed_;
     }
 }
@@ -120,4 +120,14 @@ void Player::updateDashCooldown(float dt)
     if (dashDurationLeft <= 0) {
         IsDashing = false;
     }
+}
+
+float Player::AttackCooldownLeft() const
+{
+    return attackCooldownLeft;
+}
+
+float Player::DashCooldownLeft() const
+{
+    return dashCooldownLeft;
 }

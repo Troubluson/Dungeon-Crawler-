@@ -16,10 +16,14 @@ public:
 private:
     Player* player_;
     int hitpoints_;
+    float attackCooldown_;
+    float dashCooldown_;
     sf::Font font_;
     sf::RectangleShape background_;
     sf::RectangleShape greenBar_;
     sf::RectangleShape redBar_;
+    sf::RectangleShape violetBar_;
+    sf::RectangleShape yellowBar_;
     sf::Text hp_;
 };
 #endif
