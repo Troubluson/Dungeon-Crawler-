@@ -1,5 +1,5 @@
-#include "Collision.hpp"
 #include "game.hpp"
+#include "Collision.hpp"
 
 namespace {
 const sf::Vector2f PLACEHOLDER_PROJ_SIZE = sf::Vector2f(1.0, 1.0);
@@ -166,18 +166,9 @@ void Game::checkCollisions(std::list<Character*> characters, Projectile::Type pr
 
 void Game::checkAndHandleProjectileWallCollisions()
 {
-    if (projectiles_.empty()) {
-        return;
-    }
-    for (auto row : room.getTiles()) {
-        for (auto tile : row) {
-            if (!tile->isWalkable()) { // change this from walkable to penetratable and add it to tile
-                for (auto projectile : projectiles_) {
-                    if (collidesWithWall(projectile)) {
-                        projectile->Kill();
-                    }
-                }
-            }
+    for (auto projectile : projectiles_) {
+        if (collidesWithWall(projectile)) {
+            projectile->Kill();
         }
     }
 }
