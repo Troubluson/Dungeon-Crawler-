@@ -1,5 +1,5 @@
-#include <Collision.hpp>
-#include <game.hpp>
+#include "Collision.hpp"
+#include "game.hpp"
 
 namespace {
 const sf::Vector2f PLACEHOLDER_PROJ_SIZE = sf::Vector2f(1.0, 1.0);
