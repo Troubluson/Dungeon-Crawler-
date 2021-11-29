@@ -1,6 +1,6 @@
 #include "game.hpp"
 #include "Collision.hpp"
-
+#define C_PIXELS 64
 namespace {
 const sf::Vector2f PLACEHOLDER_PROJ_SIZE = sf::Vector2f(1.0, 1.0);
 const int PLACEHOLDER_PROJ_SPEED = 1000;
@@ -162,6 +162,16 @@ void Game::manageInput()
         if (collidesWithWall(player_)) {
             player_->RevertMove();
         }
+        if (walksThroughExit(player_)) {
+
+            float y = window_->getSize().y;
+            if (player_->GetPos().y <= 0) {
+                player_->setPos({ player_->GetPos().x, y - 1 });
+            }
+            if (player_->GetPos().y > y) {
+                player_->setPos({ player_->GetPos().x, -1 });
+            }
+        }
     }
 }
 
@@ -247,9 +257,18 @@ void Game::updateProjectiles()
 }
 bool Game::collidesWithWall(Character* character)
 {
-    return !dungeonMap_.dungeon_[0]->positionIsWalkable(character->GetBaseBoxAt(character->GetPos()));
+    return !dungeonMap_.GetRoom()->positionIsWalkable(character->GetBaseBoxAt(character->GetPos()));
 }
 bool Game::collidesWithWall(Entity* object)
 {
-    return !dungeonMap_.dungeon_[0]->positionIsWalkable(object->getSpriteBounds());
+    return !dungeonMap_.GetRoom()->positionIsWalkable(object->getSpriteBounds());
+}
+
+bool Game::walksThroughExit(Character* character)
+{
+
+    if (videomode_.width <= character->GetPos().x || videomode_.height <= character->GetPos().y || character->GetPos().x <= 0 || character->GetPos().y <= 0) {
+        return true;
+    }
+    return false;
 }

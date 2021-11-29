@@ -6,11 +6,14 @@
 
 class Map {
 private:
+    int room;
+
 public:
     Map(sf::Vector2u size);
     Map() { }
     ~Map() { }
     void loadRoom(sf::RenderTarget*);
+    void nextRoom();
     RoomInstance* GetRoom();
     std::vector<RoomInstance*> dungeon_;
 };

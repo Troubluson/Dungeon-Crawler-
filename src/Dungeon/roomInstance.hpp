@@ -20,7 +20,6 @@ public:
 private:
     sf::Vector2i exitPosition;
     sf::Vector2i playerPosition;
-
     std::vector<std::vector<RoomTile*>> tileVector_;
     int gridLen_;
     sf::RenderTexture roomTexture;

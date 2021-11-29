@@ -1,6 +1,6 @@
 #include "roomTile.hpp"
 
-RoomTile::RoomTile(std::string texture, float x, float y, bool walkable, bool exit)
+RoomTile::RoomTile(std::string texture, float x, float y, bool walkable)
 {
     if (!setTileTexture(texture)) {
         return;
@@ -9,7 +9,6 @@ RoomTile::RoomTile(std::string texture, float x, float y, bool walkable, bool ex
     position = sf::Vector2f(x, y);
     tileSprite.setPosition(position);
     walkable_ = walkable;
-    exitTile = exit;
 }
 
 bool RoomTile::setTileTexture(std::string textureLocation)

@@ -25,7 +25,7 @@ void Player::Update(float dt)
         Animations[int(currentAnimation)]->Update(dt);
         Animations[int(currentAnimation)]->AnimationToSprite(sprite_);
     }
-
+    std::cout << pos_.x << " " << pos_.y << std::endl;
     oldPos_ = pos_;
 }
 

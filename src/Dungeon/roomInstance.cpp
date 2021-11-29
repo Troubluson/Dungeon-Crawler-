@@ -29,30 +29,39 @@ void RoomInstance::setTiles(sf::Vector2u window_size)
         for (int j = 0; j < gridLen_; j++) {
             if (i == 0) {
                 if (j == 0) {
-                    row.push_back(new RoomTile("content/sprites/walls/topwallleft.png", k, n, false, false));
+                    row.push_back(new RoomTile("content/sprites/walls/topwallleft.png", k, n, false));
                 } else if (j == gridLen_ - 1) {
-                    row.push_back(new RoomTile("content/sprites/walls/topwallbottomleft.png", k, n, false, false));
+                    row.push_back(new RoomTile("content/sprites/walls/topwallbottomleft.png", k, n, false));
+
+                } else if (j == gridLen_ / 2 - 1 || j == gridLen_ / 2 - 2 || j == gridLen_ / 2) {
+                    row.push_back(new RoomTile("content/sprites/floors/tile1.png", k, n, true));
+
                 } else {
-                    row.push_back(new RoomTile("content/sprites/walls/toppartofwall1.png", k, n, false, false));
+                    row.push_back(new RoomTile("content/sprites/walls/toppartofwall1.png", k, n, false));
                 }
             } else if (i == 1 && j != 0 && j != gridLen_ - 1) {
-                row.push_back(new RoomTile("content/sprites/walls/wallfront1.png", k, n, false, false));
+                if (j == gridLen_ / 2 - 1 || j == gridLen_ / 2 - 2 || j == gridLen_ / 2) {
+                    row.push_back(new RoomTile("content/sprites/floors/tile1.png", k, n, true));
+                }
+                else {
+                row.push_back(new RoomTile("content/sprites/walls/wallfront1.png", k, n, false));
+                }
             } else if (i == 11) {
                 if (j == 0) {
-                    row.push_back(new RoomTile("content/sprites/walls/topwallright.png", k, n, false, false));
+                    row.push_back(new RoomTile("content/sprites/walls/topwallright.png", k, n, false));
                 } else if (j == gridLen_ - 1) {
-                    row.push_back(new RoomTile("content/sprites/walls/topwallbottomright.png", k, n, false, false));
-                } else if (j == gridLen_ / 2 - 1) {
-                    row.push_back(new RoomTile("content/sprites/floors/tile1.png", k, n, true, true));
+                    row.push_back(new RoomTile("content/sprites/walls/topwallbottomright.png", k, n, false));
+                } else if (j == gridLen_ / 2 - 1 || j == gridLen_ / 2 - 2 || j == gridLen_ / 2) {
+                    row.push_back(new RoomTile("content/sprites/floors/tile1.png", k, n, true));
                 } else {
-                    row.push_back(new RoomTile("content/sprites/walls/topwallbottom.png", k, n, false, false));
+                    row.push_back(new RoomTile("content/sprites/walls/topwallbottom.png", k, n, false));
                 }
             } else if (i != 0 && j == 0) {
-                row.push_back(new RoomTile("content/sprites/walls/topwallLEFTSIDE.png", k, n, false, false));
+                row.push_back(new RoomTile("content/sprites/walls/topwallLEFTSIDE.png", k, n, false));
             } else if (i != 0 && j == gridLen_ - 1) {
-                row.push_back(new RoomTile("content/sprites/walls/topwallRIGHTSIDE.png", k, n, false, false));
+                row.push_back(new RoomTile("content/sprites/walls/topwallRIGHTSIDE.png", k, n, false));
             } else {
-                row.push_back(new RoomTile("content/sprites/floors/tile1.png", k, n, true, false));
+                row.push_back(new RoomTile("content/sprites/floors/tile1.png", k, n, true));
             }
 
             k += 64;
@@ -99,4 +108,5 @@ bool RoomInstance::positionIsWalkable(sf::FloatRect entityBounds)
     }
     return true;
 }
+
 std::vector<std::vector<RoomTile*>> RoomInstance::getTiles() const { return tileVector_; }
