@@ -39,6 +39,7 @@ public:
     virtual bool Move(float) { return false; }
     void RevertMove();
     virtual void Attack(sf::Vector2f, std::list<Projectile*>) {};
+    void SetOldPos(sf::Vector2f v);
     /*
     // for ICollidable
     virtual sf::FloatRect GetBoundingBox() { return sprite_.getGlobalBounds(); }
@@ -48,7 +49,6 @@ public:
 
 protected:
     /*void GetHitBy(Projectile& projectile);*/
-    float clamp(float value, float low, float high);
 
     int hitpoints_;
     bool alive_;

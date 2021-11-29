@@ -16,9 +16,9 @@ Game::Game()
     player_->Equip(sword);
 
     Monster* m = new RandomMonster(player_, 300, 300); // placeholder
-    // Monster* m2 = new SearchingMonster(player_, 200, 200);
+    Monster* m2 = new SearchingMonster(player_, 200, 200);
     monsters_.push_back(m);
-    // monsters_.push_back(m2);
+    monsters_.push_back(m2);
 
     gamebar_ = Gamebar(player_);
     initVariables();
@@ -45,11 +45,13 @@ void Game::UpdateGame()
     updateProjectiles();
     for (auto monster : monsters_) {
         // if moved, check collision with walls
-        if (monster->Move(dt) && collidesWithWall(monster)) {
-            std::cout << "Before: " << monster->GetPos().x << "," << monster->GetPos().y << std::endl;
+        Vector2f oldoldPos = monster->getOldPosition();
+        bool monsterMoved = monster->Move(dt);
+        if (monsterMoved && collidesWithWall(monster)) {
             monster->RevertMove();
-            std::cout << "After: " << monster->GetPos().x << "," << monster->GetPos().y << std::endl;
+            monster->SetOldPos(oldoldPos);
         }
+        std::cout << std::endl;
         monster->Update(dt);
     }
     // checkCollisions(player_, Projectile::Type::EnemyProjectile);

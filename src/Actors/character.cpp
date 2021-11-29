@@ -38,18 +38,11 @@ void Character::Update(float dt)
         Animations[int(currentAnimation)]->Update(dt);
         Animations[int(currentAnimation)]->AnimationToSprite(sprite_);
     }
-    oldPos_ = pos_;
 }
 
-float Character::clamp(float value, float low, float high)
+void Character::SetOldPos(sf::Vector2f v)
 {
-    if (value < low) {
-        value = low;
-    }
-    if (value > high) {
-        value = high;
-    }
-    return value;
+    oldPos_ = v;
 }
 
 void Character::initVariables()

@@ -29,20 +29,17 @@ Player& Monster::GetPlayer() const
 {
     return *player_;
 }
-void Monster::Update(float dt)
+void Monster::Update(float)
 {
     int width = hitpoints_;
     int newWidth = std::min(100, std::max(0, width));
     healthbar_.setSize(sf::Vector2f(newWidth, 5));
     healthbar_.setPosition(GetPos() + sf::Vector2f(15, -5));
 
-    Move(dt);
     sprite_.setPosition(pos_);
     if (hitpoints_ <= 0) {
         alive_ = false;
     }
 
     MonsterAttack();
-
-    oldPos_ = pos_;
 }
