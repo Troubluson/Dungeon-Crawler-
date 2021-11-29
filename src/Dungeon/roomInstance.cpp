@@ -68,9 +68,35 @@ void RoomInstance::renderSpriteBackground(sf::Vector2u window_size)
     roomTexture.create(window_size.x, window_size.y);
     for (int i = 0; i < this->gridLen_; i++) {
         for (int j = 0; j < this->gridLen_; j++) {
-            roomTexture.draw(this->tileVector_[i][j]->tileSprite);
+            roomTexture.draw(this->tileVector_[i][j]->getSprite());
         }
     }
     roomTexture.display();
     roomBackground.setTexture(roomTexture.getTexture());
 }
+
+std::vector<RoomTile*> RoomInstance::getRoomTilesAt(sf::FloatRect entityBounds)
+{
+    // change this to calculate which tile from position
+    std::vector<RoomTile*> tilesInBounds;
+    for (auto tileRow : tileVector_) {
+        for (auto tile : tileRow) {
+            if (tile->getBoundingBox().intersects(entityBounds)) {
+                tilesInBounds.push_back(tile);
+            }
+        }
+    }
+    return tilesInBounds;
+}
+// we end up needing to use the bounding box if we don't due to a character being in multiple tiles simultaneously
+bool RoomInstance::positionIsWalkable(sf::FloatRect entityBounds)
+{
+    auto tilesInBounds = getRoomTilesAt(entityBounds);
+    for (auto tile : tilesInBounds) {
+        if (!tile->isWalkable()) {
+            return false;
+        }
+    }
+    return true;
+}
+std::vector<std::vector<RoomTile*>> RoomInstance::getTiles() const { return tileVector_; }

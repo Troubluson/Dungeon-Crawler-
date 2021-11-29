@@ -1,19 +1,19 @@
 
-#include "SwordWeapon.hpp"
-#include <cmath>
+#include "Combat/Weapons/SwordWeapon.hpp"
 
 SwordWeapon::SwordWeapon(int damage, int range, Vector2f projectileSize, const std::string& spriteLocation)
     : Weapon(damage, range, projectileSize, spriteLocation)
 {
     penetrates_ = true;
-    sprite_.setTextureRect({ 400, 215, 10, 15 });
-    SpriteHelper().SetScale(projectileSize, sprite_);
+    sprite_.setTextureRect({ 400, 215, 10, 15 }); // placeholder
+    spritehelper::SetScale(projectileSize, sprite_);
     // sets scale and origin of sprite
 }
 list<Projectile*> SwordWeapon::Use(Vector2f dir, Vector2f origin)
 {
     // have to rotate the projectile
-    SpriteHelper().RotateSprite(dir, sprite_);
+    spritehelper::RotateSprite(dir, sprite_);
+    spritehelper::SetOriginBottomCenter(sprite_);
     auto p = new Projectile(sprite_, origin, true);
     p->SetDirection(dir);
     p->SetDamage(damage_);
