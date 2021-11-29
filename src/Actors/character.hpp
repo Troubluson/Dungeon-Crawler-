@@ -29,7 +29,7 @@ public:
     virtual void Move(float) {};
     virtual void Attack(sf::Vector2f, std::list<Projectile*>) {};
     sf::Vector2f GetSpriteCenter();
-
+    void setDeathAnimation();
     void TakeDamage(int value);
 
     bool IsAlive();
@@ -49,6 +49,7 @@ protected:
         AnimationLeft,
         AnimationRight,
         AnimationIdle,
+        AnimationDeath,
         Count
     };
 

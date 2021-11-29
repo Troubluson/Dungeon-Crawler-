@@ -79,6 +79,10 @@ sf::Vector2f Character::GetSpriteCenter()
 void Character::TakeDamage(int value)
 {
     hitpoints_ -= value;
+    if (hitpoints_ < 0) {
+        alive_ = false;
+        currentAnimation = AnimationIndex::AnimationDeath;
+    }
 }
 
 bool Character::IsAlive() { return alive_; }

@@ -50,7 +50,9 @@ void Game::UpdateGame()
     // checkCollisions(player_, Projectile::Type::EnemyProjectile);
     checkCollisions(monsters_, Projectile::Type::PlayerProjectile);
     checkWallCollisions();
-    player_->Update(dt);
+    if (player_->IsAlive()) {
+        player_->Update(dt);
+    }
     gamebar_.Update();
 }
 // render game frames

@@ -2,6 +2,7 @@
 
 namespace {
 const std::string PLAYER_SPRITE = "content/spritesheet.png";
+const std::string PLAYER_DEATH_SPRITE = "content/sprites/characters/deathanimation.png";
 }
 
 Player::Player()
