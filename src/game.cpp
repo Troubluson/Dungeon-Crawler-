@@ -16,10 +16,10 @@ Game::Game()
     SwordWeapon* sword = new SwordWeapon(5, 10, sf::Vector2f(50, 100), "content/sprites/projectiles.png");
     player_->Equip(sword);
 
-    Monster* m = new RandomMonster(player_, 300, 300); // placeholder
+    /* Monster* m = new RandomMonster(player_, 300, 300); // placeholder
     Monster* m2 = new SearchingMonster(player_, 200, 200);
     monsters_.push_back(m);
-    monsters_.push_back(m2);
+    monsters_.push_back(m2); */
 
     gamebar_ = Gamebar(player_);
     initVariables();
@@ -125,6 +125,7 @@ void Game::manageInput()
     bool A = sf::Keyboard::isKeyPressed(sf::Keyboard::A);
     bool S = sf::Keyboard::isKeyPressed(sf::Keyboard::S);
     bool D = sf::Keyboard::isKeyPressed(sf::Keyboard::D);
+    bool LSHIFT = sf::Keyboard::isKeyPressed(sf::Keyboard::LShift);
 
     bool twoKeys = ((W || S) && (A || D));
 
@@ -152,6 +153,10 @@ void Game::manageInput()
         } else if (S) {
             player_->MoveDown(dt);
         }
+    }
+
+    if (LSHIFT) {
+        player_->Dash();
     }
 }
 

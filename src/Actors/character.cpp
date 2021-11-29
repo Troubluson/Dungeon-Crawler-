@@ -23,9 +23,12 @@ Character::~Character() { }
 
 void Character::UpdateCooldowns(float dt)
 {
-    attackCooldownLeft = std::max(0.0f, attackCooldownLeft - dt);
-    if (attackCooldownLeft <= 0) {
-        CanAttack = true;
+    updateAttackCooldown(dt);
+    updateDashCooldown(dt);
+    if (IsDashing) {
+        currentSpeed_ = dashSpeed;
+    } else {
+        currentSpeed_ = normalSpeed_;
     }
 }
 
@@ -40,41 +43,83 @@ float Character::clamp(float value, float low, float high)
     return value;
 }
 
+void Character::updateAttackCooldown(float dt)
+{
+    attackCooldownLeft = std::max(0.0f, attackCooldownLeft - dt);
+    if (attackCooldownLeft <= 0.0f) {
+        CanAttack = true;
+    }
+}
+
+void Character::updateDashCooldown(float dt)
+{
+    dashCooldownLeft = std::max(0.0f, dashCooldownLeft - dt);
+    if (dashCooldownLeft <= 0.0f) {
+        CanDash = true;
+    }
+
+    if (IsDashing) {
+        dashDurationLeft -= dt;
+    }
+    if (dashDurationLeft <= 0) {
+        IsDashing = false;
+    }
+}
+
 void Character::initVariables()
 {
     alive_ = true;
     hitpoints_ = 50;
+    currentSpeed_ = normalSpeed_;
+    dashSpeed = 400.0f;
+
     attackCooldownLength = 5.0f;
     attackCooldownLeft = 0.0f;
     CanAttack = true;
+    dashCooldownLength = 5.0f;
+    dashCooldownLeft = 0.0f;
+    CanDash = true;
+
+    IsDashing = false;
+    dashDurationLength = 2.0f;
+    dashDurationLeft = dashDurationLength;
 }
 
 bool Character::MoveLeft(float dt)
 {
-    pos_.x -= speed_ * dt;
+    pos_.x -= currentSpeed_ * dt;
     currentAnimation = AnimationIndex::AnimationLeft;
     return true;
 }
 
 bool Character::MoveRight(float dt)
 {
-    pos_.x += speed_ * dt;
+    pos_.x += currentSpeed_ * dt;
     currentAnimation = AnimationIndex::AnimationRight;
     return true;
 }
 
 bool Character::MoveDown(float dt)
 {
-    pos_.y += speed_ * dt;
+    pos_.y += currentSpeed_ * dt;
     currentAnimation = AnimationIndex::AnimationDown;
     return true;
 }
 
 bool Character::MoveUp(float dt)
 {
-    pos_.y -= speed_ * dt;
+    pos_.y -= currentSpeed_ * dt;
     currentAnimation = AnimationIndex::AnimationUp;
     return true;
+}
+
+void Character::Dash()
+{
+    if (CanDash) {
+        IsDashing = true;
+        dashDurationLeft = dashDurationLength;
+        ResetDashCooldown();
+    }
 }
 
 sf::Vector2f Character::GetSpriteCenter()
@@ -96,6 +141,12 @@ void Character::ResetAttackCooldown()
 {
     attackCooldownLeft = attackCooldownLength;
     CanAttack = false;
+}
+
+void Character::ResetDashCooldown()
+{
+    dashCooldownLeft = dashCooldownLength;
+    CanDash = false;
 }
 
 bool Character::IsAlive() { return alive_; }
