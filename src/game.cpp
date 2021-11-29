@@ -117,7 +117,6 @@ void Game::initWindow()
 {
     videomode_ = sf::VideoMode(1280, 768);
     window_ = new sf::RenderWindow(videomode_, "Dungeon Crawler");
-    window_->setFramerateLimit(60);
 }
 
 void Game::updateDt() { dt = dtClock.restart().asSeconds(); }
