@@ -13,7 +13,7 @@ const float PLACEHOLDER_PROJ_LS = 0.5;
 Game::Game()
 {
     player_ = new Player();
-    SwordWeapon* sword = new SwordWeapon(5, 10, sf::Vector2f(50, 100), "content/sprites/projectiles.png");
+    SwordWeapon* sword = new SwordWeapon(5, 10, sf::Vector2f(50, 100), 120, "content/sprites/projectiles.png");
     player_->Equip(sword);
 
     Monster* m = new RandomMonster(player_, 300, 300); // placeholder
@@ -107,6 +107,7 @@ void Game::initWindow()
 {
     videomode_ = sf::VideoMode(1280, 768);
     window_ = new sf::RenderWindow(videomode_, "Dungeon Crawler");
+    vie
 }
 
 void Game::updateDt() { dt = dtClock.restart().asSeconds(); }
