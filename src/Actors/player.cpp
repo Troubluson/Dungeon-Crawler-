@@ -35,10 +35,10 @@ void Player::Update(float dt)
     updateDashCooldown(dt);
 
     if (IsDashing) {
-        //std::cout << "DashSpeed = " << dashSpeed << std::endl;
+        // std::cout << "DashSpeed = " << dashSpeed << std::endl;
         currentSpeed_ = dashSpeed;
     } else {
-        //std::cout << "NormalSpeed = " << normalSpeed_ << std::endl;
+        // std::cout << "NormalSpeed = " << normalSpeed_ << std::endl;
         currentSpeed_ = normalSpeed_;
     }
 }
@@ -61,6 +61,7 @@ void Player::Attack(sf::Vector2f mousePosition, std::list<Projectile*>& projecti
 void Player::Equip(Weapon* weapon)
 {
     weapon_ = weapon;
+    attackCooldownLength = weapon->GetAttackCooldown();
 }
 
 void Player::Dash()
