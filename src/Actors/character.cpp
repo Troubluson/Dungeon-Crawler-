@@ -70,18 +70,19 @@ void Character::initVariables()
 {
     alive_ = true;
     hitpoints_ = 50;
+    normalSpeed_ = 400.0f;
     currentSpeed_ = normalSpeed_;
-    dashSpeed = 400.0f;
+    dashSpeed = 1000.0f;
 
-    attackCooldownLength = 5.0f;
+    attackCooldownLength = 2.0f;
     attackCooldownLeft = 0.0f;
     CanAttack = true;
-    dashCooldownLength = 5.0f;
+    dashCooldownLength = 2.0f;
     dashCooldownLeft = 0.0f;
     CanDash = true;
 
     IsDashing = false;
-    dashDurationLength = 2.0f;
+    dashDurationLength = 1.0f;
     dashDurationLeft = dashDurationLength;
 }
 

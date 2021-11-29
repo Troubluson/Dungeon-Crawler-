@@ -47,7 +47,7 @@ protected:
     float clamp(float value, float low, float high);
     bool hasAnimation_;
     sf::Vector2f velocity_ = { 0.0f, 0.0f };
-    static constexpr float normalSpeed_ = 200.0f;
+    float normalSpeed_;
     float dashSpeed;
     float dashDurationLength;
     float dashDurationLeft;
