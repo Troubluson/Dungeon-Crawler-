@@ -16,9 +16,37 @@ public:
     virtual void Update(float dt);
     void Attack(sf::Vector2f mousePos, std::list<Projectile*>& worldProjectiles);
     void Equip(Weapon* weapon);
+    void Dash();
+
+    void initVariables();
+
+    void ResetAttackCooldown();
+    void ResetDashCooldown();
+
+    float GetAttackCooldownLeft() const;
+    float GetDashCooldownLeft() const;
+
+    bool CanAttack;
+    bool CanDash;
+    bool IsDashing;
+
+    float GetAttackCooldownLength();
+    float GetDashCooldownLength();
 
 private:
     Weapon* weapon_;
+
+    float normalSpeed_;
+    float dashSpeed;
+    float dashDurationLength;
+    float dashDurationLeft;
+
+    float attackCooldownLength;
+    float attackCooldownLeft;
+    void updateAttackCooldown(float dt);
+    float dashCooldownLength;
+    float dashCooldownLeft;
+    void updateDashCooldown(float dt);
 };
 
 #endif

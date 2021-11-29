@@ -16,6 +16,7 @@ public:
     virtual ~Character();
 
     virtual void Update(float dt) = 0;
+    void UpdateCooldowns(float dt);
 
     void initVariables();
     /**
@@ -54,7 +55,7 @@ protected:
     bool alive_;
     bool hasAnimation_;
     sf::Vector2f velocity_ = { 0.0f, 0.0f };
-    static constexpr float speed_ = 400.0f;
+    float currentSpeed_ = 200.0f;
 
     enum class AnimationIndex {
         AnimationUp,

@@ -1,8 +1,8 @@
 
 #include "Combat/Weapons/SwordWeapon.hpp"
 
-SwordWeapon::SwordWeapon(int damage, int range, Vector2f projectileSize, const std::string& spriteLocation)
-    : Weapon(damage, range, projectileSize, spriteLocation)
+SwordWeapon::SwordWeapon(int damage, int range, Vector2f projectileSize, int rateOfFire, const std::string& spriteLocation)
+    : Weapon(damage, range, projectileSize, rateOfFire, spriteLocation)
 {
     penetrates_ = true;
     sprite_.setTextureRect({ 400, 215, 10, 15 }); // placeholder

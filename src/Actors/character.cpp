@@ -53,28 +53,28 @@ void Character::initVariables()
 
 bool Character::MoveLeft(float dt)
 {
-    pos_.x -= speed_ * dt;
+    pos_.x -= currentSpeed_ * dt;
     currentAnimation = AnimationIndex::AnimationLeft;
     return true;
 }
 
 bool Character::MoveRight(float dt)
 {
-    pos_.x += speed_ * dt;
+    pos_.x += currentSpeed_ * dt;
     currentAnimation = AnimationIndex::AnimationRight;
     return true;
 }
 
 bool Character::MoveDown(float dt)
 {
-    pos_.y += speed_ * dt;
+    pos_.y += currentSpeed_ * dt;
     currentAnimation = AnimationIndex::AnimationDown;
     return true;
 }
 
 bool Character::MoveUp(float dt)
 {
-    pos_.y -= speed_ * dt;
+    pos_.y -= currentSpeed_ * dt;
     currentAnimation = AnimationIndex::AnimationUp;
     return true;
 }

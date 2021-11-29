@@ -12,7 +12,7 @@ const float PLACEHOLDER_PROJ_LS = 0.5;
 Game::Game()
 {
     player_ = new Player();
-    SwordWeapon* sword = new SwordWeapon(5, 10, sf::Vector2f(50, 100), "content/sprites/projectiles.png");
+    SwordWeapon* sword = new SwordWeapon(5, 10, sf::Vector2f(50, 100), 120, "content/sprites/projectiles.png");
     player_->Equip(sword);
 
     Monster* m = new RandomMonster(player_, 300, 300); // placeholder
@@ -101,12 +101,6 @@ void Game::Events()
                 projectiles_.push_back(p); */
             }
             break;
-        case sf::Event::MouseButtonPressed:
-            if (event_.mouseButton.button == sf::Mouse::Button::Left) {
-                auto mousePos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(*window_));
-                player_->Attack(mousePos, projectiles_);
-            }
-            break;
         default:
             break;
         }
@@ -129,8 +123,11 @@ void Game::manageInput()
     bool A = sf::Keyboard::isKeyPressed(sf::Keyboard::A);
     bool S = sf::Keyboard::isKeyPressed(sf::Keyboard::S);
     bool D = sf::Keyboard::isKeyPressed(sf::Keyboard::D);
-    bool triedMoving = W || A || S || D;
+    bool LSHIFT = sf::Keyboard::isKeyPressed(sf::Keyboard::LShift);
+    bool LMOUSE = sf::Mouse::isButtonPressed(sf::Mouse::Left);
+
     bool twoKeys = ((W || S) && (A || D));
+    bool triedMoving = W || A || S || D;
 
     if (twoKeys) {
         if (A) {
@@ -156,6 +153,15 @@ void Game::manageInput()
         } else if (S) {
             player_->MoveDown(dt);
         }
+    }
+
+    if (LSHIFT) {
+        player_->Dash();
+    }
+
+    if (LMOUSE) {
+        auto mousePos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(*window_));
+        player_->Attack(mousePos, projectiles_);
     }
     if (triedMoving) {
         if (collidesWithWall(player_)) {
