@@ -17,8 +17,9 @@ public:
     virtual bool Move(float dt);
 
 private:
-    sf::Clock clock_;
     int currentDir_;
+    float durationUntilTurn = 3.0f;
+    float elapsedTurnTime = 0.0f;
 };
 
 #endif

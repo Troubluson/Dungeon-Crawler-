@@ -13,10 +13,10 @@ RandomMonster::~RandomMonster() { }
 
 bool RandomMonster::Move(float dt)
 {
+    elapsedTurnTime += dt;
     oldPos_ = GetPos();
-    float elapsedTime = clock_.getElapsedTime().asSeconds();
-    if (elapsedTime > 0.3) {
-        clock_.restart();
+    if (elapsedTurnTime > 0.3) {
+        elapsedTurnTime = 0.0f;
         int dir = rand() % 4 + 1;
         currentDir_ = dir;
     }
