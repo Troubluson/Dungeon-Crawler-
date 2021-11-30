@@ -6,14 +6,18 @@ MonsterSpawner::MonsterSpawner(Player* player, RoomInstance& spawnRoom, uint mon
     , spawnRoom_(spawnRoom)
     , monsterCount_(monsterAmount)
 {
+    srand(sf::Mouse::getPosition().x);
 }
 Monster* MonsterSpawner::getRandomMonster() const
 {
-    srand(time(0));
     int monsterType = rand() % monsterClassCount_;
     switch (monsterType) {
-    case 0:
-        return new RandomMonster(character_, 0, 0);
+    case 0: {
+        SwordWeapon* monterSword = new SwordWeapon(5, 10, sf::Vector2f(50, 100), 120, "content/sprites/projectiles.png");
+        auto m = new RandomMonster(character_, 0, 0);
+        m->Equip(monterSword);
+        return m;
+    }
     case 1:
         return new SearchingMonster(character_, 0, 0);
     default:
@@ -22,7 +26,6 @@ Monster* MonsterSpawner::getRandomMonster() const
 }
 Monster* MonsterSpawner::SpawnMonster() const
 {
-    srand(time(0));
     Monster* m = getRandomMonster();
     if (m == nullptr) {
         std::cout << "nullptr";
@@ -31,8 +34,8 @@ Monster* MonsterSpawner::SpawnMonster() const
     int randomPosX, randomPosY;
     sf::Vector2u roomSize = spawnRoom_.getRoomSize();
     do {
-        randomPosX = (rand() % (roomSize.x - 100)) + 100;
-        randomPosY = (rand() % (roomSize.y - 100)) + 100;
+        randomPosX = (rand() % (roomSize.x - 300)) + 100;
+        randomPosY = (rand() % (roomSize.y - 300)) + 100;
         m->setOldAndNewPos(sf::Vector2f(randomPosX, randomPosY));
 
     } while (!spawnRoom_.positionIsWalkable(m->GetBaseBoxAt(m->GetPos())));
