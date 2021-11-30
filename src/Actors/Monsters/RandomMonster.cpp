@@ -1,10 +1,10 @@
 #include "RandomMonster.hpp"
 
-RandomMonster::RandomMonster(Character* player, sf::Vector2f pos)
+RandomMonster::RandomMonster(Player* player, sf::Vector2f pos)
     : Monster(player, pos)
 {
 }
-RandomMonster::RandomMonster(Character* player, float xPos, float yPos)
+RandomMonster::RandomMonster(Player* player, float xPos, float yPos)
     : Monster(player, sf::Vector2f(xPos, yPos))
 {
 }

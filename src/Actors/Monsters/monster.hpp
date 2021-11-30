@@ -8,20 +8,21 @@
 
 class Monster : public Character {
 public:
-    Monster(Character* player, float xPos, float yPos);
-    Monster(Character* player, sf::Vector2f pos);
+    Monster(Player* player, float xPos, float yPos);
+    Monster(Player* player, sf::Vector2f pos);
     ~Monster();
 
-    Character& GetPlayer() const;
+    Player& GetPlayer() const;
     virtual void Update(float);
     virtual bool Move(float dt) = 0;
     virtual void MonsterAttack() = 0;
     virtual void Render(sf::RenderTarget* target);
-    void setPlayer(Character* character);
+    void setPlayer(Player* player);
 
 private:
-    Character* player_;
+    Player* player_;
     sf::RectangleShape healthbar_;
+    std::string name;
 };
 
 #endif

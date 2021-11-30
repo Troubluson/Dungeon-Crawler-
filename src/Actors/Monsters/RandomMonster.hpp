@@ -9,8 +9,8 @@
 
 class RandomMonster : public Monster {
 public:
-    RandomMonster(Character* player, float xPos, float yPos);
-    RandomMonster(Character* player, sf::Vector2f pos);
+    RandomMonster(Player* player, float xPos, float yPos);
+    RandomMonster(Player* player, sf::Vector2f pos);
     ~RandomMonster();
     virtual bool Move(float dt);
     virtual void MonsterAttack();
@@ -18,6 +18,7 @@ public:
 private:
     sf::Clock clock_;
     int currentDir_;
+    const std::string name = "Randy";
 };
 
 #endif

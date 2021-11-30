@@ -1,12 +1,14 @@
 #include "MonsterSpawner.hpp"
+#include <time.h>
 
-MonsterSpawner::MonsterSpawner(Character* character, uint monsterAmount)
+MonsterSpawner::MonsterSpawner(Player* character, uint monsterAmount)
     : monsterCount_(monsterAmount)
     , character_(character)
 {
 }
 Monster* MonsterSpawner::getRandomMonster() const
 {
+    srand(time(0));
     int monsterType = rand() % monsterClassCount_;
     switch (monsterType) {
     case 0:
@@ -19,14 +21,15 @@ Monster* MonsterSpawner::getRandomMonster() const
 }
 Monster* MonsterSpawner::SpawnMonster() const
 {
+    srand(time(0));
     Monster* m = getRandomMonster();
     if (m == nullptr) {
         std::cout << "nullptr";
         return nullptr;
     }
-    auto randomPosX = rand() % 500 + 200;
-    auto randomPosY = rand() % 300 + 200;
-    m->setPos(sf::Vector2f(randomPosX, randomPosY));
+    auto randomPosX = (rand() % 500) + 100;
+    auto randomPosY = (rand() % 300) + 100;
+    m->setOldAndNewPos(sf::Vector2f(randomPosX, randomPosY));
     return m;
 }
 

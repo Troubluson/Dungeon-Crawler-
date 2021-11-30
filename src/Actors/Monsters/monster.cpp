@@ -1,6 +1,6 @@
 #include "monster.hpp"
 
-Monster::Monster(Character* player, sf::Vector2f pos)
+Monster::Monster(Player* player, sf::Vector2f pos)
     : Character("content/monster1.png", pos)
     , player_(player)
 {
@@ -9,7 +9,7 @@ Monster::Monster(Character* player, sf::Vector2f pos)
     healthbar.setPosition(pos.x + 15, pos.y - 5);
     healthbar_ = healthbar;
 }
-Monster::Monster(Character* player, float xPos, float yPos)
+Monster::Monster(Player* player, float xPos, float yPos)
     : Character("content/monster1.png", sf::Vector2f(xPos, yPos))
     , player_(player)
 {
@@ -25,12 +25,7 @@ void Monster::Render(sf::RenderTarget* target)
     target->draw(healthbar_);
 }
 
-void Monster::setPlayer(Character* character)
-{
-    player_ = character;
-}
-
-Character& Monster::GetPlayer() const
+Player& Monster::GetPlayer() const
 {
     return *player_;
 }

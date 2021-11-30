@@ -17,7 +17,9 @@ Game::Game()
 
     MonsterSpawner spawner = MonsterSpawner(player_, 5);
     auto spawnedMonsters = spawner.SpawnMonsters();
-    monsters_.splice(monsters_.end(), spawnedMonsters);
+    for (auto m : spawnedMonsters) {
+        monsters_.push_back(m);
+    }
     gamebar_ = Gamebar(player_);
     initVariables();
     initWindow();
