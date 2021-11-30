@@ -7,6 +7,8 @@
 #include "Actors/SearchingMonster.hpp"
 #include "Actors/monster.hpp"
 #include "Actors/player.hpp"
+#include "roomInstance.hpp"
+/*#include "CollisionSystem.hpp"*/
 #include "Combat/Projectile.hpp"
 #include "Combat/Weapons/SwordWeapon.hpp"
 #include "gamebar.hpp"
@@ -38,18 +40,24 @@ private:
     bool paused = false;
     bool gameEnder_;
 
-    std::list<Character*> monsters_;
+    std::list<Monster*> monsters_;
     std::list<Projectile*> projectiles_;
+    // CollisionSystem collisionSys;
 
     void initVariables();
     void initWindow();
     void updateDt();
     void manageInput();
-    void checkCollisions(std::list<Character*> characterVector, Projectile::Type type);
-    void checkWallCollisions();
+    void checkCollisions(Character* character, Projectile::Type projectileType);
+    void checkMonsterCollisions();
+    void checkPlayerCollisions();
+    void checkAndHandleProjectileWallCollisions();
     void deleteProjectile(Projectile* p);
     void deleteMonster(Character* m);
     void updateProjectiles();
+    bool collidesWithWall(Character* character);
+    bool collidesWithWall(Entity* object);
+    bool gameLost();
 };
 
 #endif
