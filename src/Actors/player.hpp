@@ -6,7 +6,6 @@
 #include "Actors/character.hpp"
 #include "Combat/Weapons/Weapon.hpp"
 
-class Weapon;
 class Player : public Character {
 public:
     Player();
