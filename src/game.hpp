@@ -48,7 +48,9 @@ private:
     void initWindow();
     void updateDt();
     void manageInput();
-    void handleMonsterProjectileCollisions(std::list<Monster*> characterVector, Projectile::Type type);
+    void checkCollisions(Character* character, Projectile::Type projectileType);
+    void checkMonsterCollisions();
+    void checkPlayerCollisions();
     void checkAndHandleProjectileWallCollisions();
     void deleteProjectile(Projectile* p);
     void addProjectiles(std::list<Projectile*> listToAdd);
@@ -56,6 +58,7 @@ private:
     void updateProjectiles();
     bool collidesWithWall(Character* character);
     bool collidesWithWall(Entity* object);
+    bool gameLost();
 };
 
 #endif
