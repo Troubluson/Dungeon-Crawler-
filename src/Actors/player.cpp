@@ -14,22 +14,16 @@ int Player::GetHitPoints() const { return hitpoints_; }
 
 void Player::Update(float dt)
 {
-    sprite_.setPosition(pos_);
-    if (hitpoints_ <= 0) {
-        alive_ = false;
-    }
-
     if (hasAnimation_) {
-        if (oldPos_ == pos_) {
+        if (oldPos_.x == pos_.x && oldPos_.y == pos_.y) {
             Idle();
         }
         Animations[int(currentAnimation)]->Update(dt);
         Animations[int(currentAnimation)]->AnimationToSprite(sprite_);
     }
 
-    oldPos_ = pos_;
+    generalUpdate(dt);
 
-    updateAttackCooldown(dt);
     updateDashCooldown(dt);
 
     if (IsDashing) {
@@ -37,27 +31,6 @@ void Player::Update(float dt)
     } else {
         currentSpeed_ = normalSpeed_;
     }
-}
-
-void Player::Attack(sf::Vector2f mousePosition, std::list<Projectile*>& projectiles)
-{
-    if (weapon_ == nullptr) {
-        return;
-    }
-    if (!CanAttack) {
-        return;
-    }
-    ResetAttackCooldown();
-    auto spriteCenter = GetSpriteCenter();
-    auto direction = mousePosition - spriteCenter;
-    auto newProjectiles = weapon_->Use(direction, spriteCenter);
-    projectiles.splice(projectiles.end(), newProjectiles); // moves new projectiles to the back of projectiles_
-}
-
-void Player::Equip(Weapon* weapon)
-{
-    weapon_ = weapon;
-    attackCooldownLength = weapon->GetAttackCooldown();
 }
 
 void Player::Dash()
@@ -71,39 +44,21 @@ void Player::Dash()
 
 void Player::initVariables()
 {
-    normalSpeed_ = 200.0f;
     dashSpeed = 400.0f;
-
-    attackCooldownLength = 1.66f;
-    attackCooldownLeft = 0.0f;
-    CanAttack = true;
     dashCooldownLength = 1.0f;
     dashCooldownLeft = 0.0f;
     CanDash = true;
-
     IsDashing = false;
     dashDurationLength = 1.0f;
-    dashDurationLeft = dashDurationLength;
-}
+    dashDurationLeft = 0.0f;
 
-void Player::ResetAttackCooldown()
-{
-    attackCooldownLeft = attackCooldownLength;
-    CanAttack = false;
+    characterProjectileType = Projectile::Type::PlayerProjectile;
 }
 
 void Player::ResetDashCooldown()
 {
     dashCooldownLeft = dashCooldownLength;
     CanDash = false;
-}
-
-void Player::updateAttackCooldown(float dt)
-{
-    attackCooldownLeft = std::max(0.0f, attackCooldownLeft - dt);
-    if (attackCooldownLeft <= 0.0f) {
-        CanAttack = true;
-    }
 }
 
 void Player::updateDashCooldown(float dt)
@@ -119,4 +74,15 @@ void Player::updateDashCooldown(float dt)
     if (dashDurationLeft <= 0) {
         IsDashing = false;
     }
+}
+
+std::list<Projectile*> Player::Attack(sf::Vector2f aimPos)
+{
+    if (!CanAttack || !HasWeapon()) {
+        return emptyList();
+    }
+
+    ResetAttackCooldown();
+
+    return shotProjectileList(aimPos);
 }

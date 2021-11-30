@@ -53,6 +53,7 @@ private:
     void checkPlayerCollisions();
     void checkAndHandleProjectileWallCollisions();
     void deleteProjectile(Projectile* p);
+    void addProjectiles(std::list<Projectile*> listToAdd);
     void deleteMonster(Character* m);
     void updateProjectiles();
     bool collidesWithWall(Character* character);
