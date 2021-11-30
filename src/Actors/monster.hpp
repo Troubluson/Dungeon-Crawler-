@@ -13,14 +13,16 @@ public:
     ~Monster();
 
     Player& GetPlayer() const;
+    virtual std::list<Projectile*> Attack() = 0;
     virtual void Update(float);
     virtual bool Move(float dt) = 0;
     virtual void Render(sf::RenderTarget* target);
     void initVariables();
 
-private:
+protected:
     Player* player_;
     sf::RectangleShape healthbar_;
+    float getDistanceToPlayer();
 };
 
 #endif

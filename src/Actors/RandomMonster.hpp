@@ -12,6 +12,8 @@ public:
     RandomMonster(Player* player, float xPos, float yPos);
     RandomMonster(Player* player, sf::Vector2f pos);
     ~RandomMonster();
+
+    virtual std::list<Projectile*> Attack();
     virtual bool Move(float dt);
 
 private:

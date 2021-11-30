@@ -13,10 +13,15 @@ Game::Game()
 {
     player_ = new Player();
     SwordWeapon* sword = new SwordWeapon(5, 10, sf::Vector2f(50, 100), 120, "content/sprites/projectiles.png");
+
     player_->Equip(sword);
 
     Monster* m = new RandomMonster(player_, 300, 300); // placeholder
     Monster* m2 = new SearchingMonster(player_, 200, 200);
+
+    SwordWeapon* monterSword = new SwordWeapon(5, 10, sf::Vector2f(50, 100), 120, "content/sprites/projectiles.png");
+    m->Equip(monterSword);
+
     monsters_.push_back(m);
     monsters_.push_back(m2);
 
@@ -50,6 +55,8 @@ void Game::UpdateGame()
             monster->RevertMove();
         }
         monster->Update(dt);
+        std::list<Projectile*> projectileListToAdd = monster->Attack();
+        addProjectiles(projectileListToAdd);
     }
     // checkCollisions(player_, Projectile::Type::EnemyProjectile);
     handleMonsterProjectileCollisions(monsters_, Projectile::Type::PlayerProjectile);
@@ -71,6 +78,7 @@ void Game::RenderGame()
         monster->Render(window_);
     }
     window_->display();
+    std::cout << projectiles_.size() << std::endl;
 }
 bool Game::Running() const { return window_->isOpen(); }
 

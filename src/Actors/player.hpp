@@ -14,6 +14,7 @@ public:
     virtual void Update(float dt);
 
     void Dash();
+    std::list<Projectile*> Attack(sf::Vector2f aimPos);
 
     void initVariables();
 

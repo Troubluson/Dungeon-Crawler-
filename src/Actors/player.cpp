@@ -14,11 +14,7 @@ int Player::GetHitPoints() const { return hitpoints_; }
 
 void Player::Update(float dt)
 {
-    sprite_.setPosition(pos_);
-    if (hitpoints_ <= 0) {
-        alive_ = false;
-    }
-
+    generalUpdate(dt);
     if (hasAnimation_) {
         if (oldPos_ == pos_) {
             Idle();
@@ -27,9 +23,6 @@ void Player::Update(float dt)
         Animations[int(currentAnimation)]->AnimationToSprite(sprite_);
     }
 
-    oldPos_ = pos_;
-
-    updateAttackCooldown(dt);
     updateDashCooldown(dt);
 
     if (IsDashing) {
@@ -50,19 +43,13 @@ void Player::Dash()
 
 void Player::initVariables()
 {
-    normalSpeed_ = 200.0f;
     dashSpeed = 400.0f;
-
-    attackCooldownLength = 1.66f;
-    attackCooldownLeft = 0.0f;
-    CanAttack = true;
     dashCooldownLength = 1.0f;
     dashCooldownLeft = 0.0f;
     CanDash = true;
-
     IsDashing = false;
     dashDurationLength = 1.0f;
-    dashDurationLeft = dashDurationLength;
+    dashDurationLeft = 0.0f;
 
     characterProjectileType = Projectile::Type::PlayerProjectile;
 }
@@ -86,4 +73,19 @@ void Player::updateDashCooldown(float dt)
     if (dashDurationLeft <= 0) {
         IsDashing = false;
     }
+}
+
+std::list<Projectile*> Player::Attack(sf::Vector2f aimPos)
+{
+    if (!CanAttack) {
+        return emptyList();
+    }
+
+    if (weapon_ == nullptr) {
+        return emptyList();
+    }
+
+    ResetAttackCooldown();
+
+    return shotProjectileList(aimPos);
 }

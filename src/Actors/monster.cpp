@@ -33,15 +33,19 @@ Player& Monster::GetPlayer() const
 {
     return *player_;
 }
-void Monster::Update(float)
+void Monster::Update(float dt)
 {
+    generalUpdate(dt);
     int width = hitpoints_;
     int newWidth = std::min(100, std::max(0, width));
     healthbar_.setSize(sf::Vector2f(newWidth, 5));
     healthbar_.setPosition(GetPos() + sf::Vector2f(15, -5));
+}
 
-    sprite_.setPosition(pos_);
-    if (hitpoints_ <= 0) {
-        alive_ = false;
-    }
+float Monster::getDistanceToPlayer()
+{
+    sf::Vector2f playerpos = GetPlayer().GetSpriteCenter();
+    sf::Vector2f distanceVec = playerpos - GetSpriteCenter();
+    float distance = std::sqrt(distanceVec.x * distanceVec.x + distanceVec.y * distanceVec.y);
+    return distance;
 }

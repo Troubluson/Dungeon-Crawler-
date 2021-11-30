@@ -24,26 +24,16 @@ Character::Character(const std::string& filename, sf::Vector2f pos, bool animate
 
 Character::~Character() { }
 
-void Character::Update(float dt)
-{
-    sprite_.setPosition(pos_);
-    if (hitpoints_ <= 0) {
-        alive_ = false;
-    }
-
-    if (hasAnimation_) {
-        if (oldPos_ == pos_) {
-            Idle();
-        }
-        Animations[int(currentAnimation)]->Update(dt);
-        Animations[int(currentAnimation)]->AnimationToSprite(sprite_);
-    }
-}
-
 void Character::initVariables()
 {
     weapon_ = nullptr;
     alive_ = true;
+
+    normalSpeed_ = 200.0f;
+    attackCooldownLength = 1.66f;
+    attackCooldownLeft = 0.0f;
+    CanAttack = true;
+
     hitpoints_ = 50;
     currentSpeed_ = normalSpeed_;
     attackCooldownLength = 1.0f;
@@ -100,59 +90,6 @@ void Character::TakeDamage(int value)
 {
     hitpoints_ -= value;
 }
-void Character::DamageAnotherCharacter(Character* target)
-{
-    target->TakeDamage(staticDamage);
-}
-
-std::list<Projectile*> Character::FireWeapon(sf::Vector2f aimPosition)
-{
-    std::list<Projectile*> list;
-    auto spriteCenter = GetSpriteCenter();
-    auto direction = aimPosition - spriteCenter;
-    auto newProjectile = weapon_->Use(direction, spriteCenter);
-    list.push_back(newProjectile);
-
-    for (auto it : list) {
-        it->SetType(characterProjectileType);
-    }
-
-    return list;
-}
-
-std::list<Projectile*> Character::Attack(Character* target)
-{
-    std::list<Projectile*> attackProjectileList;
-    if (!CanAttack) {
-        return attackProjectileList;
-    }
-
-    ResetAttackCooldown();
-
-    if (weapon_ == nullptr) {
-        DamageAnotherCharacter(target);
-        return attackProjectileList;
-    } else {
-        attackProjectileList = FireWeapon(target->GetSpriteCenter());
-        return attackProjectileList;
-    }
-}
-std::list<Projectile*> Character::Attack(sf::Vector2f aimPosition)
-{
-    std::list<Projectile*> attackProjectileList;
-    if (!CanAttack) {
-        return attackProjectileList;
-    }
-
-    ResetAttackCooldown();
-
-    if (weapon_ == nullptr) {
-        return attackProjectileList;
-    } else {
-        attackProjectileList = FireWeapon(aimPosition);
-        return attackProjectileList;
-    }
-}
 
 void Character::Equip(Weapon* weapon)
 {
@@ -183,6 +120,37 @@ sf::FloatRect Character::GetBaseBoxAt(sf::Vector2f pos)
     spriteBounds.height *= 1.0f / 2;
     spriteBounds.top += spriteBounds.height;
     return spriteBounds;
+}
+
+std::list<Projectile*> Character::emptyList()
+{
+    std::list<Projectile*> emptyList;
+    return emptyList;
+}
+std::list<Projectile*> Character::shotProjectileList(sf::Vector2f aimPos)
+{
+    std::list<Projectile*> projectileList;
+    auto spriteCenter = GetSpriteCenter();
+    auto direction = aimPos - spriteCenter;
+
+    Projectile* newProjectile = weapon_->Use(direction, spriteCenter);
+    projectileList.push_back(newProjectile);
+
+    for (auto it : projectileList) {
+        it->SetType(characterProjectileType);
+    }
+
+    return projectileList;
+}
+
+void Character::generalUpdate(float dt)
+{
+    oldPos_ = pos_;
+    sprite_.setPosition(pos_);
+    if (hitpoints_ <= 0) {
+        alive_ = false;
+    }
+    updateAttackCooldown(dt);
 }
 
 /*

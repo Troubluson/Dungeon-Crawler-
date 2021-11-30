@@ -24,3 +24,19 @@ bool SearchingMonster::Move(float dt)
     MoveDown(dt * velocityVec.y * 0.3);
     return true;
 }
+
+std::list<Projectile*> SearchingMonster::Attack()
+{
+    if (!CanAttack) {
+        return emptyList();
+    }
+
+    if (getDistanceToPlayer() > 5.0f) {
+        return emptyList();
+    }
+
+    ResetAttackCooldown();
+
+    player_->TakeDamage(staticDamage);
+    return emptyList();
+}

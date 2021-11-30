@@ -17,11 +17,6 @@ public:
 
     virtual void Update(float dt) = 0;
 
-    void DamageAnotherCharacter(Character* target);
-    std::list<Projectile*> FireWeapon(sf::Vector2f aimPosition);
-    std::list<Projectile*> Attack(Character* target);
-    std::list<Projectile*> Attack(sf::Vector2f aimPosition);
-
     void Equip(Weapon* weapon);
 
     void initVariables();
@@ -70,12 +65,16 @@ protected:
     bool alive_;
     bool hasAnimation_;
     float currentSpeed_;
-    float normalSpeed_ = 200.0f;
+    float normalSpeed_;
     float staticDamage = 5.0f;
+
+    void generalUpdate(float dt);
 
     float attackCooldownLength;
     float attackCooldownLeft;
     void updateAttackCooldown(float dt);
+    std::list<Projectile*> emptyList();
+    std::list<Projectile*> shotProjectileList(sf::Vector2f aimPos);
 
     enum class AnimationIndex {
         AnimationUp,

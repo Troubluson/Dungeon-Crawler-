@@ -31,3 +31,18 @@ bool RandomMonster::Move(float dt)
     }
     return true;
 }
+
+std::list<Projectile*> RandomMonster::Attack()
+{
+    if (!CanAttack) {
+        return emptyList();
+    }
+
+    if (weapon_ == nullptr) {
+        return emptyList();
+    }
+
+    ResetAttackCooldown();
+
+    return shotProjectileList(player_->GetSpriteCenter());
+}
