@@ -80,7 +80,8 @@
 		"stdexcept": "cpp",
 		"streambuf": "cpp",
 		"thread": "cpp",
-		"typeinfo": "cpp"
+		"typeinfo": "cpp",
+		"bit": "cpp"
 	},
 	"terminal.integrated.automationShell.windows": "C:/Windows/System32/bash.exe",
 	"terminal.integrated.env.windows": {

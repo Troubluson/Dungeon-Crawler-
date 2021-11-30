@@ -8,21 +8,22 @@
 
 class Monster : public Character {
 public:
-    Monster(Player* player, float xPos, float yPos);
-    Monster(Player* player, sf::Vector2f pos);
     ~Monster();
 
     Player& GetPlayer() const;
+    virtual std::list<Projectile*> Attack() = 0;
     virtual void Update(float);
     virtual bool Move(float dt) = 0;
-    virtual void MonsterAttack() = 0;
     virtual void Render(sf::RenderTarget* target);
-    void setPlayer(Player* player);
+    void initVariables();
 
-private:
+protected:
+    Monster(Player* player, sf::Vector2f pos, const std::string& spriteFile);
+    Monster(Player* player, float xPos, float yPos, const std::string& spriteFile);
     Player* player_;
     sf::RectangleShape healthbar_;
-    std::string name;
+    float staticDamage = 5.0f;
+    float getDistanceToPlayer();
 };
 
 #endif
