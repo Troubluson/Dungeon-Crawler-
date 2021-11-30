@@ -17,6 +17,7 @@ public:
 
     virtual void Update(float dt) = 0;
 
+    void DamageAnotherCharacter(Character* target);
     Projectile* FireProjectile(sf::Vector2f aimPosition);
     void Equip(Weapon* weapon);
 
@@ -32,6 +33,7 @@ public:
     void TakeDamage(int value);
 
     bool IsAlive();
+    bool HasWeapon();
 
     bool Idle();
     bool MoveLeft(float dt);
@@ -63,7 +65,9 @@ protected:
     int hitpoints_;
     bool alive_;
     bool hasAnimation_;
-    float currentSpeed_ = 200.0f;
+    float currentSpeed_;
+    float normalSpeed_ = 200.0f;
+    float staticDamage = 5.0f;
 
     float attackCooldownLength;
     float attackCooldownLeft;

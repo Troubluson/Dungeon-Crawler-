@@ -20,6 +20,7 @@ Character::Character(const std::string& filename, sf::Vector2f pos, bool animate
         Animations[int(AnimationIndex::AnimationUp)] = new Animation(1, C_PIXELS_Y * 3, C_PIXELS_X, C_PIXELS_Y, C_PIXELS_delta, filename);
         Animations[int(AnimationIndex::AnimationDown)] = new Animation(1, C_PIXELS_Y * 4, C_PIXELS_X, C_PIXELS_Y, C_PIXELS_delta, filename);
     }
+    std::cout << weapon_ << std::endl;
 }
 
 Character::~Character() { }
@@ -42,8 +43,11 @@ void Character::Update(float dt)
 
 void Character::initVariables()
 {
+    weapon_ = nullptr;
     alive_ = true;
     hitpoints_ = 50;
+    currentSpeed_ = normalSpeed_;
+    attackCooldownLength = 1.0f;
 }
 
 bool Character::MoveLeft(float dt)
@@ -97,10 +101,19 @@ void Character::TakeDamage(int value)
 {
     hitpoints_ -= value;
 }
+void Character::DamageAnotherCharacter(Character* target)
+{
+    if (weapon_ != nullptr) {
+        std::cout << "Warning: Character has weapon, use FireProjectile() instead of DamageAnotherCharacter()" << std::endl;
+        return;
+    }
+    target->TakeDamage(staticDamage);
+}
 
 Projectile* Character::FireProjectile(sf::Vector2f aimPosition)
 {
     if (weapon_ == nullptr) {
+        std::cout << "Warning: Character does not have weapon, use DamageAnotherCharacter() instead of FireProjectile()" << std::endl;
         return nullptr;
     }
     if (!CanAttack) {
@@ -125,6 +138,14 @@ bool Character::IsAlive() { return alive_; }
 bool Character::Idle()
 {
     currentAnimation = AnimationIndex::AnimationIdle;
+    return true;
+}
+
+bool Character::HasWeapon()
+{
+    if (weapon_ == nullptr) {
+        return false;
+    }
     return true;
 }
 

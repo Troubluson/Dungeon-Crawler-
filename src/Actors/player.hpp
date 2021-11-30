@@ -25,8 +25,6 @@ public:
     bool IsDashing;
 
 private:
-
-    float normalSpeed_;
     float dashSpeed;
     float dashDurationLength;
     float dashDurationLeft;
