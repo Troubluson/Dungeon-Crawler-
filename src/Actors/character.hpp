@@ -5,6 +5,7 @@
 
 #include "Combat/Projectile.hpp"
 //#include "Interfaces/ICollidable.hpp"
+#include "Combat/Weapons/Weapon.hpp"
 #include "animation.hpp"
 #include "entity.hpp"
 
@@ -16,6 +17,9 @@ public:
 
     virtual void Update(float dt) = 0;
     void UpdateCooldowns(float dt);
+
+    Projectile* FireProjectile(sf::Vector2f aimPosition);
+    void Equip(Weapon* weapon);
 
     void initVariables();
     /**
@@ -56,6 +60,7 @@ public:
 protected:
     /*void GetHitBy(Projectile& projectile);*/
 
+    Weapon* weapon_;
     int hitpoints_;
     bool alive_;
     bool hasAnimation_;

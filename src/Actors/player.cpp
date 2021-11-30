@@ -39,28 +39,6 @@ void Player::Update(float dt)
     }
 }
 
-Projectile* Player::FireProjectile(sf::Vector2f aimPosition)
-{
-    if (weapon_ == nullptr) {
-        return nullptr;
-    }
-    if (!CanAttack) {
-        return nullptr;
-    }
-    ResetAttackCooldown();
-    auto spriteCenter = GetSpriteCenter();
-    auto direction = aimPosition - spriteCenter;
-    auto newProjectile = weapon_->Use(direction, spriteCenter);
-    newProjectile->SetType(Projectile::Type::PlayerProjectile);
-    return newProjectile;
-}
-
-void Player::Equip(Weapon* weapon)
-{
-    weapon_ = weapon;
-    attackCooldownLength = weapon->GetAttackCooldown();
-}
-
 void Player::Dash()
 {
     if (CanDash) {
