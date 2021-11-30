@@ -40,7 +40,7 @@ private:
     bool paused = false;
     bool gameEnder_;
 
-    std::list<Character*> monsters_;
+    std::list<Monster*> monsters_;
     std::list<Projectile*> projectiles_;
     // CollisionSystem collisionSys;
 
@@ -48,7 +48,7 @@ private:
     void initWindow();
     void updateDt();
     void manageInput();
-    void checkCollisions(std::list<Character*> characterVector, Projectile::Type type);
+    void handleMonsterProjectileCollisions(std::list<Monster*> characterVector, Projectile::Type type);
     void checkAndHandleProjectileWallCollisions();
     void deleteProjectile(Projectile* p);
     void addProjectiles(std::list<Projectile*> listToAdd);

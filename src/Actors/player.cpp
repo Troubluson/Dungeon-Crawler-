@@ -64,7 +64,7 @@ void Player::initVariables()
     dashDurationLength = 1.0f;
     dashDurationLeft = dashDurationLength;
 
-    characterBulletType = Projectile::Type::PlayerProjectile;
+    characterProjectileType = Projectile::Type::PlayerProjectile;
 }
 
 void Player::ResetDashCooldown()

@@ -65,7 +65,7 @@ protected:
     /*void GetHitBy(Projectile& projectile);*/
 
     Weapon* weapon_;
-    Projectile::Type characterBulletType;
+    Projectile::Type characterProjectileType;
     int hitpoints_;
     bool alive_;
     bool hasAnimation_;

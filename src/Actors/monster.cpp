@@ -16,7 +16,7 @@ Monster::Monster(Player* player, float xPos, float yPos)
 }
 void Monster::initVariables()
 {
-    characterBulletType = Projectile::Type::EnemyProjectile;
+    characterProjectileType = Projectile::Type::EnemyProjectile;
 }
 
 Monster::~Monster()

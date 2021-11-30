@@ -52,7 +52,7 @@ void Game::UpdateGame()
         monster->Update(dt);
     }
     // checkCollisions(player_, Projectile::Type::EnemyProjectile);
-    checkCollisions(monsters_, Projectile::Type::PlayerProjectile);
+    handleMonsterProjectileCollisions(monsters_, Projectile::Type::PlayerProjectile);
     checkAndHandleProjectileWallCollisions();
     player_->Update(dt);
     gamebar_.Update();
@@ -163,16 +163,15 @@ void Game::manageInput()
     }
 }
 
-void Game::checkCollisions(std::list<Character*> characters, Projectile::Type projectileType)
+void Game::handleMonsterProjectileCollisions(std::list<Monster*> monsters, Projectile::Type projectileType)
 {
-
     if (projectiles_.empty()) {
         return;
     }
 
     std::list<Character*> monsterListToDelete;
 
-    for (auto character : characters) {
+    for (auto character : monsters) {
         for (auto projectile : projectiles_) {
             if (projectile->GetType() == projectileType && !projectile->hasHit(character)) {
                 if (Collision::PixelPerfectTest(projectile->GetSprite(), character->GetSprite())) {
