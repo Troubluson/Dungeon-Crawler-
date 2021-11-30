@@ -11,8 +11,6 @@ SwordWeapon::SwordWeapon(int damage, int range, Vector2f projectileSize, int rat
 }
 Projectile* SwordWeapon::Use(Vector2f dir, Vector2f origin)
 {
-    std::cout << "Origin Pos: " << origin.x << ", " << origin.y << std::endl;
-    std::cout << "Direction: " << dir.x << ", " << dir.y << std::endl;
     // have to rotate the projectile
     spritehelper::RotateSprite(dir, sprite_);
     spritehelper::SetOriginBottomCenter(sprite_);

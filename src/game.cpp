@@ -47,17 +47,19 @@ void Game::UpdateGame()
     manageInput();
 
     // Update projectiles
-    updateProjectiles();
     for (auto monster : monsters_) {
         // if moved, check collision with walls
         bool monsterMoved = monster->Move(dt);
         if (monsterMoved && collidesWithWall(monster)) {
             monster->RevertMove();
         }
-        monster->Update(dt);
+
         std::list<Projectile*> projectileListToAdd = monster->Attack();
         addProjectiles(projectileListToAdd);
+
+        monster->Update(dt);
     }
+    updateProjectiles();
     // checkCollisions(player_, Projectile::Type::EnemyProjectile);
     //handleMonsterProjectileCollisions(monsters_, Projectile::Type::PlayerProjectile);
     checkMonsterCollisions();
