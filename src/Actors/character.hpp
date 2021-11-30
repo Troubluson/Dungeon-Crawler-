@@ -37,10 +37,12 @@ public:
     bool MoveDown(float dt);
     bool MoveUp(float dt);
     // For subclasses, should be = 0
-    virtual bool Move(float) { return false; }
+    virtual bool Move(float)
+    {
+        return false;
+    }
     void RevertMove();
     virtual void Attack(sf::Vector2f, std::list<Projectile*>) {};
-    void SetOldPos(sf::Vector2f v);
     /*
     // for ICollidable
     virtual sf::FloatRect GetBoundingBox() { return sprite_.getGlobalBounds(); }

@@ -39,19 +39,20 @@ void Player::Update(float dt)
     }
 }
 
-void Player::Attack(sf::Vector2f mousePosition, std::list<Projectile*>& projectiles)
+Projectile* Player::Attack(sf::Vector2f aimPosition)
 {
     if (weapon_ == nullptr) {
-        return;
+        return nullptr;
     }
     if (!CanAttack) {
-        return;
+        return nullptr;
     }
     ResetAttackCooldown();
     auto spriteCenter = GetSpriteCenter();
-    auto direction = mousePosition - spriteCenter;
-    auto newProjectiles = weapon_->Use(direction, spriteCenter);
-    projectiles.splice(projectiles.end(), newProjectiles); // moves new projectiles to the back of projectiles_
+    auto direction = aimPosition - spriteCenter;
+    auto newProjectile = weapon_->Use(direction, spriteCenter);
+    newProjectile->SetType(Projectile::Type::PlayerProjectile);
+    return newProjectile;
 }
 
 void Player::Equip(Weapon* weapon)

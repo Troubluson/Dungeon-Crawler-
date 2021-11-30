@@ -51,6 +51,7 @@ private:
     void checkCollisions(std::list<Character*> characterVector, Projectile::Type type);
     void checkAndHandleProjectileWallCollisions();
     void deleteProjectile(Projectile* p);
+    void addProjectile(Projectile* p);
     void deleteMonster(Character* m);
     void updateProjectiles();
     bool collidesWithWall(Character* character);

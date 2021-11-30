@@ -31,8 +31,3 @@ bool RandomMonster::Move(float dt)
     }
     return true;
 }
-
-void RandomMonster::MonsterAttack()
-{
-    GetPlayer().TakeDamage(0); // placeholder
-}

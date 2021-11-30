@@ -24,16 +24,3 @@ bool SearchingMonster::Move(float dt)
     MoveDown(dt * velocityVec.y * 0.3);
     return true;
 }
-
-void SearchingMonster::MonsterAttack()
-{
-    if (cooldown_.getElapsedTime().asSeconds() > 2) {
-        sf::Vector2f playerPos = GetPlayer().GetSpriteCenter();
-        sf::Vector2f distanceVec = playerPos - GetSpriteCenter();
-        float distance = std::sqrt(distanceVec.x * distanceVec.x + distanceVec.y * distanceVec.y);
-        if (distance < 50) {
-            cooldown_.restart();
-            GetPlayer().TakeDamage(10);
-        }
-    }
-}

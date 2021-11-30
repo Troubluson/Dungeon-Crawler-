@@ -15,7 +15,6 @@ public:
     Player& GetPlayer() const;
     virtual void Update(float);
     virtual bool Move(float dt) = 0;
-    virtual void MonsterAttack() = 0;
     virtual void Render(sf::RenderTarget* target);
 
 private:

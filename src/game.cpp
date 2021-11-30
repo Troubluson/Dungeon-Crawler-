@@ -153,7 +153,8 @@ void Game::manageInput()
 
     if (LMOUSE) {
         auto mousePos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(*window_));
-        player_->Attack(mousePos, projectiles_);
+        Projectile* p = player_->Attack(mousePos);
+        addProjectile(p);
     }
     if (triedMoving) {
         if (collidesWithWall(player_)) {
@@ -213,6 +214,14 @@ void Game::deleteProjectile(Projectile* p)
             return;
         }
     }
+}
+
+void Game::addProjectile(Projectile* p)
+{
+    if (p == nullptr) {
+        return;
+    }
+    projectiles_.push_back(p);
 }
 
 void Game::deleteMonster(Character* m)

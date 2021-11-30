@@ -40,6 +40,4 @@ void Monster::Update(float)
     if (hitpoints_ <= 0) {
         alive_ = false;
     }
-
-    MonsterAttack();
 }
