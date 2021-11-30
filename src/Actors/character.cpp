@@ -20,7 +20,6 @@ Character::Character(const std::string& filename, sf::Vector2f pos, bool animate
         Animations[int(AnimationIndex::AnimationUp)] = new Animation(1, C_PIXELS_Y * 3, C_PIXELS_X, C_PIXELS_Y, C_PIXELS_delta, filename);
         Animations[int(AnimationIndex::AnimationDown)] = new Animation(1, C_PIXELS_Y * 4, C_PIXELS_X, C_PIXELS_Y, C_PIXELS_delta, filename);
     }
-    std::cout << weapon_ << std::endl;
 }
 
 Character::~Character() { }

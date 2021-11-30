@@ -25,8 +25,6 @@ Gamebar::Gamebar(Player* player)
     violetBar_.setFillColor(sf::Color::Magenta);
     violetBar_.setPosition(200, 5);
     violetBar_.setSize(sf::Vector2f(100 - 100 * (player_->GetAttackCooldownLeft() / player_->GetAttackCooldownLength()), 30));
-    std::cout << "AttackCooldown = " << player_->GetAttackCooldownLeft() << std::endl;
-    std::cout << "AttackCooldownLength = " << player_->GetAttackCooldownLength() << std::endl;
 
     yellowBar_ = greenBar;
     yellowBar_.setFillColor(sf::Color::Yellow);
