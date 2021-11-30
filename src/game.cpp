@@ -16,8 +16,8 @@ Game::Game()
 
     player_->Equip(sword);
 
-    Monster* m = new RandomMonster(player_, 300, 300, "content/sprites/monster1.png"); // placeholder
-    Monster* m2 = new SearchingMonster(player_, 200, 200, "content/sprites/monster2.png");
+    Monster* m = new RandomMonster(player_, 300, 300); // placeholder
+    Monster* m2 = new SearchingMonster(player_, 200, 200);
 
     SwordWeapon* monterSword = new SwordWeapon(5, 10, sf::Vector2f(50, 100), 120, "content/sprites/projectiles.png");
 
@@ -157,7 +157,7 @@ void Game::manageInput()
     }
 
     if (LMOUSE) {
-        auto mousePos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(*window_));
+        sf::Vector2f mousePos = window_->mapPixelToCoords(sf::Mouse::getPosition(*window_));
         std::list<Projectile*> projectileListToAdd = player_->Attack(mousePos);
         addProjectiles(projectileListToAdd);
     }
@@ -230,14 +230,14 @@ void Game::deleteProjectile(Projectile* p)
     }
 }
 
-void Game::addProjectiles(std::list<Projectile*> listToAdd)
+void Game::addProjectiles(std::list<Projectile*> projectiles)
 {
-    if (listToAdd.empty()) {
+    if (projectiles.empty()) {
         return;
     }
 
-    for (auto it : listToAdd) {
-        projectiles_.push_back(it);
+    for (auto projectile : projectiles) {
+        projectiles_.push_back(projectile);
     }
 }
 

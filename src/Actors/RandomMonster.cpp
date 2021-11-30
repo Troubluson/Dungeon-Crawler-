@@ -1,11 +1,14 @@
 #include "RandomMonster.hpp"
+namespace {
+const std::string projectileSprite = "content/sprites/monster1.png";
+}
 
-RandomMonster::RandomMonster(Player* player, sf::Vector2f pos, const std::string& spriteFile)
-    : Monster(player, pos, spriteFile)
+RandomMonster::RandomMonster(Player* player, sf::Vector2f pos)
+    : Monster(player, pos, projectileSprite)
 {
 }
-RandomMonster::RandomMonster(Player* player, float xPos, float yPos, const std::string& spriteFile)
-    : Monster(player, sf::Vector2f(xPos, yPos), spriteFile)
+RandomMonster::RandomMonster(Player* player, float xPos, float yPos)
+    : Monster(player, sf::Vector2f(xPos, yPos), projectileSprite)
 {
 }
 
@@ -34,11 +37,7 @@ bool RandomMonster::Move(float dt)
 
 std::list<Projectile*> RandomMonster::Attack()
 {
-    if (!CanAttack) {
-        return emptyList();
-    }
-
-    if (weapon_ == nullptr) {
+    if (!CanAttack || !HasWeapon()) {
         return emptyList();
     }
 

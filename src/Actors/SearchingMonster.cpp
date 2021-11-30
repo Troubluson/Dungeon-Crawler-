@@ -1,11 +1,13 @@
 #include "SearchingMonster.hpp"
-
-SearchingMonster::SearchingMonster(Player* player, sf::Vector2f pos, const std::string& spriteFile)
-    : Monster(player, pos, spriteFile)
+namespace {
+const std::string projectileSprite = "content/sprites/monster2.png";
+}
+SearchingMonster::SearchingMonster(Player* player, sf::Vector2f pos)
+    : Monster(player, pos, projectileSprite)
 {
 }
-SearchingMonster::SearchingMonster(Player* player, float xPos, float yPos, const std::string& spriteFile)
-    : Monster(player, sf::Vector2f(xPos, yPos), spriteFile)
+SearchingMonster::SearchingMonster(Player* player, float xPos, float yPos)
+    : Monster(player, sf::Vector2f(xPos, yPos), projectileSprite)
 {
 }
 
@@ -27,11 +29,7 @@ bool SearchingMonster::Move(float dt)
 
 std::list<Projectile*> SearchingMonster::Attack()
 {
-    if (!CanAttack) {
-        return emptyList();
-    }
-
-    if (getDistanceToPlayer() > 5.0f) {
+    if (!CanAttack || getDistanceToPlayer() > 5.0f) {
         return emptyList();
     }
 
