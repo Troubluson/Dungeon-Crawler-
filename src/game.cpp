@@ -152,7 +152,7 @@ void Game::manageInput()
     }
 
     if (LMOUSE) {
-        auto mousePos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(*window_));
+        sf::Vector2f mousePos = window_->mapPixelToCoords(sf::Mouse::getPosition(*window_));
         player_->Attack(mousePos, projectiles_);
     }
     if (triedMoving) {
