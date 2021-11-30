@@ -16,7 +16,6 @@ public:
     virtual ~Character();
 
     virtual void Update(float dt) = 0;
-    void UpdateCooldowns(float dt);
 
     Projectile* FireProjectile(sf::Vector2f aimPosition);
     void Equip(Weapon* weapon);
