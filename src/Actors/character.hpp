@@ -18,8 +18,8 @@ public:
     virtual void Update(float dt) = 0;
 
     void DamageAnotherCharacter(Character* target);
-    std::vector<Projectile*> Attack(Character* target);
-    virtual std::vector<Projectile*> FireProjectiles(sf::Vector2f aimPosition);
+    std::list<Projectile*> Attack(Character* target);
+    virtual std::list<Projectile*> FireWeapon(sf::Vector2f aimPosition) = 0;
 
     void Equip(Weapon* weapon);
 
@@ -64,6 +64,7 @@ protected:
     /*void GetHitBy(Projectile& projectile);*/
 
     Weapon* weapon_;
+    Projectile::Type characterBulletType;
     int hitpoints_;
     bool alive_;
     bool hasAnimation_;
@@ -75,7 +76,7 @@ protected:
     float attackCooldownLeft;
     void updateAttackCooldown(float dt);
 
-    std::vector<Projectile*> generateShootingProjectiles(sf::Vector2f aimPosition);
+    std::list<Projectile*> generateShootingProjectiles(sf::Vector2f aimPosition);
 
     enum class AnimationIndex {
         AnimationUp,

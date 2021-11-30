@@ -30,9 +30,9 @@ Player& Monster::GetPlayer() const
     return *player_;
 }
 
-std::vector<Projectile*> Monster::FireProjectiles(sf::Vector2f aimPosition)
+std::list<Projectile*> Monster::FireWeapon(sf::Vector2f aimPosition)
 {
-    std::vector<Projectile*> list = generateShootingProjectiles(aimPosition);
+    std::list<Projectile*> list = generateShootingProjectiles(aimPosition);
     for (auto it : list) {
         it->SetType(Projectile::Type::EnemyProjectile);
     }

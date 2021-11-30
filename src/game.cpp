@@ -152,8 +152,8 @@ void Game::manageInput()
     }
 
     if (LMOUSE) {
-        //auto mousePos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(*window_));
-        std::vector<Projectile*> projectileListToAdd = player_->Attack(monsters_[0]);
+        auto mousePos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(*window_));
+        std::list<Projectile*> projectileListToAdd = player_->FireWeapon(mousePos);
         addProjectiles(projectileListToAdd);
     }
     if (triedMoving) {
@@ -163,14 +163,14 @@ void Game::manageInput()
     }
 }
 
-void Game::checkCollisions(std::vector<Character*> characters, Projectile::Type projectileType)
+void Game::checkCollisions(std::list<Character*> characters, Projectile::Type projectileType)
 {
 
     if (projectiles_.empty()) {
         return;
     }
 
-    std::vector<Character*> monsterListToDelete;
+    std::list<Character*> monsterListToDelete;
 
     for (auto character : characters) {
         for (auto projectile : projectiles_) {
@@ -216,7 +216,7 @@ void Game::deleteProjectile(Projectile* p)
     }
 }
 
-void Game::addProjectiles(std::vector<Projectile*> listToAdd)
+void Game::addProjectiles(std::list<Projectile*> listToAdd)
 {
     if (listToAdd.empty()) {
         return;

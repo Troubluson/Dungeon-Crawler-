@@ -103,21 +103,23 @@ void Character::TakeDamage(int value)
 }
 void Character::DamageAnotherCharacter(Character* target)
 {
-    if (!CanAttack) {
-        return;
-    }
     ResetAttackCooldown();
     target->TakeDamage(staticDamage);
 }
 
-std::vector<Projectile*> Character::Attack(Character* target)
+std::list<Projectile*> Character::Attack(Character* target)
 {
-    if (weapon_ != nullptr) {
-        return FireProjectiles(target->GetSpriteCenter());
-    } else {
+    std::list<Projectile*> emptyProjectileList;
+    if (!CanAttack) {
+        return emptyProjectileList;
+    }
+    if (weapon_ == nullptr) {
         DamageAnotherCharacter(target);
-        std::vector<Projectile*> list;
-        return list;
+        return emptyProjectileList;
+    } else {
+        std::list<Projectile*> projectilesToAdd = FireWeapon(target->GetSpriteCenter());
+        return projectilesToAdd;
+        return emptyProjectileList;
     }
 }
 
@@ -155,12 +157,9 @@ sf::FloatRect Character::GetBaseBoxAt(sf::Vector2f pos)
     return spriteBounds;
 }
 
-std::vector<Projectile*> Character::generateShootingProjectiles(sf::Vector2f aimPosition)
+std::list<Projectile*> Character::generateShootingProjectiles(sf::Vector2f aimPosition)
 {
-    std::vector<Projectile*> list;
-    if (!CanAttack) {
-        return list;
-    }
+    std::list<Projectile*> list;
     ResetAttackCooldown();
     auto spriteCenter = GetSpriteCenter();
     auto direction = aimPosition - spriteCenter;
