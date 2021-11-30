@@ -114,7 +114,7 @@ std::list<Projectile*> Character::FireWeapon(sf::Vector2f aimPosition)
     list.push_back(newProjectile);
 
     for (auto it : list) {
-        it->SetType(characterBulletType);
+        it->SetType(characterProjectileType);
     }
 
     return list;
