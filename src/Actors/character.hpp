@@ -66,7 +66,6 @@ protected:
     bool hasAnimation_;
     float currentSpeed_;
     float normalSpeed_;
-    float staticDamage = 5.0f;
 
     void generalUpdate(float dt);
 

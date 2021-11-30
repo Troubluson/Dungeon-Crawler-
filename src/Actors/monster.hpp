@@ -22,6 +22,7 @@ public:
 protected:
     Player* player_;
     sf::RectangleShape healthbar_;
+    float staticDamage = 5.0f;
     float getDistanceToPlayer();
 };
 
