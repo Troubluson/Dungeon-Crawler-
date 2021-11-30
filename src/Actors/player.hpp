@@ -14,7 +14,7 @@ public:
     int GetHitPoints() const;
 
     virtual void Update(float dt);
-    Projectile* Attack(sf::Vector2f aimPosition);
+    Projectile* FireProjectile(sf::Vector2f aimPosition);
     void Equip(Weapon* weapon);
     void Dash();
 

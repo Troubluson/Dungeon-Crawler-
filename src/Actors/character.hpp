@@ -42,7 +42,6 @@ public:
         return false;
     }
     void RevertMove();
-    virtual void Attack(sf::Vector2f, std::list<Projectile*>) {};
     /*
     // for ICollidable
     virtual sf::FloatRect GetBoundingBox() { return sprite_.getGlobalBounds(); }

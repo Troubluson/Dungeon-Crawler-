@@ -39,7 +39,7 @@ void Player::Update(float dt)
     }
 }
 
-Projectile* Player::Attack(sf::Vector2f aimPosition)
+Projectile* Player::FireProjectile(sf::Vector2f aimPosition)
 {
     if (weapon_ == nullptr) {
         return nullptr;
