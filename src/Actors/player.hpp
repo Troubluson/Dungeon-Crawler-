@@ -26,7 +26,7 @@ public:
     float GetAttackCooldownLeft() const { return attackCooldownLeft; };
     float GetDashCooldownLeft() const { return dashCooldownLeft; };
     float GetAttackCooldownLength() const { return attackCooldownLength; };
-    float GetDashCooldownLength() const { return dashDurationLeft; };
+    float GetDashCooldownLength() const { return dashCooldownLength; };
 
     bool CanAttack;
     bool CanDash;
