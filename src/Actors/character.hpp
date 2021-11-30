@@ -42,6 +42,11 @@ public:
         return false;
     }
     void RevertMove();
+
+    void ResetAttackCooldown();
+    float GetAttackCooldownLeft() const { return attackCooldownLeft; };
+    float GetAttackCooldownLength() const { return attackCooldownLength; };
+    bool CanAttack;
     /*
     // for ICollidable
     virtual sf::FloatRect GetBoundingBox() { return sprite_.getGlobalBounds(); }
@@ -56,6 +61,9 @@ protected:
     bool alive_;
     bool hasAnimation_;
     float currentSpeed_ = 200.0f;
+
+    float attackCooldownLength;
+    float attackCooldownLeft;
 
     enum class AnimationIndex {
         AnimationUp,

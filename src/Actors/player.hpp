@@ -20,15 +20,11 @@ public:
 
     void initVariables();
 
-    void ResetAttackCooldown();
     void ResetDashCooldown();
 
-    float GetAttackCooldownLeft() const { return attackCooldownLeft; };
     float GetDashCooldownLeft() const { return dashCooldownLeft; };
-    float GetAttackCooldownLength() const { return attackCooldownLength; };
     float GetDashCooldownLength() const { return dashCooldownLength; };
 
-    bool CanAttack;
     bool CanDash;
     bool IsDashing;
 
@@ -40,8 +36,6 @@ private:
     float dashDurationLength;
     float dashDurationLeft;
 
-    float attackCooldownLength;
-    float attackCooldownLeft;
     void updateAttackCooldown(float dt);
     float dashCooldownLength;
     float dashCooldownLeft;

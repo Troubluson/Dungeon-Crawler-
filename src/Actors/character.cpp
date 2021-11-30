@@ -79,6 +79,12 @@ void Character::RevertMove()
     pos_ = oldPos_;
 }
 
+void Character::ResetAttackCooldown()
+{
+    attackCooldownLeft = attackCooldownLength;
+    CanAttack = false;
+}
+
 void Character::TakeDamage(int value)
 {
     hitpoints_ -= value;

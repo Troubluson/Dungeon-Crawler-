@@ -87,12 +87,6 @@ void Player::initVariables()
     dashDurationLeft = dashDurationLength;
 }
 
-void Player::ResetAttackCooldown()
-{
-    attackCooldownLeft = attackCooldownLength;
-    CanAttack = false;
-}
-
 void Player::ResetDashCooldown()
 {
     dashCooldownLeft = dashCooldownLength;
