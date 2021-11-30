@@ -9,11 +9,12 @@
 
 class SearchingMonster : public Monster {
 public:
-    SearchingMonster(Player* player, float xPos, float yPos);
-    SearchingMonster(Player* player, sf::Vector2f pos);
+    SearchingMonster(Player* player, float xPos, float yPos, const std::string& spriteFile);
+    SearchingMonster(Player* player, sf::Vector2f pos, const std::string& spriteFile);
     ~SearchingMonster();
+
+    virtual std::list<Projectile*> Attack();
     virtual bool Move(float dt);
-    void MonsterAttack();
 
 private:
     sf::Clock cooldown_;

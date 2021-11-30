@@ -1,11 +1,11 @@
 #include "SearchingMonster.hpp"
 
-SearchingMonster::SearchingMonster(Player* player, sf::Vector2f pos)
-    : Monster(player, pos)
+SearchingMonster::SearchingMonster(Player* player, sf::Vector2f pos, const std::string& spriteFile)
+    : Monster(player, pos, spriteFile)
 {
 }
-SearchingMonster::SearchingMonster(Player* player, float xPos, float yPos)
-    : Monster(player, sf::Vector2f(xPos, yPos))
+SearchingMonster::SearchingMonster(Player* player, float xPos, float yPos, const std::string& spriteFile)
+    : Monster(player, sf::Vector2f(xPos, yPos), spriteFile)
 {
 }
 
@@ -25,15 +25,18 @@ bool SearchingMonster::Move(float dt)
     return true;
 }
 
-void SearchingMonster::MonsterAttack()
+std::list<Projectile*> SearchingMonster::Attack()
 {
-    if (cooldown_.getElapsedTime().asSeconds() > 2) {
-        sf::Vector2f playerPos = GetPlayer().GetSpriteCenter();
-        sf::Vector2f distanceVec = playerPos - GetSpriteCenter();
-        float distance = std::sqrt(distanceVec.x * distanceVec.x + distanceVec.y * distanceVec.y);
-        if (distance < 50) {
-            cooldown_.restart();
-            GetPlayer().TakeDamage(10);
-        }
+    if (!CanAttack) {
+        return emptyList();
     }
+
+    if (getDistanceToPlayer() > 5.0f) {
+        return emptyList();
+    }
+
+    ResetAttackCooldown();
+
+    player_->TakeDamage(staticDamage);
+    return emptyList();
 }
