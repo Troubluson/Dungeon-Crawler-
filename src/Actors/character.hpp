@@ -64,6 +64,7 @@ protected:
 
     float attackCooldownLength;
     float attackCooldownLeft;
+    void updateAttackCooldown(float dt);
 
     enum class AnimationIndex {
         AnimationUp,

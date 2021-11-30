@@ -93,14 +93,6 @@ void Player::ResetDashCooldown()
     CanDash = false;
 }
 
-void Player::updateAttackCooldown(float dt)
-{
-    attackCooldownLeft = std::max(0.0f, attackCooldownLeft - dt);
-    if (attackCooldownLeft <= 0.0f) {
-        CanAttack = true;
-    }
-}
-
 void Player::updateDashCooldown(float dt)
 {
     dashCooldownLeft = std::max(0.0f, dashCooldownLeft - dt);

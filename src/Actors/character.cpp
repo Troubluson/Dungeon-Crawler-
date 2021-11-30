@@ -85,6 +85,14 @@ void Character::ResetAttackCooldown()
     CanAttack = false;
 }
 
+void Character::updateAttackCooldown(float dt)
+{
+    attackCooldownLeft = std::max(0.0f, attackCooldownLeft - dt);
+    if (attackCooldownLeft <= 0.0f) {
+        CanAttack = true;
+    }
+}
+
 void Character::TakeDamage(int value)
 {
     hitpoints_ -= value;

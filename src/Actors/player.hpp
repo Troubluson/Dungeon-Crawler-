@@ -36,7 +36,6 @@ private:
     float dashDurationLength;
     float dashDurationLeft;
 
-    void updateAttackCooldown(float dt);
     float dashCooldownLength;
     float dashCooldownLeft;
     void updateDashCooldown(float dt);
