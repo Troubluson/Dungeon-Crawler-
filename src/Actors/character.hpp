@@ -18,7 +18,7 @@ public:
     virtual void Update(float dt) = 0;
 
     void DamageAnotherCharacter(Character* target);
-    Projectile* FireProjectile(sf::Vector2f aimPosition);
+    std::list<Projectile*> FireProjectiles(sf::Vector2f aimPosition);
     void Equip(Weapon* weapon);
 
     void initVariables();

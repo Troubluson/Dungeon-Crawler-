@@ -104,7 +104,7 @@ void Character::TakeDamage(int value)
 void Character::DamageAnotherCharacter(Character* target)
 {
     if (weapon_ != nullptr) {
-        std::cout << "Warning: Character has weapon, use FireProjectile() instead of DamageAnotherCharacter()" << std::endl;
+        std::cout << "Warning: Character has weapon, use FireProjectiles() instead of DamageAnotherCharacter()" << std::endl;
         return;
     }
     if (!CanAttack) {
@@ -114,21 +114,24 @@ void Character::DamageAnotherCharacter(Character* target)
     target->TakeDamage(staticDamage);
 }
 
-Projectile* Character::FireProjectile(sf::Vector2f aimPosition)
+std::list<Projectile*> Character::FireProjectiles(sf::Vector2f aimPosition)
 {
+    std::list<Projectile*> list;
     if (weapon_ == nullptr) {
-        std::cout << "Warning: Character does not have weapon, use DamageAnotherCharacter() instead of FireProjectile()" << std::endl;
-        return nullptr;
+        std::cout << "Warning: Character does not have weapon, use DamageAnotherCharacter() instead of FireProjectiles()" << std::endl;
+        return list;
     }
     if (!CanAttack) {
-        return nullptr;
+        return list;
     }
     ResetAttackCooldown();
     auto spriteCenter = GetSpriteCenter();
     auto direction = aimPosition - spriteCenter;
     auto newProjectile = weapon_->Use(direction, spriteCenter);
     newProjectile->SetType(Projectile::Type::PlayerProjectile);
-    return newProjectile;
+
+    list.push_back(newProjectile);
+    return list;
 }
 
 void Character::Equip(Weapon* weapon)
