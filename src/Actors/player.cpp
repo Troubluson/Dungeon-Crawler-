@@ -23,8 +23,8 @@ void Player::Update(float dt)
         if (oldPos_ == pos_) {
             Idle();
         }
-        Animations[int(currentAnimation)]->Update(dt);
-        Animations[int(currentAnimation)]->AnimationToSprite(sprite_);
+        animationHandler_.getAnimation()->Update(dt);
+        animationHandler_.getAnimation()->AnimationToSprite(sprite_);
     }
 
     oldPos_ = pos_;

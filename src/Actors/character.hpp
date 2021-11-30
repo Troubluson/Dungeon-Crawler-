@@ -5,7 +5,8 @@
 
 #include "Combat/Projectile.hpp"
 //#include "Interfaces/ICollidable.hpp"
-#include "animation.hpp"
+#include "Animation/AnimationHandler.hpp"
+#include "Animation/animation.hpp"
 #include "entity.hpp"
 
 class Projectile;
@@ -55,17 +56,6 @@ protected:
     bool alive_;
     bool hasAnimation_;
     float currentSpeed_ = 200.0f;
-
-    enum class AnimationIndex {
-        AnimationUp,
-        AnimationDown,
-        AnimationLeft,
-        AnimationRight,
-        AnimationIdle,
-        Count
-    };
-
-    Animation* Animations[int(AnimationIndex::Count)];
-    AnimationIndex currentAnimation = AnimationIndex::AnimationDown;
+    AnimationHandler animationHandler_;
 };
 #endif
