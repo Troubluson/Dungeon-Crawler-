@@ -20,10 +20,10 @@ Game::Game()
     Monster* m2 = new SearchingMonster(player_, 200, 200);
 
     SwordWeapon* monterSword = new SwordWeapon(5, 10, sf::Vector2f(50, 100), 120, "content/sprites/projectiles.png");
-    m->Equip(monterSword);
 
     monsters_.push_back(m);
     monsters_.push_back(m2);
+    m->Equip(monterSword);
 
     gamebar_ = Gamebar(player_);
     initVariables();
@@ -80,7 +80,6 @@ void Game::RenderGame()
         monster->Render(window_);
     }
     window_->display();
-    std::cout << projectiles_.size() << std::endl;
 }
 bool Game::Running() const { return window_->isOpen(); }
 

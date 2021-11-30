@@ -16,7 +16,7 @@ void Player::Update(float dt)
 {
     generalUpdate(dt);
     if (hasAnimation_) {
-        if (oldPos_ == pos_) {
+        if (oldPos_.x == pos_.x && oldPos_.y == pos_.y) {
             Idle();
         }
         Animations[int(currentAnimation)]->Update(dt);

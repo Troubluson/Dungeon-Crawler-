@@ -4,6 +4,7 @@ Monster::Monster(Player* player, sf::Vector2f pos)
     : Character("content/monster1.png", pos)
     , player_(player)
 {
+    initVariables();
     sf::RectangleShape healthbar(sf::Vector2f(100, 5));
     healthbar.setFillColor(sf::Color::Green);
     healthbar.setPosition(pos.x + 15, pos.y - 5);
@@ -13,6 +14,7 @@ Monster::Monster(Player* player, float xPos, float yPos)
     : Character("content/monster1.png", sf::Vector2f(xPos, yPos))
     , player_(player)
 {
+    initVariables();
 }
 void Monster::initVariables()
 {

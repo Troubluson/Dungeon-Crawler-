@@ -133,12 +133,21 @@ std::list<Projectile*> Character::shotProjectileList(sf::Vector2f aimPos)
     auto spriteCenter = GetSpriteCenter();
     auto direction = aimPos - spriteCenter;
 
+    std::cout << "Monster Pos: " << GetSpriteCenter().x << ", " << GetSpriteCenter().y << std::endl;
     Projectile* newProjectile = weapon_->Use(direction, spriteCenter);
     projectileList.push_back(newProjectile);
 
     for (auto it : projectileList) {
         it->SetType(characterProjectileType);
+        if (it->GetType() == Projectile::Type::EnemyProjectile) {
+            std::cout << "Projectile is EnemyProjectile" << std::endl;
+        }
+        if (it->GetType() == Projectile::Type::PlayerProjectile) {
+            std::cout << "Projectile is PlayerProjectile" << std::endl;
+        }
     }
+
+    std::cout << std::endl;
 
     return projectileList;
 }
