@@ -170,10 +170,7 @@ bool Character::Idle()
 
 bool Character::HasWeapon()
 {
-    if (weapon_ == nullptr) {
-        return false;
-    }
-    return true;
+    return weapon_ != nullptr;
 }
 
 sf::FloatRect Character::GetBaseBoxAt(sf::Vector2f pos)
