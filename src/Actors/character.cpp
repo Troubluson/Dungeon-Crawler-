@@ -103,40 +103,12 @@ void Character::TakeDamage(int value)
 }
 void Character::DamageAnotherCharacter(Character* target)
 {
-    if (!CanAttack) {
-        return;
-    }
-    ResetAttackCooldown();
     target->TakeDamage(staticDamage);
-}
-
-std::list<Projectile*> Character::Attack(Character* target)
-{
-    std::list<Projectile*> emptyProjectileList;
-    if (weapon_ == nullptr) {
-        DamageAnotherCharacter(target);
-        return emptyProjectileList;
-    } else {
-        std::list<Projectile*> projectilesToAdd = FireWeapon(target->GetSpriteCenter());
-        return projectilesToAdd;
-        return emptyProjectileList;
-    }
-}
-
-void Character::Equip(Weapon* weapon)
-{
-    weapon_ = weapon;
-    attackCooldownLength = weapon->GetAttackCooldown();
 }
 
 std::list<Projectile*> Character::FireWeapon(sf::Vector2f aimPosition)
 {
     std::list<Projectile*> list;
-    if (!CanAttack) {
-        return list;
-    }
-
-    ResetAttackCooldown();
     auto spriteCenter = GetSpriteCenter();
     auto direction = aimPosition - spriteCenter;
     auto newProjectile = weapon_->Use(direction, spriteCenter);
@@ -147,6 +119,46 @@ std::list<Projectile*> Character::FireWeapon(sf::Vector2f aimPosition)
     }
 
     return list;
+}
+
+std::list<Projectile*> Character::Attack(Character* target)
+{
+    std::list<Projectile*> attackProjectileList;
+    if (!CanAttack) {
+        return attackProjectileList;
+    }
+
+    ResetAttackCooldown();
+
+    if (weapon_ == nullptr) {
+        DamageAnotherCharacter(target);
+        return attackProjectileList;
+    } else {
+        attackProjectileList = FireWeapon(target->GetSpriteCenter());
+        return attackProjectileList;
+    }
+}
+std::list<Projectile*> Character::Attack(sf::Vector2f aimPosition)
+{
+    std::list<Projectile*> attackProjectileList;
+    if (!CanAttack) {
+        return attackProjectileList;
+    }
+
+    ResetAttackCooldown();
+
+    if (weapon_ == nullptr) {
+        return attackProjectileList;
+    } else {
+        attackProjectileList = FireWeapon(aimPosition);
+        return attackProjectileList;
+    }
+}
+
+void Character::Equip(Weapon* weapon)
+{
+    weapon_ = weapon;
+    attackCooldownLength = weapon->GetAttackCooldown();
 }
 
 bool Character::IsAlive() { return alive_; }

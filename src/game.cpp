@@ -153,7 +153,7 @@ void Game::manageInput()
 
     if (LMOUSE) {
         auto mousePos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(*window_));
-        std::list<Projectile*> projectileListToAdd = player_->FireWeapon(mousePos);
+        std::list<Projectile*> projectileListToAdd = player_->Attack(mousePos);
         addProjectiles(projectileListToAdd);
     }
     if (triedMoving) {
