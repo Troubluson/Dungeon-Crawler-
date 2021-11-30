@@ -29,6 +29,17 @@ Player& Monster::GetPlayer() const
 {
     return *player_;
 }
+
+std::vector<Projectile*> Monster::FireProjectiles(sf::Vector2f aimPosition)
+{
+    std::vector<Projectile*> list = generateShootingProjectiles(aimPosition);
+    for (auto it : list) {
+        it->SetType(Projectile::Type::EnemyProjectile);
+    }
+
+    return list;
+}
+
 void Monster::Update(float)
 {
     int width = hitpoints_;

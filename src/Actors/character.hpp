@@ -18,7 +18,9 @@ public:
     virtual void Update(float dt) = 0;
 
     void DamageAnotherCharacter(Character* target);
-    std::list<Projectile*> FireProjectiles(sf::Vector2f aimPosition);
+    std::vector<Projectile*> Attack(Character* target);
+    virtual std::vector<Projectile*> FireProjectiles(sf::Vector2f aimPosition);
+
     void Equip(Weapon* weapon);
 
     void initVariables();
@@ -72,6 +74,8 @@ protected:
     float attackCooldownLength;
     float attackCooldownLeft;
     void updateAttackCooldown(float dt);
+
+    std::vector<Projectile*> generateShootingProjectiles(sf::Vector2f aimPosition);
 
     enum class AnimationIndex {
         AnimationUp,

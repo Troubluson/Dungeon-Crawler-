@@ -13,6 +13,7 @@ public:
     ~Monster();
 
     Player& GetPlayer() const;
+    virtual std::vector<Projectile*> FireProjectiles(sf::Vector2f aimPosition);
     virtual void Update(float);
     virtual bool Move(float dt) = 0;
     virtual void Render(sf::RenderTarget* target);

@@ -39,6 +39,15 @@ void Player::Update(float dt)
     }
 }
 
+std::vector<Projectile*> Player::FireProjectiles(sf::Vector2f aimPosition)
+{
+    std::vector<Projectile*> list = generateShootingProjectiles(aimPosition);
+    for (auto it : list) {
+        it->SetType(Projectile::Type::PlayerProjectile);
+    }
+    return list;
+}
+
 void Player::Dash()
 {
     if (CanDash) {

@@ -103,10 +103,6 @@ void Character::TakeDamage(int value)
 }
 void Character::DamageAnotherCharacter(Character* target)
 {
-    if (weapon_ != nullptr) {
-        std::cout << "Warning: Character has weapon, use FireProjectiles() instead of DamageAnotherCharacter()" << std::endl;
-        return;
-    }
     if (!CanAttack) {
         return;
     }
@@ -114,24 +110,15 @@ void Character::DamageAnotherCharacter(Character* target)
     target->TakeDamage(staticDamage);
 }
 
-std::list<Projectile*> Character::FireProjectiles(sf::Vector2f aimPosition)
+std::vector<Projectile*> Character::Attack(Character* target)
 {
-    std::list<Projectile*> list;
-    if (weapon_ == nullptr) {
-        std::cout << "Warning: Character does not have weapon, use DamageAnotherCharacter() instead of FireProjectiles()" << std::endl;
+    if (weapon_ != nullptr) {
+        return FireProjectiles(target->GetSpriteCenter());
+    } else {
+        DamageAnotherCharacter(target);
+        std::vector<Projectile*> list;
         return list;
     }
-    if (!CanAttack) {
-        return list;
-    }
-    ResetAttackCooldown();
-    auto spriteCenter = GetSpriteCenter();
-    auto direction = aimPosition - spriteCenter;
-    auto newProjectile = weapon_->Use(direction, spriteCenter);
-    newProjectile->SetType(Projectile::Type::PlayerProjectile);
-
-    list.push_back(newProjectile);
-    return list;
 }
 
 void Character::Equip(Weapon* weapon)
@@ -166,6 +153,20 @@ sf::FloatRect Character::GetBaseBoxAt(sf::Vector2f pos)
     spriteBounds.height *= 1.0f / 2;
     spriteBounds.top += spriteBounds.height;
     return spriteBounds;
+}
+
+std::vector<Projectile*> Character::generateShootingProjectiles(sf::Vector2f aimPosition)
+{
+    std::vector<Projectile*> list;
+    if (!CanAttack) {
+        return list;
+    }
+    ResetAttackCooldown();
+    auto spriteCenter = GetSpriteCenter();
+    auto direction = aimPosition - spriteCenter;
+    auto newProjectile = weapon_->Use(direction, spriteCenter);
+    list.push_back(newProjectile);
+    return list;
 }
 
 /*
