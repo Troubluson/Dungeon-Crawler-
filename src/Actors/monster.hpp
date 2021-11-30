@@ -8,8 +8,6 @@
 
 class Monster : public Character {
 public:
-    Monster(Player* player, float xPos, float yPos);
-    Monster(Player* player, sf::Vector2f pos);
     ~Monster();
 
     Player& GetPlayer() const;
@@ -20,6 +18,8 @@ public:
     void initVariables();
 
 protected:
+    Monster(Player* player, sf::Vector2f pos, const std::string& spriteFile);
+    Monster(Player* player, float xPos, float yPos, const std::string& spriteFile);
     Player* player_;
     sf::RectangleShape healthbar_;
     float staticDamage = 5.0f;

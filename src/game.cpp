@@ -16,8 +16,8 @@ Game::Game()
 
     player_->Equip(sword);
 
-    Monster* m = new RandomMonster(player_, 300, 300); // placeholder
-    Monster* m2 = new SearchingMonster(player_, 200, 200);
+    Monster* m = new RandomMonster(player_, 300, 300, "content/sprites/monster1.png"); // placeholder
+    Monster* m2 = new SearchingMonster(player_, 200, 200, "content/sprites/monster2.png");
 
     SwordWeapon* monterSword = new SwordWeapon(5, 10, sf::Vector2f(50, 100), 120, "content/sprites/projectiles.png");
 
@@ -97,12 +97,6 @@ void Game::Events()
             break;
         case sf::Event::GainedFocus:
             paused = false;
-            break;
-        case sf::Event::KeyPressed:
-            if (event_.key.code == sf::Keyboard::Space) {
-                Monster* m = new RandomMonster(player_, player_->GetPos().x, player_->GetPos().y);
-                monsters_.push_back(m);
-            }
             break;
         default:
             break;

@@ -1,7 +1,7 @@
 #include "Actors/monster.hpp"
 
-Monster::Monster(Player* player, sf::Vector2f pos)
-    : Character("content/monster1.png", pos)
+Monster::Monster(Player* player, sf::Vector2f pos, const std::string& spriteFile)
+    : Character(spriteFile, pos)
     , player_(player)
 {
     initVariables();
@@ -10,8 +10,8 @@ Monster::Monster(Player* player, sf::Vector2f pos)
     healthbar.setPosition(pos.x + 15, pos.y - 5);
     healthbar_ = healthbar;
 }
-Monster::Monster(Player* player, float xPos, float yPos)
-    : Character("content/monster1.png", sf::Vector2f(xPos, yPos))
+Monster::Monster(Player* player, float xPos, float yPos, const std::string& spriteFile)
+    : Character(spriteFile, sf::Vector2f(xPos, yPos))
     , player_(player)
 {
     initVariables();
