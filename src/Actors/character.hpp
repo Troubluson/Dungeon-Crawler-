@@ -85,6 +85,6 @@ protected:
     };
 
     Animation* Animations[int(AnimationIndex::Count)];
-    AnimationIndex currentAnimation = AnimationIndex::AnimationDown;
+    AnimationIndex currentAnimation;
 };
 #endif

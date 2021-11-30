@@ -14,7 +14,6 @@ int Player::GetHitPoints() const { return hitpoints_; }
 
 void Player::Update(float dt)
 {
-    generalUpdate(dt);
     if (hasAnimation_) {
         if (oldPos_.x == pos_.x && oldPos_.y == pos_.y) {
             Idle();
@@ -22,6 +21,8 @@ void Player::Update(float dt)
         Animations[int(currentAnimation)]->Update(dt);
         Animations[int(currentAnimation)]->AnimationToSprite(sprite_);
     }
+
+    generalUpdate(dt);
 
     updateDashCooldown(dt);
 
