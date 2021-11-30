@@ -107,6 +107,10 @@ void Character::DamageAnotherCharacter(Character* target)
         std::cout << "Warning: Character has weapon, use FireProjectile() instead of DamageAnotherCharacter()" << std::endl;
         return;
     }
+    if (!CanAttack) {
+        return;
+    }
+    ResetAttackCooldown();
     target->TakeDamage(staticDamage);
 }
 
