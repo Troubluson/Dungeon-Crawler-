@@ -12,7 +12,6 @@ public:
     int GetHitPoints() const;
 
     virtual void Update(float dt);
-    virtual std::list<Projectile*> FireWeapon(sf::Vector2f aimPosition);
 
     void Dash();
 

@@ -14,6 +14,10 @@ Monster::Monster(Player* player, float xPos, float yPos)
     , player_(player)
 {
 }
+void Monster::initVariables()
+{
+    characterBulletType = Projectile::Type::EnemyProjectile;
+}
 
 Monster::~Monster()
 {
@@ -29,17 +33,6 @@ Player& Monster::GetPlayer() const
 {
     return *player_;
 }
-
-std::list<Projectile*> Monster::FireWeapon(sf::Vector2f aimPosition)
-{
-    std::list<Projectile*> list = generateShootingProjectiles(aimPosition);
-    for (auto it : list) {
-        it->SetType(Projectile::Type::EnemyProjectile);
-    }
-
-    return list;
-}
-
 void Monster::Update(float)
 {
     int width = hitpoints_;

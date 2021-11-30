@@ -103,6 +103,9 @@ void Character::TakeDamage(int value)
 }
 void Character::DamageAnotherCharacter(Character* target)
 {
+    if (!CanAttack) {
+        return;
+    }
     ResetAttackCooldown();
     target->TakeDamage(staticDamage);
 }
@@ -110,9 +113,6 @@ void Character::DamageAnotherCharacter(Character* target)
 std::list<Projectile*> Character::Attack(Character* target)
 {
     std::list<Projectile*> emptyProjectileList;
-    if (!CanAttack) {
-        return emptyProjectileList;
-    }
     if (weapon_ == nullptr) {
         DamageAnotherCharacter(target);
         return emptyProjectileList;
@@ -127,6 +127,26 @@ void Character::Equip(Weapon* weapon)
 {
     weapon_ = weapon;
     attackCooldownLength = weapon->GetAttackCooldown();
+}
+
+std::list<Projectile*> Character::FireWeapon(sf::Vector2f aimPosition)
+{
+    std::list<Projectile*> list;
+    if (!CanAttack) {
+        return list;
+    }
+
+    ResetAttackCooldown();
+    auto spriteCenter = GetSpriteCenter();
+    auto direction = aimPosition - spriteCenter;
+    auto newProjectile = weapon_->Use(direction, spriteCenter);
+    list.push_back(newProjectile);
+
+    for (auto it : list) {
+        it->SetType(characterBulletType);
+    }
+
+    return list;
 }
 
 bool Character::IsAlive() { return alive_; }
@@ -155,17 +175,6 @@ sf::FloatRect Character::GetBaseBoxAt(sf::Vector2f pos)
     spriteBounds.height *= 1.0f / 2;
     spriteBounds.top += spriteBounds.height;
     return spriteBounds;
-}
-
-std::list<Projectile*> Character::generateShootingProjectiles(sf::Vector2f aimPosition)
-{
-    std::list<Projectile*> list;
-    ResetAttackCooldown();
-    auto spriteCenter = GetSpriteCenter();
-    auto direction = aimPosition - spriteCenter;
-    auto newProjectile = weapon_->Use(direction, spriteCenter);
-    list.push_back(newProjectile);
-    return list;
 }
 
 /*

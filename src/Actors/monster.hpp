@@ -13,10 +13,10 @@ public:
     ~Monster();
 
     Player& GetPlayer() const;
-    virtual std::list<Projectile*> FireWeapon(sf::Vector2f aimPosition);
     virtual void Update(float);
     virtual bool Move(float dt) = 0;
     virtual void Render(sf::RenderTarget* target);
+    void initVariables();
 
 private:
     Player* player_;

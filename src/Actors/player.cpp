@@ -39,19 +39,6 @@ void Player::Update(float dt)
     }
 }
 
-std::list<Projectile*> Player::FireWeapon(sf::Vector2f aimPosition)
-{
-    std::list<Projectile*> list;
-    if (!CanAttack) {
-        return list;
-    }
-    list = generateShootingProjectiles(aimPosition);
-    for (auto it : list) {
-        it->SetType(Projectile::Type::PlayerProjectile);
-    }
-    return list;
-}
-
 void Player::Dash()
 {
     if (CanDash) {
@@ -76,6 +63,8 @@ void Player::initVariables()
     IsDashing = false;
     dashDurationLength = 1.0f;
     dashDurationLeft = dashDurationLength;
+
+    characterBulletType = Projectile::Type::PlayerProjectile;
 }
 
 void Player::ResetDashCooldown()

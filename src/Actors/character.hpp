@@ -19,7 +19,7 @@ public:
 
     void DamageAnotherCharacter(Character* target);
     std::list<Projectile*> Attack(Character* target);
-    virtual std::list<Projectile*> FireWeapon(sf::Vector2f aimPosition) = 0;
+    std::list<Projectile*> FireWeapon(sf::Vector2f aimPosition);
 
     void Equip(Weapon* weapon);
 
@@ -75,8 +75,6 @@ protected:
     float attackCooldownLength;
     float attackCooldownLeft;
     void updateAttackCooldown(float dt);
-
-    std::list<Projectile*> generateShootingProjectiles(sf::Vector2f aimPosition);
 
     enum class AnimationIndex {
         AnimationUp,
