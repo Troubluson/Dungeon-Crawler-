@@ -1,9 +1,10 @@
 #include "MonsterSpawner.hpp"
 #include <time.h>
 
-MonsterSpawner::MonsterSpawner(Player* character, uint monsterAmount)
-    : monsterCount_(monsterAmount)
-    , character_(character)
+MonsterSpawner::MonsterSpawner(Player* player, RoomInstance& spawnRoom, uint monsterAmount)
+    : character_(player)
+    , spawnRoom_(spawnRoom)
+    , monsterCount_(monsterAmount)
 {
 }
 Monster* MonsterSpawner::getRandomMonster() const
@@ -27,9 +28,14 @@ Monster* MonsterSpawner::SpawnMonster() const
         std::cout << "nullptr";
         return nullptr;
     }
-    auto randomPosX = (rand() % 500) + 100;
-    auto randomPosY = (rand() % 300) + 100;
-    m->setOldAndNewPos(sf::Vector2f(randomPosX, randomPosY));
+    int randomPosX, randomPosY;
+    sf::Vector2u roomSize = spawnRoom_.getRoomSize();
+    do {
+        randomPosX = (rand() % (roomSize.x - 100)) + 100;
+        randomPosY = (rand() % (roomSize.y - 100)) + 100;
+        m->setOldAndNewPos(sf::Vector2f(randomPosX, randomPosY));
+
+    } while (!spawnRoom_.positionIsWalkable(m->GetBaseBoxAt(m->GetPos())));
     return m;
 }
 

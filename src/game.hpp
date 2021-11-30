@@ -30,7 +30,7 @@ private:
     sf::RenderWindow* window_;
     sf::Event event_;
     sf::Clock dtClock;
-    RoomInstance room;
+    RoomInstance* room; // otherwise fails due to some werid deleted function thing
     Player* player_;
     Gamebar gamebar_;
 

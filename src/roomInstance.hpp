@@ -7,7 +7,8 @@
 
 class RoomInstance {
 public:
-    RoomInstance();
+    RoomInstance() = default;
+    RoomInstance(sf::Vector2u size);
 
     void Render(sf::RenderTarget* target);
     void setUpRoomInstance();
@@ -16,6 +17,7 @@ public:
     std::vector<RoomTile*> getRoomTilesAt(sf::FloatRect bounds);
     bool positionIsWalkable(sf::FloatRect bounds);
     std::vector<std::vector<RoomTile*>> getTiles() const;
+    const sf::Vector2u getRoomSize() const;
 
 private:
     sf::Vector2i exitPosition;
@@ -23,6 +25,7 @@ private:
 
     std::vector<std::vector<RoomTile*>> tileVector_;
     int gridLen_;
+    sf::Vector2u size_;
     sf::RenderTexture roomTexture;
     sf::Sprite roomBackground;
 };

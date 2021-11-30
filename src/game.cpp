@@ -11,18 +11,20 @@ const float PLACEHOLDER_PROJ_LS = 0.5;
 }
 Game::Game()
 {
+    initWindow();
+    initVariables();
+    auto windowSize = window_->getSize();
+    room = new RoomInstance(windowSize);
     player_ = new Player();
     SwordWeapon* sword = new SwordWeapon(5, 10, sf::Vector2f(50, 100), 120, "content/sprites/projectiles.png");
     player_->Equip(sword);
 
-    MonsterSpawner spawner = MonsterSpawner(player_, 5);
+    MonsterSpawner spawner = MonsterSpawner(player_, *room, 5);
     auto spawnedMonsters = spawner.SpawnMonsters();
     for (auto m : spawnedMonsters) {
         monsters_.push_back(m);
     }
     gamebar_ = Gamebar(player_);
-    initVariables();
-    initWindow();
 }
 
 Game::~Game()
@@ -62,7 +64,7 @@ void Game::UpdateGame()
 void Game::RenderGame()
 {
     window_->clear();
-    room.Render(window_);
+    room->Render(window_);
     player_->Render(window_);
     gamebar_.Render(window_);
     for (auto projectile : projectiles_) {
@@ -254,11 +256,11 @@ void Game::updateProjectiles()
 }
 bool Game::collidesWithWall(Character* character)
 {
-    return !room.positionIsWalkable(character->GetBaseBoxAt(character->GetPos()));
+    return !room->positionIsWalkable(character->GetBaseBoxAt(character->GetPos()));
 }
 bool Game::collidesWithWall(Entity* object)
 {
-    return !room.positionIsWalkable(object->getSpriteBounds());
+    return !room->positionIsWalkable(object->getSpriteBounds());
 }
 
 bool Game::gameLost()
