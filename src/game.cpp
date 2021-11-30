@@ -15,11 +15,9 @@ Game::Game()
     SwordWeapon* sword = new SwordWeapon(5, 10, sf::Vector2f(50, 100), 120, "content/sprites/projectiles.png");
     player_->Equip(sword);
 
-    Monster* m = new RandomMonster(player_, 300, 300); // placeholder
-    Monster* m2 = new SearchingMonster(player_, 200, 200);
-    monsters_.push_back(m);
-    monsters_.push_back(m2);
-
+    MonsterSpawner spawner = MonsterSpawner(player_, 5);
+    auto spawnedMonsters = spawner.SpawnMonsters();
+    monsters_.splice(monsters_.end(), spawnedMonsters);
     gamebar_ = Gamebar(player_);
     initVariables();
     initWindow();

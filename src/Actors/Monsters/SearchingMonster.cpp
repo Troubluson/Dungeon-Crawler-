@@ -1,10 +1,10 @@
 #include "SearchingMonster.hpp"
 
-SearchingMonster::SearchingMonster(Player* player, sf::Vector2f pos)
+SearchingMonster::SearchingMonster(Character* player, sf::Vector2f pos)
     : Monster(player, pos)
 {
 }
-SearchingMonster::SearchingMonster(Player* player, float xPos, float yPos)
+SearchingMonster::SearchingMonster(Character* player, float xPos, float yPos)
     : Monster(player, sf::Vector2f(xPos, yPos))
 {
 }
