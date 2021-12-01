@@ -24,6 +24,15 @@ protected:
     int gridLen_;
     sf::RenderTexture roomTexture;
     sf::Sprite roomBackground;
+    std::vector<RoomInstance*> connectedRooms_;
+    enum Direction {
+        Up,
+        Down,
+        Left,
+        Right,
+        Count
+    };
+    std::map<Direction, connectedRooms_> availableRooms_;
 };
 
 #endif

@@ -51,7 +51,7 @@ void RoomInstance::setTiles(sf::Vector2u window_size)
                 } else {
                     row.push_back(new RoomTile("content/sprites/walls/wallfront1.png", k, n, false));
                 }
-            } else if (i == 11) {
+            } else if (i == gridLen_ / 2) {
                 if (j == 0) {
                     row.push_back(new RoomTile("content/sprites/walls/topwallright.png", k, n, false));
                 } else if (j == gridLen_ - 1) {
@@ -94,7 +94,7 @@ void RoomInstance::setTiles(sf::Vector2u window_size)
 
 void RoomInstance::renderSpriteBackground(sf::Vector2u window_size)
 {
-    roomTexture.create(window_size.x, window_size.y + 64 * 2);
+    roomTexture.create(window_size.x, window_size.y);
     for (int i = 0; i < this->gridLen_; i++) {
         for (int j = 0; j < this->gridLen_; j++) {
             roomTexture.draw(this->tileVector_[i][j]->getSprite());

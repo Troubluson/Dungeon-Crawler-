@@ -1,10 +1,16 @@
 #include "map.hpp"
+#include <time.h>
 
+namespace {
+int DIRECTION = 4;
+}
 Map::Map(sf::Vector2u size)
 {
+    srand(time(NULL));
     spawn_ = new StartingRoom(size);
     for (int i = 0; i < 5; i++) {
-        dungeon_.push_back(new RoomInstance(size));
+        rand() % 5;
+        RoomInstance* newRoom = new RoomInstance(size);
     }
     room = -1;
 }
