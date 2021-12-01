@@ -32,7 +32,6 @@ protected:
         Right,
         Count
     };
-    std::map<Direction, connectedRooms_> availableRooms_;
 };
 
 #endif
