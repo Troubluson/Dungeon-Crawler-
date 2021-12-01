@@ -4,9 +4,7 @@
 #define _PLAYER_CLASS_
 
 #include "Actors/character.hpp"
-#include "Combat/Weapons/Weapon.hpp"
 
-class Weapon;
 class Player : public Character {
 public:
     Player();
@@ -14,11 +12,28 @@ public:
     int GetHitPoints() const;
 
     virtual void Update(float dt);
-    void Attack(sf::Vector2f mousePos, std::list<Projectile*>& worldProjectiles);
-    void Equip(Weapon* weapon);
+
+    void Dash();
+    std::list<Projectile*> Attack(sf::Vector2f aimPos);
+
+    void initVariables();
+
+    void ResetDashCooldown();
+
+    float GetDashCooldownLeft() const { return dashCooldownLeft; };
+    float GetDashCooldownLength() const { return dashCooldownLength; };
+
+    bool CanDash;
+    bool IsDashing;
 
 private:
-    Weapon* weapon_;
+    float dashSpeed;
+    float dashDurationLength;
+    float dashDurationLeft;
+
+    float dashCooldownLength;
+    float dashCooldownLeft;
+    void updateDashCooldown(float dt);
 };
 
 #endif

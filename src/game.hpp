@@ -39,7 +39,7 @@ private:
     bool paused = false;
     bool gameEnder_;
 
-    std::list<Character*> monsters_;
+    std::list<Monster*> monsters_;
     std::list<Projectile*> projectiles_;
     // CollisionSystem collisionSys;
 
@@ -47,14 +47,18 @@ private:
     void initWindow();
     void updateDt();
     void manageInput();
-    void checkCollisions(std::list<Character*> characterVector, Projectile::Type type);
+    void checkCollisions(Character* character, Projectile::Type projectileType);
+    void checkMonsterCollisions();
+    void checkPlayerCollisions();
     void checkAndHandleProjectileWallCollisions();
     void deleteProjectile(Projectile* p);
+    void addProjectiles(std::list<Projectile*> listToAdd);
     void deleteMonster(Character* m);
     void updateProjectiles();
     bool collidesWithWall(Character* character);
     bool collidesWithWall(Entity* object);
     bool walksThroughExit(Character* Character);
+    bool gameLost();
 };
 
 #endif

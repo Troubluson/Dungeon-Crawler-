@@ -24,57 +24,45 @@ Character::Character(const std::string& filename, sf::Vector2f pos, bool animate
 
 Character::~Character() { }
 
-void Character::Update(float dt)
-{
-    sprite_.setPosition(pos_);
-    if (hitpoints_ <= 0) {
-        alive_ = false;
-    }
-
-    if (hasAnimation_) {
-        if (oldPos_ == pos_) {
-            Idle();
-        }
-        Animations[int(currentAnimation)]->Update(dt);
-        Animations[int(currentAnimation)]->AnimationToSprite(sprite_);
-    }
-}
-
-void Character::SetOldPos(sf::Vector2f v)
-{
-    oldPos_ = v;
-}
-
 void Character::initVariables()
 {
+    weapon_ = nullptr;
     alive_ = true;
+
+    normalSpeed_ = 200.0f;
+    attackCooldownLength = 1.66f;
+    attackCooldownLeft = 0.0f;
+    CanAttack = true;
+
     hitpoints_ = 50;
+    currentSpeed_ = normalSpeed_;
+    attackCooldownLength = 1.0f;
 }
 
 bool Character::MoveLeft(float dt)
 {
-    pos_.x -= speed_ * dt;
+    pos_.x -= currentSpeed_ * dt;
     currentAnimation = AnimationIndex::AnimationLeft;
     return true;
 }
 
 bool Character::MoveRight(float dt)
 {
-    pos_.x += speed_ * dt;
+    pos_.x += currentSpeed_ * dt;
     currentAnimation = AnimationIndex::AnimationRight;
     return true;
 }
 
 bool Character::MoveDown(float dt)
 {
-    pos_.y += speed_ * dt;
+    pos_.y += currentSpeed_ * dt;
     currentAnimation = AnimationIndex::AnimationDown;
     return true;
 }
 
 bool Character::MoveUp(float dt)
 {
-    pos_.y -= speed_ * dt;
+    pos_.y -= currentSpeed_ * dt;
     currentAnimation = AnimationIndex::AnimationUp;
     return true;
 }
@@ -84,9 +72,29 @@ void Character::RevertMove()
     pos_ = oldPos_;
 }
 
+void Character::ResetAttackCooldown()
+{
+    attackCooldownLeft = attackCooldownLength;
+    CanAttack = false;
+}
+
+void Character::updateAttackCooldown(float dt)
+{
+    attackCooldownLeft = std::max(0.0f, attackCooldownLeft - dt);
+    if (attackCooldownLeft <= 0.0f) {
+        CanAttack = true;
+    }
+}
+
 void Character::TakeDamage(int value)
 {
     hitpoints_ -= value;
+}
+
+void Character::Equip(Weapon* weapon)
+{
+    weapon_ = weapon;
+    attackCooldownLength = weapon->GetAttackCooldown();
 }
 
 bool Character::IsAlive() { return alive_; }
@@ -95,6 +103,11 @@ bool Character::Idle()
 {
     currentAnimation = AnimationIndex::AnimationIdle;
     return true;
+}
+
+bool Character::HasWeapon()
+{
+    return weapon_ != nullptr;
 }
 
 sf::FloatRect Character::GetBaseBoxAt(sf::Vector2f pos)
@@ -107,6 +120,37 @@ sf::FloatRect Character::GetBaseBoxAt(sf::Vector2f pos)
     spriteBounds.height *= 1.0f / 2;
     spriteBounds.top += spriteBounds.height;
     return spriteBounds;
+}
+
+std::list<Projectile*> Character::emptyList()
+{
+    std::list<Projectile*> emptyList;
+    return emptyList;
+}
+std::list<Projectile*> Character::shotProjectileList(sf::Vector2f aimPos)
+{
+    std::list<Projectile*> projectileList;
+    auto spriteCenter = GetSpriteCenter();
+    auto direction = aimPos - spriteCenter;
+
+    Projectile* newProjectile = weapon_->Use(direction, spriteCenter);
+    projectileList.push_back(newProjectile);
+
+    for (auto it : projectileList) {
+        it->SetType(characterProjectileType);
+    }
+
+    return projectileList;
+}
+
+void Character::generalUpdate(float dt)
+{
+    oldPos_ = pos_;
+    sprite_.setPosition(pos_);
+    if (hitpoints_ <= 0) {
+        alive_ = false;
+    }
+    updateAttackCooldown(dt);
 }
 
 /*

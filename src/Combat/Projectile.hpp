@@ -3,7 +3,6 @@
 #ifndef _Projectile_CLASS_
 #define _Projectile_CLASS_
 
-#include "Actors/character.hpp"
 #include "entity.hpp"
 
 class Character;
