@@ -62,7 +62,7 @@ void Game::UpdateGame()
     }
     updateProjectiles();
     // checkCollisions(player_, Projectile::Type::EnemyProjectile);
-    //handleMonsterProjectileCollisions(monsters_, Projectile::Type::PlayerProjectile);
+    // handleMonsterProjectileCollisions(monsters_, Projectile::Type::PlayerProjectile);
     checkMonsterCollisions();
     checkPlayerCollisions();
     checkAndHandleProjectileWallCollisions();
@@ -163,17 +163,24 @@ void Game::manageInput()
         addProjectiles(projectileListToAdd);
     }
     if (triedMoving) {
+        std::cout << player_->GetPos().x << " " << player_->GetPos().y << std::endl;
         if (collidesWithWall(player_)) {
             player_->RevertMove();
         }
         if (walksThroughExit(player_)) {
-            dungeonMap_.nextRoom();
             float y = window_->getSize().y;
+            float x = window_->getSize().x;
             if (player_->GetPos().y <= 0) {
                 player_->setPos({ player_->GetPos().x, y - 1 });
             }
             if (player_->GetPos().y > y) {
                 player_->setPos({ player_->GetPos().x, -1 });
+            }
+            if (player_->GetPos().x <= 0) {
+                player_->setPos({ x - 1, player_->GetPos().y });
+            }
+            if (player_->GetPos().x > x) {
+                player_->setPos({ -1, player_->GetPos().y });
             }
         }
     }
@@ -291,7 +298,8 @@ bool Game::collidesWithWall(Entity* object)
 bool Game::walksThroughExit(Character* character)
 {
 
-    if (videomode_.width <= character->GetPos().x || videomode_.height <= character->GetPos().y || character->GetPos().x <= 0 || character->GetPos().y <= 0) {
+    if (videomode_.width <= character->GetPos().x || videomode_.height < character->GetPos().y || character->GetPos().x <= 0 || character->GetPos().y <= 0) {
+        dungeonMap_.nextRoom();
         return true;
     }
     return false;

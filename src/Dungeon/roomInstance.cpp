@@ -39,14 +39,14 @@ void RoomInstance::setTiles(sf::Vector2u window_size)
                 } else if (j == gridLen_ - 1) {
                     row.push_back(new RoomTile("content/sprites/walls/topwallbottomleft.png", k, n, false));
 
-                } else if (j == gridLen_ / 2 - 1 || j == gridLen_ / 2 - 2 || j == gridLen_ / 2) {
+                } else if (j == gridLen_ / 2 - 1 || j == gridLen_ / 2) {
                     row.push_back(new RoomTile("content/sprites/floors/tile1.png", k, n, true));
 
                 } else {
                     row.push_back(new RoomTile("content/sprites/walls/toppartofwall1.png", k, n, false));
                 }
             } else if (i == 1 && j != 0 && j != gridLen_ - 1) {
-                if (j == gridLen_ / 2 - 1 || j == gridLen_ / 2 - 2 || j == gridLen_ / 2) {
+                if (j == gridLen_ / 2 - 1 || j == gridLen_ / 2) {
                     row.push_back(new RoomTile("content/sprites/floors/tile1.png", k, n, true));
                 } else {
                     row.push_back(new RoomTile("content/sprites/walls/wallfront1.png", k, n, false));
@@ -56,15 +56,25 @@ void RoomInstance::setTiles(sf::Vector2u window_size)
                     row.push_back(new RoomTile("content/sprites/walls/topwallright.png", k, n, false));
                 } else if (j == gridLen_ - 1) {
                     row.push_back(new RoomTile("content/sprites/walls/topwallbottomright.png", k, n, false));
-                } else if (j == gridLen_ / 2 - 1 || j == gridLen_ / 2 - 2 || j == gridLen_ / 2) {
+                } else if (j == gridLen_ / 2 - 1 || j == gridLen_ / 2) {
                     row.push_back(new RoomTile("content/sprites/floors/tile1.png", k, n, true));
                 } else {
                     row.push_back(new RoomTile("content/sprites/walls/topwallbottom.png", k, n, false));
                 }
             } else if (i != 0 && j == 0) {
-                row.push_back(new RoomTile("content/sprites/walls/topwallLEFTSIDE.png", k, n, false));
+                if (i == gridLen_ / 2 - 5 || i == gridLen_ / 2 - 4) {
+                    row.push_back(new RoomTile("content/sprites/floors/tile1.png", k, n, true));
+                } else {
+                    row.push_back(new RoomTile("content/sprites/walls/topwallLEFTSIDE.png", k, n, false));
+                }
+
             } else if (i != 0 && j == gridLen_ - 1) {
-                row.push_back(new RoomTile("content/sprites/walls/topwallRIGHTSIDE.png", k, n, false));
+                if (i == gridLen_ / 2 - 5 || i == gridLen_ / 2 - 4) {
+                    row.push_back(new RoomTile("content/sprites/floors/tile1.png", k, n, true));
+                } else {
+                    row.push_back(new RoomTile("content/sprites/walls/topwallRIGHTSIDE.png", k, n, false));
+                }
+
             } else {
                 int tileNumber = rand() % ((TILE_AMOUNT + 1) + NORMALTILE_EXTRA_WEIGHT) + 1;
                 if (tileNumber > TILE_AMOUNT) {
@@ -84,7 +94,7 @@ void RoomInstance::setTiles(sf::Vector2u window_size)
 
 void RoomInstance::renderSpriteBackground(sf::Vector2u window_size)
 {
-    roomTexture.create(window_size.x, window_size.y);
+    roomTexture.create(window_size.x, window_size.y + 64 * 2);
     for (int i = 0; i < this->gridLen_; i++) {
         for (int j = 0; j < this->gridLen_; j++) {
             roomTexture.draw(this->tileVector_[i][j]->getSprite());

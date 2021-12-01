@@ -32,7 +32,7 @@ void StartingRoom::setTiles(sf::Vector2u window_size)
                     row.push_back(new RoomTile("content/sprites/walls/topwallright.png", k, n, false));
                 } else if (j == gridLen_ - 1) {
                     row.push_back(new RoomTile("content/sprites/walls/topwallbottomright.png", k, n, false));
-                } else if (j == gridLen_ / 2 - 1 || j == gridLen_ / 2 - 2 || j == gridLen_ / 2) {
+                } else if (j == gridLen_ / 2 - 1 || j == gridLen_ / 2) {
                     row.push_back(new RoomTile("content/sprites/floors/tile1.png", k, n, true));
                 } else {
                     row.push_back(new RoomTile("content/sprites/walls/topwallbottom.png", k, n, false));
