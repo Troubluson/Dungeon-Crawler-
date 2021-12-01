@@ -163,7 +163,7 @@ void Game::manageInput()
             player_->RevertMove();
         }
         if (walksThroughExit(player_)) {
-
+            dungeonMap_.nextRoom();
             float y = window_->getSize().y;
             if (player_->GetPos().y <= 0) {
                 player_->setPos({ player_->GetPos().x, y - 1 });

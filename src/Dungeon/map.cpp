@@ -15,7 +15,7 @@ void Map::loadRoom(sf::RenderTarget* window)
 
 void Map::nextRoom()
 {
-    if (room < 3) {
+    if (room < 2) {
         room += 1;
     }
 }

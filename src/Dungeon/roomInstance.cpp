@@ -42,9 +42,8 @@ void RoomInstance::setTiles(sf::Vector2u window_size)
             } else if (i == 1 && j != 0 && j != gridLen_ - 1) {
                 if (j == gridLen_ / 2 - 1 || j == gridLen_ / 2 - 2 || j == gridLen_ / 2) {
                     row.push_back(new RoomTile("content/sprites/floors/tile1.png", k, n, true));
-                }
-                else {
-                row.push_back(new RoomTile("content/sprites/walls/wallfront1.png", k, n, false));
+                } else {
+                    row.push_back(new RoomTile("content/sprites/walls/wallfront1.png", k, n, false));
                 }
             } else if (i == 11) {
                 if (j == 0) {
