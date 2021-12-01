@@ -1,30 +1,12 @@
-#include "roomInstance.hpp"
-#include <time.h>
-namespace {
-int TILE_AMOUNT = 7;
-int NORMALTILE_EXTRA_WEIGHT = 4;
-}
+#include "startingRoom.hpp"
 
-RoomInstance::RoomInstance(sf::Vector2u window_size)
+StartingRoom::StartingRoom(sf::Vector2u window_size)
+    : RoomInstance(window_size)
 {
-    srand(time(NULL));
-    gridLen_ = window_size.x / 64;
-    setUpRoomInstance(window_size);
-}
-
-void RoomInstance::Render(sf::RenderTarget* target)
-{
-    target->draw(roomBackground);
-}
-
-void RoomInstance::setUpRoomInstance(sf::Vector2u window_size)
-{
-    exitPosition = sf::Vector2i(1, 0);
-    playerPosition = sf::Vector2i(gridLen_ - 4, gridLen_ - 4);
     setTiles(window_size);
 }
 
-void RoomInstance::setTiles(sf::Vector2u window_size)
+void StartingRoom::setTiles(sf::Vector2u window_size)
 {
     tileVector_.clear();
 
@@ -66,13 +48,7 @@ void RoomInstance::setTiles(sf::Vector2u window_size)
             } else if (i != 0 && j == gridLen_ - 1) {
                 row.push_back(new RoomTile("content/sprites/walls/topwallRIGHTSIDE.png", k, n, false));
             } else {
-                int tileNumber = rand() % ((TILE_AMOUNT + 1) + NORMALTILE_EXTRA_WEIGHT) + 1;
-                if (tileNumber > TILE_AMOUNT) {
-                    tileNumber = 1;
-                }
-                std::cout << tileNumber << std::endl;
-                std::string tilelocation = "content/sprites/floors/tile" + std::to_string(tileNumber) + ".png";
-                row.push_back(new RoomTile(tilelocation, k, n, true));
+                row.push_back(new RoomTile("content/sprites/floors/tile1.png", k, n, true));
             }
 
             k += 64;
@@ -82,42 +58,3 @@ void RoomInstance::setTiles(sf::Vector2u window_size)
     }
     renderSpriteBackground(window_size);
 }
-
-void RoomInstance::renderSpriteBackground(sf::Vector2u window_size)
-{
-    roomTexture.create(window_size.x, window_size.y);
-    for (int i = 0; i < this->gridLen_; i++) {
-        for (int j = 0; j < this->gridLen_; j++) {
-            roomTexture.draw(this->tileVector_[i][j]->getSprite());
-        }
-    }
-    roomTexture.display();
-    roomBackground.setTexture(roomTexture.getTexture());
-}
-
-std::vector<RoomTile*> RoomInstance::getRoomTilesAt(sf::FloatRect entityBounds)
-{
-    // change this to calculate which tile from position
-    std::vector<RoomTile*> tilesInBounds;
-    for (auto tileRow : tileVector_) {
-        for (auto tile : tileRow) {
-            if (tile->getBoundingBox().intersects(entityBounds)) {
-                tilesInBounds.push_back(tile);
-            }
-        }
-    }
-    return tilesInBounds;
-}
-// we end up needing to use the bounding box if we don't due to a character being in multiple tiles simultaneously
-bool RoomInstance::positionIsWalkable(sf::FloatRect entityBounds)
-{
-    auto tilesInBounds = getRoomTilesAt(entityBounds);
-    for (auto tile : tilesInBounds) {
-        if (!tile->isWalkable()) {
-            return false;
-        }
-    }
-    return true;
-}
-
-std::vector<std::vector<RoomTile*>> RoomInstance::getTiles() const { return tileVector_; }

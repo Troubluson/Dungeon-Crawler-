@@ -44,13 +44,15 @@ void Player::Dash()
 
 void Player::initVariables()
 {
-    dashSpeed = 400.0f;
+
     dashCooldownLength = 1.0f;
     dashCooldownLeft = 0.0f;
     CanDash = true;
     IsDashing = false;
     dashDurationLength = 1.0f;
     dashDurationLeft = 0.0f;
+    normalSpeed_ = 500.0f;
+    dashSpeed = normalSpeed_ * 3;
 
     characterProjectileType = Projectile::Type::PlayerProjectile;
 }

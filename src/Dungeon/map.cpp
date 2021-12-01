@@ -2,7 +2,8 @@
 
 Map::Map(sf::Vector2u size)
 {
-    for (int i = 0; i < 3; i++) {
+    spawn_ = new StartingRoom(size);
+    for (int i = 0; i < 5; i++) {
         dungeon_.push_back(new RoomInstance(size));
     }
     room = 0;
@@ -15,7 +16,7 @@ void Map::loadRoom(sf::RenderTarget* window)
 
 void Map::nextRoom()
 {
-    if (room < 2) {
+    if (room < 4) {
         room += 1;
     }
 }

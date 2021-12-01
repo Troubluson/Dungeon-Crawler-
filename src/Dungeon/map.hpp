@@ -3,10 +3,11 @@
 #define _MAP_
 #include "PCH.hpp"
 #include "roomInstance.hpp"
-
+#include "startingRoom.hpp"
 class Map {
 private:
     int room;
+    StartingRoom* spawn_;
 
 public:
     Map(sf::Vector2u size);
