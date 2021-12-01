@@ -6,12 +6,16 @@ Map::Map(sf::Vector2u size)
     for (int i = 0; i < 5; i++) {
         dungeon_.push_back(new RoomInstance(size));
     }
-    room = 0;
+    room = -1;
 }
 
 void Map::loadRoom(sf::RenderTarget* window)
 {
-    dungeon_[room]->Render(window);
+    if (room >= 0) {
+        dungeon_[room]->Render(window);
+    } else {
+        spawn_->Render(window);
+    }
 }
 
 void Map::nextRoom()
@@ -23,5 +27,9 @@ void Map::nextRoom()
 
 RoomInstance* Map::GetRoom()
 {
-    return dungeon_[room];
+    if (room >= 0) {
+        return dungeon_[room];
+    } else {
+        return spawn_;
+    }
 }

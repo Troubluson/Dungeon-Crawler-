@@ -70,7 +70,6 @@ void RoomInstance::setTiles(sf::Vector2u window_size)
                 if (tileNumber > TILE_AMOUNT) {
                     tileNumber = 1;
                 }
-                std::cout << tileNumber << std::endl;
                 std::string tilelocation = "content/sprites/floors/tile" + std::to_string(tileNumber) + ".png";
                 row.push_back(new RoomTile(tilelocation, k, n, true));
             }
