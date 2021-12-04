@@ -27,7 +27,7 @@ Game::Game()
     gamebar_ = Gamebar(player_);
     initVariables();
     initWindow();
-    dungeonMap_ = Map(window_->getSize());
+    dungeonMap_ = Map(window_->getSize(), 10);
 }
 
 Game::~Game()

@@ -6,24 +6,30 @@
 #include "startingRoom.hpp"
 
 class Map {
-private:
-    int room;
-    StartingRoom* spawn_;
-    enum class Direction {
-        Up,
-        Down,
-        Left,
-        Right,
-    };
 
 public:
-    Map(sf::Vector2u size);
+    Map(sf::Vector2u sizeOfRoom, uint noRooms);
     Map() { }
-    ~Map() { }
     void loadRoom(sf::RenderTarget*);
     void nextRoom();
+    void CreateDungeon(uint noRooms);
     RoomInstance* GetRoom();
-    std::vector<RoomInstance*> dungeon_;
+    void Move(Direction dir);
+    /**
+     * @brief Get the Room in the argument direction
+     *
+     * @param    direction                 The direction
+     * @return  returns room, or nullptr if not found
+     */
+    RoomInstance* GetRoomInDir(Direction direction);
+
+private:
+    std::pair<int, int> getKey();
+    sf::Vector2u roomSize_;
+    int room;
+    RoomInstance* spawn_;
+    sf::Vector2i currentPos_;
+    std::map<std::pair<int, int>, RoomInstance*> dungeon_; // cant use vector2i as a key because its dumb
 };
 
 #endif

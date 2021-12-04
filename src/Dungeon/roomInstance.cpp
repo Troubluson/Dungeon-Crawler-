@@ -6,9 +6,10 @@ int NORMALTILE_EXTRA_WEIGHT = 4;
 }
 
 RoomInstance::RoomInstance(sf::Vector2u window_size)
+    : roomSize_(window_size)
 {
     srand(time(NULL));
-    gridLen_ = window_size.x / 64;
+    gridLen_ = 20;
     setUpRoomInstance(window_size);
 }
 
@@ -104,6 +105,30 @@ void RoomInstance::renderSpriteBackground(sf::Vector2u window_size)
     roomBackground.setTexture(roomTexture.getTexture());
 }
 
+/*void RoomInstance::Connect(Direction dir, RoomInstance* room)
+{
+    connectedRooms_[dir] = room;
+    CreateExit(dir);
+    auto oppositeDir = GetOppositeDir(dir);
+    room->connectedRooms_[oppositeDir] = this;
+    room->CreateExit(oppositeDir);
+}*/
+
+RoomInstance* RoomInstance::GetRoomInDir(Direction dir)
+{
+    if (HasNeighBorInDir(dir)) {
+        return connectedRooms_[dir];
+    } else {
+        throw "THE CODE IS FUCKED";
+        return nullptr;
+    }
+}
+
+std::vector<std::vector<RoomTile*>> RoomInstance::getTiles() const
+{
+    return tileVector_;
+}
+
 std::vector<RoomTile*> RoomInstance::getRoomTilesAt(sf::FloatRect entityBounds)
 {
     // change this to calculate which tile from position
@@ -117,7 +142,7 @@ std::vector<RoomTile*> RoomInstance::getRoomTilesAt(sf::FloatRect entityBounds)
     }
     return tilesInBounds;
 }
-// we end up needing to use the bounding box if we don't due to a character being in multiple tiles simultaneously
+// we end up needing to use the bounding box character being in multiple tiles simultaneously
 bool RoomInstance::positionIsWalkable(sf::FloatRect entityBounds)
 {
     auto tilesInBounds = getRoomTilesAt(entityBounds);
@@ -129,4 +154,61 @@ bool RoomInstance::positionIsWalkable(sf::FloatRect entityBounds)
     return true;
 }
 
-std::vector<std::vector<RoomTile*>> RoomInstance::getTiles() const { return tileVector_; }
+bool RoomInstance::HasNeighBorInDir(Direction dir) const
+{
+    // check if key exists
+    if (connectedRooms_.count(dir)) {
+        return true;
+    }
+    return false;
+}
+
+void RoomInstance::CreateExit(Direction dir)
+{
+    // v<row, col>
+    std::vector<std::pair<int, int>> tilesToReplace;
+    auto firstRow = tileVector_[0];
+    auto secondRow = tileVector_[1];
+    switch (dir) {
+    case Direction::Up: {
+        for (auto i = 0u; i < 2; ++i) {
+            tilesToReplace.push_back(std::make_pair(0, i + firstRow.size() / 2 - 1));
+            tilesToReplace.push_back(std::make_pair(1, i + secondRow.size() / 2 - 1));
+        }
+        break;
+    }
+    case Direction::Down: {
+        auto vSize = tileVector_.size() - 1;
+        auto lastRow = tileVector_[vSize];
+        for (auto i = 0u; i < 2; ++i) {
+            tilesToReplace.push_back(std::make_pair(vSize, i + lastRow.size() / 2 - 1));
+        }
+        break;
+    }
+    case Direction::Left: {
+        auto vSize = tileVector_.size() - 1;
+        auto midCol1 = tileVector_[vSize / 2];
+        auto midCol2 = tileVector_[vSize / 2 + 1];
+        tilesToReplace.push_back(std::make_pair(vSize / 2, 0));
+        tilesToReplace.push_back(std::make_pair(vSize / 2 + 1, 0));
+
+        break;
+    }
+    case Direction::Right: {
+        auto vSize = tileVector_.size();
+        auto midCol1 = tileVector_[vSize / 2];
+        auto midCol2 = tileVector_[vSize / 2 + 1];
+        tilesToReplace.push_back(std::make_pair(vSize / 2, midCol1.size() - 1));
+        tilesToReplace.push_back(std::make_pair(vSize / 2 + 1, midCol2.size() - 1));
+        break;
+    }
+    default:
+        break;
+    } // switch
+    for (auto tile : tilesToReplace) {
+        auto pos = tileVector_[tile.first][tile.second]->getPosition();
+        delete tileVector_[tile.first][tile.second];
+        tileVector_[tile.first][tile.second] = new RoomTile("content/sprites/floors/tile1.png", pos.x, pos.y, true);
+    }
+    renderSpriteBackground(roomSize_);
+}
