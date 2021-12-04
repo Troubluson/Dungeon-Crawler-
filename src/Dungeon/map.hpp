@@ -14,6 +14,8 @@ public:
     void nextRoom();
     void CreateDungeon(uint noRooms);
     RoomInstance* GetRoom();
+    RoomInstance* GetRoomAt(sf::Vector2i choord);
+
     void Move(Direction dir);
     /**
      * @brief Get the Room in the argument direction
@@ -22,9 +24,12 @@ public:
      * @return  returns room, or nullptr if not found
      */
     RoomInstance* GetRoomInDir(Direction direction);
+    sf::Vector2i DirToVec(Direction direction);
+    RoomInstance* GetCurrentRoom();
 
 private:
     std::pair<int, int> getKey();
+    std::pair<int, int> getKey(sf::Vector2i choord);
     sf::Vector2u roomSize_;
     int room;
     RoomInstance* spawn_;

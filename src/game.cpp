@@ -163,24 +163,24 @@ void Game::manageInput()
         addProjectiles(projectileListToAdd);
     }
     if (triedMoving) {
-        std::cout << player_->GetPos().x << " " << player_->GetPos().y << std::endl;
+        // std::cout << player_->GetPos().x << " " << player_->GetPos().y << std::endl;
         if (collidesWithWall(player_)) {
             player_->RevertMove();
         }
-        if (walksThroughExit(player_)) {
+        if (ShouldChangeRoom()) {
             float y = window_->getSize().y;
             float x = window_->getSize().x;
             if (player_->GetPos().y <= 0) {
-                player_->setPos({ player_->GetPos().x, y - 1 });
+                player_->setPos({ player_->GetPos().x, y - 3 });
             }
             if (player_->GetPos().y > y) {
-                player_->setPos({ player_->GetPos().x, -1 });
+                player_->setPos({ player_->GetPos().x, -3 });
             }
             if (player_->GetPos().x <= 0) {
-                player_->setPos({ x - 1, player_->GetPos().y });
+                player_->setPos({ x - 3, player_->GetPos().y });
             }
             if (player_->GetPos().x > x) {
-                player_->setPos({ -1, player_->GetPos().y });
+                player_->setPos({ -3, player_->GetPos().y });
             }
         }
     }
@@ -295,11 +295,19 @@ bool Game::collidesWithWall(Entity* object)
     return !dungeonMap_.GetRoom()->positionIsWalkable(object->getSpriteBounds());
 }
 
-bool Game::walksThroughExit(Character* character)
+bool Game::ShouldChangeRoom()
 {
-
-    if (videomode_.width <= character->GetPos().x || videomode_.height < character->GetPos().y || character->GetPos().x <= 0 || character->GetPos().y <= 0) {
-        dungeonMap_.nextRoom();
+    if (videomode_.width < player_->GetPos().x) {
+        dungeonMap_.Move(Direction::Right);
+        return true;
+    } else if (player_->GetPos().x + player_->getSpriteBounds().width < 0) {
+        dungeonMap_.Move(Direction::Left);
+        return true;
+    } else if (player_->GetPos().y + player_->getSpriteBounds().height < 0) {
+        dungeonMap_.Move(Direction::Up);
+        return true;
+    } else if (player_->GetPos().y > videomode_.height) {
+        dungeonMap_.Move(Direction::Down);
         return true;
     }
     return false;

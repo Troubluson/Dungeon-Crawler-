@@ -15,7 +15,7 @@ enum class Direction {
 
 class RoomInstance {
 public:
-    RoomInstance(sf::Vector2u window_size);
+    RoomInstance(sf::Vector2u window_size, sf::Vector2i choords);
     RoomInstance() { }
     void Render(sf::RenderTarget* target);
     void setUpRoomInstance(sf::Vector2u window_size);
@@ -35,15 +35,14 @@ public:
      */
     void Connect(Direction dir, RoomInstance* room);
     RoomInstance* GetRoomInDir(Direction dir);
+    sf::Vector2i GetChoords() { return choords_; }
 
 protected:
-    sf::Vector2i exitPosition;
-    sf::Vector2i playerPosition;
+    sf::Vector2u roomSize_;
+    sf::Vector2i choords_;
     std::vector<std::vector<RoomTile*>> tileVector_;
     sf::RenderTexture roomTexture;
     sf::Sprite roomBackground;
-    std::map<Direction, RoomInstance*> connectedRooms_;
-    sf::Vector2u roomSize_;
     int gridLen_;
 };
 

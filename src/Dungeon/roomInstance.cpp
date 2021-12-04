@@ -5,8 +5,9 @@ int TILE_AMOUNT = 7;
 int NORMALTILE_EXTRA_WEIGHT = 4;
 }
 
-RoomInstance::RoomInstance(sf::Vector2u window_size)
+RoomInstance::RoomInstance(sf::Vector2u window_size, sf::Vector2i choords)
     : roomSize_(window_size)
+    , choords_(choords)
 {
     srand(time(NULL));
 
@@ -20,8 +21,6 @@ void RoomInstance::Render(sf::RenderTarget* target)
 
 void RoomInstance::setUpRoomInstance(sf::Vector2u window_size)
 {
-    exitPosition = sf::Vector2i(1, 0);
-    playerPosition = sf::Vector2i(gridLen_ - 4, gridLen_ - 4);
     setTiles(window_size);
 }
 
@@ -45,7 +44,7 @@ void RoomInstance::setTiles(sf::Vector2u window_size)
                 }
             } else if (i == 1 && j != 0 && j != xTileCount - 1) {
                 row.push_back(new RoomTile("content/sprites/walls/wallfront1.png", k, n, false, true));
-            } else if (i == 11) {
+            } else if (i == yTileCount - 1) {
                 if (j == 0) {
                     row.push_back(new RoomTile("content/sprites/walls/topwallright.png", k, n, false, false));
                 } else if (j == xTileCount - 1) {
@@ -72,7 +71,6 @@ void RoomInstance::setTiles(sf::Vector2u window_size)
         n += 64;
         tileVector_.push_back(row);
     }
-    renderSpriteBackground(window_size);
 }
 
 void RoomInstance::renderSpriteBackground(sf::Vector2u window_size)
@@ -88,24 +86,6 @@ void RoomInstance::renderSpriteBackground(sf::Vector2u window_size)
     roomBackground.setTexture(roomTexture.getTexture());
 }
 
-/*void RoomInstance::Connect(Direction dir, RoomInstance* room)
-{
-    connectedRooms_[dir] = room;
-    CreateExit(dir);
-    auto oppositeDir = GetOppositeDir(dir);
-    room->connectedRooms_[oppositeDir] = this;
-    room->CreateExit(oppositeDir);
-}*/
-
-RoomInstance* RoomInstance::GetRoomInDir(Direction dir)
-{
-    if (HasNeighBorInDir(dir)) {
-        return connectedRooms_[dir];
-    } else {
-        throw "THE CODE IS FUCKED";
-        return nullptr;
-    }
-}
 
 std::vector<std::vector<RoomTile*>> RoomInstance::getTiles() const
 {
@@ -135,15 +115,6 @@ bool RoomInstance::positionIsWalkable(sf::FloatRect entityBounds)
         }
     }
     return true;
-}
-
-bool RoomInstance::HasNeighBorInDir(Direction dir) const
-{
-    // check if key exists
-    if (connectedRooms_.count(dir)) {
-        return true;
-    }
-    return false;
 }
 
 void RoomInstance::CreateExit(Direction dir)
@@ -178,7 +149,7 @@ void RoomInstance::CreateExit(Direction dir)
         break;
     }
     case Direction::Right: {
-        auto vSize = tileVector_.size();
+        auto vSize = tileVector_.size() - 1;
         auto midRow1 = tileVector_[vSize / 2];
         auto midRow2 = tileVector_[vSize / 2 + 1];
         tilesToReplace.push_back(std::make_pair(vSize / 2, midRow1.size() - 1));
@@ -190,8 +161,7 @@ void RoomInstance::CreateExit(Direction dir)
     } // switch
     for (auto tile : tilesToReplace) {
         auto pos = tileVector_[tile.first][tile.second]->getPosition();
-        delete tileVector_[tile.first][tile.second];
+        // delete tileVector_[tile.first][tile.second];
         tileVector_[tile.first][tile.second] = new RoomTile("content/sprites/floors/tile1.png", pos.x, pos.y, true, true);
     }
-    renderSpriteBackground(roomSize_);
 }

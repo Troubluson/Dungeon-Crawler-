@@ -57,7 +57,7 @@ private:
     void updateProjectiles();
     bool collidesWithWall(Character* character);
     bool collidesWithWall(Entity* object);
-    bool walksThroughExit(Character* Character);
+    bool ShouldChangeRoom();
     bool gameLost();
 };
 
