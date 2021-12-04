@@ -19,15 +19,14 @@ Direction GetOppositeDir(Direction dir)
 }
 } // namespace
 
-Map::Map(sf::Vector2u size, uint noRooms)
+Map::Map(sf::Vector2u size, int noRooms)
     : roomSize_(size)
     , currentPos_({ 0, 0 })
 {
-    srand(time(NULL)); // create random seed for this map
     CreateDungeon(noRooms);
     std::map<std::pair<int, int>, RoomInstance*>::iterator it;
     for (it = dungeon_.begin(); it != dungeon_.end(); it++) {
-        it->second->renderSpriteBackground(size);
+        it->second->renderSpriteBackground();
     }
 }
 
@@ -37,19 +36,12 @@ void Map::loadRoom(sf::RenderTarget* window)
     room->Render(window);
 }
 
-void Map::nextRoom()
+void Map::CreateDungeon(int noRooms)
 {
-    if (room < 4) {
-        room += 1;
-    }
-}
-
-void Map::CreateDungeon(uint noRooms)
-{
-    RoomInstance* currentRoom = new StartingRoom(roomSize_, currentPos_);
-    dungeon_[getKey()] = currentRoom;
-    spawn_ = currentRoom;
-    auto i = 1u;
+    RoomInstance* rootRoom = new StartingRoom(roomSize_, currentPos_);
+    dungeon_[getKey()] = rootRoom;
+    spawn_ = rootRoom;
+    auto i = 1;
     int dirCount = static_cast<int>(Direction::Count);
 
     // NOTE: currentPos will be the position of the new room when looping
@@ -58,26 +50,24 @@ void Map::CreateDungeon(uint noRooms)
         auto dir = Direction(dirIdx); // get random dir
         // move map to new room
         Move(dir);
-        if (GetRoomAt(currentPos_) == nullptr) { // should we create a new room
+        // should we create a new room, we try to not make it too snake-like
+        if (GetRoomAt(currentPos_) == nullptr && abs(rootRoom->GetChoords().x) <= noRooms / 3 && abs(rootRoom->GetChoords().y) <= int(noRooms) / 3) {
             auto newRoom = new RoomInstance(roomSize_, currentPos_);
             dungeon_[getKey(currentPos_)] = newRoom;
-            std::cout << getKey(currentPos_).first << "," << getKey(currentPos_).second << std::endl;
-            std::cout << "dir: " << static_cast<int>(dir) << std::endl;
-
             // check which rooms to connect
             for (auto j = 0; j < dirCount; ++j) {
-                auto roomInDir = GetRoomAt(currentRoom->GetChoords() + DirToVec(Direction(j)));
+                auto roomInDir = GetRoomAt(rootRoom->GetChoords() + DirToVec(Direction(j)));
                 if (roomInDir != nullptr) {
-                    std::cout << "Creating exit for: " << currentRoom->GetChoords().x << "," << currentRoom->GetChoords().y << " in dir: " << j << std::endl;
-                    currentRoom->CreateExit(Direction(j));
+
+                    rootRoom->CreateExit(Direction(j));
                     roomInDir->CreateExit(GetOppositeDir(Direction(j)));
                 }
             }
-            currentRoom = newRoom;
+            rootRoom = newRoom;
             ++i;
 
         } else {
-            currentRoom = GetRoomAt(currentPos_);
+            rootRoom = GetRoomAt(currentPos_);
         }
     }
     currentPos_ = { 0, 0 }; // reset position

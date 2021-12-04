@@ -9,9 +9,7 @@ RoomInstance::RoomInstance(sf::Vector2u window_size, sf::Vector2i choords)
     : roomSize_(window_size)
     , choords_(choords)
 {
-    srand(time(NULL));
-
-    setUpRoomInstance(window_size);
+    setTiles();
 }
 
 void RoomInstance::Render(sf::RenderTarget* target)
@@ -19,16 +17,11 @@ void RoomInstance::Render(sf::RenderTarget* target)
     target->draw(roomBackground);
 }
 
-void RoomInstance::setUpRoomInstance(sf::Vector2u window_size)
-{
-    setTiles(window_size);
-}
-
-void RoomInstance::setTiles(sf::Vector2u window_size)
+void RoomInstance::setTiles()
 {
     tileVector_.clear();
-    int xTileCount = window_size.x / 64;
-    int yTileCount = window_size.y / 64;
+    int xTileCount = roomSize_.x / 64;
+    int yTileCount = roomSize_.y / 64;
     int n = 0;
     for (int i = 0; i < yTileCount; ++i) {
         std::vector<RoomTile*> row;
@@ -73,19 +66,18 @@ void RoomInstance::setTiles(sf::Vector2u window_size)
     }
 }
 
-void RoomInstance::renderSpriteBackground(sf::Vector2u window_size)
+void RoomInstance::renderSpriteBackground()
 {
-    roomTexture.create(window_size.x, window_size.y);
+    roomTexture.create(roomSize_.x, roomSize_.y);
 
-    for (auto i = 0u; i < window_size.y / 64; i++) {
-        for (auto j = 0u; j < window_size.x / 64; j++) {
+    for (auto i = 0u; i < roomSize_.y / 64; ++i) {
+        for (auto j = 0u; j < roomSize_.x / 64; ++j) {
             roomTexture.draw(this->tileVector_[i][j]->getSprite());
         }
     }
     roomTexture.display();
     roomBackground.setTexture(roomTexture.getTexture());
 }
-
 
 std::vector<std::vector<RoomTile*>> RoomInstance::getTiles() const
 {

@@ -8,11 +8,11 @@
 class Map {
 
 public:
-    Map(sf::Vector2u sizeOfRoom, uint noRooms);
+    Map(sf::Vector2u sizeOfRoom, int noRooms);
     Map() { }
     void loadRoom(sf::RenderTarget*);
     void nextRoom();
-    void CreateDungeon(uint noRooms);
+    void CreateDungeon(int noRooms);
     RoomInstance* GetRoom();
     RoomInstance* GetRoomAt(sf::Vector2i choord);
 
@@ -31,7 +31,6 @@ private:
     std::pair<int, int> getKey();
     std::pair<int, int> getKey(sf::Vector2i choord);
     sf::Vector2u roomSize_;
-    int room;
     RoomInstance* spawn_;
     sf::Vector2i currentPos_;
     std::map<std::pair<int, int>, RoomInstance*> dungeon_; // cant use vector2i as a key because its dumb

@@ -12,20 +12,35 @@ enum class Direction {
     Right,
     Count
 };
-
+/**
+ * @brief Class representing a room of a dungeon, usually includes a monsterspawner.
+ *
+ */
 class RoomInstance {
 public:
+    /**
+     * @brief Construct a new Room Instance object
+     *
+     * @param    window_size          TO BE CHANGED takes the windowsize to create a correctly sized room
+     * @param    choords              the map choordinate of the room, follows the cartesian choordinate system
+     */
     RoomInstance(sf::Vector2u window_size, sf::Vector2i choords);
-    RoomInstance() { }
+    RoomInstance() = default;
+    /**
+     * @brief Renders the room
+     *
+     * @param    target               Where  to render the room. About always game window
+     */
     void Render(sf::RenderTarget* target);
-    void setUpRoomInstance(sf::Vector2u window_size);
-    virtual void setTiles(sf::Vector2u window_size);
-    void renderSpriteBackground(sf::Vector2u window_size);
     std::vector<RoomTile*> getRoomTilesAt(sf::FloatRect bounds);
     bool positionIsWalkable(sf::FloatRect bounds);
     std::vector<std::vector<RoomTile*>> getTiles() const;
-    bool HasNeighBorInDir(Direction dir) const;
-    void CreateExit(Direction dir);
+    /**
+     * @brief Takes down a 2-wide in wall (replaces walls with floortiles) to be able to walk between two rooms
+     *
+     * @param    direction                  The direction of the exit
+     */
+    void CreateExit(Direction direction);
     /**
      * @brief Connects two rooms to each other
      *
@@ -34,15 +49,37 @@ public:
      * \note Also adds the rooms as a connection on the argument room's side
      */
     void Connect(Direction dir, RoomInstance* room);
+    /**
+     * @brief Returns the room found in the wanted direction, nullptr if it is not found
+     *
+     * @param    dir                  The direction
+     * @return RoomInstance*
+     */
     RoomInstance* GetRoomInDir(Direction dir);
+    /**
+     * @brief Get the choordinates of this room on the map
+     *
+     * @return sf::Vector2i
+     */
     sf::Vector2i GetChoords() { return choords_; }
 
+    /**
+     * @brief Renders the rooms background to be a static backdrop, a very expensive operation
+     */
+    void renderSpriteBackground();
+
 protected:
+    /**
+     * @brief Helper, Sets all the roomtiles of the roominstance
+     *
+     */
+    virtual void setTiles();
     sf::Vector2u roomSize_;
     sf::Vector2i choords_;
     std::vector<std::vector<RoomTile*>> tileVector_;
     sf::RenderTexture roomTexture;
     sf::Sprite roomBackground;
+
     int gridLen_;
 };
 

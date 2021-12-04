@@ -1,16 +1,10 @@
 #include "game.hpp"
 #include "Collision.hpp"
 #define C_PIXELS 64
-namespace {
-const sf::Vector2f PLACEHOLDER_PROJ_SIZE = sf::Vector2f(1.0, 1.0);
-const int PLACEHOLDER_PROJ_SPEED = 1000;
-const int PLACEHOLDER_PROJ_DIST = 20;
-const int PLACEHOLDER_PROJ_DMG = 20;
-const float PLACEHOLDER_PROJ_LS = 0.5;
 
-}
 Game::Game()
 {
+    srand(time(NULL)); // create random seed for this game
     player_ = new Player();
     SwordWeapon* sword = new SwordWeapon(5, 10, sf::Vector2f(50, 100), 120, "content/sprites/projectiles.png");
 
@@ -168,6 +162,7 @@ void Game::manageInput()
             player_->RevertMove();
         }
         if (ShouldChangeRoom()) {
+            std::cout << dungeonMap_.GetCurrentRoom()->GetChoords().x << " , " << dungeonMap_.GetCurrentRoom()->GetChoords().y << std::endl;
             float y = window_->getSize().y;
             float x = window_->getSize().x;
             if (player_->GetPos().y <= 0) {
