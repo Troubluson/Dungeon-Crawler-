@@ -5,7 +5,7 @@
 
 class RoomTile {
 public:
-    RoomTile(std::string texture, float x, float y, bool walkable);
+    RoomTile(std::string texture, float x, float y, bool walkable, bool penetratable = false);
     const sf::Vector2f getSize() const;
     const sf::Vector2f& getPosition() const;
     const sf::FloatRect getBoundingBox() const;
@@ -17,6 +17,7 @@ private:
     sf::Texture tileTexture;
     sf::Sprite tileSprite;
     bool walkable_;
+    bool penetratable_;
 
     bool setTileTexture(std::string);
 };

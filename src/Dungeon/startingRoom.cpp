@@ -25,7 +25,7 @@ void StartingRoom::setTiles(sf::Vector2u window_size)
                 }
             } else if (i == 1 && j != 0 && j != gridLen_ - 1) {
 
-                row.push_back(new RoomTile("content/sprites/walls/wallfront1.png", k, n, false));
+                row.push_back(new RoomTile("content/sprites/walls/wallfront1.png", k, n, false, true));
 
             } else if (i == 11) {
                 if (j == 0) {
@@ -42,7 +42,7 @@ void StartingRoom::setTiles(sf::Vector2u window_size)
             } else if (i != 0 && j == gridLen_ - 1) {
                 row.push_back(new RoomTile("content/sprites/walls/topwallRIGHTSIDE.png", k, n, false));
             } else {
-                row.push_back(new RoomTile("content/sprites/floors/tile1.png", k, n, true));
+                row.push_back(new RoomTile("content/sprites/floors/tile1.png", k, n, true, true));
             }
 
             k += 64;

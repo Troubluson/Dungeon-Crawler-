@@ -9,7 +9,7 @@ RoomInstance::RoomInstance(sf::Vector2u window_size)
     : roomSize_(window_size)
 {
     srand(time(NULL));
-    gridLen_ = 20;
+
     setUpRoomInstance(window_size);
 }
 
@@ -28,53 +28,35 @@ void RoomInstance::setUpRoomInstance(sf::Vector2u window_size)
 void RoomInstance::setTiles(sf::Vector2u window_size)
 {
     tileVector_.clear();
-
+    int xTileCount = window_size.x / 64;
+    int yTileCount = window_size.y / 64;
     int n = 0;
-    for (int i = 0; i < gridLen_; i++) {
+    for (int i = 0; i < yTileCount; ++i) {
         std::vector<RoomTile*> row;
         int k = 0;
-        for (int j = 0; j < gridLen_; j++) {
+        for (int j = 0; j < xTileCount; ++j) {
             if (i == 0) {
                 if (j == 0) {
-                    row.push_back(new RoomTile("content/sprites/walls/topwallleft.png", k, n, false));
-                } else if (j == gridLen_ - 1) {
-                    row.push_back(new RoomTile("content/sprites/walls/topwallbottomleft.png", k, n, false));
-
-                } else if (j == gridLen_ / 2 - 1 || j == gridLen_ / 2) {
-                    row.push_back(new RoomTile("content/sprites/floors/tile1.png", k, n, true));
-
+                    row.push_back(new RoomTile("content/sprites/walls/topwallleft.png", k, n, false, false));
+                } else if (j == xTileCount - 1) {
+                    row.push_back(new RoomTile("content/sprites/walls/topwallbottomleft.png", k, n, false, false));
                 } else {
-                    row.push_back(new RoomTile("content/sprites/walls/toppartofwall1.png", k, n, false));
+                    row.push_back(new RoomTile("content/sprites/walls/toppartofwall1.png", k, n, false, false));
                 }
-            } else if (i == 1 && j != 0 && j != gridLen_ - 1) {
-                if (j == gridLen_ / 2 - 1 || j == gridLen_ / 2) {
-                    row.push_back(new RoomTile("content/sprites/floors/tile1.png", k, n, true));
-                } else {
-                    row.push_back(new RoomTile("content/sprites/walls/wallfront1.png", k, n, false));
-                }
-            } else if (i == gridLen_ / 2) {
+            } else if (i == 1 && j != 0 && j != xTileCount - 1) {
+                row.push_back(new RoomTile("content/sprites/walls/wallfront1.png", k, n, false, true));
+            } else if (i == 11) {
                 if (j == 0) {
-                    row.push_back(new RoomTile("content/sprites/walls/topwallright.png", k, n, false));
-                } else if (j == gridLen_ - 1) {
-                    row.push_back(new RoomTile("content/sprites/walls/topwallbottomright.png", k, n, false));
-                } else if (j == gridLen_ / 2 - 1 || j == gridLen_ / 2) {
-                    row.push_back(new RoomTile("content/sprites/floors/tile1.png", k, n, true));
+                    row.push_back(new RoomTile("content/sprites/walls/topwallright.png", k, n, false, false));
+                } else if (j == xTileCount - 1) {
+                    row.push_back(new RoomTile("content/sprites/walls/topwallbottomright.png", k, n, false, false));
                 } else {
-                    row.push_back(new RoomTile("content/sprites/walls/topwallbottom.png", k, n, false));
+                    row.push_back(new RoomTile("content/sprites/walls/topwallbottom.png", k, n, false, false));
                 }
             } else if (i != 0 && j == 0) {
-                if (i == gridLen_ / 2 - 5 || i == gridLen_ / 2 - 4) {
-                    row.push_back(new RoomTile("content/sprites/floors/tile1.png", k, n, true));
-                } else {
-                    row.push_back(new RoomTile("content/sprites/walls/topwallLEFTSIDE.png", k, n, false));
-                }
-
-            } else if (i != 0 && j == gridLen_ - 1) {
-                if (i == gridLen_ / 2 - 5 || i == gridLen_ / 2 - 4) {
-                    row.push_back(new RoomTile("content/sprites/floors/tile1.png", k, n, true));
-                } else {
-                    row.push_back(new RoomTile("content/sprites/walls/topwallRIGHTSIDE.png", k, n, false));
-                }
+                row.push_back(new RoomTile("content/sprites/walls/topwallLEFTSIDE.png", k, n, false, false));
+            } else if (i != 0 && j == xTileCount - 1) {
+                row.push_back(new RoomTile("content/sprites/walls/topwallRIGHTSIDE.png", k, n, false, false));
 
             } else {
                 int tileNumber = rand() % ((TILE_AMOUNT + 1) + NORMALTILE_EXTRA_WEIGHT) + 1;
@@ -82,7 +64,7 @@ void RoomInstance::setTiles(sf::Vector2u window_size)
                     tileNumber = 1;
                 }
                 std::string tilelocation = "content/sprites/floors/tile" + std::to_string(tileNumber) + ".png";
-                row.push_back(new RoomTile(tilelocation, k, n, true));
+                row.push_back(new RoomTile(tilelocation, k, n, true, true));
             }
 
             k += 64;
@@ -96,8 +78,9 @@ void RoomInstance::setTiles(sf::Vector2u window_size)
 void RoomInstance::renderSpriteBackground(sf::Vector2u window_size)
 {
     roomTexture.create(window_size.x, window_size.y);
-    for (int i = 0; i < this->gridLen_; i++) {
-        for (int j = 0; j < this->gridLen_; j++) {
+
+    for (auto i = 0u; i < window_size.y / 64; i++) {
+        for (auto j = 0u; j < window_size.x / 64; j++) {
             roomTexture.draw(this->tileVector_[i][j]->getSprite());
         }
     }
@@ -196,10 +179,10 @@ void RoomInstance::CreateExit(Direction dir)
     }
     case Direction::Right: {
         auto vSize = tileVector_.size();
-        auto midCol1 = tileVector_[vSize / 2];
-        auto midCol2 = tileVector_[vSize / 2 + 1];
-        tilesToReplace.push_back(std::make_pair(vSize / 2, midCol1.size() - 1));
-        tilesToReplace.push_back(std::make_pair(vSize / 2 + 1, midCol2.size() - 1));
+        auto midRow1 = tileVector_[vSize / 2];
+        auto midRow2 = tileVector_[vSize / 2 + 1];
+        tilesToReplace.push_back(std::make_pair(vSize / 2, midRow1.size() - 1));
+        tilesToReplace.push_back(std::make_pair(vSize / 2 + 1, midRow2.size() - 1));
         break;
     }
     default:
@@ -208,7 +191,7 @@ void RoomInstance::CreateExit(Direction dir)
     for (auto tile : tilesToReplace) {
         auto pos = tileVector_[tile.first][tile.second]->getPosition();
         delete tileVector_[tile.first][tile.second];
-        tileVector_[tile.first][tile.second] = new RoomTile("content/sprites/floors/tile1.png", pos.x, pos.y, true);
+        tileVector_[tile.first][tile.second] = new RoomTile("content/sprites/floors/tile1.png", pos.x, pos.y, true, true);
     }
     renderSpriteBackground(roomSize_);
 }
