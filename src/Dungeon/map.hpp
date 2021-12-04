@@ -8,13 +8,25 @@
 class Map {
 
 public:
+    /**
+     * @brief Initializes variables for new room and calls CreateDungeon()
+     *
+     * @param    sizeOfRoom           the size we want our rooms to be
+     * @param    noRooms              The number of rooms we want the dungeon to consist of
+     */
     Map(sf::Vector2u sizeOfRoom, int noRooms);
-    Map() { }
-    void loadRoom(sf::RenderTarget*);
-    void nextRoom();
+
+    /**
+     * @brief Renders the current room to the given target
+     *
+     */
+    void RenderCurrentRoom(sf::RenderTarget* target);
+    /**
+     * @brief Create the actual dungeon
+     *
+     * @param    noRooms              number of rooms on in the dungeon
+     */
     void CreateDungeon(int noRooms);
-    RoomInstance* GetRoom();
-    RoomInstance* GetRoomAt(sf::Vector2i choord);
 
     void Move(Direction dir);
     /**
@@ -24,10 +36,28 @@ public:
      * @return  returns room, or nullptr if not found
      */
     RoomInstance* GetRoomInDir(Direction direction);
+    /**
+     * @brief Converts a Direction to a unit vector and returns it
+     *
+     * @param    direction            the direction
+     * @return sf::Vector2i the converted vector
+     */
     sf::Vector2i DirToVec(Direction direction);
+    /**
+     * @brief Get the room the player is in on the map
+     *
+     * @return RoomInstance* The room
+     */
     RoomInstance* GetCurrentRoom();
 
 private:
+    /**
+     * @brief Get the room at the wanted choordinate on the map
+     *
+     * @param    choord               Desciption
+     * @return RoomInstance*
+     */
+    RoomInstance* GetRoomAt(sf::Vector2i choord);
     std::pair<int, int> getKey();
     std::pair<int, int> getKey(sf::Vector2i choord);
     sf::Vector2u roomSize_;

@@ -2,9 +2,9 @@
 #include <time.h>
 
 namespace {
-Direction GetOppositeDir(Direction dir)
+Direction GetOppositeDir(Direction direction)
 {
-    switch (dir) {
+    switch (direction) {
     case Direction::Up:
         return Direction::Down;
     case Direction::Down:
@@ -30,7 +30,7 @@ Map::Map(sf::Vector2u size, int noRooms)
     }
 }
 
-void Map::loadRoom(sf::RenderTarget* window)
+void Map::Render(sf::RenderTarget* window)
 {
     auto room = dungeon_[getKey()];
     room->Render(window);
@@ -54,11 +54,11 @@ void Map::CreateDungeon(int noRooms)
         if (GetRoomAt(currentPos_) == nullptr && abs(rootRoom->GetChoords().x) <= noRooms / 3 && abs(rootRoom->GetChoords().y) <= int(noRooms) / 3) {
             auto newRoom = new RoomInstance(roomSize_, currentPos_);
             dungeon_[getKey(currentPos_)] = newRoom;
-            // check which rooms to connect
+
+            // check which rooms to "connect"
             for (auto j = 0; j < dirCount; ++j) {
                 auto roomInDir = GetRoomAt(rootRoom->GetChoords() + DirToVec(Direction(j)));
                 if (roomInDir != nullptr) {
-
                     rootRoom->CreateExit(Direction(j));
                     roomInDir->CreateExit(GetOppositeDir(Direction(j)));
                 }
@@ -73,11 +73,6 @@ void Map::CreateDungeon(int noRooms)
     currentPos_ = { 0, 0 }; // reset position
 }
 
-RoomInstance* Map::GetRoom()
-{
-    // std::cout << getKey().first << "," << getKey().second << std::endl;
-    return dungeon_[getKey()];
-}
 
 void Map::Move(Direction dir)
 {
