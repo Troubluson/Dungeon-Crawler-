@@ -67,7 +67,7 @@ void Game::UpdateGame()
 void Game::RenderGame()
 {
     window_->clear();
-    dungeonMap_.loadRoom(window_);
+    dungeonMap_.RenderCurrentRoom(window_);
     player_->Render(window_);
     gamebar_.Render(window_);
     for (auto projectile : projectiles_) {
@@ -283,11 +283,11 @@ void Game::updateProjectiles()
 }
 bool Game::collidesWithWall(Character* character)
 {
-    return !dungeonMap_.GetRoom()->positionIsWalkable(character->GetBaseBoxAt(character->GetPos()));
+    return !dungeonMap_.GetCurrentRoom()->positionIsWalkable(character->GetBaseBoxAt(character->GetPos()));
 }
 bool Game::collidesWithWall(Entity* object)
 {
-    return !dungeonMap_.GetRoom()->positionIsWalkable(object->getSpriteBounds());
+    return !dungeonMap_.GetCurrentRoom()->positionIsWalkable(object->getSpriteBounds());
 }
 
 bool Game::ShouldChangeRoom()

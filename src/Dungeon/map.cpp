@@ -23,27 +23,27 @@ Map::Map(sf::Vector2u size, int noRooms)
     : roomSize_(size)
     , currentPos_({ 0, 0 })
 {
-    CreateDungeon(noRooms);
+    while(CreateDungeon(noRooms)); //dungeon creation can fail
     std::map<std::pair<int, int>, RoomInstance*>::iterator it;
     for (it = dungeon_.begin(); it != dungeon_.end(); it++) {
         it->second->renderSpriteBackground();
     }
 }
 
-void Map::Render(sf::RenderTarget* window)
+void Map::RenderCurrentRoom(sf::RenderTarget* window)
 {
-    auto room = dungeon_[getKey()];
-    room->Render(window);
+
+    GetCurrentRoom()->Render(window);
 }
 
-void Map::CreateDungeon(int noRooms)
+bool Map::CreateDungeon(int noRooms)
 {
     RoomInstance* rootRoom = new StartingRoom(roomSize_, currentPos_);
     dungeon_[getKey()] = rootRoom;
     spawn_ = rootRoom;
     auto i = 1;
     int dirCount = static_cast<int>(Direction::Count);
-
+    int retryCount = 0;
     // NOTE: currentPos will be the position of the new room when looping
     while (i < noRooms) {
         auto dirIdx = rand() % dirCount;
@@ -51,47 +51,42 @@ void Map::CreateDungeon(int noRooms)
         // move map to new room
         Move(dir);
         // should we create a new room, we try to not make it too snake-like
-        if (GetRoomAt(currentPos_) == nullptr && abs(rootRoom->GetChoords().x) <= noRooms / 3 && abs(rootRoom->GetChoords().y) <= int(noRooms) / 3) {
-            auto newRoom = new RoomInstance(roomSize_, currentPos_);
-            dungeon_[getKey(currentPos_)] = newRoom;
+        if (abs(rootRoom->GetChoords().x) <= noRooms / 3 && abs(rootRoom->GetChoords().y) <= int(noRooms) / 3) {
 
-            // check which rooms to "connect"
-            for (auto j = 0; j < dirCount; ++j) {
-                auto roomInDir = GetRoomAt(rootRoom->GetChoords() + DirToVec(Direction(j)));
-                if (roomInDir != nullptr) {
-                    rootRoom->CreateExit(Direction(j));
-                    roomInDir->CreateExit(GetOppositeDir(Direction(j)));
+            if (GetRoomAt(currentPos_) == nullptr) {
+                retryCount = 0;
+                auto newRoom = new RoomInstance(roomSize_, currentPos_);
+                dungeon_[getKey(currentPos_)] = newRoom;
+
+                // check which rooms to "connect"
+                for (auto j = 0; j < dirCount; ++j) {
+                    auto roomInDir = GetRoomAt(rootRoom->GetChoords() + DirToVec(Direction(j)));
+                    if (roomInDir != nullptr) {
+                        rootRoom->CreateExit(Direction(j));
+                        roomInDir->CreateExit(GetOppositeDir(Direction(j)));
+                    }
                 }
-            }
-            rootRoom = newRoom;
-            ++i;
+                rootRoom = newRoom;
+                ++i;
 
-        } else {
-            rootRoom = GetRoomAt(currentPos_);
+            } else {
+                rootRoom = GetRoomAt(currentPos_); // move to the room that we already have connected to
+            }
+        } else { // we go back to spawn
+            currentPos_ = { 0, 0 };
+            retryCount += 1;
+            if(retryCount == 4) {
+                return false;
+            }
         }
     }
-    currentPos_ = { 0, 0 }; // reset position
+    currentPos_ = { 0, 0 }; // reset position to spawnroom
+    return true;
 }
-
 
 void Map::Move(Direction dir)
 {
-    switch (dir) {
-    case Direction::Up:
-        ++currentPos_.y;
-        break;
-    case Direction::Down:
-        --currentPos_.y;
-        break;
-    case Direction::Left:
-        --currentPos_.x;
-        break;
-    case Direction::Right:
-        ++currentPos_.x;
-        break;
-    default:
-        break;
-    }
+    currentPos_ += DirToVec(dir);
 }
 
 RoomInstance* Map::GetRoomAt(sf::Vector2i choord)

@@ -8,6 +8,7 @@
 class Map {
 
 public:
+    Map() = default;
     /**
      * @brief Initializes variables for new room and calls CreateDungeon()
      *
@@ -25,8 +26,10 @@ public:
      * @brief Create the actual dungeon
      *
      * @param    noRooms              number of rooms on in the dungeon
+     * @return true dungeon creation succeeded
+     * @return false dungeon creation failed
      */
-    void CreateDungeon(int noRooms);
+    bool CreateDungeon(int noRooms);
 
     void Move(Direction dir);
     /**
