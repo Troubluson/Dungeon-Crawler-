@@ -6,10 +6,9 @@
 #include "Combat/Projectile.hpp"
 //#include "Interfaces/ICollidable.hpp"
 #include "Animation/AnimationHandler.hpp"
-#include "Animation/animation.hpp"
+#include "Combat/Weapons/Weapon.hpp"
 #include "entity.hpp"
 
-class Projectile;
 class Character : public Entity /*, public ICollidable*/ {
 public:
     Character(const std::string& filename, sf::Vector2f pos, bool animated = false);
@@ -17,7 +16,8 @@ public:
     virtual ~Character();
 
     virtual void Update(float dt) = 0;
-    void UpdateCooldowns(float dt);
+
+    void Equip(Weapon* weapon);
 
     void initVariables();
     /**
@@ -31,6 +31,7 @@ public:
     void TakeDamage(int value);
 
     bool IsAlive();
+    bool HasWeapon();
 
     bool Idle();
     bool MoveLeft(float dt);
@@ -38,10 +39,16 @@ public:
     bool MoveDown(float dt);
     bool MoveUp(float dt);
     // For subclasses, should be = 0
-    virtual bool Move(float) { return false; }
+    virtual bool Move(float)
+    {
+        return false;
+    }
     void RevertMove();
-    virtual void Attack(sf::Vector2f, std::list<Projectile*>) {};
-    void SetOldPos(sf::Vector2f v);
+
+    void ResetAttackCooldown();
+    float GetAttackCooldownLeft() const { return attackCooldownLeft; };
+    float GetAttackCooldownLength() const { return attackCooldownLength; };
+    bool CanAttack;
     /*
     // for ICollidable
     virtual sf::FloatRect GetBoundingBox() { return sprite_.getGlobalBounds(); }
@@ -52,10 +59,21 @@ public:
 protected:
     /*void GetHitBy(Projectile& projectile);*/
 
+    Weapon* weapon_;
+    Projectile::Type characterProjectileType;
     int hitpoints_;
     bool alive_;
     bool hasAnimation_;
-    float currentSpeed_ = 200.0f;
     AnimationHandler animationHandler_;
+    float currentSpeed_;
+    float normalSpeed_;
+
+    void generalUpdate(float dt);
+
+    float attackCooldownLength;
+    float attackCooldownLeft;
+    void updateAttackCooldown(float dt);
+    std::list<Projectile*> emptyList();
+    std::list<Projectile*> shotProjectileList(sf::Vector2f aimPos);
 };
 #endif

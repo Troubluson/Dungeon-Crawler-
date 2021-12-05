@@ -12,12 +12,14 @@ public:
     RandomMonster(Player* player, float xPos, float yPos);
     RandomMonster(Player* player, sf::Vector2f pos);
     ~RandomMonster();
+
+    virtual std::list<Projectile*> Attack();
     virtual bool Move(float dt);
-    virtual void MonsterAttack();
 
 private:
-    sf::Clock clock_;
     int currentDir_;
+    float durationUntilTurn = 3.0f;
+    float elapsedTurnTime = 0.0f;
 };
 
 #endif

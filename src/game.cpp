@@ -13,12 +13,17 @@ Game::Game()
 {
     player_ = new Player();
     SwordWeapon* sword = new SwordWeapon(5, 10, sf::Vector2f(50, 100), 120, "content/sprites/projectiles.png");
+
     player_->Equip(sword);
 
     Monster* m = new RandomMonster(player_, 300, 300); // placeholder
     Monster* m2 = new SearchingMonster(player_, 200, 200);
+
+    SwordWeapon* monterSword = new SwordWeapon(5, 10, sf::Vector2f(50, 100), 120, "content/sprites/projectiles.png");
+
     monsters_.push_back(m);
     monsters_.push_back(m2);
+    m->Equip(monterSword);
 
     gamebar_ = Gamebar(player_);
     initVariables();
@@ -42,17 +47,23 @@ void Game::UpdateGame()
     manageInput();
 
     // Update projectiles
-    updateProjectiles();
     for (auto monster : monsters_) {
         // if moved, check collision with walls
         bool monsterMoved = monster->Move(dt);
         if (monsterMoved && collidesWithWall(monster)) {
             monster->RevertMove();
         }
+
+        std::list<Projectile*> projectileListToAdd = monster->Attack();
+        addProjectiles(projectileListToAdd);
+
         monster->Update(dt);
     }
+    updateProjectiles();
     // checkCollisions(player_, Projectile::Type::EnemyProjectile);
-    checkCollisions(monsters_, Projectile::Type::PlayerProjectile);
+    //handleMonsterProjectileCollisions(monsters_, Projectile::Type::PlayerProjectile);
+    checkMonsterCollisions();
+    checkPlayerCollisions();
     checkAndHandleProjectileWallCollisions();
     player_->Update(dt);
     gamebar_.Update();
@@ -86,12 +97,6 @@ void Game::Events()
             break;
         case sf::Event::GainedFocus:
             paused = false;
-            break;
-        case sf::Event::KeyPressed:
-            if (event_.key.code == sf::Keyboard::Space) {
-                Monster* m = new RandomMonster(player_, player_->GetPos().x, player_->GetPos().y);
-                monsters_.push_back(m);
-            }
             break;
         default:
             break;
@@ -155,8 +160,9 @@ void Game::manageInput()
     }
 
     if (LMOUSE) {
-        auto mousePos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(*window_));
-        player_->Attack(mousePos, projectiles_);
+        sf::Vector2f mousePos = window_->mapPixelToCoords(sf::Mouse::getPosition(*window_));
+        std::list<Projectile*> projectileListToAdd = player_->Attack(mousePos);
+        addProjectiles(projectileListToAdd);
     }
     if (triedMoving) {
         if (collidesWithWall(player_)) {
@@ -165,35 +171,44 @@ void Game::manageInput()
     }
 }
 
-void Game::checkCollisions(std::list<Character*> characters, Projectile::Type projectileType)
+void Game::checkCollisions(Character* character, Projectile::Type projectileType)
 {
-
-    if (projectiles_.empty()) {
-        return;
-    }
-
-    std::vector<Character*> monsterListToDelete;
-
-    for (auto character : characters) {
-        for (auto projectile : projectiles_) {
-            if (projectile->GetType() == projectileType && !projectile->hasHit(character)) {
-                if (Collision::PixelPerfectTest(projectile->GetSprite(), character->GetSprite())) {
-                    projectile->hit(character);
-                    character->TakeDamage(projectile->GetDamage());
-                    if (character->IsAlive() == false) {
-                        monsterListToDelete.push_back(character);
-                    }
-                    if (!projectile->Penetrates()) {
-                        projectile->Kill();
-                    }
+    for (auto projectile : projectiles_) {
+        if (projectile->GetType() == projectileType && !projectile->hasHit(character)) {
+            if (Collision::PixelPerfectTest(projectile->GetSprite(), character->GetSprite())) {
+                projectile->hit(character);
+                character->TakeDamage(projectile->GetDamage());
+                if (!projectile->Penetrates()) {
+                    projectile->Kill();
                 }
             }
         }
     }
-    // Delete dead Monsters
-    for (auto monster : monsterListToDelete) {
+}
+
+void Game::checkMonsterCollisions()
+{
+    if (projectiles_.empty()) {
+        return;
+    }
+    std::vector<Monster*> deadMonsters;
+    for (auto monster : monsters_) {
+        checkCollisions(monster, Projectile::Type::PlayerProjectile);
+        if (!monster->IsAlive()) {
+            deadMonsters.push_back(monster);
+        }
+    }
+    for (auto monster : deadMonsters) {
         deleteMonster(monster);
     }
+}
+
+void Game::checkPlayerCollisions()
+{
+    if (projectiles_.empty()) {
+        return;
+    }
+    checkCollisions(player_, Projectile::Type::EnemyProjectile);
 }
 
 void Game::checkAndHandleProjectileWallCollisions()
@@ -215,6 +230,17 @@ void Game::deleteProjectile(Projectile* p)
             projectiles_.erase(it);
             return;
         }
+    }
+}
+
+void Game::addProjectiles(std::list<Projectile*> projectiles)
+{
+    if (projectiles.empty()) {
+        return;
+    }
+
+    for (auto projectile : projectiles) {
+        projectiles_.push_back(projectile);
     }
 }
 
@@ -252,4 +278,9 @@ bool Game::collidesWithWall(Character* character)
 bool Game::collidesWithWall(Entity* object)
 {
     return !room.positionIsWalkable(object->getSpriteBounds());
+}
+
+bool Game::gameLost()
+{
+    return player_->IsAlive();
 }
