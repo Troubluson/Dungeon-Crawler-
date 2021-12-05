@@ -11,12 +11,15 @@ Game::Game()
     player_->Equip(sword);
     Monster* m = new RandomMonster(player_, 300, 300); // placeholder
     Monster* m2 = new SearchingMonster(player_, 200, 200);
-
+    Monster* m3 = new SnipingMonster(player_, 1000, 700);
     SwordWeapon* monterSword = new SwordWeapon(5, 10, sf::Vector2f(50, 100), 120, "content/sprites/projectiles.png");
+    BowWeapon* snipingBow = new BowWeapon(5, 100, sf::Vector2f(50, 100), 30, "content/sprites/projectiles.png");
 
     monsters_.push_back(m);
     monsters_.push_back(m2);
+    monsters_.push_back(m3);
     m->Equip(monterSword);
+    m3->Equip(snipingBow);
 
     gamebar_ = Gamebar(player_);
     initVariables();

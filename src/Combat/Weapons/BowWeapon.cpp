@@ -1,0 +1,23 @@
+
+#include "Combat/Weapons/BowWeapon.hpp"
+
+BowWeapon::BowWeapon(int damage, int range, Vector2f projectileSize, int rateOfFire, const std::string& spriteLocation)
+    : Weapon(damage, range, projectileSize, rateOfFire, spriteLocation)
+{
+    penetrates_ = false;
+    sprite_.setTextureRect({ 400, 215, 10, 15 }); // placeholder
+    spritehelper::SetScale(projectileSize, sprite_);
+    // sets scale and origin of sprite
+}
+Projectile* BowWeapon::Use(Vector2f dir, Vector2f origin)
+{
+    // have to rotate the projectile
+    spritehelper::RotateSprite(dir, sprite_);
+    spritehelper::SetOriginBottomCenter(sprite_);
+    Projectile* p = new Projectile(sprite_, origin, true);
+    p->SetDirection(dir);
+    p->SetDamage(damage_);
+    p->SetDistanceLifeSpan(range_);
+    p->SetProjectileSpeed(1000);
+    return p;
+}
