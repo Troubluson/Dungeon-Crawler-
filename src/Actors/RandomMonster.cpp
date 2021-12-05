@@ -17,11 +17,10 @@ RandomMonster::~RandomMonster() { }
 bool RandomMonster::Move(float dt)
 {
     elapsedTurnTime += dt;
-    oldPos_ = GetPos();
-    if (elapsedTurnTime > 0.3) {
+    if (elapsedTurnTime > durationUntilTurn || !movedLastTick) {
         elapsedTurnTime = 0.0f;
-        int dir = rand() % 4 + 1;
-        currentDir_ = dir;
+        currentDir_ = RandomIntBetween(1, 4);
+        durationUntilTurn = RandomFloatBetween(0.2f, 1.0f);
     }
     if (currentDir_ == 1) {
         MoveDown(dt);

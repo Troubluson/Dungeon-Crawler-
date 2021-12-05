@@ -28,10 +28,10 @@ public:
     const sf::Vector2i GetPosI() { return sf::Vector2i(pos_); }
     sf::Vector2f GetSpritePosition() const { return sprite_.getPosition(); } // might be unnecessary, because sprite pos should be same as that returned of GetPos()
     sf::Vector2f GetSpriteCenter() const;
-    const sf::Vector2f& getOldPosition() const;
-    sf::FloatRect getSpriteBounds() const;
+    const sf::Vector2f& GetOldPosition() const;
+    sf::FloatRect GetSpriteBounds() const;
 
-    void setPos(sf::Vector2f newPos) { pos_ = newPos; }
+    void SetPos(sf::Vector2f newPos) { pos_ = newPos; }
 
     virtual void Render(sf::RenderTarget* target);
 

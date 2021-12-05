@@ -31,12 +31,12 @@ Entity::Entity(sf::Sprite& sprite, sf::Vector2f pos)
 {
 }
 
-const sf::Vector2f& Entity::getOldPosition() const
+const sf::Vector2f& Entity::GetOldPosition() const
 {
     return oldPos_;
 }
 
-sf::FloatRect Entity::getSpriteBounds() const
+sf::FloatRect Entity::GetSpriteBounds() const
 {
     return sprite_.getGlobalBounds();
 }

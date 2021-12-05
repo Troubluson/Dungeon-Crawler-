@@ -18,7 +18,7 @@ public:
 
 private:
     int currentDir_;
-    float durationUntilTurn = 3.0f;
+    float durationUntilTurn = 0.5f;
     float elapsedTurnTime = 0.0f;
 };
 

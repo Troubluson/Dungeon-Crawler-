@@ -166,16 +166,16 @@ void Game::manageInput()
             float y = window_->getSize().y;
             float x = window_->getSize().x;
             if (player_->GetPos().y <= 0) {
-                player_->setPos({ player_->GetPos().x, y - 3 });
+                player_->SetPos({ player_->GetPos().x, y - 3 });
             }
             if (player_->GetPos().y > y) {
-                player_->setPos({ player_->GetPos().x, -3 });
+                player_->SetPos({ player_->GetPos().x, -3 });
             }
             if (player_->GetPos().x <= 0) {
-                player_->setPos({ x - 3, player_->GetPos().y });
+                player_->SetPos({ x - 3, player_->GetPos().y });
             }
             if (player_->GetPos().x > x) {
-                player_->setPos({ -3, player_->GetPos().y });
+                player_->SetPos({ -3, player_->GetPos().y });
             }
         }
     }
@@ -287,7 +287,7 @@ bool Game::collidesWithWall(Character* character)
 }
 bool Game::collidesWithWall(Entity* object)
 {
-    return !dungeonMap_.GetCurrentRoom()->positionIsWalkable(object->getSpriteBounds());
+    return !dungeonMap_.GetCurrentRoom()->positionIsWalkable(object->GetSpriteBounds());
 }
 
 bool Game::ShouldChangeRoom()
@@ -295,10 +295,10 @@ bool Game::ShouldChangeRoom()
     if (videomode_.width < player_->GetPos().x) {
         dungeonMap_.Move(Direction::Right);
         return true;
-    } else if (player_->GetPos().x + player_->getSpriteBounds().width < 0) {
+    } else if (player_->GetPos().x + player_->GetSpriteBounds().width < 0) {
         dungeonMap_.Move(Direction::Left);
         return true;
-    } else if (player_->GetPos().y + player_->getSpriteBounds().height < 0) {
+    } else if (player_->GetPos().y + player_->GetSpriteBounds().height < 0) {
         dungeonMap_.Move(Direction::Up);
         return true;
     } else if (player_->GetPos().y > videomode_.height) {
