@@ -108,7 +108,10 @@ void Game::initVariables() { gameEnder_ = false; }
 // initalize window
 void Game::initWindow()
 {
-    videomode_ = sf::VideoMode(1280, 768);
+    sf::Vector2u defaultDims = { 1280, 768 };
+    // gets resolution and etc.
+    auto desktopMode = sf::VideoMode::getDesktopMode();
+    videomode_ = sf::VideoMode(std::min(defaultDims.x, desktopMode.width), std::min(defaultDims.y, desktopMode.height));
     window_ = new sf::RenderWindow(videomode_, "Dungeon Crawler");
 }
 
