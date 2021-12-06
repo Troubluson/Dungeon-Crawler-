@@ -38,7 +38,7 @@ Gamebar::Gamebar(Player* player)
 
 void Gamebar::Render(sf::RenderTarget* target)
 {
-    //target->draw(background_);
+    // target->draw(background_);
     target->draw(redBar_);
     target->draw(greenBar_);
     target->draw(violetBar_);
@@ -47,10 +47,10 @@ void Gamebar::Render(sf::RenderTarget* target)
     sf::Text hp;
     hp.setFont(font_);
     hp.setString(std::to_string(player_->GetHitPoints()));
-    hp.setCharacterSize(15);
-    hp.setPosition(40, 30);
+    hp.setCharacterSize(25);
+    auto hpPositionX = greenBar_.getPosition().x + greenBar_.getSize().x + 5;
+    hp.setPosition(hpPositionX, greenBar_.getPosition().y);
     hp.setFillColor(sf::Color::White);
-
     target->draw(hp);
 }
 
