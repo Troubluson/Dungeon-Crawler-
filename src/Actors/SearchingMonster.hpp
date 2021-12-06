@@ -16,6 +16,8 @@ public:
     virtual std::list<Projectile*> Attack();
     virtual bool Move(float dt);
 
+    void initVariables();
+
 private:
     sf::Clock cooldown_;
 };

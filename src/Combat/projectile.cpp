@@ -55,5 +55,5 @@ void Projectile::SetDamage(int damage) { damage_ = damage; }
 void Projectile::SetDirection(sf::Vector2f direction) { direction_ = direction; }
 void Projectile::SetType(Projectile::Type type) { type_ = type; }
 void Projectile::SetTimeLifeSpan(float timeLifeSpan) { timeLifeSpan_ = timeLifeSpan; }
-void Projectile::SetDistanceLifeSpan(float distanceLifeSpan) { distanceLifeSpanSquared_ = distanceLifeSpan * distanceLifeSpan; }
+void Projectile::SetDistanceLifeSpan(float distanceLifeSpan) { distanceLifeSpanSquared_ = distanceLifeSpan; }
 void Projectile::SetProjectileSpeed(float projectileSpeed) { projectileSpeed_ = projectileSpeed; }

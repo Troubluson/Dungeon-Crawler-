@@ -29,12 +29,12 @@ void Character::initVariables()
     weapon_ = nullptr;
     alive_ = true;
 
-    normalSpeed_ = 200.0f;
     attackCooldownLength = 1.66f;
     attackCooldownLeft = 0.0f;
     CanAttack = true;
 
     hitpoints_ = 50;
+    std::cout << "char" << std::endl;
     currentSpeed_ = normalSpeed_;
     attackCooldownLength = 1.0f;
 }
@@ -151,6 +151,12 @@ void Character::generalUpdate(float dt)
         alive_ = false;
     }
     updateAttackCooldown(dt);
+}
+
+void Character::SetNormalSpeed(float value)
+{
+    normalSpeed_ = value;
+    currentSpeed_ = normalSpeed_;
 }
 
 /*

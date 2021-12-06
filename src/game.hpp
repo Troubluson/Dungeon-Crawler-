@@ -5,7 +5,9 @@
 
 #include "Actors/RandomMonster.hpp"
 #include "Actors/SearchingMonster.hpp"
+#include "Actors/SlowMonster.hpp"
 #include "Actors/SnipingMonster.hpp"
+#include "Actors/WallPatrolMonster.hpp"
 #include "Actors/monster.hpp"
 #include "Actors/player.hpp"
 /*#include "CollisionSystem.hpp"*/

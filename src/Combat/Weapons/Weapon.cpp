@@ -1,9 +1,10 @@
 
 #include "Combat/Weapons/Weapon.hpp"
 
-Weapon::Weapon(int damage, int range, Vector2f projectileSize, int rateOfFire, const std::string& spriteLocation)
+Weapon::Weapon(int damage, int range, Vector2f projectileSize, int rateOfFire, float projectileSpeed, const std::string& spriteLocation)
     : damage_(damage)
     , range_(range)
+    , projectileSpeed_(projectileSpeed)
     , projectileSize_(projectileSize)
     , powerUps_(vector<PowerUp*>())
 {

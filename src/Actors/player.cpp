@@ -51,7 +51,7 @@ void Player::initVariables()
     IsDashing = false;
     dashDurationLength = 0.25f;
     dashDurationLeft = 0.0f;
-    normalSpeed_ = 300.0f;
+    SetNormalSpeed(300.0f);
     dashSpeed = normalSpeed_ * 3;
 
     characterProjectileType = Projectile::Type::PlayerProjectile;
