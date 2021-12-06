@@ -39,7 +39,6 @@ Monster* MonsterSpawner::SpawnMonster() const
         m->setOldAndNewPos(sf::Vector2f(randomPosX, randomPosY));
 
     } while (!spawnRoom_.positionIsWalkable(m->GetBaseBoxAt(m->GetPos())));
-    std::cout << m->GetPos().x << "," << m->GetPos().y << std::endl;
 
     return m;
 }

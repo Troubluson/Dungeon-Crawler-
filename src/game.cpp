@@ -52,7 +52,6 @@ void Game::UpdateGame()
         addProjectiles(projectileListToAdd);
 
         monster->Update(dt);
-        std::cout << monster->GetPos().x << "," << monster->GetPos().y << std::endl;
     }
     updateProjectiles();
     // checkCollisions(player_, Projectile::Type::EnemyProjectile);
