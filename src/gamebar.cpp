@@ -25,8 +25,6 @@ Gamebar::Gamebar(Player* player)
     violetBar_.setFillColor(sf::Color::Magenta);
     violetBar_.setPosition(200, 5);
     violetBar_.setSize(sf::Vector2f(100 - 100 * (player_->GetAttackCooldownLeft() / player_->GetAttackCooldownLength()), 30));
-    std::cout << "AttackCooldown = " << player_->GetAttackCooldownLeft() << std::endl;
-    std::cout << "AttackCooldownLength = " << player_->GetAttackCooldownLength() << std::endl;
 
     yellowBar_ = greenBar;
     yellowBar_.setFillColor(sf::Color::Yellow);
@@ -40,7 +38,7 @@ Gamebar::Gamebar(Player* player)
 
 void Gamebar::Render(sf::RenderTarget* target)
 {
-    //target->draw(background_);
+    // target->draw(background_);
     target->draw(redBar_);
     target->draw(greenBar_);
     target->draw(violetBar_);
@@ -49,10 +47,10 @@ void Gamebar::Render(sf::RenderTarget* target)
     sf::Text hp;
     hp.setFont(font_);
     hp.setString(std::to_string(player_->GetHitPoints()));
-    hp.setCharacterSize(15);
-    hp.setPosition(40, 30);
+    hp.setCharacterSize(25);
+    auto hpPositionX = greenBar_.getPosition().x + greenBar_.getSize().x + 5;
+    hp.setPosition(hpPositionX, greenBar_.getPosition().y);
     hp.setFillColor(sf::Color::White);
-
     target->draw(hp);
 }
 
