@@ -1,4 +1,4 @@
-#include "Actors/monster.hpp"
+#include "monster.hpp"
 
 Monster::Monster(Player* player, sf::Vector2f pos, const std::string& spriteFile)
     : Character(spriteFile, pos)

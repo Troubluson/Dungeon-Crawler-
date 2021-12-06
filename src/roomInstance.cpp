@@ -1,6 +1,6 @@
 #include "roomInstance.hpp"
 
-RoomInstance::RoomInstance()
+RoomInstance::RoomInstance(sf::Vector2u size) : size_(size)
 {
     gridLen_ = 20;
     setUpRoomInstance();
@@ -95,5 +95,10 @@ bool RoomInstance::positionIsWalkable(sf::FloatRect entityBounds)
         }
     }
     return true;
+}
+
+const sf::Vector2u RoomInstance::getRoomSize() const
+{
+    return size_;
 }
 std::vector<std::vector<RoomTile*>> RoomInstance::getTiles() const { return tileVector_; }

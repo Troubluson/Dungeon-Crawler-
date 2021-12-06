@@ -2,32 +2,26 @@
 #include "Collision.hpp"
 
 namespace {
-const sf::Vector2f PLACEHOLDER_PROJ_SIZE = sf::Vector2f(1.0, 1.0);
-const int PLACEHOLDER_PROJ_SPEED = 1000;
-const int PLACEHOLDER_PROJ_DIST = 20;
-const int PLACEHOLDER_PROJ_DMG = 20;
-const float PLACEHOLDER_PROJ_LS = 0.5;
+const sf::Vector2u VIDEOMODE_DIMS = sf::Vector2u(1280, 768);
 
 }
 Game::Game()
 {
+    room = new RoomInstance(VIDEOMODE_DIMS);
     player_ = new Player();
     SwordWeapon* sword = new SwordWeapon(5, 10, sf::Vector2f(50, 100), 120, "content/sprites/projectiles.png");
 
     player_->Equip(sword);
 
-    Monster* m = new RandomMonster(player_, 300, 300); // placeholder
-    Monster* m2 = new SearchingMonster(player_, 200, 200);
-
-    SwordWeapon* monterSword = new SwordWeapon(5, 10, sf::Vector2f(50, 100), 120, "content/sprites/projectiles.png");
-
-    monsters_.push_back(m);
-    monsters_.push_back(m2);
-    m->Equip(monterSword);
-
+    MonsterSpawner spawner = MonsterSpawner(player_, *room, 5);
+    auto spawnedMonsters = spawner.SpawnMonsters();
+    for (auto m : spawnedMonsters) {
+        monsters_.push_back(m);
+    }
     gamebar_ = Gamebar(player_);
     initVariables();
     initWindow();
+    dtClock.restart(); // to not have giant first dt
 }
 
 Game::~Game()
@@ -61,7 +55,7 @@ void Game::UpdateGame()
     }
     updateProjectiles();
     // checkCollisions(player_, Projectile::Type::EnemyProjectile);
-    //handleMonsterProjectileCollisions(monsters_, Projectile::Type::PlayerProjectile);
+    // handleMonsterProjectileCollisions(monsters_, Projectile::Type::PlayerProjectile);
     checkMonsterCollisions();
     checkPlayerCollisions();
     checkAndHandleProjectileWallCollisions();
@@ -72,7 +66,7 @@ void Game::UpdateGame()
 void Game::RenderGame()
 {
     window_->clear();
-    room.Render(window_);
+    room->Render(window_);
     player_->Render(window_);
     gamebar_.Render(window_);
     for (auto projectile : projectiles_) {
@@ -273,11 +267,11 @@ void Game::updateProjectiles()
 }
 bool Game::collidesWithWall(Character* character)
 {
-    return !room.positionIsWalkable(character->GetBaseBoxAt(character->GetPos()));
+    return !room->positionIsWalkable(character->GetBaseBoxAt(character->GetPos()));
 }
 bool Game::collidesWithWall(Entity* object)
 {
-    return !room.positionIsWalkable(object->getSpriteBounds());
+    return !room->positionIsWalkable(object->getSpriteBounds());
 }
 
 bool Game::gameLost()

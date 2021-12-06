@@ -3,9 +3,7 @@
 #ifndef _GAME_CLASS_
 #define _GAME_CLASS_
 
-#include "Actors/RandomMonster.hpp"
-#include "Actors/SearchingMonster.hpp"
-#include "Actors/monster.hpp"
+#include "Actors/Monsters/MonsterSpawner/MonsterSpawner.hpp"
 #include "Actors/player.hpp"
 #include "roomInstance.hpp"
 /*#include "CollisionSystem.hpp"*/
@@ -32,7 +30,7 @@ private:
     sf::RenderWindow* window_;
     sf::Event event_;
     sf::Clock dtClock;
-    RoomInstance room;
+    RoomInstance* room; // otherwise fails due to some werid deleted function thing
     Player* player_;
     Gamebar gamebar_;
 
