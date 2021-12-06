@@ -5,7 +5,7 @@
 
 #include "Combat/Projectile.hpp"
 //#include "Interfaces/ICollidable.hpp"
-#include "Animation/AnimationHandler.hpp"
+#include "Animation/Animationhandler.hpp"
 #include "Combat/Weapons/Weapon.hpp"
 #include "entity.hpp"
 
