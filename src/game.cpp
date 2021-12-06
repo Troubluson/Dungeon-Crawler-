@@ -21,6 +21,7 @@ Game::Game()
     gamebar_ = Gamebar(player_);
     initVariables();
     initWindow();
+    dtClock.restart(); // to not have giant first dt
 }
 
 Game::~Game()
@@ -51,6 +52,7 @@ void Game::UpdateGame()
         addProjectiles(projectileListToAdd);
 
         monster->Update(dt);
+        std::cout << monster->GetPos().x << "," << monster->GetPos().y << std::endl;
     }
     updateProjectiles();
     // checkCollisions(player_, Projectile::Type::EnemyProjectile);

@@ -34,11 +34,13 @@ Monster* MonsterSpawner::SpawnMonster() const
     int randomPosX, randomPosY;
     sf::Vector2u roomSize = spawnRoom_.getRoomSize();
     do {
-        randomPosX = (rand() % (roomSize.x - 300)) + 100;
-        randomPosY = (rand() % (roomSize.y - 300)) + 100;
+        randomPosX = (rand() % (roomSize.x - 200)) + 100;
+        randomPosY = (rand() % (roomSize.y - 200)) + 100;
         m->setOldAndNewPos(sf::Vector2f(randomPosX, randomPosY));
 
     } while (!spawnRoom_.positionIsWalkable(m->GetBaseBoxAt(m->GetPos())));
+    std::cout << m->GetPos().x << "," << m->GetPos().y << std::endl;
+
     return m;
 }
 
