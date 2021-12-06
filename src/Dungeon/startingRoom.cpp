@@ -4,6 +4,7 @@ StartingRoom::StartingRoom(sf::Vector2u window_size, sf::Vector2i choords)
     : RoomInstance(window_size, choords)
 {
     setTiles(window_size);
+    cleared_ = true;
 }
 
 void StartingRoom::setTiles(sf::Vector2u window_size)

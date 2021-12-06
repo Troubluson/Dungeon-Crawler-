@@ -29,15 +29,14 @@ private:
     sf::RenderWindow* window_;
     sf::Event event_;
     sf::Clock dtClock;
-    Map dungeonMap_;
     Player* player_;
+    Map dungeonMap_;
     Gamebar gamebar_;
 
     float dt;
     bool paused = false;
     bool gameEnder_;
 
-    std::list<Monster*> monsters_;
     std::list<Projectile*> projectiles_;
     // CollisionSystem collisionSys;
 

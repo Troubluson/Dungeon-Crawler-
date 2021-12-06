@@ -1,6 +1,6 @@
 
+#include "Actors/Monsters/MonsterSpawner/MonsterSpawner.hpp"
 #include "roomTile.hpp"
-#include <vector>
 
 #ifndef _ROOM_INSTANCE_
 #define _ROOM_INSTANCE_
@@ -26,6 +26,7 @@ public:
      */
     RoomInstance(sf::Vector2u window_size, sf::Vector2i choords);
     RoomInstance() = default;
+
     /**
      * @brief Renders the room
      *
@@ -35,6 +36,7 @@ public:
     std::vector<RoomTile*> getRoomTilesAt(sf::FloatRect bounds);
     bool positionIsWalkable(sf::FloatRect bounds);
     std::vector<std::vector<RoomTile*>> getTiles() const;
+
     /**
      * @brief Takes down a 2-wide in wall (replaces walls with floortiles) to be able to walk between two rooms
      *
@@ -49,6 +51,7 @@ public:
      * \note Also adds the rooms as a connection on the argument room's side
      */
     void Connect(Direction dir, RoomInstance* room);
+
     /**
      * @brief Returns the room found in the wanted direction, nullptr if it is not found
      *
@@ -56,6 +59,7 @@ public:
      * @return RoomInstance*
      */
     RoomInstance* GetRoomInDir(Direction dir);
+
     /**
      * @brief Get the choordinates of this room on the map
      *
@@ -68,6 +72,12 @@ public:
      */
     void renderSpriteBackground();
 
+    void Enter(Player& player);
+
+    void Exit();
+
+    std::vector<Monster*>& GetMonsters();
+
 protected:
     /**
      * @brief Helper, Sets all the roomtiles of the roominstance
@@ -79,8 +89,10 @@ protected:
     std::vector<std::vector<RoomTile*>> tileVector_;
     sf::RenderTexture roomTexture;
     sf::Sprite roomBackground;
-
-    int gridLen_;
+    std::vector<Monster*> monsters_;
+    MonsterSpawner spawner_;
+    bool cleared_; // whether the room is cleared
+    bool visited_; // whether the room has been visited already
 };
 
 #endif

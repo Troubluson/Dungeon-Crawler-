@@ -19,11 +19,14 @@ Direction GetOppositeDir(Direction direction)
 }
 } // namespace
 
-Map::Map(sf::Vector2u size, int noRooms)
+Map::Map(sf::Vector2u size, int noRooms, Player& player)
     : roomSize_(size)
     , currentPos_({ 0, 0 })
+    , player_(player)
 {
-    while(!CreateDungeon(noRooms)); //dungeon creation can fail
+    srand(time(NULL));
+    while (!CreateDungeon(noRooms))
+        ; // dungeon creation can fail
     std::map<std::pair<int, int>, RoomInstance*>::iterator it;
     for (it = dungeon_.begin(); it != dungeon_.end(); it++) {
         it->second->renderSpriteBackground();
@@ -75,13 +78,20 @@ bool Map::CreateDungeon(int noRooms)
         } else { // we go back to spawn
             currentPos_ = { 0, 0 };
             retryCount += 1;
-            if(retryCount == 4) {
+            if (retryCount == 4) {
                 return false;
             }
         }
     }
     currentPos_ = { 0, 0 }; // reset position to spawnroom
     return true;
+}
+
+void Map::MovePlayer(Direction dir)
+{
+    GetCurrentRoom()->Exit();
+    Move(dir);
+    GetCurrentRoom()->Enter(player_);
 }
 
 void Map::Move(Direction dir)

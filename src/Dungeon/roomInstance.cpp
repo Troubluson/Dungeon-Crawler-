@@ -8,6 +8,7 @@ int NORMALTILE_EXTRA_WEIGHT = 4;
 RoomInstance::RoomInstance(sf::Vector2u window_size, sf::Vector2i choords)
     : roomSize_(window_size)
     , choords_(choords)
+    , spawner_(0)
 {
     setTiles();
 }
@@ -156,4 +157,32 @@ void RoomInstance::CreateExit(Direction dir)
         // delete tileVector_[tile.first][tile.second];
         tileVector_[tile.first][tile.second] = new RoomTile("content/sprites/floors/tile1.png", pos.x, pos.y, true, true);
     }
+}
+void RoomInstance::Enter(Player& player)
+{
+
+    if (!cleared_) {
+        spawner_.SetMonsterAmount(5); // set according to player lvl somehow
+        while (monsters_.size() < spawner_.GetMonsterAmount()) {
+            Monster* monster;
+            do {
+                monster = spawner_.SpawnMonster(roomSize_, player);
+            } while (monster == nullptr || !positionIsWalkable(monster->GetBaseBoxAt(monster->GetPos())));
+            monster->SetTarget(player);
+            monsters_.push_back(monster);
+        }
+    }
+}
+
+void RoomInstance::Exit()
+{
+    visited_ = true;
+    if (monsters_.empty()) {
+        cleared_ = true;
+    }
+}
+
+std::vector<Monster*>& RoomInstance::GetMonsters()
+{
+    return monsters_;
 }
