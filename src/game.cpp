@@ -169,12 +169,10 @@ void Game::manageInput()
         addProjectiles(projectileListToAdd);
     }
     if (triedMoving) {
-        // std::cout << player_->GetPos().x << " " << player_->GetPos().y << std::endl;
         if (collidesWithWall(player_)) {
             player_->RevertMove();
         }
         if (ShouldChangeRoom()) {
-            std::cout << dungeonMap_.GetCurrentRoom()->GetChoords().x << " , " << dungeonMap_.GetCurrentRoom()->GetChoords().y << std::endl;
             float y = window_->getSize().y;
             float x = window_->getSize().x;
             if (player_->GetPos().y <= 0) {

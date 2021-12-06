@@ -34,7 +34,6 @@ void Character::initVariables()
     CanAttack = true;
 
     hitpoints_ = 50;
-    std::cout << "char" << std::endl;
     currentSpeed_ = normalSpeed_;
     attackCooldownLength = 1.0f;
 }
