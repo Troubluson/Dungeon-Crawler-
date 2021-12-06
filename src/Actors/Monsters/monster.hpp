@@ -3,8 +3,8 @@
 #ifndef _MONSTER_CLASS_
 #define _MONSTER_CLASS_
 
-#include "character.hpp"
-#include "player.hpp"
+#include "Actors/character.hpp"
+#include "Actors/player.hpp"
 
 class Monster : public Character {
 public:

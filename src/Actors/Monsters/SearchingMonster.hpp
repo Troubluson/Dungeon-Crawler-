@@ -3,9 +3,9 @@
 #ifndef _SEARCHING_MONSTER_CLASS_
 #define _SEARCHING_MONSTER_CLASS_
 
-#include "character.hpp"
+#include "Actors/character.hpp"
+#include "Actors/player.hpp"
 #include "monster.hpp"
-#include "player.hpp"
 
 class SearchingMonster : public Monster {
 public:
@@ -18,6 +18,7 @@ public:
 
 private:
     sf::Clock cooldown_;
+    std::string name = "Sir Chi";
 };
 
 #endif
