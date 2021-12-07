@@ -33,8 +33,11 @@ public:
      * @param    target               Where  to render the room. About always game window
      */
     void Render(sf::RenderTarget* target);
+
     std::vector<RoomTile*> getRoomTilesAt(sf::FloatRect bounds);
+
     bool positionIsWalkable(sf::FloatRect bounds);
+
     std::vector<std::vector<RoomTile*>> getTiles() const;
 
     /**
@@ -43,6 +46,7 @@ public:
      * @param    direction                  The direction of the exit
      */
     void CreateExit(Direction direction);
+
     /**
      * @brief Connects two rooms to each other
      *
@@ -72,8 +76,17 @@ public:
      */
     void renderSpriteBackground();
 
+    /**
+     * @brief Function called when entering a room, needs player as parameter to perform some calculations about room difficulty
+     *
+     * @param    player
+     */
     void Enter(Player& player);
 
+    /**
+     * @brief Function called when exiting a room modifies cleared_ and visited_ booleans
+     *
+     */
     void Exit();
 
     std::vector<Monster*>& GetMonsters();
