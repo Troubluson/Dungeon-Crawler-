@@ -1,28 +1,37 @@
-#include "RandomMonster.hpp"
+#include "WallPatrolMonster.hpp"
 namespace {
 const std::string projectileSprite = "content/sprites/monster1.png";
 }
 
-RandomMonster::RandomMonster(Player* player, sf::Vector2f pos)
+WallPatrolMonster::WallPatrolMonster(Player* player, sf::Vector2f pos)
     : Monster(player, pos, projectileSprite)
 {
     initVariables();
 }
-RandomMonster::RandomMonster(Player* player, float xPos, float yPos)
+WallPatrolMonster::WallPatrolMonster(Player* player, float xPos, float yPos)
     : Monster(player, sf::Vector2f(xPos, yPos), projectileSprite)
 {
     initVariables();
 }
 
-RandomMonster::~RandomMonster() { }
+WallPatrolMonster::~WallPatrolMonster() { }
 
-bool RandomMonster::Move(float dt)
+void WallPatrolMonster::changeDirection()
 {
-    elapsedTurnTime += dt;
-    if (elapsedTurnTime > durationUntilTurn || !movedLastTick) {
-        elapsedTurnTime = 0.0f;
-        currentDir_ = RandomIntBetween(1, 4);
-        durationUntilTurn = RandomFloatBetween(0.2f, 1.0f);
+    if (currentDir_ == 4) {
+        currentDir_ = 1;
+    } else if (currentDir_ == 1) {
+        currentDir_ = 2;
+    } else if (currentDir_ == 2) {
+        currentDir_ = 3;
+    } else {
+        currentDir_ = 4;
+    }
+}
+bool WallPatrolMonster::Move(float dt)
+{
+    if (!movedLastTick) {
+        changeDirection();
     }
     if (currentDir_ == 1) {
         MoveDown(dt);
@@ -36,7 +45,7 @@ bool RandomMonster::Move(float dt)
     return true;
 }
 
-std::list<Projectile*> RandomMonster::Attack()
+std::list<Projectile*> WallPatrolMonster::Attack()
 {
     if (!CanAttack || !HasWeapon() || !inRangeOfPlayer()) {
         return emptyList();
@@ -47,7 +56,7 @@ std::list<Projectile*> RandomMonster::Attack()
     return shotProjectileList(player_->GetSpriteCenter());
 }
 
-void RandomMonster::initVariables()
+void WallPatrolMonster::initVariables()
 {
     SetNormalSpeed(200.0f);
 }

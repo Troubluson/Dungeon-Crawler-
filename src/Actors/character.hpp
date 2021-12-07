@@ -49,6 +49,8 @@ public:
     float GetAttackCooldownLeft() const { return attackCooldownLeft; };
     float GetAttackCooldownLength() const { return attackCooldownLength; };
     bool CanAttack;
+
+    void SetNormalSpeed(float value);
     /*
     // for ICollidable
     virtual sf::FloatRect GetBoundingBox() { return sprite_.getGlobalBounds(); }
