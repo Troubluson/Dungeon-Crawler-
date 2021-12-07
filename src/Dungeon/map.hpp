@@ -57,6 +57,8 @@ public:
      */
     RoomInstance* GetCurrentRoom();
 
+    RoomInstance* GetSpawnRoom();
+
 private:
     void Move(Direction dir);
 
@@ -71,10 +73,10 @@ private:
     std::pair<int, int> getKey();
     std::pair<int, int> getKey(sf::Vector2i choord);
     sf::Vector2u roomSize_;
-    RoomInstance* spawn_;
     sf::Vector2i currentPos_;
-    std::map<std::pair<int, int>, RoomInstance*> dungeon_; // cant use vector2i as a key
     Player& player_;
+    sf::Vector2i spawnChoords_;
+    std::map<std::pair<int, int>, RoomInstance*> dungeon_; // cant use vector2i as a key
 };
 
 #endif

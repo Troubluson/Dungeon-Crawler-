@@ -26,6 +26,7 @@ public:
      */
     RoomInstance(sf::Vector2u window_size, sf::Vector2i choords);
     RoomInstance() = default;
+    ~RoomInstance();
 
     /**
      * @brief Renders the room

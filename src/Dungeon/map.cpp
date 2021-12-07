@@ -23,6 +23,7 @@ Map::Map(sf::Vector2u size, int noRooms, Player& player)
     : roomSize_(size)
     , currentPos_({ 0, 0 })
     , player_(player)
+    , spawnChoords_(currentPos_)
 {
     srand(time(NULL));
     while (!CreateDungeon(noRooms))
@@ -43,7 +44,6 @@ bool Map::CreateDungeon(int noRooms)
 {
     RoomInstance* rootRoom = new StartingRoom(roomSize_, currentPos_);
     dungeon_[getKey()] = rootRoom;
-    spawn_ = rootRoom;
     auto i = 1;
     int dirCount = static_cast<int>(Direction::Count);
     int retryCount = 0;
@@ -138,6 +138,11 @@ sf::Vector2i Map::DirToVec(Direction direction)
 RoomInstance* Map::GetCurrentRoom()
 {
     return dungeon_[getKey()];
+}
+
+RoomInstance* Map::GetSpawnRoom()
+{
+    return dungeon_[getKey(spawnChoords_)];
 }
 
 std::pair<int, int> Map::getKey()

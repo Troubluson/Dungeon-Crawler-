@@ -13,6 +13,13 @@ RoomInstance::RoomInstance(sf::Vector2u window_size, sf::Vector2i choords)
     setTiles();
 }
 
+RoomInstance::~RoomInstance() {
+    for(auto m : monsters_) {
+        delete m;
+    }
+}
+
+
 void RoomInstance::Render(sf::RenderTarget* target)
 {
     target->draw(roomBackground);
@@ -152,6 +159,7 @@ void RoomInstance::CreateExit(Direction dir)
     default:
         break;
     } // switch
+
     for (auto tile : tilesToReplace) {
         auto pos = tileVector_[tile.first][tile.second]->getPosition();
         // delete tileVector_[tile.first][tile.second];
