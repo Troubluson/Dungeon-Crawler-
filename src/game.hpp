@@ -5,12 +5,11 @@
 
 #include "Actors/Monsters/MonsterSpawner/MonsterSpawner.hpp"
 #include "Actors/player.hpp"
-#include "roomInstance.hpp"
 /*#include "CollisionSystem.hpp"*/
 #include "Combat/Projectile.hpp"
 #include "Combat/Weapons/SwordWeapon.hpp"
+#include "Dungeon/map.hpp"
 #include "gamebar.hpp"
-#include "roomInstance.hpp"
 
 class Game {
 public:
@@ -30,15 +29,14 @@ private:
     sf::RenderWindow* window_;
     sf::Event event_;
     sf::Clock dtClock;
-    RoomInstance* room; // otherwise fails due to some werid deleted function thing
     Player* player_;
+    Map dungeonMap_;
     Gamebar gamebar_;
 
     float dt;
     bool paused = false;
     bool gameEnder_;
 
-    std::list<Monster*> monsters_;
     std::list<Projectile*> projectiles_;
     // CollisionSystem collisionSys;
 
@@ -56,6 +54,7 @@ private:
     void updateProjectiles();
     bool collidesWithWall(Character* character);
     bool collidesWithWall(Entity* object);
+    bool ShouldChangeRoom();
     bool gameLost();
 };
 
