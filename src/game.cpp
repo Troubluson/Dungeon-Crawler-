@@ -283,9 +283,9 @@ bool Game::collidesWithWall(Character* character)
 {
     return !dungeonMap_.GetCurrentRoom()->positionIsWalkable(character->GetBaseBoxAt(character->GetPos()));
 }
-bool Game::collidesWithWall(Entity* object)
+bool Game::collidesWithWall(Projectile* object)
 {
-    return !dungeonMap_.GetCurrentRoom()->positionIsWalkable(object->getSpriteBounds());
+    return !dungeonMap_.GetCurrentRoom()->positionIsPenetratable(object->getSpriteBounds());
 }
 
 bool Game::ShouldChangeRoom()

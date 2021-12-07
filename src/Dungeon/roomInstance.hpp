@@ -1,6 +1,6 @@
 
 #include "Actors/Monsters/MonsterSpawner/MonsterSpawner.hpp"
-#include "roomTile.hpp"
+#include "Tiles/roomTile.hpp"
 
 #ifndef _ROOM_INSTANCE_
 #define _ROOM_INSTANCE_
@@ -38,6 +38,7 @@ public:
     std::vector<RoomTile*> getRoomTilesAt(sf::FloatRect bounds);
 
     bool positionIsWalkable(sf::FloatRect bounds);
+    bool positionIsPenetratable(sf::FloatRect bounds);
 
     std::vector<std::vector<RoomTile*>> getTiles() const;
 

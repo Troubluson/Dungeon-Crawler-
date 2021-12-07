@@ -53,7 +53,7 @@ private:
     void deleteMonster(Character* m);
     void updateProjectiles();
     bool collidesWithWall(Character* character);
-    bool collidesWithWall(Entity* object);
+    bool collidesWithWall(Projectile* object);
     bool ShouldChangeRoom();
     bool gameLost();
 };
