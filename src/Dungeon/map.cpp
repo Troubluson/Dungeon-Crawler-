@@ -1,24 +1,6 @@
 #include "map.hpp"
 #include <time.h>
 
-namespace {
-Direction GetOppositeDir(Direction direction)
-{
-    switch (direction) {
-    case Direction::Up:
-        return Direction::Down;
-    case Direction::Down:
-        return Direction::Up;
-    case Direction::Left:
-        return Direction::Right;
-    case Direction::Right:
-        return Direction::Left;
-    default:
-        return Direction::Up;
-    }
-}
-} // namespace
-
 Map::Map(sf::Vector2u size, int noRooms, Player& player)
     : roomSize_(size)
     , currentPos_({ 0, 0 })
@@ -66,7 +48,7 @@ bool Map::CreateDungeon(int noRooms)
                     auto roomInDir = GetRoomAt(rootRoom->GetChoords() + DirToVec(Direction(j)));
                     if (roomInDir != nullptr) {
                         rootRoom->CreateExit(Direction(j));
-                        roomInDir->CreateExit(GetOppositeDir(Direction(j)));
+                        roomInDir->CreateExit(direction::GetOppositeDir(Direction(j)));
                     }
                 }
                 rootRoom = newRoom;
@@ -75,10 +57,14 @@ bool Map::CreateDungeon(int noRooms)
             } else {
                 rootRoom = GetRoomAt(currentPos_); // move to the room that we already have connected to
             }
-        } else { // we go back to spawn
-            currentPos_ = { 0, 0 };
+        } else { // we go to a random tile
+            auto it = dungeon_.begin();
+            std::advance(it, rand() % dungeon_.size());
+            auto random_key = it->first;
+            currentPos_ = sf::Vector2i(random_key.first, random_key.second);
             retryCount += 1;
             if (retryCount == 4) {
+                currentPos_ = { 0, 0 };
                 return false;
             }
         }
@@ -91,7 +77,7 @@ void Map::MovePlayer(Direction dir)
 {
     GetCurrentRoom()->Exit();
     Move(dir);
-    GetCurrentRoom()->Enter(player_);
+    GetCurrentRoom()->Enter(player_, dir);
 }
 
 void Map::Move(Direction dir)
