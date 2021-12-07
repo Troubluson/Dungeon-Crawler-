@@ -19,7 +19,7 @@ public:
     void initVariables();
 
 private:
-    int currentDir_;
+    int currentDir_ = 1;
     void changeDirection();
 };
 
