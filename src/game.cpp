@@ -11,7 +11,6 @@ Game::Game()
     , dungeonMap_(Map(VIDEOMODE_DIMS, 10, *player_))
     , gamebar_(Gamebar(player_))
 {
-    srand(sf::Mouse::getPosition().y);
     SwordWeapon* sword = new SwordWeapon(20, 10, sf::Vector2f(50, 100), 120, "content/sprites/projectiles.png");
     player_->Equip(sword);
     initVariables();
@@ -158,21 +157,7 @@ void Game::manageInput()
             player_->RevertMove();
         }
         if (ShouldChangeRoom()) {
-            std::cout << dungeonMap_.GetCurrentRoom()->GetChoords().x << " , " << dungeonMap_.GetCurrentRoom()->GetChoords().y << std::endl;
-            float y = window_->getSize().y;
-            float x = window_->getSize().x;
-            if (player_->GetPos().y <= 0) {
-                player_->setPos({ player_->GetPos().x, y - 3 });
-            }
-            if (player_->GetPos().y > y) {
-                player_->setPos({ player_->GetPos().x, -3 });
-            }
-            if (player_->GetPos().x <= 0) {
-                player_->setPos({ x - 3, player_->GetPos().y });
-            }
-            if (player_->GetPos().x > x) {
-                player_->setPos({ -3, player_->GetPos().y });
-            }
+            dtClock.restart(); // generating monsters makes dt quite big
         }
     }
 }
