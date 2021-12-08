@@ -12,6 +12,9 @@ enum class Direction {
     Right,
     Count
 };
+namespace direction {
+Direction GetOppositeDir(Direction direction);
+}
 /**
  * @brief Class representing a room of a dungeon, usually includes a monsterspawner.
  *
@@ -78,18 +81,22 @@ public:
      */
     void renderSpriteBackground();
 
+    sf::Vector2u GetEntranceInDirection(Direction direction);
+
     /**
      * @brief Function called when entering a room, needs player as parameter to perform some calculations about room difficulty
      *
      * @param    player
+     * @param    direction  the direction we enter from
      */
-    void Enter(Player& player);
+    void Enter(Player& player, Direction direction);
 
     /**
      * @brief Function called when exiting a room modifies cleared_ and visited_ booleans
      *
      */
     void Exit();
+
 
     std::vector<Monster*>& GetMonsters();
 
