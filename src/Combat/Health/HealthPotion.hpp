@@ -9,9 +9,9 @@ class HealthPotion : public Entity {
 public:
     HealthPotion(sf::Vector2f pos, sf::Vector2f spriteDims, int healthIncrease);
 
-    bool IsCollected(sf::Vector2f pos);
+    bool IsCollected();
 
-    int HealthIncrease();
+    int HealthIncrease(sf::Vector2f pos);
 
 private:
     int healthIncrease_;

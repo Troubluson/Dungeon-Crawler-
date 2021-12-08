@@ -45,6 +45,10 @@ void Game::UpdateGame()
 
         monster->Update(dt);
     }
+
+    for (auto potion : dungeonMap_.GetCurrentRoom()->GetPotions()) {
+        player_->TakeDamage(-1 * (potion->HealthIncrease(player_->GetPos())));
+    }
     updateProjectiles();
     // checkCollisions(player_, Projectile::Type::EnemyProjectile);
     // handleMonsterProjectileCollisions(monsters_, Projectile::Type::PlayerProjectile);
