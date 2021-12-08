@@ -13,12 +13,12 @@ RoomInstance::RoomInstance(sf::Vector2u window_size, sf::Vector2i choords)
     setTiles();
 }
 
-RoomInstance::~RoomInstance() {
-    for(auto m : monsters_) {
+RoomInstance::~RoomInstance()
+{
+    for (auto m : monsters_) {
         delete m;
     }
 }
-
 
 void RoomInstance::Render(sf::RenderTarget* target)
 {
@@ -193,4 +193,13 @@ void RoomInstance::Exit()
 std::vector<Monster*>& RoomInstance::GetMonsters()
 {
     return monsters_;
+}
+
+void RoomInstance::AddPotion(HealthPotion* potion)
+{
+    healthPotions_.push_back(potion);
+}
+std::vector<HealthPotion*>& RoomInstance::GetPotions()
+{
+    return healthPotions_;
 }

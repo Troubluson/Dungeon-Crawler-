@@ -6,6 +6,7 @@
 #include "Actors/Monsters/MonsterSpawner/MonsterSpawner.hpp"
 #include "Actors/player.hpp"
 /*#include "CollisionSystem.hpp"*/
+#include "Combat/Health/HealthPotion.hpp"
 #include "Combat/Projectile.hpp"
 #include "Combat/Weapons/SwordWeapon.hpp"
 #include "Dungeon/map.hpp"
