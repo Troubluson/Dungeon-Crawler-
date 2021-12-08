@@ -44,10 +44,6 @@ void Game::UpdateGame()
         addProjectiles(projectileListToAdd);
 
         monster->Update(dt);
-        if (!monster->IsAlive()) {
-            HealthPotion* potion = new HealthPotion(monster->GetPos(), sf::Vector2f(0.7, 0.7), 10);
-            dungeonMap_.GetCurrentRoom()->AddPotion(potion);
-        }
     }
     updateProjectiles();
     // checkCollisions(player_, Projectile::Type::EnemyProjectile);
@@ -209,6 +205,8 @@ void Game::checkMonsterCollisions()
         checkCollisions(monster, Projectile::Type::PlayerProjectile);
         if (!monster->IsAlive()) {
             deadMonsters.push_back(monster);
+            HealthPotion* potion = new HealthPotion(monster->GetPos(), sf::Vector2f(0.7, 0.7), 10);
+            dungeonMap_.GetCurrentRoom()->AddPotion(potion);
         }
     }
     for (auto monster : deadMonsters) {

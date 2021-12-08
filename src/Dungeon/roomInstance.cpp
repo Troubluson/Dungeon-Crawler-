@@ -18,6 +18,10 @@ RoomInstance::~RoomInstance()
     for (auto m : monsters_) {
         delete m;
     }
+
+    for (auto h : healthPotions_) {
+        delete h;
+    }
 }
 
 void RoomInstance::Render(sf::RenderTarget* target)
