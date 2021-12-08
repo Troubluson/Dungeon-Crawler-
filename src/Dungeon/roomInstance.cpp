@@ -4,6 +4,23 @@ namespace {
 int TILE_AMOUNT = 7;
 int NORMALTILE_EXTRA_WEIGHT = 4;
 }
+namespace direction {
+Direction GetOppositeDir(Direction direction)
+{
+    switch (direction) {
+    case Direction::Up:
+        return Direction::Down;
+    case Direction::Down:
+        return Direction::Up;
+    case Direction::Left:
+        return Direction::Right;
+    case Direction::Right:
+        return Direction::Left;
+    default:
+        return Direction::Up;
+    }
+}
+} // namespace
 
 RoomInstance::RoomInstance(sf::Vector2u window_size, sf::Vector2i choords)
     : roomSize_(window_size)
@@ -13,12 +30,12 @@ RoomInstance::RoomInstance(sf::Vector2u window_size, sf::Vector2i choords)
     setTiles();
 }
 
-RoomInstance::~RoomInstance() {
-    for(auto m : monsters_) {
+RoomInstance::~RoomInstance()
+{
+    for (auto m : monsters_) {
         delete m;
     }
 }
-
 
 void RoomInstance::Render(sf::RenderTarget* target)
 {
@@ -166,9 +183,27 @@ void RoomInstance::CreateExit(Direction dir)
         tileVector_[tile.first][tile.second] = new RoomTile("content/sprites/floors/tile1.png", pos.x, pos.y, true, true);
     }
 }
-void RoomInstance::Enter(Player& player)
-{
 
+sf::Vector2u RoomInstance::GetEntranceInDirection(Direction direction)
+{
+    uint offsetY = 80;
+    uint offsetX = 48;
+    switch (direction) {
+    case Direction::Up:
+        return { roomSize_.x / 2 - offsetX, roomSize_.y };
+    case Direction::Down:
+        return { roomSize_.x / 2 - offsetX, 0 };
+    case Direction::Left:
+        return { roomSize_.x - 1, roomSize_.y / 2 - offsetY };
+    case Direction::Right:
+        return { 1, roomSize_.y / 2 - offsetY };
+    default:
+        throw "no entrance";
+    }
+}
+
+void RoomInstance::Enter(Player& player, Direction direction)
+{
     if (!cleared_) {
         spawner_.SetMonsterAmount(5); // set according to player lvl somehow
         while (monsters_.size() < spawner_.GetMonsterAmount()) {
@@ -180,6 +215,7 @@ void RoomInstance::Enter(Player& player)
             monsters_.push_back(monster);
         }
     }
+    player.setOldAndNewPos(sf::Vector2f(GetEntranceInDirection(direction))); // prevents us from getting stuck in the wall
 }
 
 void RoomInstance::Exit()
