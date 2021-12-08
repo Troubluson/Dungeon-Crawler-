@@ -19,29 +19,29 @@ void StartingRoom::setTiles(sf::Vector2u window_size)
         for (int j = 0; j < xTileCount; ++j) {
             if (i == 0) {
                 if (j == 0) {
-                    row.push_back(new RoomTile("content/sprites/walls/topwallleft.png", k, n, false));
+                    row.push_back(new WallTile("content/sprites/walls/topwallleft.png", k, n));
                 } else if (j == xTileCount - 1) {
-                    row.push_back(new RoomTile("content/sprites/walls/topwallbottomleft.png", k, n, false));
+                    row.push_back(new WallTile("content/sprites/walls/topwallbottomleft.png", k, n));
                 } else {
-                    row.push_back(new RoomTile("content/sprites/walls/toppartofwall1.png", k, n, false));
+                    row.push_back(new WallTile("content/sprites/walls/toppartofwall1.png", k, n));
                 }
             } else if (i == 1 && j != 0 && j != xTileCount - 1) {
-                row.push_back(new RoomTile("content/sprites/walls/wallfront1.png", k, n, false, true));
+                row.push_back(new FrontWallTile("content/sprites/walls/wallfront1.png", k, n));
             } else if (i == yTileCount - 1) {
                 if (j == 0) {
-                    row.push_back(new RoomTile("content/sprites/walls/topwallright.png", k, n, false));
+                    row.push_back(new WallTile("content/sprites/walls/topwallright.png", k, n));
                 } else if (j == xTileCount - 1) {
-                    row.push_back(new RoomTile("content/sprites/walls/topwallbottomright.png", k, n, false));
+                    row.push_back(new WallTile("content/sprites/walls/topwallbottomright.png", k, n));
                 } else {
-                    row.push_back(new RoomTile("content/sprites/walls/topwallbottom.png", k, n, false));
+                    row.push_back(new WallTile("content/sprites/walls/topwallbottom.png", k, n));
                 }
             } else if (i != 0 && j == 0) {
-                row.push_back(new RoomTile("content/sprites/walls/topwallLEFTSIDE.png", k, n, false));
+                row.push_back(new WallTile("content/sprites/walls/topwallLEFTSIDE.png", k, n));
             } else if (i != 0 && j == xTileCount - 1) {
-                row.push_back(new RoomTile("content/sprites/walls/topwallRIGHTSIDE.png", k, n, false));
+                row.push_back(new WallTile("content/sprites/walls/topwallRIGHTSIDE.png", k, n));
 
             } else {
-                row.push_back(new RoomTile("content/sprites/floors/tile1.png", k, n, true, true));
+                row.push_back(new FloorTile("content/sprites/floors/tile1.png", k, n));
             }
             k += 64;
         }

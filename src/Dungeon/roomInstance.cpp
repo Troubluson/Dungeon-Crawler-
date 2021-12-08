@@ -54,34 +54,33 @@ void RoomInstance::setTiles()
         for (int j = 0; j < xTileCount; ++j) {
             if (i == 0) {
                 if (j == 0) {
-                    row.push_back(new RoomTile("content/sprites/walls/topwallleft.png", k, n, false, false));
+                    row.push_back(new WallTile("content/sprites/walls/topwallleft.png", k, n));
                 } else if (j == xTileCount - 1) {
-                    row.push_back(new RoomTile("content/sprites/walls/topwallbottomleft.png", k, n, false, false));
+                    row.push_back(new WallTile("content/sprites/walls/topwallbottomleft.png", k, n));
                 } else {
-                    row.push_back(new RoomTile("content/sprites/walls/toppartofwall1.png", k, n, false, false));
+                    row.push_back(new WallTile("content/sprites/walls/toppartofwall1.png", k, n));
                 }
             } else if (i == 1 && j != 0 && j != xTileCount - 1) {
-                row.push_back(new RoomTile("content/sprites/walls/wallfront1.png", k, n, false, true));
+                row.push_back(new FrontWallTile("content/sprites/walls/wallfront1.png", k, n));
             } else if (i == yTileCount - 1) {
                 if (j == 0) {
-                    row.push_back(new RoomTile("content/sprites/walls/topwallright.png", k, n, false, false));
+                    row.push_back(new WallTile("content/sprites/walls/topwallright.png", k, n));
                 } else if (j == xTileCount - 1) {
-                    row.push_back(new RoomTile("content/sprites/walls/topwallbottomright.png", k, n, false, false));
+                    row.push_back(new WallTile("content/sprites/walls/topwallbottomright.png", k, n));
                 } else {
-                    row.push_back(new RoomTile("content/sprites/walls/topwallbottom.png", k, n, false, false));
+                    row.push_back(new WallTile("content/sprites/walls/topwallbottom.png", k, n));
                 }
             } else if (i != 0 && j == 0) {
-                row.push_back(new RoomTile("content/sprites/walls/topwallLEFTSIDE.png", k, n, false, false));
+                row.push_back(new WallTile("content/sprites/walls/topwallLEFTSIDE.png", k, n));
             } else if (i != 0 && j == xTileCount - 1) {
-                row.push_back(new RoomTile("content/sprites/walls/topwallRIGHTSIDE.png", k, n, false, false));
-
+                row.push_back(new WallTile("content/sprites/walls/topwallRIGHTSIDE.png", k, n));
             } else {
                 int tileNumber = rand() % ((TILE_AMOUNT + 1) + NORMALTILE_EXTRA_WEIGHT) + 1;
                 if (tileNumber > TILE_AMOUNT) {
                     tileNumber = 1;
                 }
                 std::string tilelocation = "content/sprites/floors/tile" + std::to_string(tileNumber) + ".png";
-                row.push_back(new RoomTile(tilelocation, k, n, true, true));
+                row.push_back(new FloorTile(tilelocation, k, n));
             }
 
             k += 64;
@@ -122,12 +121,24 @@ std::vector<RoomTile*> RoomInstance::getRoomTilesAt(sf::FloatRect entityBounds)
     }
     return tilesInBounds;
 }
+
 // we end up needing to use the bounding box character being in multiple tiles simultaneously
 bool RoomInstance::positionIsWalkable(sf::FloatRect entityBounds)
 {
     auto tilesInBounds = getRoomTilesAt(entityBounds);
     for (auto tile : tilesInBounds) {
         if (!tile->isWalkable()) {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool RoomInstance::positionIsPenetratable(sf::FloatRect entityBounds)
+{
+    auto tilesInBounds = getRoomTilesAt(entityBounds);
+    for (auto tile : tilesInBounds) {
+        if (!tile->isPenetratable()) {
             return false;
         }
     }
@@ -180,7 +191,7 @@ void RoomInstance::CreateExit(Direction dir)
     for (auto tile : tilesToReplace) {
         auto pos = tileVector_[tile.first][tile.second]->getPosition();
         // delete tileVector_[tile.first][tile.second];
-        tileVector_[tile.first][tile.second] = new RoomTile("content/sprites/floors/tile1.png", pos.x, pos.y, true, true);
+        tileVector_[tile.first][tile.second] = new FloorTile("content/sprites/floors/tile1.png", pos.x, pos.y);
     }
 }
 
