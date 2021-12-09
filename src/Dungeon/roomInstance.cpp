@@ -19,7 +19,7 @@ RoomInstance::~RoomInstance()
         delete m;
     }
 
-    for (auto h : healthPotions_) {
+    for (auto h : potions_) {
         delete h;
     }
 }
@@ -199,11 +199,11 @@ std::vector<Monster*>& RoomInstance::GetMonsters()
     return monsters_;
 }
 
-void RoomInstance::AddPotion(HealthPotion* potion)
+void RoomInstance::AddPotion(Potion* potion)
 {
-    healthPotions_.push_back(potion);
+    potions_.push_back(potion);
 }
-std::vector<HealthPotion*>& RoomInstance::GetPotions()
+std::vector<Potion*>& RoomInstance::GetPotions()
 {
-    return healthPotions_;
+    return potions_;
 }

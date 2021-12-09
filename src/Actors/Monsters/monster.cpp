@@ -54,3 +54,8 @@ float Monster::getDistanceToPlayer()
     float distance = std::sqrt(distanceVec.x * distanceVec.x + distanceVec.y * distanceVec.y);
     return distance;
 }
+
+Potion* Monster::ReturnPotion()
+{
+    return new GreenPotion(GetSpriteCenter());
+}

@@ -217,7 +217,7 @@ void Game::checkMonsterCollisions()
         checkCollisions(monster, Projectile::Type::PlayerProjectile);
         if (!monster->IsAlive()) {
             deadMonsters.push_back(monster);
-            HealthPotion* potion = new HealthPotion(monster->GetPos(), sf::Vector2f(0.7, 0.7), 10);
+            Potion* potion = monster->ReturnPotion();
             dungeonMap_.GetCurrentRoom()->AddPotion(potion);
         }
     }

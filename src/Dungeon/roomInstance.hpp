@@ -1,6 +1,6 @@
 
 #include "Actors/Monsters/MonsterSpawner/MonsterSpawner.hpp"
-#include "Combat/Health/HealthPotion.hpp"
+#include "Combat/Health/Potion.hpp"
 #include "roomTile.hpp"
 
 #ifndef _ROOM_INSTANCE_
@@ -93,9 +93,9 @@ public:
 
     std::vector<Monster*>& GetMonsters();
 
-    void AddPotion(HealthPotion* potion);
+    void AddPotion(Potion* potion);
 
-    std::vector<HealthPotion*>& GetPotions();
+    std::vector<Potion*>& GetPotions();
 
 protected:
     /**
@@ -109,7 +109,7 @@ protected:
     sf::RenderTexture roomTexture;
     sf::Sprite roomBackground;
     std::vector<Monster*> monsters_;
-    std::vector<HealthPotion*> healthPotions_;
+    std::vector<Potion*> potions_;
     MonsterSpawner spawner_;
     bool cleared_; // whether the room is cleared
     bool visited_; // whether the room has been visited already
