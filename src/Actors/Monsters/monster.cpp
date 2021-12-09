@@ -57,5 +57,16 @@ float Monster::getDistanceToPlayer()
 
 Potion* Monster::ReturnPotion()
 {
-    return new GreenPotion(GetSpriteCenter());
+    sf::Vector2f currentPos = GetPos();
+    int r = rand() % 5;
+    if (r == 0)
+        return new GreenPotion(currentPos);
+    else if (r == 1)
+        return new RedPotion(currentPos);
+    else if (r == 2)
+        return new YellowPotion(currentPos);
+    else if (r == 3)
+        return new VioletPotion(currentPos);
+    else
+        return nullptr;
 }

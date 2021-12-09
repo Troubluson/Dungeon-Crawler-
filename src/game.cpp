@@ -51,7 +51,7 @@ void Game::UpdateGame()
         sf::Vector2f plPos = player_->GetSpriteCenter();
         sf::Vector2f difference = poPos - plPos;
         float distance = std::sqrt(difference.x * difference.x + difference.y * difference.y);
-        if (distance < 30 && !potion->IsCollected()) {
+        if (distance < 50 && !potion->IsCollected()) {
             potion->Use(player_);
         }
     }
@@ -218,7 +218,9 @@ void Game::checkMonsterCollisions()
         if (!monster->IsAlive()) {
             deadMonsters.push_back(monster);
             Potion* potion = monster->ReturnPotion();
-            dungeonMap_.GetCurrentRoom()->AddPotion(potion);
+            if (potion != nullptr) {
+                dungeonMap_.GetCurrentRoom()->AddPotion(potion);
+            }
         }
     }
     for (auto monster : deadMonsters) {
