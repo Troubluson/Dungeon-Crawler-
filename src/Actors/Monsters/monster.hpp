@@ -23,10 +23,10 @@ protected:
     Monster(Player& player, float xPos, float yPos, const std::string& spriteFile);
     Player& player_;
     sf::RectangleShape healthbar_;
-    float staticDamage = 5.0f;
+    float staticDamage_ = 5.0f;
     float getDistanceToPlayer();
     bool inRangeOfPlayer();
-    bool movedLastTick;
+    bool movedLastTick_;
 
     bool moveTowardsPlayer(float dt);
 

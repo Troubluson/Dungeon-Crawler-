@@ -3,32 +3,32 @@
 
 Monster* MonsterSpawner::getRandomMonster(Player& target) const
 {
-    int monsterAttackType = rand() % monsterAttackTypeCount;
+    int monsterAttackType = rand() % monsterAttackTypeCount_;
     switch (monsterAttackType) {
     case 0: {
         int projectilemonsterType = rand() % projectilemonsterClassCount_;
         Monster* m = nullptr;
         switch (projectilemonsterType) {
         case 0: { //RandomMonster
-            SwordWeapon* monterSword = new SwordWeapon(5, 100, sf::Vector2f(50, 100), 120, 1000, "content/sprites/projectiles.png");
+            SwordWeapon* monterSword = new SwordWeapon(5, 100, 120, 1000, sf::Vector2f(50, 100), "content/sprites/projectiles.png");
             m = new RandomMonster(target, 0, 0);
             m->Equip(monterSword);
             break;
         }
         case 1: { //SnipingMonster
-            BowWeapon* snipingBow = new BowWeapon(5, 10000, sf::Vector2f(50, 100), 30, 1000, "content/sprites/projectiles.png");
+            BowWeapon* snipingBow = new BowWeapon(5, 10000, 30, 1000, sf::Vector2f(50, 100), "content/sprites/projectiles.png");
             m = new SnipingMonster(target, 0, 0);
             m->Equip(snipingBow);
             break;
         }
         case 2: { //SlowMonster
-            BowWeapon* slowBow = new BowWeapon(5, 400, sf::Vector2f(50, 100), 200, 200, "content/sprites/projectiles.png");
+            BowWeapon* slowBow = new BowWeapon(5, 400, 200, 200, sf::Vector2f(50, 100), "content/sprites/projectiles.png");
             m = new SlowMonster(target, 1000, 700);
             m->Equip(slowBow);
             break;
         }
         case 3: { //WallPatrolMonster
-            SwordWeapon* monterSword = new SwordWeapon(5, 100, sf::Vector2f(50, 100), 120, 1000, "content/sprites/projectiles.png");
+            SwordWeapon* monterSword = new SwordWeapon(5, 100, 120, 1000, sf::Vector2f(50, 100), "content/sprites/projectiles.png");
             m = new WallPatrolMonster(target, 1000, 700);
             m->Equip(monterSword);
             break;
@@ -55,7 +55,7 @@ Monster* MonsterSpawner::SpawnMonster(sf::Vector2u roomSize, Player& target) con
     int randomPosX, randomPosY;
     randomPosX = (rand() % (roomSize.x - 200)) + 100;
     randomPosY = (rand() % (roomSize.y - 200)) + 100;
-    m->setOldAndNewPos(sf::Vector2f(randomPosX, randomPosY));
+    m->SetPosAndOldPos(sf::Vector2f(randomPosX, randomPosY));
     return m;
 }
 

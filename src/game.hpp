@@ -28,12 +28,12 @@ private:
     sf::VideoMode videomode_;
     sf::RenderWindow* window_;
     sf::Event event_;
-    sf::Clock dtClock;
+    sf::Clock dtClock_;
     Player* player_;
     Map dungeonMap_;
     Gamebar gamebar_;
 
-    float dt;
+    float dt_;
     bool paused = false;
     bool gameEnder_;
 
@@ -54,7 +54,7 @@ private:
     void updateProjectiles();
     bool collidesWithWall(Character* character);
     bool collidesWithWall(Projectile* object);
-    bool ShouldChangeRoom();
+    bool shouldChangeRoom();
     bool gameLost();
 };
 

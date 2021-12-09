@@ -11,6 +11,7 @@ Game::Game()
     , dungeonMap_(Map(VIDEOMODE_DIMS, 10, *player_))
     , gamebar_(Gamebar(player_))
 {
+    SwordWeapon* sword = new SwordWeapon(20, 100, 120, 1000, sf::Vector2f(50, 100), "content/sprites/projectiles.png");
     /* Monster* mRandom = new RandomMonster(player_, 300, 300); // placeholder
     Monster* mSearching = new SearchingMonster(player_, 200, 200);
     Monster* mSniping = new SnipingMonster(player_, 1000, 700);
@@ -22,9 +23,10 @@ Game::Game()
     BowWeapon* slowBow = new BowWeapon(5, 400, sf::Vector2f(50, 100), 200, 200, "content/sprites/projectiles.png");
     SwordWeapon* sword = new SwordWeapon(20, 10, sf::Vector2f(50, 100), 120, "content/sprites/projectiles.png");
     player_->Equip(sword); */
+    player_->Equip(sword);
     initVariables();
     initWindow();
-    dtClock.restart(); // to not have giant first dt
+    dtClock_.restart(); // to not have giant first dt
 }
 
 Game::~Game()
@@ -43,7 +45,7 @@ void Game::UpdateGame()
     // Update projectiles
     for (auto monster : dungeonMap_.GetCurrentRoom()->GetMonsters()) {
         // if moved, check collision with walls
-        bool monsterMoved = monster->Move(dt);
+        bool monsterMoved = monster->Move(dt_);
         if (monsterMoved && collidesWithWall(monster)) {
             monster->RevertMove();
         }
@@ -51,7 +53,7 @@ void Game::UpdateGame()
         std::list<Projectile*> projectileListToAdd = monster->Attack();
         addProjectiles(projectileListToAdd);
 
-        monster->Update(dt);
+        monster->Update(dt_);
     }
     updateProjectiles();
     // checkCollisions(player_, Projectile::Type::EnemyProjectile);
@@ -59,7 +61,7 @@ void Game::UpdateGame()
     checkMonsterCollisions();
     checkPlayerCollisions();
     checkAndHandleProjectileWallCollisions();
-    player_->Update(dt);
+    player_->Update(dt_);
     gamebar_.Update();
 }
 // render game frames
@@ -111,7 +113,7 @@ void Game::initWindow()
     window_ = new sf::RenderWindow(videomode_, "Dungeon Crawler");
 }
 
-void Game::updateDt() { dt = dtClock.restart().asSeconds(); }
+void Game::updateDt() { dt_ = dtClock_.restart().asSeconds(); }
 
 void Game::manageInput()
 {
@@ -127,27 +129,27 @@ void Game::manageInput()
 
     if (twoKeys) {
         if (A) {
-            player_->MoveLeft(dt / sqrt(2));
+            player_->MoveLeft(dt_ / sqrt(2));
         } else if (D) {
-            player_->MoveRight(dt / sqrt(2));
+            player_->MoveRight(dt_ / sqrt(2));
         }
 
         if (W) {
-            player_->MoveUp(dt / sqrt(2));
+            player_->MoveUp(dt_ / sqrt(2));
         } else if (S) {
-            player_->MoveDown(dt / sqrt(2));
+            player_->MoveDown(dt_ / sqrt(2));
         }
     } else {
         if (A) {
-            player_->MoveLeft(dt);
+            player_->MoveLeft(dt_);
         } else if (D) {
-            player_->MoveRight(dt);
+            player_->MoveRight(dt_);
         }
 
         if (W) {
-            player_->MoveUp(dt);
+            player_->MoveUp(dt_);
         } else if (S) {
-            player_->MoveDown(dt);
+            player_->MoveDown(dt_);
         }
     }
 
@@ -164,9 +166,9 @@ void Game::manageInput()
         if (collidesWithWall(player_)) {
             player_->RevertMove();
         }
-        if (ShouldChangeRoom()) {
+        if (shouldChangeRoom()) {
             projectiles_.clear();
-            dtClock.restart(); // generating monsters makes dt quite big
+            dtClock_.restart(); // generating monsters makes dt quite big
         }
     }
 }
@@ -174,9 +176,9 @@ void Game::manageInput()
 void Game::checkCollisions(Character* character, Projectile::Type projectileType)
 {
     for (auto projectile : projectiles_) {
-        if (projectile->GetType() == projectileType && !projectile->hasHit(character)) {
+        if (projectile->GetType() == projectileType && !projectile->HasHit(character)) {
             if (Collision::PixelPerfectTest(projectile->GetSprite(), character->GetSprite())) {
-                projectile->hit(character);
+                projectile->Hit(character);
                 character->TakeDamage(projectile->GetDamage());
                 if (!projectile->Penetrates()) {
                     projectile->Kill();
@@ -269,7 +271,7 @@ void Game::updateProjectiles()
         if (!p->IsAlive()) {
             it = projectiles_.erase(it);
         } else {
-            p->Update(dt);
+            p->Update(dt_);
         }
     }
 }
@@ -282,7 +284,7 @@ bool Game::collidesWithWall(Projectile* object)
     return !dungeonMap_.GetCurrentRoom()->positionIsPenetratable(object->GetSpriteBounds());
 }
 
-bool Game::ShouldChangeRoom()
+bool Game::shouldChangeRoom()
 {
     if (videomode_.width < player_->GetPos().x) {
         dungeonMap_.MovePlayer(Direction::Right);

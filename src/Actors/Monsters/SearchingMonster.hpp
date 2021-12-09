@@ -20,7 +20,7 @@ public:
 
 private:
     sf::Clock cooldown_;
-    std::string name = "Sir Chi";
+    std::string name_ = "Sir Chi";
 };
 
 #endif

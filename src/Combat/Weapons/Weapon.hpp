@@ -10,6 +10,15 @@ using namespace std;
 using namespace sf;
 
 class Weapon {
+public:
+    Weapon(int damage, int range, int rateOfFire, float projectileSpeed, Vector2f projectileSize, const std::string& spriteLocation);
+    virtual ~Weapon() {};
+    virtual Projectile* Use(Vector2f dir, Vector2f origin) = 0;
+    // virtual void Animate() = 0;
+    void AddPowerUp(PowerUp* up);
+    float GetAttackCooldown() { return cooldown_; };
+    float GetRange() { return range_; };
+
 protected:
     int damage_;
     int range_;
@@ -22,16 +31,7 @@ protected:
     Texture texture_;
     vector<PowerUp*> powerUps_;
     float cooldown_;
-    float attackCooldownLength;
+    float attackCooldownLength_;
     float attackCooldownLeft;
-
-public:
-    Weapon(int damage, int range, Vector2f projectileSize, int rateOfFire, float projectileSpeed, const std::string& spriteLocation);
-    virtual ~Weapon() {};
-    virtual Projectile* Use(Vector2f dir, Vector2f origin) = 0;
-    // virtual void Animate() = 0;
-    void AddPowerUp(PowerUp* up);
-    float GetAttackCooldown() { return cooldown_; };
-    float GetRange() { return range_; };
 };
 #endif

@@ -28,7 +28,7 @@ private:
     Monster* getRandomMonster(Player& target) const;
     uint monsterCount_;
     uint projectilemonsterClassCount_ = 4; // update this when adding monsters
-    uint monsterAttackTypeCount = 2; // update this when adding monsters
+    uint monsterAttackTypeCount_ = 2; // update this when adding monsters
 };
 
 #endif

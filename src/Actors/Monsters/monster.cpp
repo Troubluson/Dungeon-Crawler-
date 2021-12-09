@@ -16,8 +16,8 @@ Monster::Monster(Player& player, float xPos, float yPos, const std::string& spri
 }
 void Monster::initVariables()
 {
-    movedLastTick = false;
-    characterProjectileType = Projectile::Type::EnemyProjectile;
+    movedLastTick_ = false;
+    characterProjectileType_ = Projectile::Type::EnemyProjectile;
 }
 
 float Monster::RandomFloatBetween(float min, float max)
@@ -54,9 +54,9 @@ Player& Monster::GetPlayer() const
 }
 void Monster::Update(float dt)
 {
-    movedLastTick = true;
+    movedLastTick_ = true;
     if (oldPos_.x == pos_.x && oldPos_.y == pos_.y) {
-        movedLastTick = false;
+        movedLastTick_ = false;
     }
     generalUpdate(dt);
 

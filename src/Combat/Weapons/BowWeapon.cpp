@@ -1,8 +1,8 @@
 
 #include "Combat/Weapons/BowWeapon.hpp"
 
-BowWeapon::BowWeapon(int damage, int range, Vector2f projectileSize, int rateOfFire, float projectileSpeed, const std::string& spriteLocation)
-    : Weapon(damage, range, projectileSize, rateOfFire, projectileSpeed, spriteLocation)
+BowWeapon::BowWeapon(int damage, int range, int rateOfFire, float projectileSpeed, Vector2f projectileSize, const std::string& spriteLocation)
+    : Weapon(damage, range, rateOfFire, projectileSpeed, projectileSize, spriteLocation)
 {
     penetrates_ = false;
     sprite_.setTextureRect({ 400, 215, 10, 15 }); // placeholder
