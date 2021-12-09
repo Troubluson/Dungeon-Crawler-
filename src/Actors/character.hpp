@@ -29,6 +29,7 @@ public:
     sf::FloatRect GetBaseBoxAt(sf::Vector2f pos);
 
     void TakeDamage(int value);
+    void Heal(int value);
 
     bool IsAlive();
     bool HasWeapon();
@@ -62,6 +63,7 @@ protected:
     Weapon* weapon_;
     Projectile::Type characterProjectileType;
     int hitpoints_;
+    int maxhitpoints_ = 50;
     bool alive_;
     bool hasAnimation_;
     AnimationHandler animationHandler_;

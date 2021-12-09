@@ -47,7 +47,13 @@ void Game::UpdateGame()
     }
 
     for (auto potion : dungeonMap_.GetCurrentRoom()->GetPotions()) {
-        player_->TakeDamage(-1 * (potion->HealthIncrease(player_->GetPos())));
+        sf::Vector2f poPos = potion->GetSpriteCenter();
+        sf::Vector2f plPos = player_->GetSpriteCenter();
+        sf::Vector2f difference = poPos - plPos;
+        float distance = std::sqrt(difference.x * difference.x + difference.y * difference.y);
+        if (distance < 30 && !potion->IsCollected()) {
+            potion->Use(player_);
+        }
     }
     updateProjectiles();
     // checkCollisions(player_, Projectile::Type::EnemyProjectile);
@@ -75,7 +81,9 @@ void Game::RenderGame()
         monster->Render(window_);
     }
     for (auto potion : dungeonMap_.GetCurrentRoom()->GetPotions()) {
-        potion->Render(window_);
+        if (!potion->IsCollected()) {
+            potion->Render(window_);
+        }
     }
     window_->display();
 }

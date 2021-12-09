@@ -91,6 +91,12 @@ void Character::TakeDamage(int value)
     hitpoints_ -= value;
 }
 
+void Character::Heal(int value)
+{
+    hitpoints_ += value;
+    hitpoints_ = std::min(maxhitpoints_, hitpoints_);
+}
+
 void Character::Equip(Weapon* weapon)
 {
     weapon_ = weapon;

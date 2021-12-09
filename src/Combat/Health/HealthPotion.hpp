@@ -11,7 +11,7 @@ public:
 
     bool IsCollected();
 
-    int HealthIncrease(sf::Vector2f pos);
+    void Use(Character* character);
 
 private:
     int healthIncrease_;

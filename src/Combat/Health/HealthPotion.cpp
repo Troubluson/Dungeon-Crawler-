@@ -12,14 +12,8 @@ bool HealthPotion::IsCollected()
     return collected_;
 }
 
-int HealthPotion::HealthIncrease(sf::Vector2f pos)
+void HealthPotion::Use(Character* character)
 {
-    float distance = (GetPos() - pos).x * (GetPos() - pos).x + (GetPos() - pos).y * (GetPos() - pos).y;
-    //std::cout << distance << std::endl;
-    if (distance < 20) {
-        collected_ = true;
-        return healthIncrease_;
-    } else {
-        return 0;
-    }
+    character->Heal(healthIncrease_);
+    collected_ = true;
 }
