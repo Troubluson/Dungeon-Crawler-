@@ -5,6 +5,7 @@
 
 #include "Actors/player.hpp"
 /*#include "CollisionSystem.hpp"*/
+#include "Actors/Monsters/BossMonster.hpp"
 #include "Combat/Projectile.hpp"
 #include "Combat/Weapons/BowWeapon.hpp"
 #include "Combat/Weapons/SwordWeapon.hpp"

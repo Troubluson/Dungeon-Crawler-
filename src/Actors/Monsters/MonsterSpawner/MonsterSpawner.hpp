@@ -1,6 +1,7 @@
 #pragma once
 #ifndef _MONSTERSPAWNER_CLASS_
 #define _MONSTERSPAWNER_CLASS_
+#include "../BossMonster.hpp"
 #include "../RandomMonster.hpp"
 #include "../SearchingMonster.hpp"
 #include "../SlowMonster.hpp"

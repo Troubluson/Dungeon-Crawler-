@@ -42,7 +42,6 @@ void Game::UpdateGame()
     updateDt();
     manageInput();
 
-    // Update projectiles
     for (auto monster : dungeonMap_.GetCurrentRoom()->GetMonsters()) {
         // if moved, check collision with walls
         bool monsterMoved = monster->Move(dt_);
@@ -56,8 +55,6 @@ void Game::UpdateGame()
         monster->Update(dt_);
     }
     updateProjectiles();
-    // checkCollisions(player_, Projectile::Type::EnemyProjectile);
-    // handleMonsterProjectileCollisions(monsters_, Projectile::Type::PlayerProjectile);
     checkMonsterCollisions();
     checkPlayerCollisions();
     checkAndHandleProjectileWallCollisions();

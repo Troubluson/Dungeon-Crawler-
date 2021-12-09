@@ -3,7 +3,12 @@
 
 Monster* MonsterSpawner::getRandomMonster(Player& target) const
 {
-    int monsterAttackType = rand() % monsterAttackTypeCount_;
+    SwordWeapon* monterSword = new SwordWeapon(5, 100, 120, 1000, sf::Vector2f(50, 100), "content/sprites/projectiles.png");
+    Monster* m = new BossMonster(target, 200, 200);
+    m->Equip(monterSword);
+    return m;
+
+    /* int monsterAttackType = rand() % monsterAttackTypeCount_;
     switch (monsterAttackType) {
     case 0: { //RandomMonster
         SwordWeapon* monterSword = new SwordWeapon(5, 100, 120, 1000, sf::Vector2f(50, 100), "content/sprites/projectiles.png");
@@ -37,7 +42,7 @@ Monster* MonsterSpawner::getRandomMonster(Player& target) const
         return new SearchingMonster(target, 0, 0);
     default:
         return nullptr;
-    }
+    } */
 }
 Monster* MonsterSpawner::SpawnMonster(sf::Vector2u roomSize, Player& target) const
 {
