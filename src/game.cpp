@@ -11,7 +11,7 @@ Game::Game()
     , dungeonMap_(Map(VIDEOMODE_DIMS, 10, *player_))
     , gamebar_(Gamebar(player_))
 {
-    Monster* mRandom = new RandomMonster(player_, 300, 300); // placeholder
+    /* Monster* mRandom = new RandomMonster(player_, 300, 300); // placeholder
     Monster* mSearching = new SearchingMonster(player_, 200, 200);
     Monster* mSniping = new SnipingMonster(player_, 1000, 700);
     Monster* mSlow = new SlowMonster(player_, 1000, 700);
@@ -21,7 +21,7 @@ Game::Game()
     BowWeapon* snipingBow = new BowWeapon(5, 10000, sf::Vector2f(50, 100), 30, 1000, "content/sprites/projectiles.png");
     BowWeapon* slowBow = new BowWeapon(5, 400, sf::Vector2f(50, 100), 200, 200, "content/sprites/projectiles.png");
     SwordWeapon* sword = new SwordWeapon(20, 10, sf::Vector2f(50, 100), 120, "content/sprites/projectiles.png");
-    player_->Equip(sword);
+    player_->Equip(sword); */
     initVariables();
     initWindow();
     dtClock.restart(); // to not have giant first dt
@@ -165,6 +165,7 @@ void Game::manageInput()
             player_->RevertMove();
         }
         if (ShouldChangeRoom()) {
+            projectiles_.clear();
             dtClock.restart(); // generating monsters makes dt quite big
         }
     }
@@ -278,7 +279,7 @@ bool Game::collidesWithWall(Character* character)
 }
 bool Game::collidesWithWall(Projectile* object)
 {
-    return !dungeonMap_.GetCurrentRoom()->positionIsPenetratable(object->getSpriteBounds());
+    return !dungeonMap_.GetCurrentRoom()->positionIsPenetratable(object->GetSpriteBounds());
 }
 
 bool Game::ShouldChangeRoom()
@@ -286,10 +287,10 @@ bool Game::ShouldChangeRoom()
     if (videomode_.width < player_->GetPos().x) {
         dungeonMap_.MovePlayer(Direction::Right);
         return true;
-    } else if (player_->GetPos().x + player_->getSpriteBounds().width < 0) {
+    } else if (player_->GetPos().x + player_->GetSpriteBounds().width < 0) {
         dungeonMap_.MovePlayer(Direction::Left);
         return true;
-    } else if (player_->GetPos().y + player_->getSpriteBounds().height < 0) {
+    } else if (player_->GetPos().y + player_->GetSpriteBounds().height < 0) {
         dungeonMap_.MovePlayer(Direction::Up);
         return true;
     } else if (player_->GetPos().y > videomode_.height) {

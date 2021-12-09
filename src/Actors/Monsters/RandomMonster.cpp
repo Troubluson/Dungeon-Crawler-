@@ -3,11 +3,11 @@ namespace {
 const std::string monsterSpriteFileLocation = "content/sprites/monster1.png";
 }
 
-RandomMonster::RandomMonster(Player* player, sf::Vector2f pos)
-    : RandomMonster(player, pos.x, pos.y)
+RandomMonster::RandomMonster(Player& player, sf::Vector2f pos)
+    : Monster(player, pos, monsterSpriteFileLocation)
 {
 }
-RandomMonster::RandomMonster(Player* player, float xPos, float yPos)
+RandomMonster::RandomMonster(Player& player, float xPos, float yPos)
     : Monster(player, sf::Vector2f(xPos, yPos), monsterSpriteFileLocation)
 {
     initVariables();
@@ -43,7 +43,7 @@ std::list<Projectile*> RandomMonster::Attack()
 
     ResetAttackCooldown();
 
-    return shotProjectileList(player_->GetSpriteCenter());
+    return shotProjectileList(player_.GetSpriteCenter());
 }
 
 void RandomMonster::initVariables()

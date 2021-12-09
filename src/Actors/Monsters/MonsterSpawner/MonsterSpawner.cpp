@@ -3,12 +3,40 @@
 
 Monster* MonsterSpawner::getRandomMonster(Player& target) const
 {
-    int monsterType = rand() % monsterClassCount_;
-    switch (monsterType) {
+    int monsterAttackType = rand() % monsterAttackTypeCount;
+    switch (monsterAttackType) {
     case 0: {
-        SwordWeapon* monterSword = new SwordWeapon(5, 10, sf::Vector2f(50, 100), 120, "content/sprites/projectiles.png");
-        auto m = new RandomMonster(target, 0, 0);
-        m->Equip(monterSword);
+        int projectilemonsterType = rand() % projectilemonsterClassCount_;
+        Monster* m = nullptr;
+        switch (projectilemonsterType) {
+        case 0: { //RandomMonster
+            SwordWeapon* monterSword = new SwordWeapon(5, 100, sf::Vector2f(50, 100), 120, 1000, "content/sprites/projectiles.png");
+            m = new RandomMonster(target, 0, 0);
+            m->Equip(monterSword);
+            break;
+        }
+        case 1: { //SnipingMonster
+            BowWeapon* snipingBow = new BowWeapon(5, 10000, sf::Vector2f(50, 100), 30, 1000, "content/sprites/projectiles.png");
+            m = new SnipingMonster(target, 0, 0);
+            m->Equip(snipingBow);
+            break;
+        }
+        case 2: { //SlowMonster
+            BowWeapon* slowBow = new BowWeapon(5, 400, sf::Vector2f(50, 100), 200, 200, "content/sprites/projectiles.png");
+            m = new SlowMonster(target, 1000, 700);
+            m->Equip(slowBow);
+            break;
+        }
+        case 3: {
+            SwordWeapon* monterSword = new SwordWeapon(5, 100, sf::Vector2f(50, 100), 120, 1000, "content/sprites/projectiles.png");
+            m = new WallPatrolMonster(target, 1000, 700);
+            m->Equip(monterSword);
+            break;
+        }
+        default:
+            return nullptr;
+        }
+
         return m;
     }
     case 1:
