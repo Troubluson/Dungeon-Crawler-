@@ -9,25 +9,25 @@ Game::Game()
     SwordWeapon* sword = new SwordWeapon(5, 100, sf::Vector2f(50, 100), 120, 1000, "content/sprites/projectiles.png");
 
     player_->Equip(sword);
-    /* Monster* mRandom = new RandomMonster(player_, 300, 300); // placeholder
-    Monster* mSearchi   ng = new SearchingMonster(player_, 200, 200);
+    Monster* mRandom = new RandomMonster(player_, 300, 300); // placeholder
+    Monster* mSearching = new SearchingMonster(player_, 200, 200);
     Monster* mSniping = new SnipingMonster(player_, 1000, 700);
-    Monster* mSlow = new SlowMonster(player_, 1000, 700); */
+    Monster* mSlow = new SlowMonster(player_, 1000, 700);
     Monster* mWall = new WallPatrolMonster(player_, 1000, 700);
 
     SwordWeapon* monterSword = new SwordWeapon(5, 100, sf::Vector2f(50, 100), 120, 1000, "content/sprites/projectiles.png");
-    /* BowWeapon* snipingBow = new BowWeapon(5, 10000, sf::Vector2f(50, 100), 30, 1000, "content/sprites/projectiles.png");
-    BowWeapon* slowBow = new BowWeapon(5, 400, sf::Vector2f(50, 100), 200, 200, "content/sprites/projectiles.png"); */
+    BowWeapon* snipingBow = new BowWeapon(5, 10000, sf::Vector2f(50, 100), 30, 1000, "content/sprites/projectiles.png");
+    BowWeapon* slowBow = new BowWeapon(5, 400, sf::Vector2f(50, 100), 200, 200, "content/sprites/projectiles.png");
 
-    /* monsters_.push_back(mRandom);
+    monsters_.push_back(mRandom);
     monsters_.push_back(mSearching);
     monsters_.push_back(mSniping);
-    monsters_.push_back(mSlow); */
+    monsters_.push_back(mSlow);
     monsters_.push_back(mWall);
 
-    /* mRandom->Equip(monterSword);
+    mRandom->Equip(monterSword);
     mSniping->Equip(snipingBow);
-    mSlow->Equip(slowBow); */
+    mSlow->Equip(slowBow);
     mWall->Equip(monterSword);
 
     gamebar_ = Gamebar(player_);
