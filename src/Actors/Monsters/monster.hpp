@@ -5,10 +5,7 @@
 
 #include "Actors/character.hpp"
 #include "Actors/player.hpp"
-#include "Combat/Health/GreenPotion.hpp"
-#include "Combat/Health/RedPotion.hpp"
-#include "Combat/Health/VioletPotion.hpp"
-#include "Combat/Health/YellowPotion.hpp"
+#include "Combat/Health/HealthPotions.hpp"
 
 class Monster : public Character {
 public:
