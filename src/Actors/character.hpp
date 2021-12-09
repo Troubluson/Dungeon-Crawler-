@@ -4,12 +4,12 @@
 #define _CHARACTER_CLASS_
 
 #include "Combat/Projectile.hpp"
-#include "animation.hpp"
+//#include "Interfaces/ICollidable.hpp"
+#include "Animation/Animationhandler.hpp"
+#include "Combat/Weapons/Weapon.hpp"
 #include "entity.hpp"
 
-class Projectile;
-
-class Character : public Entity {
+class Character : public Entity /*, public ICollidable*/ {
 public:
     Character(const std::string& filename, sf::Vector2f pos, bool animated = false);
 
@@ -17,43 +17,63 @@ public:
 
     virtual void Update(float dt) = 0;
 
-    void initSprite(const std::string& filename);
+    void Equip(Weapon* weapon);
 
     void initVariables();
+    /**
+     * @brief Get the lower half of bounding box if the character was at the position given as argument
+     *
+     * @param    pos                  the wanted position
+     * @return sf::FloatRect
+     */
+    sf::FloatRect GetBaseBoxAt(sf::Vector2f pos);
+
+    void TakeDamage(int value);
+
+    bool IsAlive();
+    bool HasWeapon();
 
     bool Idle();
     bool MoveLeft(float dt);
     bool MoveRight(float dt);
     bool MoveDown(float dt);
     bool MoveUp(float dt);
-    virtual void Move(float) {};
-    virtual void Attack(sf::Vector2f, std::list<Projectile*>) {};
-    sf::Vector2f GetSpriteCenter();
-    void setDeathAnimation();
-    void TakeDamage(int value);
+    // For subclasses, should be = 0
+    virtual bool Move(float)
+    {
+        return false;
+    }
+    void RevertMove();
 
-    bool IsAlive();
+    void ResetAttackCooldown();
+    float GetAttackCooldownLeft() const { return attackCooldownLeft; };
+    float GetAttackCooldownLength() const { return attackCooldownLength; };
+    bool CanAttack;
+    /*
+    // for ICollidable
+    virtual sf::FloatRect GetBoundingBox() { return sprite_.getGlobalBounds(); }
+    virtual void ProcessCollision(ICollidable* object);
+    virtual ICollidable::EntityType GetEntityType();
+    */
 
 protected:
+    /*void GetHitBy(Projectile& projectile);*/
+
+    Weapon* weapon_;
+    Projectile::Type characterProjectileType;
     int hitpoints_;
     bool alive_;
-    float clamp(float value, float low, float high);
     bool hasAnimation_;
-    sf::Vector2f velocity_ = { 0.0f, 0.0f };
-    static constexpr float speed_ = 200.0f;
-    sf::Vector2f oldPos_;
+    AnimationHandler animationHandler_;
+    float currentSpeed_;
+    float normalSpeed_;
 
-    enum class AnimationIndex {
-        AnimationUp,
-        AnimationDown,
-        AnimationLeft,
-        AnimationRight,
-        AnimationIdle,
-        AnimationDeath,
-        Count
-    };
+    void generalUpdate(float dt);
 
-    Animation* Animations[int(AnimationIndex::Count)];
-    AnimationIndex currentAnimation = AnimationIndex::AnimationDown;
+    float attackCooldownLength;
+    float attackCooldownLeft;
+    void updateAttackCooldown(float dt);
+    std::list<Projectile*> emptyList();
+    std::list<Projectile*> shotProjectileList(sf::Vector2f aimPos);
 };
 #endif

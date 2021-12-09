@@ -1,38 +1,27 @@
 #include "game.hpp"
 #include "Collision.hpp"
+#define C_PIXELS 64
 
 namespace {
-const sf::Vector2f PLACEHOLDER_PROJ_SIZE = sf::Vector2f(1.0, 1.0);
-const int PLACEHOLDER_PROJ_SPEED = 1000;
-const int PLACEHOLDER_PROJ_DIST = 20;
-const int PLACEHOLDER_PROJ_DMG = 20;
-const float PLACEHOLDER_PROJ_LS = 0.5;
-
+const sf::Vector2u VIDEOMODE_DIMS = sf::Vector2u(1280, 768);
 }
 
 Game::Game()
+    : player_(new Player())
+    , dungeonMap_(Map(VIDEOMODE_DIMS, 10, *player_))
+    , gamebar_(Gamebar(player_))
 {
-    player_ = new Player();
-    SwordWeapon* sword = new SwordWeapon(5, 10, sf::Vector2f(50, 100), "content/sprites/projectiles.png");
+    SwordWeapon* sword = new SwordWeapon(20, 10, sf::Vector2f(50, 100), 120, "content/sprites/projectiles.png");
     player_->Equip(sword);
-
-    Monster* m = new RandomMonster(player_, 300, 300); // placeholder
-    Monster* m2 = new SearchingMonster(player_, 200, 200);
-    monsters_.push_back(m);
-    monsters_.push_back(m2);
-
-    gamebar_ = Gamebar(player_);
     initVariables();
     initWindow();
+    dtClock.restart(); // to not have giant first dt
 }
 
 Game::~Game()
 {
     delete window_;
     delete player_;
-    for (auto monster : monsters_) {
-        delete monster;
-    }
 }
 
 void Game::UpdateGame()
@@ -43,34 +32,45 @@ void Game::UpdateGame()
     manageInput();
 
     // Update projectiles
-    updateProjectiles();
-    for (auto monster : monsters_) {
+    for (auto monster : dungeonMap_.GetCurrentRoom()->GetMonsters()) {
+        // if moved, check collision with walls
+        bool monsterMoved = monster->Move(dt);
+        if (monsterMoved && collidesWithWall(monster)) {
+            monster->RevertMove();
+        }
+
+        std::list<Projectile*> projectileListToAdd = monster->Attack();
+        addProjectiles(projectileListToAdd);
+
         monster->Update(dt);
     }
+    updateProjectiles();
     // checkCollisions(player_, Projectile::Type::EnemyProjectile);
-    checkCollisions(monsters_, Projectile::Type::PlayerProjectile);
-    checkWallCollisions();
-    if (player_->IsAlive()) {
-        player_->Update(dt);
-    }
+    // handleMonsterProjectileCollisions(monsters_, Projectile::Type::PlayerProjectile);
+    checkMonsterCollisions();
+    checkPlayerCollisions();
+    checkAndHandleProjectileWallCollisions();
+    player_->Update(dt);
     gamebar_.Update();
 }
 // render game frames
 void Game::RenderGame()
 {
     window_->clear();
-    room.Render(window_);
+    dungeonMap_.RenderCurrentRoom(window_);
     player_->Render(window_);
     gamebar_.Render(window_);
     for (auto projectile : projectiles_) {
         projectile->Render(window_);
     }
-    for (auto monster : monsters_) {
+    for (auto monster : dungeonMap_.GetCurrentRoom()->GetMonsters()) {
+        if (monster == nullptr) {
+            std::cout << "nullptr" << std::endl;
+        }
         monster->Render(window_);
     }
     window_->display();
 }
-// Keeps the game running when window is open
 bool Game::Running() const { return window_->isOpen(); }
 
 void Game::Events()
@@ -86,23 +86,6 @@ void Game::Events()
         case sf::Event::GainedFocus:
             paused = false;
             break;
-        case sf::Event::KeyPressed:
-            if (event_.key.code == sf::Keyboard::Space) {
-                Monster* m = new RandomMonster(player_, player_->GetPos().x, player_->GetPos().y);
-                monsters_.push_back(m);
-                /* sf::Vector2f direction = sf::Vector2f(1, 0);
-                Projectile* p = new Projectile(50, 50);
-                p->SetDirection(direction);
-                p->SetType(Projectile::Type::EnemyProjectile);
-                projectiles_.push_back(p); */
-            }
-            break;
-        case sf::Event::MouseButtonPressed:
-            if (event_.mouseButton.button == sf::Mouse::Button::Left) {
-                auto mousePos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(*window_));
-                player_->Attack(mousePos, projectiles_);
-            }
-            break;
         default:
             break;
         }
@@ -113,7 +96,9 @@ void Game::initVariables() { gameEnder_ = false; }
 // initalize window
 void Game::initWindow()
 {
-    videomode_ = sf::VideoMode(1280, 768);
+    // gets resolution and etc.
+    auto desktopMode = sf::VideoMode::getDesktopMode();
+    videomode_ = sf::VideoMode(std::min(VIDEOMODE_DIMS.x, desktopMode.width), std::min(VIDEOMODE_DIMS.y, desktopMode.height));
     window_ = new sf::RenderWindow(videomode_, "Dungeon Crawler");
 }
 
@@ -125,8 +110,11 @@ void Game::manageInput()
     bool A = sf::Keyboard::isKeyPressed(sf::Keyboard::A);
     bool S = sf::Keyboard::isKeyPressed(sf::Keyboard::S);
     bool D = sf::Keyboard::isKeyPressed(sf::Keyboard::D);
+    bool LSHIFT = sf::Keyboard::isKeyPressed(sf::Keyboard::LShift);
+    bool LMOUSE = sf::Mouse::isButtonPressed(sf::Mouse::Left);
 
     bool twoKeys = ((W || S) && (A || D));
+    bool triedMoving = W || A || S || D;
 
     if (twoKeys) {
         if (A) {
@@ -153,56 +141,72 @@ void Game::manageInput()
             player_->MoveDown(dt);
         }
     }
-}
 
-void Game::checkCollisions(std::list<Character*> characters, Projectile::Type projectileType)
-{
-
-    if (projectiles_.empty()) {
-        return;
+    if (LSHIFT) {
+        player_->Dash();
     }
 
-    std::vector<Character*> monsterListToDelete;
+    if (LMOUSE) {
+        sf::Vector2f mousePos = window_->mapPixelToCoords(sf::Mouse::getPosition(*window_));
+        std::list<Projectile*> projectileListToAdd = player_->Attack(mousePos);
+        addProjectiles(projectileListToAdd);
+    }
+    if (triedMoving) {
+        // std::cout << player_->GetPos().x << " " << player_->GetPos().y << std::endl;
+        if (collidesWithWall(player_)) {
+            player_->RevertMove();
+        }
+        if (ShouldChangeRoom()) {
+            dtClock.restart(); // generating monsters makes dt quite big
+        }
+    }
+}
 
-    for (auto character : characters) {
-        for (auto projectile : projectiles_) {
-            if (projectile->GetType() == projectileType && !projectile->hasHit(character)) {
-                if (Collision::PixelPerfectTest(projectile->GetSprite(), character->GetSprite())) {
-                    projectile->hit(character);
-                    character->TakeDamage(projectile->GetDamage());
-                    if (character->IsAlive() == false) {
-                        monsterListToDelete.push_back(character);
-                    }
-                    if (!projectile->Penetrates()) {
-                        projectile->Kill();
-                    }
+void Game::checkCollisions(Character* character, Projectile::Type projectileType)
+{
+    for (auto projectile : projectiles_) {
+        if (projectile->GetType() == projectileType && !projectile->hasHit(character)) {
+            if (Collision::PixelPerfectTest(projectile->GetSprite(), character->GetSprite())) {
+                projectile->hit(character);
+                character->TakeDamage(projectile->GetDamage());
+                if (!projectile->Penetrates()) {
+                    projectile->Kill();
                 }
             }
         }
     }
-    // Delete dead Monsters
-    for (auto monster : monsterListToDelete) {
-        deleteMonster(monster);
-    }
 }
 
-void Game::checkWallCollisions()
+void Game::checkMonsterCollisions()
 {
     if (projectiles_.empty()) {
         return;
     }
+    std::vector<Monster*> deadMonsters;
+    for (auto& monster : dungeonMap_.GetCurrentRoom()->GetMonsters()) {
+        checkCollisions(monster, Projectile::Type::PlayerProjectile);
+        if (!monster->IsAlive()) {
+            deadMonsters.push_back(monster);
+        }
+    }
+    for (auto monster : deadMonsters) {
+        deleteMonster(monster);
+    }
+}
 
-    std::vector<Projectile*> projectileListToDelete;
+void Game::checkPlayerCollisions()
+{
+    if (projectiles_.empty()) {
+        return;
+    }
+    checkCollisions(player_, Projectile::Type::EnemyProjectile);
+}
 
-    for (auto row : room.tileVector_) {
-        for (auto tile : row) {
-            if (tile->isWalkable == false) {
-                for (auto projectile : projectiles_) {
-                    if (projectile->GetSprite().getGlobalBounds().intersects(tile->tileSprite.getGlobalBounds())) {
-                        projectile->Kill();
-                    }
-                }
-            }
+void Game::checkAndHandleProjectileWallCollisions()
+{
+    for (auto projectile : projectiles_) {
+        if (collidesWithWall(projectile)) {
+            projectile->Kill();
         }
     }
 }
@@ -220,14 +224,27 @@ void Game::deleteProjectile(Projectile* p)
     }
 }
 
+void Game::addProjectiles(std::list<Projectile*> projectiles)
+{
+    if (projectiles.empty()) {
+        return;
+    }
+
+    for (auto projectile : projectiles) {
+        projectiles_.push_back(projectile);
+    }
+}
+
 void Game::deleteMonster(Character* m)
 {
-    if (monsters_.empty())
+    auto& monsters = dungeonMap_.GetCurrentRoom()->GetMonsters();
+    if (monsters.empty())
         return;
 
-    for (auto it = monsters_.begin(); it != monsters_.end(); ++it) {
+    for (auto it = monsters.begin(); it != monsters.end(); ++it) {
         if (*it == m) {
-            monsters_.erase(it);
+            delete *it;
+            it = monsters.erase(it);
             return;
         }
     }
@@ -246,4 +263,35 @@ void Game::updateProjectiles()
             p->Update(dt);
         }
     }
+}
+bool Game::collidesWithWall(Character* character)
+{
+    return !dungeonMap_.GetCurrentRoom()->positionIsWalkable(character->GetBaseBoxAt(character->GetPos()));
+}
+bool Game::collidesWithWall(Projectile* object)
+{
+    return !dungeonMap_.GetCurrentRoom()->positionIsPenetratable(object->getSpriteBounds());
+}
+
+bool Game::ShouldChangeRoom()
+{
+    if (videomode_.width < player_->GetPos().x) {
+        dungeonMap_.MovePlayer(Direction::Right);
+        return true;
+    } else if (player_->GetPos().x + player_->getSpriteBounds().width < 0) {
+        dungeonMap_.MovePlayer(Direction::Left);
+        return true;
+    } else if (player_->GetPos().y + player_->getSpriteBounds().height < 0) {
+        dungeonMap_.MovePlayer(Direction::Up);
+        return true;
+    } else if (player_->GetPos().y > videomode_.height) {
+        dungeonMap_.MovePlayer(Direction::Down);
+        return true;
+    }
+    return false;
+}
+
+bool Game::gameLost()
+{
+    return player_->IsAlive();
 }
