@@ -1,14 +1,13 @@
 #include "SearchingMonster.hpp"
 namespace {
-const std::string projectileSprite = "content/sprites/monster2.png";
+const std::string monsterSpriteFileLocation = "content/sprites/monster2.png";
 }
 SearchingMonster::SearchingMonster(Player* player, sf::Vector2f pos)
-    : Monster(player, pos, projectileSprite)
+    : SearchingMonster(player, pos.x, pos.y)
 {
-    initVariables();
 }
 SearchingMonster::SearchingMonster(Player* player, float xPos, float yPos)
-    : Monster(player, sf::Vector2f(xPos, yPos), projectileSprite)
+    : Monster(player, sf::Vector2f(xPos, yPos), monsterSpriteFileLocation)
 {
     initVariables();
 }

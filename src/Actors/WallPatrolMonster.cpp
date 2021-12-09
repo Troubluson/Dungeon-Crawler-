@@ -1,15 +1,14 @@
 #include "WallPatrolMonster.hpp"
 namespace {
-const std::string projectileSprite = "content/sprites/monster1.png";
+const std::string monsterSpriteFileLocation = "content/sprites/monster1.png";
 }
 
 WallPatrolMonster::WallPatrolMonster(Player* player, sf::Vector2f pos)
-    : Monster(player, pos, projectileSprite)
+    : WallPatrolMonster(player, pos.x, pos.y)
 {
-    initVariables();
 }
 WallPatrolMonster::WallPatrolMonster(Player* player, float xPos, float yPos)
-    : Monster(player, sf::Vector2f(xPos, yPos), projectileSprite)
+    : Monster(player, sf::Vector2f(xPos, yPos), monsterSpriteFileLocation)
 {
     initVariables();
 }

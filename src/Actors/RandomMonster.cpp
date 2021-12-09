@@ -1,15 +1,14 @@
 #include "RandomMonster.hpp"
 namespace {
-const std::string projectileSprite = "content/sprites/monster1.png";
+const std::string monsterSpriteFileLocation = "content/sprites/monster1.png";
 }
 
 RandomMonster::RandomMonster(Player* player, sf::Vector2f pos)
-    : Monster(player, pos, projectileSprite)
+    : RandomMonster(player, pos.x, pos.y)
 {
-    initVariables();
 }
 RandomMonster::RandomMonster(Player* player, float xPos, float yPos)
-    : Monster(player, sf::Vector2f(xPos, yPos), projectileSprite)
+    : Monster(player, sf::Vector2f(xPos, yPos), monsterSpriteFileLocation)
 {
     initVariables();
 }
