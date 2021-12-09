@@ -20,8 +20,8 @@ bool RandomMonster::Move(float dt)
     elapsedTurnTime_ += dt;
     if (elapsedTurnTime_ > durationUntilTurn_ || !movedLastTick_) {
         elapsedTurnTime_ = 0.0f;
-        currentDir_ = RandomIntBetween(1, 4);
-        durationUntilTurn_ = RandomFloatBetween(0.2f, 1.0f);
+        currentDir_ = randomhelper::RandomIntBetween(1, 4);
+        durationUntilTurn_ = randomhelper::RandomFloatBetween(0.2f, 1.0f);
     }
     if (currentDir_ == 1) {
         MoveDown(dt);

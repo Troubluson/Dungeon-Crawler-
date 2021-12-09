@@ -7,6 +7,7 @@
 //#include "Interfaces/ICollidable.hpp"
 #include "Animation/Animationhandler.hpp"
 #include "Combat/Weapons/Weapon.hpp"
+#include "Utility/RandomHelper.hpp"
 #include "entity.hpp"
 
 class Character : public Entity /*, public ICollidable*/ {

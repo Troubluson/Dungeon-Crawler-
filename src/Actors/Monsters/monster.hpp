@@ -31,9 +31,6 @@ protected:
     bool moveTowardsPlayer(float dt);
 
     void clampPosToRoom();
-
-    float RandomFloatBetween(float min, float max); //
-    int RandomIntBetween(int min, int max); //Inclusive min and max
 };
 
 #endif

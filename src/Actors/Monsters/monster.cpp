@@ -20,19 +20,6 @@ void Monster::initVariables()
     characterProjectileType_ = Projectile::Type::EnemyProjectile;
 }
 
-float Monster::RandomFloatBetween(float min, float max)
-{
-    float random = ((float)rand()) / (float)RAND_MAX;
-    float diffrence = max - min;
-    float r = random * diffrence;
-    return min + r;
-}
-
-int Monster::RandomIntBetween(int min, int max)
-{
-    return (rand() % (max - min + 1) + min);
-}
-
 void Monster::SetTarget(Player& target)
 {
     player_ = target;
