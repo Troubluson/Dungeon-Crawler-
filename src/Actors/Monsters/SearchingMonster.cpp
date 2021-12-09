@@ -5,6 +5,7 @@ const std::string monsterSpriteFileLocation = "content/sprites/monster2.png";
 SearchingMonster::SearchingMonster(Player* player, sf::Vector2f pos)
     : SearchingMonster(player, pos.x, pos.y)
 {
+    name = "Sir chi";
 }
 SearchingMonster::SearchingMonster(Player* player, float xPos, float yPos)
     : Monster(player, sf::Vector2f(xPos, yPos), monsterSpriteFileLocation)
@@ -27,7 +28,7 @@ std::list<Projectile*> SearchingMonster::Attack()
 
     ResetAttackCooldown();
 
-    player_->TakeDamage(staticDamage);
+    player_.TakeDamage(staticDamage);
     return emptyList();
 }
 

@@ -3,8 +3,8 @@
 #ifndef _MONSTER_CLASS_
 #define _MONSTER_CLASS_
 
-#include "character.hpp"
-#include "player.hpp"
+#include "Actors/character.hpp"
+#include "Actors/player.hpp"
 
 class Monster : public Character {
 public:
@@ -16,6 +16,7 @@ public:
     virtual bool Move(float dt) = 0;
     virtual void Render(sf::RenderTarget* target);
     void initVariables();
+    void SetTarget(Player& target);
 
 protected:
     Monster(Player* player, sf::Vector2f pos, const std::string& spriteFile);

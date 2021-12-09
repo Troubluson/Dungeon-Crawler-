@@ -4,12 +4,37 @@ namespace {
 int TILE_AMOUNT = 7;
 int NORMALTILE_EXTRA_WEIGHT = 4;
 }
+namespace direction {
+Direction GetOppositeDir(Direction direction)
+{
+    switch (direction) {
+    case Direction::Up:
+        return Direction::Down;
+    case Direction::Down:
+        return Direction::Up;
+    case Direction::Left:
+        return Direction::Right;
+    case Direction::Right:
+        return Direction::Left;
+    default:
+        return Direction::Up;
+    }
+}
+} // namespace
 
 RoomInstance::RoomInstance(sf::Vector2u window_size, sf::Vector2i choords)
     : roomSize_(window_size)
     , choords_(choords)
+    , spawner_(0)
 {
     setTiles();
+}
+
+RoomInstance::~RoomInstance()
+{
+    for (auto m : monsters_) {
+        delete m;
+    }
 }
 
 void RoomInstance::Render(sf::RenderTarget* target)
@@ -29,34 +54,33 @@ void RoomInstance::setTiles()
         for (int j = 0; j < xTileCount; ++j) {
             if (i == 0) {
                 if (j == 0) {
-                    row.push_back(new RoomTile("content/sprites/walls/topwallleft.png", k, n, false, false));
+                    row.push_back(new WallTile("content/sprites/walls/topwallleft.png", k, n));
                 } else if (j == xTileCount - 1) {
-                    row.push_back(new RoomTile("content/sprites/walls/topwallbottomleft.png", k, n, false, false));
+                    row.push_back(new WallTile("content/sprites/walls/topwallbottomleft.png", k, n));
                 } else {
-                    row.push_back(new RoomTile("content/sprites/walls/toppartofwall1.png", k, n, false, false));
+                    row.push_back(new WallTile("content/sprites/walls/toppartofwall1.png", k, n));
                 }
             } else if (i == 1 && j != 0 && j != xTileCount - 1) {
-                row.push_back(new RoomTile("content/sprites/walls/wallfront1.png", k, n, false, true));
+                row.push_back(new FrontWallTile("content/sprites/walls/wallfront1.png", k, n));
             } else if (i == yTileCount - 1) {
                 if (j == 0) {
-                    row.push_back(new RoomTile("content/sprites/walls/topwallright.png", k, n, false, false));
+                    row.push_back(new WallTile("content/sprites/walls/topwallright.png", k, n));
                 } else if (j == xTileCount - 1) {
-                    row.push_back(new RoomTile("content/sprites/walls/topwallbottomright.png", k, n, false, false));
+                    row.push_back(new WallTile("content/sprites/walls/topwallbottomright.png", k, n));
                 } else {
-                    row.push_back(new RoomTile("content/sprites/walls/topwallbottom.png", k, n, false, false));
+                    row.push_back(new WallTile("content/sprites/walls/topwallbottom.png", k, n));
                 }
             } else if (i != 0 && j == 0) {
-                row.push_back(new RoomTile("content/sprites/walls/topwallLEFTSIDE.png", k, n, false, false));
+                row.push_back(new WallTile("content/sprites/walls/topwallLEFTSIDE.png", k, n));
             } else if (i != 0 && j == xTileCount - 1) {
-                row.push_back(new RoomTile("content/sprites/walls/topwallRIGHTSIDE.png", k, n, false, false));
-
+                row.push_back(new WallTile("content/sprites/walls/topwallRIGHTSIDE.png", k, n));
             } else {
                 int tileNumber = rand() % ((TILE_AMOUNT + 1) + NORMALTILE_EXTRA_WEIGHT) + 1;
                 if (tileNumber > TILE_AMOUNT) {
                     tileNumber = 1;
                 }
                 std::string tilelocation = "content/sprites/floors/tile" + std::to_string(tileNumber) + ".png";
-                row.push_back(new RoomTile(tilelocation, k, n, true, true));
+                row.push_back(new FloorTile(tilelocation, k, n));
             }
 
             k += 64;
@@ -97,12 +121,24 @@ std::vector<RoomTile*> RoomInstance::getRoomTilesAt(sf::FloatRect entityBounds)
     }
     return tilesInBounds;
 }
+
 // we end up needing to use the bounding box character being in multiple tiles simultaneously
 bool RoomInstance::positionIsWalkable(sf::FloatRect entityBounds)
 {
     auto tilesInBounds = getRoomTilesAt(entityBounds);
     for (auto tile : tilesInBounds) {
         if (!tile->isWalkable()) {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool RoomInstance::positionIsPenetratable(sf::FloatRect entityBounds)
+{
+    auto tilesInBounds = getRoomTilesAt(entityBounds);
+    for (auto tile : tilesInBounds) {
+        if (!tile->isPenetratable()) {
             return false;
         }
     }
@@ -151,9 +187,57 @@ void RoomInstance::CreateExit(Direction dir)
     default:
         break;
     } // switch
+
     for (auto tile : tilesToReplace) {
         auto pos = tileVector_[tile.first][tile.second]->getPosition();
         // delete tileVector_[tile.first][tile.second];
-        tileVector_[tile.first][tile.second] = new RoomTile("content/sprites/floors/tile1.png", pos.x, pos.y, true, true);
+        tileVector_[tile.first][tile.second] = new FloorTile("content/sprites/floors/tile1.png", pos.x, pos.y);
     }
+}
+
+sf::Vector2u RoomInstance::GetEntranceInDirection(Direction direction)
+{
+    uint offsetY = 80;
+    uint offsetX = 48;
+    switch (direction) {
+    case Direction::Up:
+        return { roomSize_.x / 2 - offsetX, roomSize_.y };
+    case Direction::Down:
+        return { roomSize_.x / 2 - offsetX, 0 };
+    case Direction::Left:
+        return { roomSize_.x - 1, roomSize_.y / 2 - offsetY };
+    case Direction::Right:
+        return { 1, roomSize_.y / 2 - offsetY };
+    default:
+        throw "no entrance";
+    }
+}
+
+void RoomInstance::Enter(Player& player, Direction direction)
+{
+    if (!cleared_) {
+        spawner_.SetMonsterAmount(5); // set according to player lvl somehow
+        while (monsters_.size() < spawner_.GetMonsterAmount()) {
+            Monster* monster;
+            do {
+                monster = spawner_.SpawnMonster(roomSize_, player);
+            } while (monster == nullptr || !positionIsWalkable(monster->GetBaseBoxAt(monster->GetPos())));
+            monster->SetTarget(player);
+            monsters_.push_back(monster);
+        }
+    }
+    player.setOldAndNewPos(sf::Vector2f(GetEntranceInDirection(direction))); // prevents us from getting stuck in the wall
+}
+
+void RoomInstance::Exit()
+{
+    visited_ = true;
+    if (monsters_.empty()) {
+        cleared_ = true;
+    }
+}
+
+std::vector<Monster*>& RoomInstance::GetMonsters()
+{
+    return monsters_;
 }
