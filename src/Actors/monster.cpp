@@ -51,10 +51,9 @@ Player& Monster::GetPlayer() const
 }
 void Monster::Update(float dt)
 {
-    if (GetPos() == oldPos_) {
+    movedLastTick = true;
+    if (oldPos_.x == pos_.x && oldPos_.y == pos_.y) {
         movedLastTick = false;
-    } else {
-        movedLastTick = true;
     }
     generalUpdate(dt);
 
