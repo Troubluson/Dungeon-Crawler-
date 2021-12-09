@@ -27,7 +27,7 @@ Monster* MonsterSpawner::getRandomMonster(Player& target) const
             m->Equip(slowBow);
             break;
         }
-        case 3: {
+        case 3: { //WallPatrolMonster
             SwordWeapon* monterSword = new SwordWeapon(5, 100, sf::Vector2f(50, 100), 120, 1000, "content/sprites/projectiles.png");
             m = new WallPatrolMonster(target, 1000, 700);
             m->Equip(monterSword);
