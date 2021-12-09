@@ -26,6 +26,7 @@ RoomInstance::RoomInstance(sf::Vector2u window_size, sf::Vector2i choords)
     : roomSize_(window_size)
     , choords_(choords)
     , spawner_(0)
+    , cleared_(false)
 {
     setTiles();
 }
