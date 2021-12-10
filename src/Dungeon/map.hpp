@@ -16,6 +16,13 @@ public:
      * @param    noRooms              The number of rooms we want the dungeon to consist of
      */
     Map(sf::Vector2u sizeOfRooms, int noRooms, Player& player);
+    /**
+     * @brief Destroy the Map object
+     *
+     */
+    ~Map();
+
+    Map operator=(Map newMap);
 
     /**
      * @brief Renders the current room to the given target

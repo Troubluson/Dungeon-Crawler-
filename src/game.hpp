@@ -9,6 +9,7 @@
 #include "Combat/Projectile.hpp"
 #include "Combat/Weapons/SwordWeapon.hpp"
 #include "Dungeon/map.hpp"
+#include "Utility/ScreenText.hpp"
 #include "gamebar.hpp"
 
 class Game {
@@ -32,7 +33,7 @@ private:
     Player* player_;
     Map dungeonMap_;
     Gamebar gamebar_;
-
+    ScreenText deathtext_;
     float dt;
     bool paused = false;
     bool gameEnder_;
@@ -52,6 +53,7 @@ private:
     void addProjectiles(std::list<Projectile*> listToAdd);
     void deleteMonster(Character* m);
     void updateProjectiles();
+    void gameReset();
     bool collidesWithWall(Character* character);
     bool collidesWithWall(Projectile* object);
     bool ShouldChangeRoom();
