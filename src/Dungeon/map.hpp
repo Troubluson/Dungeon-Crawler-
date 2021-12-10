@@ -2,9 +2,11 @@
 #ifndef _MAP_
 #define _MAP_
 #include "Actors/player.hpp"
+#include "Dungeon/specialrooms/BossRoom.hpp"
+#include "Dungeon/specialrooms/TreasureRoom.hpp"
+#include "Dungeon/specialrooms/startingRoom.hpp"
 #include "PCH.hpp"
 #include "roomInstance.hpp"
-#include "startingRoom.hpp"
 
 class Map {
 
