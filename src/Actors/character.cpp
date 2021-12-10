@@ -151,7 +151,6 @@ void Character::generalUpdate(float dt)
     if (hitpoints_ <= 0) {
         alive_ = false;
     }
-    //Kaffe
     updateAttackCooldown(dt);
 }
 
