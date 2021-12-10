@@ -11,7 +11,7 @@ Game::Game()
     : player_(new Player())
     , dungeonMap_(Map(VIDEOMODE_DIMS, 10, *player_))
     , gamebar_(Gamebar(player_))
-    , deathtext_(ScreenText(DEATHTEXT, { 0, 0 }, { 1400, 600 }))
+    , deathtext_(ScreenText(DEATHTEXT, { 0, 0 }, { 3, 3 }))
 {
     SwordWeapon* sword = new SwordWeapon(20, 10, sf::Vector2f(50, 100), 120, "content/sprites/projectiles.png");
     player_->Equip(sword);
@@ -63,10 +63,7 @@ void Game::RenderGame()
     dungeonMap_.RenderCurrentRoom(window_);
     player_->Render(window_);
     gamebar_.Render(window_);
-    deathtext_.Render(window_);
-    if (gameLost() == true) {
-        deathtext_.Render(window_);
-    }
+
     for (auto projectile : projectiles_) {
         projectile->Render(window_);
     }
@@ -75,6 +72,9 @@ void Game::RenderGame()
             std::cout << "nullptr" << std::endl;
         }
         monster->Render(window_);
+    }
+    if (gameLost() == true) {
+        deathtext_.Render(window_);
     }
     window_->display();
 }
@@ -196,6 +196,7 @@ void Game::checkCollisions(Character* character, Projectile::Type projectileType
 
 void Game::gameReset()
 {
+    dungeonMap_.~Map();
 }
 
 void Game::checkMonsterCollisions()
