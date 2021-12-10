@@ -45,6 +45,18 @@
 			],
 		},
 		{
+			"label": "Build & Run: Release with Valgrind",
+			"command": "bash ./build.sh buildrunvfull Debug vscode '-w NoTests -s'",
+			"type": "shell",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"problemMatcher": [
+				"$gcc"
+			]
+		},
+		{
 			"label": "Build: Release",
 			"command": "bash ./build.sh build Release vscode",
 			"type": "shell",
@@ -154,7 +166,7 @@
 		},
 		{
 			"label": "Build & Run: Tests with Valgrind",
-			"command": "valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all --log-file='valgrind_log' bash ./build.sh buildrunvfull Tests vscode '-w NoTests -s'",
+			"command": "bash ./build.sh buildrunvfull Tests vscode '-w NoTests -s'",
 			"type": "shell",
 			"group": {
 				"kind": "build",

@@ -83,7 +83,7 @@ cmd_buildrunvfull() {
 	if $MAKE_EXEC BUILD=$BLD; then
 		build_success_launch
 		if [[ $BUILD == 'Tests' ]]; then
-			bin/Release/$NAME $OPTIONS
+			valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all --log-file="valgrind_log" bin/Release/$NAME $OPTIONS
 		else
 			bin/$BUILD/$NAME $OPTIONS
 		fi
