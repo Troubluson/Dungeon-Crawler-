@@ -17,6 +17,8 @@ public:
     Entity(sf::Sprite& sprite, float xPos, float yPos);
     Entity(sf::Sprite& sprite, sf::Vector2f pos);
 
+    virtual ~Entity() {};
+
     /**
      * @brief Get the entity's sprite
      *
@@ -33,7 +35,6 @@ public:
 
     void setPos(sf::Vector2f newPos) { pos_ = newPos; }
     void setOldAndNewPos(sf::Vector2f pos);
-
 
     virtual void Render(sf::RenderTarget* target);
 

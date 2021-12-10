@@ -5,10 +5,12 @@ const std::string projectileSprite = "content/sprites/monster1.png";
 
 RandomMonster::RandomMonster(Player& player, sf::Vector2f pos)
     : Monster(player, pos, projectileSprite)
+    , currentDir_(0)
 {
 }
 RandomMonster::RandomMonster(Player& player, float xPos, float yPos)
     : Monster(player, sf::Vector2f(xPos, yPos), projectileSprite)
+    , currentDir_(0)
 {
 }
 
@@ -20,14 +22,14 @@ bool RandomMonster::Move(float dt)
     oldPos_ = GetPos();
     if (elapsedTurnTime > 0.3) {
         elapsedTurnTime = 0.0f;
-        int dir = rand() % 4 + 1;
+        int dir = rand() % 4;
         currentDir_ = dir;
     }
-    if (currentDir_ == 1) {
+    if (currentDir_ == 0) {
         MoveDown(dt);
-    } else if (currentDir_ == 2) {
+    } else if (currentDir_ == 1) {
         MoveLeft(dt);
-    } else if (currentDir_ == 3) {
+    } else if (currentDir_ == 2) {
         MoveUp(dt);
     } else {
         MoveRight(dt);
