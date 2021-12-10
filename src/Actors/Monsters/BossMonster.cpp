@@ -53,6 +53,7 @@ std::list<Projectile*> BossMonster::Attack()
             sf::Vector2f shootPos = sf::Vector2f(centerPos.x + 1000 * sin(angle), centerPos.y - 1000 * cos(angle));
             std::list<Projectile*> subListToAdd = shotProjectileList(shootPos);
             listOfBulletsToAdd.merge(subListToAdd);
+            fullAttackVector.push_back(*listOfBulletsToAdd.begin());
             angle += 2 * M_PI / nofBullets;
             i += 1;
         }

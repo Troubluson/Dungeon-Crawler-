@@ -22,6 +22,7 @@ public:
 private:
     int currentDir_;
     int attackStyle = 0;
+    std::vector<Projectile*> fullAttackVector;
     std::vector<Projectile*> toShootVector;
     float durationUntilTurn_ = 0.5f;
     float elapsedTurnTime_ = 0.0f;
