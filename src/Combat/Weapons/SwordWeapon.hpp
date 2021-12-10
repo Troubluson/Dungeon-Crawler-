@@ -7,7 +7,7 @@
 class SwordWeapon : public Weapon {
 private:
 public:
-    SwordWeapon(int damage, int range, Vector2f projectileSize, int rateOfFire, const std::string& spriteLocation);
+    SwordWeapon(int damage, int range, Vector2f projectileSize, int rateOfFire, int speed, const std::string& spriteLocation);
     virtual ~SwordWeapon() { }
     virtual Projectile* Use(Vector2f dir, Vector2f origin);
 };

@@ -6,7 +6,7 @@ Monster* MonsterSpawner::getRandomMonster(Player& target) const
     int monsterType = rand() % monsterClassCount_;
     switch (monsterType) {
     case 0: {
-        SwordWeapon* monterSword = new SwordWeapon(5, 10, sf::Vector2f(50, 100), 120, "content/sprites/projectiles.png");
+        SwordWeapon* monterSword = new SwordWeapon(5, 10, sf::Vector2f(50, 100), 120, 300, "content/sprites/projectiles.png");
         auto m = new RandomMonster(target, 0, 0);
         m->Equip(monterSword);
         return m;

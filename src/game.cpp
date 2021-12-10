@@ -11,7 +11,7 @@ Game::Game()
     , dungeonMap_(Map(VIDEOMODE_DIMS, 10, *player_))
     , gamebar_(Gamebar(player_))
 {
-    SwordWeapon* sword = new SwordWeapon(20, 10, sf::Vector2f(50, 100), 120, "content/sprites/projectiles.png");
+    SwordWeapon* sword = new SwordWeapon(20, 10, sf::Vector2f(50, 100), 120, 300, "content/sprites/projectiles.png");
     player_->Equip(sword);
     initVariables();
     initWindow();
