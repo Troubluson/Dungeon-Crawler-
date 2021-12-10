@@ -1,11 +1,12 @@
 #include "animation.hpp"
+#include "Utility/SpriteHelper.hpp"
 
 Animation::Animation(int x, int y, int width, int height, int spacing, const std::string& textureName)
 {
 
     texture_.loadFromFile(textureName);
     for (int i = 0; i < nFrames_; i++) {
-        frames_[i] = { x + i * (width+spacing), y, width, height };
+        frames_[i] = { x + i * (width + spacing), y, width, height };
     }
 }
 

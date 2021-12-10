@@ -5,8 +5,8 @@
 
 #include "Combat/Projectile.hpp"
 //#include "Interfaces/ICollidable.hpp"
+#include "Animation/Animationhandler.hpp"
 #include "Combat/Weapons/Weapon.hpp"
-#include "animation.hpp"
 #include "entity.hpp"
 
 class Character : public Entity /*, public ICollidable*/ {
@@ -64,6 +64,7 @@ protected:
     int hitpoints_;
     bool alive_;
     bool hasAnimation_;
+    AnimationHandler animationHandler_;
     float currentSpeed_;
     float normalSpeed_;
 
@@ -74,17 +75,5 @@ protected:
     void updateAttackCooldown(float dt);
     std::list<Projectile*> emptyList();
     std::list<Projectile*> shotProjectileList(sf::Vector2f aimPos);
-
-    enum class AnimationIndex {
-        AnimationUp,
-        AnimationDown,
-        AnimationLeft,
-        AnimationRight,
-        AnimationIdle,
-        Count
-    };
-
-    Animation* Animations[int(AnimationIndex::Count)];
-    AnimationIndex currentAnimation;
 };
 #endif

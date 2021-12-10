@@ -18,8 +18,8 @@ void Player::Update(float dt)
         if (oldPos_.x == pos_.x && oldPos_.y == pos_.y) {
             Idle();
         }
-        Animations[int(currentAnimation)]->Update(dt);
-        Animations[int(currentAnimation)]->AnimationToSprite(sprite_);
+        animationHandler_.getAnimation()->Update(dt);
+        animationHandler_.getAnimation()->AnimationToSprite(sprite_);
     }
 
     generalUpdate(dt);
@@ -44,13 +44,15 @@ void Player::Dash()
 
 void Player::initVariables()
 {
-    dashSpeed = 400.0f;
+
     dashCooldownLength = 1.0f;
     dashCooldownLeft = 0.0f;
     CanDash = true;
     IsDashing = false;
-    dashDurationLength = 1.0f;
+    dashDurationLength = 0.25f;
     dashDurationLeft = 0.0f;
+    normalSpeed_ = 300.0f;
+    dashSpeed = normalSpeed_ * 3;
 
     characterProjectileType = Projectile::Type::PlayerProjectile;
 }

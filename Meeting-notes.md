@@ -269,3 +269,40 @@ We have most of the crucial game features are now implemented but we are now str
 2. Henrik: Find a test framework. Continue developing weapons, powerups and collsions. Maybe look into some UI stuff. 
 3. Oskar: Make player able to walk from room to a diffrent room.
 4. Mikael: Make the cooldown work. Help with AI development. Maybe start working on a leveling up system.
+
+# Meeting 7.12.2021 13::00
+We now have less than a week until the final deadline. In this meeting we will discuss the final features that we want to implement in the game. 
+**Participants**:
+1. Jonas
+2. Oskar
+3. Henrik
+4. Mikael
+
+## Summary of works
+1. Jonas
+   Found out why the monsters were spawning in the wrong location and helped Henri with a bug fix. Added the attack and dashbars to the gamebar. 
+
+2. Mikael
+   Made 3 new monsters. Made a new weapon and reworked the attack methods. Created leveling and xp system.
+
+3. Henrik
+   Made the map work so it is possible to move between different roomes and created a monsterspawner class.
+
+4. Oskar
+   Worked with the map and created different tiles. Worked on swordweapon.
+
+## Challenges
+
+1. Deadline is fast approaching. Coming up with useful test cases is also very critical at this stage.
+
+## Actions
+1. Looked at the issues in git and assigned a group member to each critical issue. 
+
+## Project status
+The game is almost playable. The most important feature still not implemented is winning and losing mechanics. We also have to clean up our code and fix all the valgrind errors. We also have to write tests and write documentation for the project and the code. 
+
+### TODOs
+1. Jonas: Create items to regenerate health. Try to resolve memory leaks. 
+2. Henrik: Create win conditions. Do whatever needs to be done. 
+3. Oskar: Develop powerups, add remaining weapons. Weapon spawning in a room. Maybe add soundeffects.
+4. Mikael: Create the final boss. Continue tweaking the monster AI. Create a pause function. 
