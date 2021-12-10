@@ -14,11 +14,7 @@ Character::Character(const std::string& filename, sf::Vector2f pos, bool animate
 
     if (hasAnimation_) {
         sprite_.setTextureRect({ 0, 0, C_PIXELS_X, C_PIXELS_Y });
-        Animations[int(AnimationIndex::AnimationIdle)] = new Animation(1, 0, C_PIXELS_X, C_PIXELS_Y, C_PIXELS_delta, filename);
-        Animations[int(AnimationIndex::AnimationLeft)] = new Animation(1, C_PIXELS_Y, C_PIXELS_X, C_PIXELS_Y, C_PIXELS_delta, filename);
-        Animations[int(AnimationIndex::AnimationRight)] = new Animation(1, C_PIXELS_Y * 2, C_PIXELS_X, C_PIXELS_Y, C_PIXELS_delta, filename);
-        Animations[int(AnimationIndex::AnimationUp)] = new Animation(1, C_PIXELS_Y * 3, C_PIXELS_X, C_PIXELS_Y, C_PIXELS_delta, filename);
-        Animations[int(AnimationIndex::AnimationDown)] = new Animation(1, C_PIXELS_Y * 4, C_PIXELS_X, C_PIXELS_Y, C_PIXELS_delta, filename);
+        animationHandler_ = AnimationHandler(1, 0, C_PIXELS_X, C_PIXELS_Y, C_PIXELS_delta, filename);
     }
 }
 
@@ -29,40 +25,44 @@ void Character::initVariables()
     weapon_ = nullptr;
     alive_ = true;
 
-    attackCooldownLength = 1.66f;
+    attackCooldownLength_ = 1.66f;
     attackCooldownLeft = 0.0f;
     CanAttack = true;
 
     hitpoints_ = 50;
     currentSpeed_ = normalSpeed_;
-    attackCooldownLength = 1.0f;
+    attackCooldownLength_ = 1.0f;
 }
 
 bool Character::MoveLeft(float dt)
 {
     pos_.x -= currentSpeed_ * dt;
-    currentAnimation = AnimationIndex::AnimationLeft;
+    if (hasAnimation_)
+        animationHandler_.setAnimation(AnimationIndex::AnimationLeft);
     return true;
 }
 
 bool Character::MoveRight(float dt)
 {
     pos_.x += currentSpeed_ * dt;
-    currentAnimation = AnimationIndex::AnimationRight;
+    if (hasAnimation_)
+        animationHandler_.setAnimation(AnimationIndex::AnimationRight);
     return true;
 }
 
 bool Character::MoveDown(float dt)
 {
     pos_.y += currentSpeed_ * dt;
-    currentAnimation = AnimationIndex::AnimationDown;
+    if (hasAnimation_)
+        animationHandler_.setAnimation(AnimationIndex::AnimationDown);
     return true;
 }
 
 bool Character::MoveUp(float dt)
 {
     pos_.y -= currentSpeed_ * dt;
-    currentAnimation = AnimationIndex::AnimationUp;
+    if (hasAnimation_)
+        animationHandler_.setAnimation(AnimationIndex::AnimationUp);
     return true;
 }
 
@@ -73,7 +73,7 @@ void Character::RevertMove()
 
 void Character::ResetAttackCooldown()
 {
-    attackCooldownLeft = attackCooldownLength;
+    attackCooldownLeft = attackCooldownLength_;
     CanAttack = false;
 }
 
@@ -93,14 +93,15 @@ void Character::TakeDamage(int value)
 void Character::Equip(Weapon* weapon)
 {
     weapon_ = weapon;
-    attackCooldownLength = weapon->GetAttackCooldown();
+    attackCooldownLength_ = weapon->GetAttackCooldown();
 }
 
 bool Character::IsAlive() { return alive_; }
 
 bool Character::Idle()
 {
-    currentAnimation = AnimationIndex::AnimationIdle;
+    if (hasAnimation_)
+        animationHandler_.setAnimation(AnimationIndex::AnimationIdle);
     return true;
 }
 
@@ -136,7 +137,7 @@ std::list<Projectile*> Character::shotProjectileList(sf::Vector2f aimPos)
     projectileList.push_back(newProjectile);
 
     for (auto it : projectileList) {
-        it->SetType(characterProjectileType);
+        it->SetType(characterProjectileType_);
     }
 
     return projectileList;

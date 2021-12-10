@@ -5,8 +5,9 @@
 
 #include "Combat/Projectile.hpp"
 //#include "Interfaces/ICollidable.hpp"
+#include "Animation/Animationhandler.hpp"
 #include "Combat/Weapons/Weapon.hpp"
-#include "animation.hpp"
+#include "Utility/RandomHelper.hpp"
 #include "entity.hpp"
 
 class Character : public Entity /*, public ICollidable*/ {
@@ -47,7 +48,7 @@ public:
 
     void ResetAttackCooldown();
     float GetAttackCooldownLeft() const { return attackCooldownLeft; };
-    float GetAttackCooldownLength() const { return attackCooldownLength; };
+    float GetAttackCooldownLength() const { return attackCooldownLength_; };
     bool CanAttack;
 
     void SetNormalSpeed(float value);
@@ -62,31 +63,20 @@ protected:
     /*void GetHitBy(Projectile& projectile);*/
 
     Weapon* weapon_;
-    Projectile::Type characterProjectileType;
+    Projectile::Type characterProjectileType_;
     int hitpoints_;
     bool alive_;
     bool hasAnimation_;
+    AnimationHandler animationHandler_;
     float currentSpeed_;
     float normalSpeed_;
 
     void generalUpdate(float dt);
 
-    float attackCooldownLength;
+    float attackCooldownLength_;
     float attackCooldownLeft;
     void updateAttackCooldown(float dt);
     std::list<Projectile*> emptyList();
     std::list<Projectile*> shotProjectileList(sf::Vector2f aimPos);
-
-    enum class AnimationIndex {
-        AnimationUp,
-        AnimationDown,
-        AnimationLeft,
-        AnimationRight,
-        AnimationIdle,
-        Count
-    };
-
-    Animation* Animations[int(AnimationIndex::Count)];
-    AnimationIndex currentAnimation;
 };
 #endif

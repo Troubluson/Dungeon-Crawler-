@@ -10,15 +10,15 @@ Projectile::Projectile(sf::Sprite& sprite, sf::Vector2f pos, bool penetrates)
 {
     initVariables();
 }
-bool Projectile::hasHit(Character* element)
+bool Projectile::HasHit(Character* element)
 {
-    auto it = charactersHit.find(element);
-    return it != charactersHit.end();
+    auto it = charactersHit_.find(element);
+    return it != charactersHit_.end();
 }
 
-void Projectile::hit(Character* c)
+void Projectile::Hit(Character* c)
 {
-    charactersHit.insert(c);
+    charactersHit_.insert(c);
 }
 
 bool Projectile::move(float dt, float x, float y)

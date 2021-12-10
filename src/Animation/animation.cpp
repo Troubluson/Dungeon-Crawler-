@@ -1,4 +1,5 @@
 #include "animation.hpp"
+#include "Utility/SpriteHelper.hpp"
 
 Animation::Animation(int x, int y, int width, int height, int spacing, const std::string& textureName)
 {

@@ -17,7 +17,6 @@ bool RoomTile::setTileTexture(std::string textureLocation)
     if (!tileTexture.loadFromFile(textureLocation)) {
         return false;
     }
-
     tileTexture.setSmooth(true);
     tileSprite.setTexture(tileTexture);
     tileSprite.setTextureRect(sf::IntRect(0, 0, 64, 64));
@@ -46,4 +45,8 @@ const sf::Sprite& RoomTile::getSprite() const
 bool RoomTile::isWalkable() const
 {
     return walkable_;
+}
+bool RoomTile::isPenetratable() const
+{
+    return penetratable_;
 }

@@ -3,14 +3,9 @@
 #ifndef _GAME_CLASS_
 #define _GAME_CLASS_
 
-#include "Actors/RandomMonster.hpp"
-#include "Actors/SearchingMonster.hpp"
-#include "Actors/SlowMonster.hpp"
-#include "Actors/SnipingMonster.hpp"
-#include "Actors/WallPatrolMonster.hpp"
-#include "Actors/monster.hpp"
 #include "Actors/player.hpp"
 /*#include "CollisionSystem.hpp"*/
+#include "Actors/Monsters/BossMonster.hpp"
 #include "Combat/Projectile.hpp"
 #include "Combat/Weapons/BowWeapon.hpp"
 #include "Combat/Weapons/SwordWeapon.hpp"
@@ -34,16 +29,15 @@ private:
     sf::VideoMode videomode_;
     sf::RenderWindow* window_;
     sf::Event event_;
-    sf::Clock dtClock;
-    Map dungeonMap_;
+    sf::Clock dtClock_;
     Player* player_;
+    Map dungeonMap_;
     Gamebar gamebar_;
 
-    float dt;
+    float dt_;
     bool paused = false;
     bool gameEnder_;
 
-    std::list<Monster*> monsters_;
     std::list<Projectile*> projectiles_;
     // CollisionSystem collisionSys;
 
@@ -60,8 +54,8 @@ private:
     void deleteMonster(Character* m);
     void updateProjectiles();
     bool collidesWithWall(Character* character);
-    bool collidesWithWall(Entity* object);
-    bool ShouldChangeRoom();
+    bool collidesWithWall(Projectile* object);
+    bool shouldChangeRoom();
     bool gameLost();
 };
 

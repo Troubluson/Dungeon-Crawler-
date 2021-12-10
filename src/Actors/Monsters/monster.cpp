@@ -1,6 +1,6 @@
-#include "Actors/monster.hpp"
+#include "monster.hpp"
 
-Monster::Monster(Player* player, sf::Vector2f pos, const std::string& spriteFile)
+Monster::Monster(Player& player, sf::Vector2f pos, const std::string& spriteFile)
     : Character(spriteFile, pos)
     , player_(player)
 {
@@ -10,29 +10,19 @@ Monster::Monster(Player* player, sf::Vector2f pos, const std::string& spriteFile
     healthbar.setPosition(pos.x + 15, pos.y - 5);
     healthbar_ = healthbar;
 }
-Monster::Monster(Player* player, float xPos, float yPos, const std::string& spriteFile)
-    : Character(spriteFile, sf::Vector2f(xPos, yPos))
-    , player_(player)
+Monster::Monster(Player& player, float xPos, float yPos, const std::string& spriteFile)
+    : Monster(player, sf::Vector2f(xPos, yPos), spriteFile)
 {
-    initVariables();
 }
 void Monster::initVariables()
 {
-    movedLastTick = false;
-    characterProjectileType = Projectile::Type::EnemyProjectile;
+    movedLastTick_ = false;
+    characterProjectileType_ = Projectile::Type::EnemyProjectile;
 }
 
-float Monster::RandomFloatBetween(float min, float max)
+void Monster::SetTarget(Player& target)
 {
-    float random = ((float)rand()) / (float)RAND_MAX;
-    float diffrence = max - min;
-    float r = random * diffrence;
-    return min + r;
-}
-
-int Monster::RandomIntBetween(int min, int max)
-{
-    return (rand() % (max - min + 1) + min);
+    player_ = target;
 }
 
 Monster::~Monster()
@@ -47,13 +37,13 @@ void Monster::Render(sf::RenderTarget* target)
 
 Player& Monster::GetPlayer() const
 {
-    return *player_;
+    return player_;
 }
 void Monster::Update(float dt)
 {
-    movedLastTick = true;
+    movedLastTick_ = true;
     if (oldPos_.x == pos_.x && oldPos_.y == pos_.y) {
-        movedLastTick = false;
+        movedLastTick_ = false;
     }
     generalUpdate(dt);
 

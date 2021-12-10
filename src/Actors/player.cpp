@@ -18,8 +18,8 @@ void Player::Update(float dt)
         if (oldPos_.x == pos_.x && oldPos_.y == pos_.y) {
             Idle();
         }
-        Animations[int(currentAnimation)]->Update(dt);
-        Animations[int(currentAnimation)]->AnimationToSprite(sprite_);
+        animationHandler_.getAnimation()->Update(dt);
+        animationHandler_.getAnimation()->AnimationToSprite(sprite_);
     }
 
     generalUpdate(dt);
@@ -27,7 +27,7 @@ void Player::Update(float dt)
     updateDashCooldown(dt);
 
     if (IsDashing) {
-        currentSpeed_ = dashSpeed;
+        currentSpeed_ = dashSpeed_;
     } else {
         currentSpeed_ = normalSpeed_;
     }
@@ -37,7 +37,7 @@ void Player::Dash()
 {
     if (CanDash) {
         IsDashing = true;
-        dashDurationLeft = dashDurationLength;
+        dashDurationLeft_ = dashDurationLength_;
         ResetDashCooldown();
     }
 }
@@ -45,35 +45,35 @@ void Player::Dash()
 void Player::initVariables()
 {
 
-    dashCooldownLength = 1.0f;
-    dashCooldownLeft = 0.0f;
+    dashCooldownLength_ = 1.0f;
+    dashCooldownLeft_ = 0.0f;
     CanDash = true;
     IsDashing = false;
-    dashDurationLength = 0.25f;
-    dashDurationLeft = 0.0f;
+    dashDurationLength_ = 0.25f;
+    dashDurationLeft_ = 0.0f;
     SetNormalSpeed(300.0f);
-    dashSpeed = normalSpeed_ * 3;
+    dashSpeed_ = normalSpeed_ * 3;
 
-    characterProjectileType = Projectile::Type::PlayerProjectile;
+    characterProjectileType_ = Projectile::Type::PlayerProjectile;
 }
 
 void Player::ResetDashCooldown()
 {
-    dashCooldownLeft = dashCooldownLength;
+    dashCooldownLeft_ = dashCooldownLength_;
     CanDash = false;
 }
 
 void Player::updateDashCooldown(float dt)
 {
-    dashCooldownLeft = std::max(0.0f, dashCooldownLeft - dt);
-    if (dashCooldownLeft <= 0.0f) {
+    dashCooldownLeft_ = std::max(0.0f, dashCooldownLeft_ - dt);
+    if (dashCooldownLeft_ <= 0.0f) {
         CanDash = true;
     }
 
     if (IsDashing) {
-        dashDurationLeft -= dt;
+        dashDurationLeft_ -= dt;
     }
-    if (dashDurationLeft <= 0) {
+    if (dashDurationLeft_ <= 0) {
         IsDashing = false;
     }
 }

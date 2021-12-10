@@ -59,3 +59,8 @@ void Entity::initSprite(const std::string& spriteFile, sf::Vector2f spriteDims)
         sprite_.setScale(spriteDims);
     }
 }
+void Entity::SetPosAndOldPos(sf::Vector2f pos)
+{
+    pos_ = pos;
+    oldPos_ = pos;
+}

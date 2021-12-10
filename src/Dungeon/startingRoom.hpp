@@ -1,3 +1,6 @@
+#pragma once
+#ifndef _STARTING_ROOM_CLASS_
+#define _STARTING_ROOM_CLASS_
 #include "roomInstance.hpp"
 
 class StartingRoom : public RoomInstance {
@@ -9,3 +12,5 @@ public:
 
 private:
 };
+
+#endif
