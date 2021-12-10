@@ -34,6 +34,7 @@ public:
     bool HasWeapon();
 
     bool Idle();
+    bool Dead();
     bool MoveLeft(float dt);
     bool MoveRight(float dt);
     bool MoveDown(float dt);

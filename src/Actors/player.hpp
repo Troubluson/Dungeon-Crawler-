@@ -30,7 +30,8 @@ private:
     float dashSpeed;
     float dashDurationLength;
     float dashDurationLeft;
-
+    bool deadAnimationPlayed = false;
+    float dt_time = 0;
     float dashCooldownLength;
     float dashCooldownLeft;
     void updateDashCooldown(float dt);
