@@ -1,8 +1,12 @@
 #pragma once
 #ifndef _MONSTERSPAWNER_CLASS_
 #define _MONSTERSPAWNER_CLASS_
+#include "../BossMonster.hpp"
 #include "../RandomMonster.hpp"
 #include "../SearchingMonster.hpp"
+#include "../SlowMonster.hpp"
+#include "../SnipingMonster.hpp"
+#include "../WallPatrolMonster.hpp"
 
 class MonsterSpawner {
 
@@ -24,7 +28,7 @@ public:
 private:
     Monster* getRandomMonster(Player& target) const;
     uint monsterCount_;
-    uint monsterClassCount_ = 2; // update this when adding monsters
+    uint monsterTypeCount_ = 5; // update this when adding monsters
 };
 
 #endif

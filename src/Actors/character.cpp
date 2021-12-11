@@ -25,14 +25,16 @@ void Character::initVariables()
     weapon_ = nullptr;
     alive_ = true;
 
-    normalSpeed_ = 200.0f;
-    attackCooldownLength = 1.66f;
+    attackCooldownLength_ = 1.66f;
     attackCooldownLeft = 0.0f;
     CanAttack = true;
 
-    hitpoints_ = 50;
-    currentSpeed_ = normalSpeed_;
-    attackCooldownLength = 1.0f;
+    defaultMaxHitpoints_ = 50;
+    currentMaxHitpoints_ = defaultMaxHitpoints_ * LevelUpSystem::GetHPModifier(this);
+    hitpoints_ = currentMaxHitpoints_;
+
+    currentSpeed_ = defualtSpeed_;
+    attackCooldownLength_ = 1.0f;
 }
 
 bool Character::MoveLeft(float dt)
@@ -74,7 +76,7 @@ void Character::RevertMove()
 
 void Character::ResetAttackCooldown()
 {
-    attackCooldownLeft = attackCooldownLength;
+    attackCooldownLeft = attackCooldownLength_;
     CanAttack = false;
 }
 
@@ -94,7 +96,7 @@ void Character::TakeDamage(int value)
 void Character::Equip(Weapon* weapon)
 {
     weapon_ = weapon;
-    attackCooldownLength = weapon->GetAttackCooldown();
+    attackCooldownLength_ = weapon->GetAttackCooldown();
 }
 
 bool Character::IsAlive() { return alive_; }
@@ -138,7 +140,7 @@ std::list<Projectile*> Character::shotProjectileList(sf::Vector2f aimPos)
     projectileList.push_back(newProjectile);
 
     for (auto it : projectileList) {
-        it->SetType(characterProjectileType);
+        it->SetType(characterProjectileType_);
     }
 
     return projectileList;
@@ -146,12 +148,19 @@ std::list<Projectile*> Character::shotProjectileList(sf::Vector2f aimPos)
 
 void Character::generalUpdate(float dt)
 {
+    currentMaxHitpoints_ = defaultMaxHitpoints_ * LevelUpSystem::GetHPModifier(this);
     oldPos_ = pos_;
     sprite_.setPosition(pos_);
     if (hitpoints_ <= 0) {
         alive_ = false;
     }
     updateAttackCooldown(dt);
+}
+
+void Character::SetNormalSpeed(float value)
+{
+    defualtSpeed_ = value;
+    currentSpeed_ = defualtSpeed_;
 }
 
 /*

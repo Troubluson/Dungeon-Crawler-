@@ -5,6 +5,15 @@
 
 class RoomTile {
 public:
+    /**
+     * @brief Construct a new Room Tile object
+     *
+     * @param    texture              texture of the tile
+     * @param    x                    location in x-axis
+     * @param    y                    location in y-axis
+     * @param    walkable             is it a walkable tile or not
+     * @param    penetratable         can projectiles penetrate the tile
+     */
     RoomTile(std::string texture, float x, float y, bool walkable, bool penetratable);
     const sf::Vector2f getSize() const;
     const sf::Vector2f& getPosition() const;

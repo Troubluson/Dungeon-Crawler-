@@ -1,15 +1,15 @@
 
-#include "Combat/Weapons/SwordWeapon.hpp"
+#include "Combat/Weapons/BowWeapon.hpp"
 
-SwordWeapon::SwordWeapon(int damage, int range, int rateOfFire, float projectileSpeed, Vector2f projectileSize, const std::string& spriteLocation)
+BowWeapon::BowWeapon(int damage, int range, int rateOfFire, float projectileSpeed, Vector2f projectileSize, const std::string& spriteLocation)
     : Weapon(damage, range, rateOfFire, projectileSpeed, projectileSize, spriteLocation)
 {
-    penetrates_ = true;
+    penetrates_ = false;
     sprite_.setTextureRect({ 400, 215, 10, 15 }); // placeholder
     spritehelper::SetScale(projectileSize, sprite_);
     // sets scale and origin of sprite
 }
-Projectile* SwordWeapon::Use(Vector2f dir, Vector2f origin)
+Projectile* BowWeapon::Use(Vector2f dir, Vector2f origin)
 {
     // have to rotate the projectile
     spritehelper::RotateSprite(dir, sprite_);
