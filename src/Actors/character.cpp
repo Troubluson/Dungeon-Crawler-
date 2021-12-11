@@ -29,11 +29,11 @@ void Character::initVariables()
     attackCooldownLeft = 0.0f;
     CanAttack = true;
 
-    normalMaxHitpoints_ = 50;
-    currentMaxHitpoints_ = normalMaxHitpoints_ * LevelUpSystem::GetHPModifier(this);
+    defaultMaxHitpoints_ = 50;
+    currentMaxHitpoints_ = defaultMaxHitpoints_ * LevelUpSystem::GetHPModifier(this);
     hitpoints_ = currentMaxHitpoints_;
 
-    currentSpeed_ = normalSpeed_;
+    currentSpeed_ = defualtSpeed_;
     attackCooldownLength_ = 1.0f;
 }
 
@@ -148,7 +148,7 @@ std::list<Projectile*> Character::shotProjectileList(sf::Vector2f aimPos)
 
 void Character::generalUpdate(float dt)
 {
-    currentMaxHitpoints_ = normalMaxHitpoints_ * LevelUpSystem::GetHPModifier(this);
+    currentMaxHitpoints_ = defaultMaxHitpoints_ * LevelUpSystem::GetHPModifier(this);
     oldPos_ = pos_;
     sprite_.setPosition(pos_);
     if (hitpoints_ <= 0) {
@@ -159,8 +159,8 @@ void Character::generalUpdate(float dt)
 
 void Character::SetNormalSpeed(float value)
 {
-    normalSpeed_ = value;
-    currentSpeed_ = normalSpeed_;
+    defualtSpeed_ = value;
+    currentSpeed_ = defualtSpeed_;
 }
 
 /*
