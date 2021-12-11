@@ -140,7 +140,7 @@ std::list<Projectile*> Character::shotProjectileList(sf::Vector2f aimPos)
 void Character::generalUpdate(float dt)
 {
     oldPos_ = pos_;
-    sprite_.setPosition(pos_);
+    setPos(pos_);
     if (hitpoints_ <= 0) {
         alive_ = false;
     }

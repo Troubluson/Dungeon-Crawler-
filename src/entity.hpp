@@ -34,7 +34,7 @@ public:
     sf::FloatRect getSpriteBounds() const;
     sf::FloatRect GetBaseBoxAt(sf::Vector2f pos) const;
 
-    void setPos(sf::Vector2f newPos) { pos_ = newPos; }
+    void setPos(sf::Vector2f pos);
     void setOldAndNewPos(sf::Vector2f pos);
 
     virtual void Render(sf::RenderTarget* target);

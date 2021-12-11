@@ -12,7 +12,6 @@ TEST_CASE("Testing character")
     REQUIRE(c->IsAlive() == true);
     REQUIRE(c->GetHitPoints() == 50);
 
-    //float speed = 200;
     // Moving the character
     c->MoveDown(0.1);
 }
