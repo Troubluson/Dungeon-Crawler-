@@ -29,6 +29,7 @@ public:
     sf::FloatRect GetBaseBoxAt(sf::Vector2f pos);
 
     void TakeDamage(int value);
+    int GetHitPoints() const;
 
     bool IsAlive();
     bool HasWeapon();

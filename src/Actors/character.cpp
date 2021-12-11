@@ -91,6 +91,11 @@ void Character::TakeDamage(int value)
     hitpoints_ -= value;
 }
 
+int Character::GetHitPoints() const
+{
+    return hitpoints_;
+}
+
 void Character::Equip(Weapon* weapon)
 {
     weapon_ = weapon;
