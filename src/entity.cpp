@@ -63,4 +63,5 @@ void Entity::SetPosAndOldPos(sf::Vector2f pos)
 {
     pos_ = pos;
     oldPos_ = pos;
+    sprite_.setPosition(pos_);
 }

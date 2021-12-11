@@ -31,7 +31,11 @@ public:
     const sf::Vector2f& GetOldPosition() const;
     sf::FloatRect GetSpriteBounds() const;
 
-    void SetPos(sf::Vector2f newPos) { pos_ = newPos; }
+    void SetPos(sf::Vector2f newPos)
+    {
+        pos_ = newPos;
+        sprite_.setPosition(pos_);
+    }
     void SetPosAndOldPos(sf::Vector2f pos);
 
     virtual void Render(sf::RenderTarget* target);

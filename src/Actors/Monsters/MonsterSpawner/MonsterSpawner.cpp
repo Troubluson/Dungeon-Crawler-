@@ -3,8 +3,8 @@
 
 Monster* MonsterSpawner::getRandomMonster(Player& target) const
 {
-    SwordWeapon* monterSword = new SwordWeapon(5, 100, 120, 1000, sf::Vector2f(50, 100), "content/sprites/projectiles.png");
-    Monster* m = new BossMonster(target, 200, 200);
+    SwordWeapon* monterSword = new SwordWeapon(10, 1000, 30, 200, sf::Vector2f(50, 100), "content/sprites/projectiles.png");
+    Monster* m = new BossMonster(target, 400, 400);
     m->Equip(monterSword);
     return m;
 

@@ -21,13 +21,27 @@ public:
 
 private:
     int currentDir_;
-    int attackStyle = 0;
+
+    int attackStyle_ = 0;
+    int nofattackStyles_ = 3;
+
+    float angle_ = 0;
+    int nofBulletsInCircle = 10;
+    int nofBulletsToShootTowardsPlayer = 5;
+    int nofBulletsShot = 0;
+
+    sf::Clock attackLoopClock;
+    float spritalAttackCooldownLength = 0.1f;
+    float normalAttackCooldownLength = 0.5f;
+
     std::vector<Projectile*> fullAttackVector;
     std::vector<Projectile*> toShootVector;
+
     float durationUntilTurn_ = 0.5f;
     float elapsedTurnTime_ = 0.0f;
-    float angle_ = 0;
-    int nofBullets = 10;
+
+    void iterateAngle();
+    void iterateAttackStyle();
 };
 
 #endif
