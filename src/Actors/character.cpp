@@ -33,7 +33,7 @@ void Character::initVariables()
     currentMaxHitpoints_ = defaultMaxHitpoints_ * LevelUpSystem::GetHPModifier(this);
     hitpoints_ = currentMaxHitpoints_;
 
-    currentSpeed_ = defualtSpeed_;
+    currentSpeed_ = defaultSpeed_;
     attackCooldownLength_ = 1.0f;
 }
 
@@ -159,8 +159,8 @@ void Character::generalUpdate(float dt)
 
 void Character::SetNormalSpeed(float value)
 {
-    defualtSpeed_ = value;
-    currentSpeed_ = defualtSpeed_;
+    defaultSpeed_ = value;
+    currentSpeed_ = defaultSpeed_;
 }
 
 /*

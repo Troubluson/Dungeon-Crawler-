@@ -29,7 +29,7 @@ void Player::Update(float dt)
     if (IsDashing) {
         currentSpeed_ = dashSpeed_;
     } else {
-        currentSpeed_ = defualtSpeed_;
+        currentSpeed_ = defaultSpeed_;
     }
 }
 
@@ -52,7 +52,7 @@ void Player::initVariables()
     dashDurationLength_ = 0.25f;
     dashDurationLeft_ = 0.0f;
     SetNormalSpeed(300.0f);
-    dashSpeed_ = defualtSpeed_ * 3;
+    dashSpeed_ = defaultSpeed_ * 3;
 
     characterProjectileType_ = Projectile::Type::PlayerProjectile;
 }
