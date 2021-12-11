@@ -25,14 +25,13 @@ void Character::initVariables()
     weapon_ = nullptr;
     alive_ = true;
 
-    normalSpeed_ = 200.0f;
-    attackCooldownLength = 1.66f;
+    attackCooldownLength_ = 1.66f;
     attackCooldownLeft = 0.0f;
     CanAttack = true;
 
     hitpoints_ = 50;
     currentSpeed_ = normalSpeed_;
-    attackCooldownLength = 1.0f;
+    attackCooldownLength_ = 1.0f;
 }
 
 bool Character::MoveLeft(float dt)
@@ -74,7 +73,7 @@ void Character::RevertMove()
 
 void Character::ResetAttackCooldown()
 {
-    attackCooldownLeft = attackCooldownLength;
+    attackCooldownLeft = attackCooldownLength_;
     CanAttack = false;
 }
 
@@ -94,7 +93,7 @@ void Character::TakeDamage(int value)
 void Character::Equip(Weapon* weapon)
 {
     weapon_ = weapon;
-    attackCooldownLength = weapon->GetAttackCooldown();
+    attackCooldownLength_ = weapon->GetAttackCooldown();
 }
 
 bool Character::IsAlive() { return alive_; }
@@ -138,7 +137,7 @@ std::list<Projectile*> Character::shotProjectileList(sf::Vector2f aimPos)
     projectileList.push_back(newProjectile);
 
     for (auto it : projectileList) {
-        it->SetType(characterProjectileType);
+        it->SetType(characterProjectileType_);
     }
 
     return projectileList;
@@ -152,6 +151,12 @@ void Character::generalUpdate(float dt)
         alive_ = false;
     }
     updateAttackCooldown(dt);
+}
+
+void Character::SetNormalSpeed(float value)
+{
+    normalSpeed_ = value;
+    currentSpeed_ = normalSpeed_;
 }
 
 /*

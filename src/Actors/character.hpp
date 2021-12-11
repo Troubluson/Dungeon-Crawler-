@@ -7,6 +7,7 @@
 //#include "Interfaces/ICollidable.hpp"
 #include "Animation/Animationhandler.hpp"
 #include "Combat/Weapons/Weapon.hpp"
+#include "Utility/RandomHelper.hpp"
 #include "entity.hpp"
 
 class Character : public Entity /*, public ICollidable*/ {
@@ -47,8 +48,10 @@ public:
 
     void ResetAttackCooldown();
     float GetAttackCooldownLeft() const { return attackCooldownLeft; };
-    float GetAttackCooldownLength() const { return attackCooldownLength; };
+    float GetAttackCooldownLength() const { return attackCooldownLength_; };
     bool CanAttack;
+
+    void SetNormalSpeed(float value);
     /*
     // for ICollidable
     virtual sf::FloatRect GetBoundingBox() { return sprite_.getGlobalBounds(); }
@@ -60,7 +63,7 @@ protected:
     /*void GetHitBy(Projectile& projectile);*/
 
     Weapon* weapon_;
-    Projectile::Type characterProjectileType;
+    Projectile::Type characterProjectileType_;
     int hitpoints_;
     bool alive_;
     bool hasAnimation_;
@@ -70,7 +73,7 @@ protected:
 
     void generalUpdate(float dt);
 
-    float attackCooldownLength;
+    float attackCooldownLength_;
     float attackCooldownLeft;
     void updateAttackCooldown(float dt);
     std::list<Projectile*> emptyList();

@@ -226,7 +226,7 @@ void RoomInstance::Enter(Player& player, Direction direction)
             monsters_.push_back(monster);
         }
     }
-    player.setOldAndNewPos(sf::Vector2f(GetEntranceInDirection(direction))); // prevents us from getting stuck in the wall
+    player.SetPosAndOldPos(sf::Vector2f(GetEntranceInDirection(direction))); // prevents us from getting stuck in the wall
 }
 
 void RoomInstance::Exit()

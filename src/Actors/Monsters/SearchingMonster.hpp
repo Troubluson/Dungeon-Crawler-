@@ -16,9 +16,11 @@ public:
     virtual std::list<Projectile*> Attack();
     virtual bool Move(float dt);
 
+    void initVariables();
+
 private:
     sf::Clock cooldown_;
-    std::string name = "Sir Chi";
+    std::string name_ = "Sir Chi";
 };
 
 #endif

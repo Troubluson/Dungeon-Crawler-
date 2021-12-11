@@ -15,8 +15,8 @@ public:
 public:
     Projectile(sf::Sprite& sprite, sf::Vector2f startPos, bool penetratesObjects = false);
 
-    bool hasHit(Character* c);
-    void hit(Character* c);
+    bool HasHit(Character* c);
+    void Hit(Character* c);
     int GetDamage() { return damage_; }
     Projectile::Type GetType() { return type_; }
     sf::Vector2f GetDirection() { return direction_; }
@@ -43,7 +43,7 @@ private:
     Type type_;
     sf::Vector2f direction_;
     sf::Vector2f startPos_;
-    std::set<Character*> charactersHit;
+    std::set<Character*> charactersHit_;
     int damage_;
     float projectileSpeed_;
 

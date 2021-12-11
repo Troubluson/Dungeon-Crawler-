@@ -17,10 +17,12 @@ public:
     virtual std::list<Projectile*> Attack();
     virtual bool Move(float dt);
 
+    void initVariables();
+
 private:
     int currentDir_;
-    float durationUntilTurn = 3.0f;
-    float elapsedTurnTime = 0.0f;
+    float durationUntilTurn_ = 0.5f;
+    float elapsedTurnTime_ = 0.0f;
 };
 
 #endif

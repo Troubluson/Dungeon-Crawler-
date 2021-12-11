@@ -1,27 +1,36 @@
-#include "RandomMonster.hpp"
+#include "WallPatrolMonster.hpp"
 namespace {
 const std::string monsterSpriteFileLocation = "content/sprites/monster1.png";
 }
 
-RandomMonster::RandomMonster(Player& player, sf::Vector2f pos)
-    : Monster(player, pos, monsterSpriteFileLocation)
+WallPatrolMonster::WallPatrolMonster(Player& player, sf::Vector2f pos)
+    : WallPatrolMonster(player, pos.x, pos.y)
 {
 }
-RandomMonster::RandomMonster(Player& player, float xPos, float yPos)
+WallPatrolMonster::WallPatrolMonster(Player& player, float xPos, float yPos)
     : Monster(player, sf::Vector2f(xPos, yPos), monsterSpriteFileLocation)
 {
     initVariables();
 }
 
-RandomMonster::~RandomMonster() { }
+WallPatrolMonster::~WallPatrolMonster() { }
 
-bool RandomMonster::Move(float dt)
+void WallPatrolMonster::changeDirection()
 {
-    elapsedTurnTime_ += dt;
-    if (elapsedTurnTime_ > durationUntilTurn_ || !movedLastTick_) {
-        elapsedTurnTime_ = 0.0f;
-        currentDir_ = randomhelper::RandomIntBetween(1, 4);
-        durationUntilTurn_ = randomhelper::RandomFloatBetween(0.2f, 1.0f);
+    if (currentDir_ == 4) {
+        currentDir_ = 1;
+    } else if (currentDir_ == 1) {
+        currentDir_ = 2;
+    } else if (currentDir_ == 2) {
+        currentDir_ = 3;
+    } else {
+        currentDir_ = 4;
+    }
+}
+bool WallPatrolMonster::Move(float dt)
+{
+    if (!movedLastTick_) {
+        changeDirection();
     }
     if (currentDir_ == 1) {
         MoveDown(dt);
@@ -35,7 +44,7 @@ bool RandomMonster::Move(float dt)
     return true;
 }
 
-std::list<Projectile*> RandomMonster::Attack()
+std::list<Projectile*> WallPatrolMonster::Attack()
 {
     if (!CanAttack || !HasWeapon() || !inRangeOfPlayer()) {
         return emptyList();
@@ -46,7 +55,7 @@ std::list<Projectile*> RandomMonster::Attack()
     return shotProjectileList(player_.GetSpriteCenter());
 }
 
-void RandomMonster::initVariables()
+void WallPatrolMonster::initVariables()
 {
     SwordWeapon* monsterSword = new SwordWeapon(5, 100, 120, 1000, sf::Vector2f(50, 100), "content/sprites/projectiles.png");
     Equip(monsterSword);

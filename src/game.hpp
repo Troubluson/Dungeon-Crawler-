@@ -3,10 +3,11 @@
 #ifndef _GAME_CLASS_
 #define _GAME_CLASS_
 
-#include "Actors/Monsters/MonsterSpawner/MonsterSpawner.hpp"
 #include "Actors/player.hpp"
 /*#include "CollisionSystem.hpp"*/
+#include "Actors/Monsters/BossMonster.hpp"
 #include "Combat/Projectile.hpp"
+#include "Combat/Weapons/BowWeapon.hpp"
 #include "Combat/Weapons/SwordWeapon.hpp"
 #include "Dungeon/map.hpp"
 #include "gamebar.hpp"
@@ -42,12 +43,12 @@ private:
     sf::VideoMode videomode_;
     sf::RenderWindow* window_;
     sf::Event event_;
-    sf::Clock dtClock;
+    sf::Clock dtClock_;
     Player* player_;
     Map dungeonMap_;
     Gamebar gamebar_;
 
-    float dt;
+    float dt_;
     bool paused = false;
     bool gameEnder_;
 
