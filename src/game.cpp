@@ -27,6 +27,8 @@ Game::~Game()
 
 void Game::UpdateGame()
 {
+    std::cout << LevelUpSystem::GetHPModifier(player_) << std::endl;
+    std::cout << LevelUpSystem::GetLevel(player_) << std::endl;
     Events();
     managePauseInput();
     if (gameLost()) {

@@ -166,6 +166,10 @@ void Character::ResetCharacterToBeAlive()
     SetPosAndOldPos({ 200, 200 });
 }
 
+int Character::GetMaxHP()
+{
+    return currentMaxHitpoints_;
+}
 /*
 void Character::ProcessCollision(ICollidable* object)
 {

@@ -117,9 +117,6 @@ std::pair<int, int> Map::getKey(sf::Vector2i choord)
 RoomInstance* Map::addRoomToDungeon(sf::Vector2u roomSize, sf::Vector2i choords)
 {
     RoomInstance* rooom = new RoomInstance(roomSize, choords);
-    if (rooom == nullptr) {
-        std::cout << "lol" << std::endl;
-    }
     existingRoomCords_.push_back(getKey(choords));
     dungeon_[getKey(choords)] = rooom;
     return rooom;
@@ -129,7 +126,6 @@ void Map::addStartingRoomToDungeon(sf::Vector2u roomSize, sf::Vector2i choords)
 {
     RoomInstance* rootRoom = new StartingRoom(roomSize, choords);
     existingRoomCords_.push_back(getKey(choords));
-    std::cout << existingRoomCords_.size() << std::endl;
     dungeon_[getKey(choords)] = rootRoom;
 }
 

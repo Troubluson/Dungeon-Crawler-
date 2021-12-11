@@ -51,6 +51,7 @@ public:
     float GetAttackCooldownLeft() const { return attackCooldownLeft; };
     float GetAttackCooldownLength() const { return attackCooldownLength_; };
     bool CanAttack;
+    int GetMaxHP();
 
     void SetNormalSpeed(float value);
     void ResetCharacterToBeAlive();
