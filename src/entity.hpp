@@ -32,6 +32,7 @@ public:
     sf::Vector2f GetSpriteCenter() const;
     const sf::Vector2f& getOldPosition() const;
     sf::FloatRect getSpriteBounds() const;
+    sf::FloatRect GetBaseBoxAt(sf::Vector2f pos) const;
 
     void setPos(sf::Vector2f newPos) { pos_ = newPos; }
     void setOldAndNewPos(sf::Vector2f pos);

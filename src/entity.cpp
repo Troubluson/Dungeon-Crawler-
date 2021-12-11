@@ -41,6 +41,18 @@ sf::FloatRect Entity::getSpriteBounds() const
     return sprite_.getGlobalBounds();
 }
 
+sf::FloatRect Entity::GetBaseBoxAt(sf::Vector2f pos) const
+{
+    auto spriteBounds = sprite_.getGlobalBounds();
+    // set to use new position
+    spriteBounds.left = pos.x;
+    spriteBounds.top = pos.y;
+    // use only lower half
+    spriteBounds.height *= 1.0f / 2;
+    spriteBounds.top += spriteBounds.height;
+    return spriteBounds;
+}
+
 sf::Vector2f Entity::GetSpriteCenter() const
 {
     auto spriteOrigin = GetSpritePosition();

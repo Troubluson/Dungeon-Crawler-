@@ -26,7 +26,6 @@ public:
      * @param    pos                  the wanted position
      * @return sf::FloatRect
      */
-    sf::FloatRect GetBaseBoxAt(sf::Vector2f pos);
 
     void TakeDamage(int value);
     int GetHitPoints() const;

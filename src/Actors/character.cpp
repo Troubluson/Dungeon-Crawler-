@@ -116,18 +116,6 @@ bool Character::HasWeapon()
     return weapon_ != nullptr;
 }
 
-sf::FloatRect Character::GetBaseBoxAt(sf::Vector2f pos)
-{
-    auto spriteBounds = sprite_.getGlobalBounds();
-    // set to use new position
-    spriteBounds.left = pos.x;
-    spriteBounds.top = pos.y;
-    // use only lower half
-    spriteBounds.height *= 1.0f / 2;
-    spriteBounds.top += spriteBounds.height;
-    return spriteBounds;
-}
-
 std::list<Projectile*> Character::emptyList()
 {
     std::list<Projectile*> emptyList;
