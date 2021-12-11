@@ -72,11 +72,14 @@ private:
 
     std::pair<int, int> getKey();
     std::pair<int, int> getKey(sf::Vector2i choord);
+    RoomInstance* addRoomToDungeon(sf::Vector2u roomSize, sf::Vector2i choords);
+    void addStartingRoomToDungeon(sf::Vector2u roomSize, sf::Vector2i choords);
     sf::Vector2u roomSize_;
     sf::Vector2i currentPos_;
     Player& player_;
     sf::Vector2i spawnChoords_;
     std::map<std::pair<int, int>, RoomInstance*> dungeon_; // cant use vector2i as a key
+    std::vector<std::pair<int, int>> existingRoomCords_;
 };
 
 #endif
