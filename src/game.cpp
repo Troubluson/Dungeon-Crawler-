@@ -7,8 +7,8 @@ const sf::Vector2u VIDEOMODE_DIMS = sf::Vector2u(1280, 768);
 }
 
 Game::Game()
-    : player_(new Player())
-    , dungeonMap_(Map(VIDEOMODE_DIMS, 10, *player_))
+    : player_(std::make_shared<Player>(Player()))
+    , dungeonMap_(Map(VIDEOMODE_DIMS, 10, player_))
     , gamebar_(Gamebar(player_))
 {
     SwordWeapon* sword = new SwordWeapon(20, 10, sf::Vector2f(50, 100), 120, "content/sprites/projectiles.png");
@@ -21,7 +21,6 @@ Game::Game()
 Game::~Game()
 {
     delete window_;
-    delete player_;
 }
 
 void Game::UpdateGame()
@@ -153,7 +152,7 @@ void Game::manageInput()
     }
     if (triedMoving) {
         // std::cout << player_->GetPos().x << " " << player_->GetPos().y << std::endl;
-        if (collidesWithWall(player_)) {
+        if (collidesWithWall(player_.get())) {
             player_->RevertMove();
         }
         if (ShouldChangeRoom()) {
@@ -199,7 +198,7 @@ void Game::checkPlayerCollisions()
     if (projectiles_.empty()) {
         return;
     }
-    checkCollisions(player_, Projectile::Type::EnemyProjectile);
+    checkCollisions(player_.get(), Projectile::Type::EnemyProjectile);
 }
 
 void Game::checkAndHandleProjectileWallCollisions()
