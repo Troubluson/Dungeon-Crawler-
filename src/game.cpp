@@ -51,8 +51,9 @@ void Game::UpdateGame()
         sf::Vector2f plPos = player_->GetSpriteCenter();
         sf::Vector2f difference = poPos - plPos;
         float distance = std::sqrt(difference.x * difference.x + difference.y * difference.y);
-        if (distance < 50 && !potion->IsCollected()) {
-            potion->Use(player_);
+        if (distance < 50) {
+            player_->AddPotion(potion);
+            deletePotion(potion);
         }
     }
     updateProjectiles();
@@ -81,9 +82,7 @@ void Game::RenderGame()
         monster->Render(window_);
     }
     for (auto potion : dungeonMap_.GetCurrentRoom()->GetPotions()) {
-        if (!potion->IsCollected()) {
-            potion->Render(window_);
-        }
+        potion->Render(window_);
     }
     window_->display();
 }
@@ -101,6 +100,16 @@ void Game::Events()
             break;
         case sf::Event::GainedFocus:
             paused = false;
+            break;
+        case sf::Event::KeyPressed:
+            if (event_.key.code == sf::Keyboard::Num1)
+                player_->UsePotion("red");
+            else if (event_.key.code == sf::Keyboard::Num2)
+                player_->UsePotion("green");
+            else if (event_.key.code == sf::Keyboard::Num3)
+                player_->UsePotion("yellow");
+            else if (event_.key.code == sf::Keyboard::Num4)
+                player_->UsePotion("violet");
             break;
         default:
             break;
@@ -279,6 +288,20 @@ void Game::deleteMonster(Character* m)
         if (*it == m) {
             delete *it;
             it = monsters.erase(it);
+            return;
+        }
+    }
+}
+
+void Game::deletePotion(Potion* p)
+{
+    auto& potions = dungeonMap_.GetCurrentRoom()->GetPotions();
+    if (potions.empty())
+        return;
+
+    for (auto it = potions.begin(); it != potions.end(); ++it) {
+        if (*it == p) {
+            it = potions.erase(it);
             return;
         }
     }

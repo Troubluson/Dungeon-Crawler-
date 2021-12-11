@@ -52,6 +52,7 @@ private:
     void deleteProjectile(Projectile* p);
     void addProjectiles(std::list<Projectile*> listToAdd);
     void deleteMonster(Character* m);
+    void deletePotion(Potion* p);
     void updateProjectiles();
     bool collidesWithWall(Character* character);
     bool collidesWithWall(Entity* object);

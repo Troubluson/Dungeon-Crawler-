@@ -2,22 +2,20 @@
 
 #ifndef _POTION_CLASS_
 #define _POTION_CLASS_
-#include "Actors/player.hpp"
 #include "entity.hpp"
 
 class Potion : public Entity {
 public:
-    Potion(const std::string& spritefile, sf::Vector2f pos, int healthIncrease);
+    Potion(const std::string& spritefile, sf::Vector2f pos, int healthIncrease, const std::string& colour);
 
     virtual ~Potion() {};
 
-    bool IsCollected();
-
-    void Use(Character* character);
+    const std::string& GetColour() const;
+    int GetHealthIncrease() const;
 
 protected:
     int healthIncrease_;
-    bool collected_;
+    std::string colour_;
 };
 
 #endif

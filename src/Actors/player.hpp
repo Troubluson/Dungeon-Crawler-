@@ -4,6 +4,7 @@
 #define _PLAYER_CLASS_
 
 #include "Actors/character.hpp"
+#include "Combat/Health/Potion.hpp"
 
 class Player : public Character {
 public:
@@ -26,6 +27,9 @@ public:
     bool CanDash;
     bool IsDashing;
 
+    void AddPotion(Potion* potion);
+    void UsePotion(const std::string& colour);
+
 private:
     float dashSpeed;
     float dashDurationLength;
@@ -34,6 +38,8 @@ private:
     float dashCooldownLength;
     float dashCooldownLeft;
     void updateDashCooldown(float dt);
+
+    std::vector<Potion*> inventory_;
 };
 
 #endif

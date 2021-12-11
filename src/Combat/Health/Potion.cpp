@@ -1,19 +1,18 @@
 #include "Potion.hpp"
 
-Potion::Potion(const std::string& spritefile, sf::Vector2f pos, int healthIncrease)
+Potion::Potion(const std::string& spritefile, sf::Vector2f pos, int healthIncrease, const std::string& colour)
     : Entity(spritefile, pos, sf::Vector2f(0.7, 0.7))
     , healthIncrease_(healthIncrease)
-    , collected_(false)
+    , colour_(colour)
 {
 }
 
-bool Potion::IsCollected()
+const std::string& Potion::GetColour() const
 {
-    return collected_;
+    return colour_;
 }
 
-void Potion::Use(Character* character)
+int Potion::GetHealthIncrease() const
 {
-    character->Heal(healthIncrease_);
-    collected_ = true;
+    return healthIncrease_;
 }

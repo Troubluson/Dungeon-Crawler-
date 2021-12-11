@@ -8,7 +8,7 @@
 class GreenPotion : public Potion {
 public:
     GreenPotion(sf::Vector2f pos)
-        : Potion("content/sprites/potions/green_potion.png", pos, 10)
+        : Potion("content/sprites/potions/green_potion.png", pos, 10, "green")
     {
     }
 };
@@ -16,7 +16,7 @@ public:
 class RedPotion : public Potion {
 public:
     RedPotion(sf::Vector2f pos)
-        : Potion("content/sprites/potions/red_potion.png", pos, 5)
+        : Potion("content/sprites/potions/red_potion.png", pos, 5, "red")
     {
     }
 };
@@ -24,7 +24,7 @@ public:
 class YellowPotion : public Potion {
 public:
     YellowPotion(sf::Vector2f pos)
-        : Potion("content/sprites/potions/yellow_potion.png", pos, 15)
+        : Potion("content/sprites/potions/yellow_potion.png", pos, 15, "yellow")
     {
     }
 };
@@ -32,7 +32,7 @@ public:
 class VioletPotion : public Potion {
 public:
     VioletPotion(sf::Vector2f pos)
-        : Potion("content/sprites/potions/violet_potion.png", pos, 50)
+        : Potion("content/sprites/potions/violet_potion.png", pos, 50, "violet")
     {
     }
 };
