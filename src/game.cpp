@@ -7,7 +7,7 @@ const sf::Vector2u VIDEOMODE_DIMS = sf::Vector2u(1280, 768);
 }
 
 Game::Game()
-    : player_(std::make_shared<Player>(Player()))
+    : player_(PlayerPS(new Player()))
     , dungeonMap_(Map(VIDEOMODE_DIMS, 10, player_))
     , gamebar_(Gamebar(player_))
 {

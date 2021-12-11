@@ -9,9 +9,6 @@ Player::Player()
 {
     initVariables();
 }
-Player::~Player()
-{
-}
 
 void Player::Update(float dt)
 {
@@ -28,7 +25,6 @@ void Player::Update(float dt)
     updateDashCooldown(dt);
 
     if (IsDashing) {
-        currentSpeed_ = dashSpeed;
     } else {
         currentSpeed_ = normalSpeed_;
     }
