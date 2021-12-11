@@ -97,9 +97,6 @@ void Gamebar::RenderInventory(sf::RenderTarget* target)
         else if (i->GetColour() == "violet")
             violet += 1;
     }
-
-    std::cout << "red: " << red << " green: " << green << " yellow: " << yellow << "violet" << violet << std::endl;
-
     sf::Text nofred;
     sf::Text nofgreen;
     sf::Text nofyellow;
