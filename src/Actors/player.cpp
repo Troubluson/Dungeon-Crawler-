@@ -13,8 +13,6 @@ Player::~Player()
 {
 }
 
-int Player::GetHitPoints() const { return hitpoints_; }
-
 void Player::Update(float dt)
 {
     if (hasAnimation_) {

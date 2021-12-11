@@ -8,8 +8,7 @@
 class Player : public Character {
 public:
     Player();
-    ~Player();
-    int GetHitPoints() const;
+    ~Player() {};
 
     virtual void Update(float dt);
 
