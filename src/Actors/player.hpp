@@ -30,6 +30,8 @@ public:
     void AddPotion(Potion* potion);
     void UsePotion(const std::string& colour);
 
+    std::vector<Potion*> GetInventory() const;
+
 private:
     float dashSpeed;
     float dashDurationLength;

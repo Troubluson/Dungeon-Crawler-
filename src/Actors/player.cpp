@@ -110,3 +110,8 @@ void Player::UsePotion(const std::string& colour)
         }
     }
 }
+
+std::vector<Potion*> Player::GetInventory() const
+{
+    return inventory_;
+}
