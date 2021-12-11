@@ -4,7 +4,7 @@ std::unordered_map<Character*, LevelUpInstance> LevelUpSystem::characterLevelMap
 
 void LevelUpSystem::AddCharacter(Character* character)
 {
-    if (characterLevelMap.find(character) != characterLevelMap.end()) {
+    if (characterLevelMap.count(character) != 0) {
         return;
     }
 
@@ -14,7 +14,7 @@ void LevelUpSystem::AddCharacter(Character* character)
 
 void LevelUpSystem::GainXP(Character* character, float amount)
 {
-    if (characterLevelMap.find(character) == characterLevelMap.end()) {
+    if (characterLevelMap.count(character) != 0) {
         return;
     }
 
@@ -28,7 +28,7 @@ void LevelUpSystem::LevelUp(Character* character)
 
 int LevelUpSystem::GetLevel(Character* character)
 {
-    if (characterLevelMap.find(character) == characterLevelMap.end()) {
+    if (characterLevelMap.count(character) != 0) {
         return -1;
     }
 
@@ -37,7 +37,7 @@ int LevelUpSystem::GetLevel(Character* character)
 
 float LevelUpSystem::GetHPModifier(Character* character)
 {
-    if (characterLevelMap.find(character) == characterLevelMap.end()) {
+    if (characterLevelMap.count(character) != 0) {
         return 1.0f;
     }
 
