@@ -214,7 +214,7 @@ sf::Vector2u RoomInstance::GetEntranceInDirection(Direction direction)
     }
 }
 
-void RoomInstance::Enter(Player& player, Direction direction)
+void RoomInstance::Enter(playerSP player, Direction direction)
 {
     if (!cleared_) {
         spawner_.SetMonsterAmount(5); // set according to player lvl somehow
@@ -227,7 +227,7 @@ void RoomInstance::Enter(Player& player, Direction direction)
             monsters_.push_back(monster);
         }
     }
-    player.setOldAndNewPos(sf::Vector2f(GetEntranceInDirection(direction))); // prevents us from getting stuck in the wall
+    player->setOldAndNewPos(sf::Vector2f(GetEntranceInDirection(direction))); // prevents us from getting stuck in the wall
 }
 
 void RoomInstance::Exit()

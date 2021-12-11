@@ -89,7 +89,7 @@ public:
      * @param    player
      * @param    direction  the direction we enter from
      */
-    void Enter(Player& player, Direction direction);
+    void Enter(playerSP player, Direction direction);
 
     /**
      * @brief Function called when exiting a room modifies cleared_ and visited_ booleans

@@ -6,7 +6,7 @@
 #include "Actors/player.hpp"
 class Gamebar {
 public:
-    Gamebar(Player* player);
+    Gamebar(playerSP player);
     Gamebar() {};
 
     void Render(sf::RenderTarget* target);
@@ -14,7 +14,7 @@ public:
     void Update();
 
 private:
-    Player* player_;
+    playerSP player_;
     sf::Font font_;
     sf::RectangleShape background_;
     sf::RectangleShape greenBar_;

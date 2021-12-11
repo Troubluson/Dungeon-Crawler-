@@ -29,7 +29,7 @@ private:
     sf::RenderWindow* window_;
     sf::Event event_;
     sf::Clock dtClock;
-    Player* player_;
+    playerSP player_;
     Map dungeonMap_;
     Gamebar gamebar_;
 

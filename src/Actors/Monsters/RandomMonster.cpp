@@ -3,11 +3,11 @@ namespace {
 const std::string projectileSprite = "content/sprites/monster1.png";
 }
 
-RandomMonster::RandomMonster(Player& player, sf::Vector2f pos)
+RandomMonster::RandomMonster(playerSP player, sf::Vector2f pos)
     : Monster(player, pos, projectileSprite)
 {
 }
-RandomMonster::RandomMonster(Player& player, float xPos, float yPos)
+RandomMonster::RandomMonster(playerSP player, float xPos, float yPos)
     : Monster(player, sf::Vector2f(xPos, yPos), projectileSprite)
 {
 }
@@ -43,5 +43,5 @@ std::list<Projectile*> RandomMonster::Attack()
 
     ResetAttackCooldown();
 
-    return shotProjectileList(player_.GetSpriteCenter());
+    return shotProjectileList(player_->GetSpriteCenter());
 }

@@ -1,7 +1,7 @@
 #include "MonsterSpawner.hpp"
 #include <time.h>
 
-Monster* MonsterSpawner::getRandomMonster(Player& target) const
+Monster* MonsterSpawner::getRandomMonster(playerSP target) const
 {
     int monsterType = rand() % monsterClassCount_;
     switch (monsterType) {
@@ -17,7 +17,7 @@ Monster* MonsterSpawner::getRandomMonster(Player& target) const
         return nullptr;
     }
 }
-Monster* MonsterSpawner::SpawnMonster(sf::Vector2u roomSize, Player& target) const
+Monster* MonsterSpawner::SpawnMonster(sf::Vector2u roomSize, playerSP target) const
 {
     Monster* m = getRandomMonster(target);
     if (m == nullptr) {

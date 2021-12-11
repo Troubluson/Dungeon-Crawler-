@@ -16,12 +16,12 @@ public:
     virtual bool Move(float dt) = 0;
     virtual void Render(sf::RenderTarget* target);
     void initVariables();
-    void SetTarget(Player& target);
+    void SetTarget(playerSP target);
 
 protected:
-    Monster(Player& player, sf::Vector2f pos, const std::string& spriteFile);
-    Monster(Player& player, float xPos, float yPos, const std::string& spriteFile);
-    Player& player_;
+    Monster(playerSP player, sf::Vector2f pos, const std::string& spriteFile);
+    Monster(playerSP player, float xPos, float yPos, const std::string& spriteFile);
+    std::shared_ptr<Player> player_;
     sf::RectangleShape healthbar_;
     float staticDamage = 5.0f;
     float getDistanceToPlayer();

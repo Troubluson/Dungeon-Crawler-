@@ -35,5 +35,6 @@ private:
     float dashCooldownLeft;
     void updateDashCooldown(float dt);
 };
+typedef std::shared_ptr<Player> playerSP;
 
 #endif

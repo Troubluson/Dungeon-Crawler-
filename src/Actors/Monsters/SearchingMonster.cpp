@@ -2,12 +2,12 @@
 namespace {
 const std::string projectileSprite = "content/sprites/monster2.png";
 }
-SearchingMonster::SearchingMonster(Player& player, sf::Vector2f pos)
+SearchingMonster::SearchingMonster(playerSP player, sf::Vector2f pos)
     : Monster(player, pos, projectileSprite)
 {
     name = "Sir chi";
 }
-SearchingMonster::SearchingMonster(Player& player, float xPos, float yPos)
+SearchingMonster::SearchingMonster(playerSP player, float xPos, float yPos)
     : Monster(player, sf::Vector2f(xPos, yPos), projectileSprite)
 {
 }
@@ -36,6 +36,6 @@ std::list<Projectile*> SearchingMonster::Attack()
 
     ResetAttackCooldown();
 
-    player_.TakeDamage(staticDamage);
+    player_->TakeDamage(staticDamage);
     return emptyList();
 }
