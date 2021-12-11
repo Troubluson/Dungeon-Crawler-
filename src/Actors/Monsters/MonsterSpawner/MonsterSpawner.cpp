@@ -3,14 +3,15 @@
 
 Monster* MonsterSpawner::getRandomMonster(Player& target) const
 {
-    int monsterAttackType = 0; //rand() % monsterAttackTypeCount_;
-    switch (monsterAttackType) {
+    int monsterType = randomhelper::RandomIntBetween(0, monsterTypeCount_ - 1);
+    switch (monsterType) {
     case 0: { //RandomMonster
         Monster* m = new RandomMonster(target, 0, 0);
         return m;
         break;
     }
     case 1: { //SlowMonster
+
         Monster* m = new SlowMonster(target, 1000, 700);
         return m;
         break;
@@ -35,7 +36,6 @@ Monster* MonsterSpawner::SpawnMonster(sf::Vector2u roomSize, Player& target) con
 {
     Monster* m = getRandomMonster(target);
     if (m == nullptr) {
-        std::cout << "nullptr";
         return nullptr;
     }
     int randomPosX, randomPosY;

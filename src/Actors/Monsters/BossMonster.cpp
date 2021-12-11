@@ -42,9 +42,6 @@ std::list<Projectile*> BossMonster::Attack()
         return emptyList();
     }
 
-    std::cout << "nofBulletsShot" << nofBulletsShot << std::endl;
-    std::cout << "attackStyle_" << attackStyle_ << std::endl;
-
     sf::Vector2f centerPos = GetSpriteCenter();
     if (attackStyle_ == 0) {
         ResetAttackCooldown();
