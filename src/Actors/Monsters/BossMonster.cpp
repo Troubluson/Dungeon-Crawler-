@@ -46,34 +46,34 @@ std::list<Projectile*> BossMonster::Attack()
     if (attackStyle_ == 0) {
         ResetAttackCooldown();
         std::list<Projectile*> listOfBulletsToAdd;
-        while (nofBulletsShot < nofBulletsInCircle) {
+        while (nofBulletsShot_ < nofBulletsInCircle_) {
             sf::Vector2f shootPos = sf::Vector2f(centerPos.x + 1 * sin(angle_), centerPos.y - 1 * cos(angle_));
             std::list<Projectile*> subListToAdd = shotProjectileList(shootPos);
             listOfBulletsToAdd.merge(subListToAdd);
             iterateAngle();
-            nofBulletsShot += 1;
+            nofBulletsShot_ += 1;
         }
         iterateAttackStyle();
         return listOfBulletsToAdd;
     } else if (attackStyle_ == 1) {
-        if (attackLoopClock.getElapsedTime().asSeconds() >= spritalAttackCooldownLength) {
-            attackLoopClock.restart();
+        if (attackLoopClock_.getElapsedTime().asSeconds() >= spritalAttackCooldownLength_) {
+            attackLoopClock_.restart();
 
             sf::Vector2f shootPos = sf::Vector2f(centerPos.x + 1 * sin(angle_), centerPos.y - 1 * cos(angle_));
-            nofBulletsShot += 1;
+            nofBulletsShot_ += 1;
             iterateAngle();
-            if (nofBulletsShot == nofBulletsInCircle) {
+            if (nofBulletsShot_ == nofBulletsInCircle_) {
                 iterateAttackStyle();
                 ResetAttackCooldown();
             }
             return shotProjectileList(shootPos);
         }
     } else if (attackStyle_ == 2) {
-        if (attackLoopClock.getElapsedTime().asSeconds() >= normalAttackCooldownLength) {
+        if (attackLoopClock_.getElapsedTime().asSeconds() >= normalAttackCooldownLength_) {
 
-            attackLoopClock.restart();
-            nofBulletsShot += 1;
-            if (nofBulletsShot == nofBulletsToShootTowardsPlayer) {
+            attackLoopClock_.restart();
+            nofBulletsShot_ += 1;
+            if (nofBulletsShot_ == nofBulletsToShootTowardsPlayer_) {
                 iterateAttackStyle();
                 ResetAttackCooldown();
             }
@@ -93,7 +93,7 @@ void BossMonster::initVariables()
 
 void BossMonster::iterateAngle()
 {
-    angle_ += 2 * M_PI / nofBulletsInCircle;
+    angle_ += 2 * M_PI / nofBulletsInCircle_;
     if (angle_ == 2 * M_PI) {
         angle_ = 0.0f;
     }
@@ -101,7 +101,7 @@ void BossMonster::iterateAngle()
 
 void BossMonster::iterateAttackStyle()
 {
-    nofBulletsShot = 0;
+    nofBulletsShot_ = 0;
     attackStyle_ += 1;
     if (attackStyle_ == nofattackStyles_) {
         attackStyle_ = 0;

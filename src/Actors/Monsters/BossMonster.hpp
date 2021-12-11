@@ -26,16 +26,13 @@ private:
     int nofattackStyles_ = 3;
 
     float angle_ = 0;
-    int nofBulletsInCircle = 10;
-    int nofBulletsToShootTowardsPlayer = 5;
-    int nofBulletsShot = 0;
+    int nofBulletsInCircle_ = 10;
+    int nofBulletsToShootTowardsPlayer_ = 5;
+    int nofBulletsShot_ = 0;
 
-    sf::Clock attackLoopClock;
-    float spritalAttackCooldownLength = 0.1f;
-    float normalAttackCooldownLength = 0.5f;
-
-    std::vector<Projectile*> fullAttackVector;
-    std::vector<Projectile*> toShootVector;
+    sf::Clock attackLoopClock_;
+    float spritalAttackCooldownLength_ = 0.1f;
+    float normalAttackCooldownLength_ = 0.5f;
 
     float durationUntilTurn_ = 0.5f;
     float elapsedTurnTime_ = 0.0f;
