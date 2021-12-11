@@ -18,14 +18,12 @@ void BossRoom::setTiles(sf::Vector2u window_size)
         for (int j = 0; j < xTileCount; ++j) {
             if (i == 0) {
                 if (j == 0) {
-                    row.push_back(new WallTile("content/sprites/walls/topwallleft.png", k, n));
+                    row.push_back(new WallTile("content/sprites/walls/topwallLEFTSIDE.png", k, n));
                 } else if (j == xTileCount - 1) {
-                    row.push_back(new WallTile("content/sprites/walls/topwallbottomleft.png", k, n));
+                    row.push_back(new WallTile("content/sprites/walls/topwallRIGHTSIDE.png", k, n));
                 } else {
-                    row.push_back(new WallTile("content/sprites/walls/toppartofwall1.png", k, n));
+                    row.push_back(new WallTile("content/sprites/walls/wallfront1.png", k, n));
                 }
-            } else if (i == 1 && j != 0 && j != xTileCount - 1) {
-                row.push_back(new FrontWallTile("content/sprites/walls/wallfront1.png", k, n));
             } else if (i == yTileCount - 1) {
                 if (j == 0) {
                     row.push_back(new WallTile("content/sprites/walls/topwallright.png", k, n));
@@ -38,6 +36,12 @@ void BossRoom::setTiles(sf::Vector2u window_size)
                 row.push_back(new WallTile("content/sprites/walls/topwallLEFTSIDE.png", k, n));
             } else if (i != 0 && j == xTileCount - 1) {
                 row.push_back(new WallTile("content/sprites/walls/topwallRIGHTSIDE.png", k, n));
+
+            } else if ((i == xTileCount / 3 && j == yTileCount / 2 - 1) || (i == xTileCount / 3 && j == yTileCount + 1) || (i == xTileCount / 3 && j == yTileCount / 2) || (i == xTileCount / 3 && j == yTileCount + 2)) {
+                row.push_back(new WallTile("content/sprites/walls/wallfront1.png", k, n));
+
+            } else if ((i == xTileCount / 3 - 1 && j == yTileCount / 2 - 1) || (i == xTileCount / 3 - 1 && j == yTileCount + 2) || (i == xTileCount / 3 - 1 && j == yTileCount / 2) || (i == xTileCount / 3 - 1 && j == yTileCount + 1)) {
+                row.push_back(new WallTile("content/sprites/walls/wallfront1.png", k, n));
 
             } else {
                 row.push_back(new FloorTile("content/sprites/floors/tile1.png", k, n));

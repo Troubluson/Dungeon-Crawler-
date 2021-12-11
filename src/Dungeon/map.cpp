@@ -24,7 +24,7 @@ void Map::RenderCurrentRoom(sf::RenderTarget* window)
 
 bool Map::CreateDungeon(int noRooms)
 {
-    RoomInstance* rootRoom = new StartingRoom(roomSize_, currentPos_);
+    RoomInstance* rootRoom = new BossRoom(roomSize_, currentPos_);
     dungeon_[getKey()] = rootRoom;
     auto i = 1;
     int dirCount = static_cast<int>(Direction::Count);
