@@ -67,7 +67,7 @@ protected:
     Projectile::Type characterProjectileType_;
     int hitpoints_;
     int currentMaxHitpoints_;
-    int normalMaxHitpoints_;
+    int defaultMaxHitpoints_;
     bool alive_;
     bool hasAnimation_;
     AnimationHandler animationHandler_;
