@@ -56,4 +56,7 @@ private:
     void initVariables();
     bool move(float dt, float x, float y);
 };
+
+typedef std::unique_ptr<Projectile> ProjectileUP;
+
 #endif

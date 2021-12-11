@@ -28,12 +28,11 @@ bool SearchingMonster::Move(float dt)
     return true;
 }
 
-std::list<Projectile*> SearchingMonster::Attack()
+std::list<ProjectileUP> SearchingMonster::Attack()
 {
     if (!CanAttack || getDistanceToPlayer() > 5.0f) {
         return emptyList();
     }
-
     ResetAttackCooldown();
 
     player_->TakeDamage(staticDamage);

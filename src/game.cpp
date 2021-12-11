@@ -38,8 +38,7 @@ void Game::UpdateGame()
             monster->RevertMove();
         }
 
-        std::list<Projectile*> projectileListToAdd = monster->Attack();
-        addProjectiles(projectileListToAdd);
+        addProjectiles(monster->Attack());
 
         monster->Update(dt);
     }
@@ -59,7 +58,7 @@ void Game::RenderGame()
     dungeonMap_.RenderCurrentRoom(window_);
     player_->Render(window_);
     gamebar_.Render(window_);
-    for (auto projectile : projectiles_) {
+    for (auto& projectile : projectiles_) {
         projectile->Render(window_);
     }
     for (auto& monster : dungeonMap_.GetCurrentRoom()->GetMonsters()) {
@@ -147,8 +146,7 @@ void Game::manageInput()
 
     if (LMOUSE) {
         sf::Vector2f mousePos = window_->mapPixelToCoords(sf::Mouse::getPosition(*window_));
-        std::list<Projectile*> projectileListToAdd = player_->Attack(mousePos);
-        addProjectiles(projectileListToAdd);
+        addProjectiles(player_->Attack(mousePos));
     }
     if (triedMoving) {
         // std::cout << player_->GetPos().x << " " << player_->GetPos().y << std::endl;
@@ -163,7 +161,7 @@ void Game::manageInput()
 
 void Game::checkCollisions(Character* character, Projectile::Type projectileType)
 {
-    for (auto projectile : projectiles_) {
+    for (auto& projectile : projectiles_) {
         if (projectile->GetType() == projectileType && !projectile->hasHit(character)) {
             if (Collision::PixelPerfectTest(projectile->GetSprite(), character->GetSprite())) {
                 projectile->hit(character);
@@ -204,34 +202,21 @@ void Game::checkPlayerCollisions()
 
 void Game::checkAndHandleProjectileWallCollisions()
 {
-    for (auto projectile : projectiles_) {
-        if (collidesWithWall(projectile)) {
+    for (auto& projectile : projectiles_) {
+        if (collidesWithWall(projectile.get())) {
             projectile->Kill();
         }
     }
 }
-// redundant atm
-void Game::deleteProjectile(Projectile* p)
-{
-    if (projectiles_.empty())
-        return;
 
-    for (auto it = projectiles_.begin(); it != projectiles_.end(); ++it) {
-        if (*it == p) {
-            projectiles_.erase(it);
-            return;
-        }
-    }
-}
-
-void Game::addProjectiles(std::list<Projectile*> projectiles)
+void Game::addProjectiles(std::list<ProjectileUP> projectiles)
 {
     if (projectiles.empty()) {
         return;
     }
 
-    for (auto projectile : projectiles) {
-        projectiles_.push_back(projectile);
+    for (auto& projectile : projectiles) {
+        projectiles_.push_back(std::move(projectile));
     }
 }
 
@@ -241,7 +226,7 @@ void Game::updateProjectiles()
         return;
 
     for (auto it = projectiles_.begin(); it != projectiles_.end(); ++it) {
-        auto p = *it;
+        auto& p = *it;
         if (!p->IsAlive()) {
             it = projectiles_.erase(it);
         } else {

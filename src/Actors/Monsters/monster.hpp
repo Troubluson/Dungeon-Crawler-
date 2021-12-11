@@ -11,7 +11,7 @@ public:
     ~Monster();
 
     Player& GetPlayer() const;
-    virtual std::list<Projectile*> Attack() = 0;
+    virtual std::list<ProjectileUP> Attack() = 0;
     virtual void Update(float);
     virtual bool Move(float dt) = 0;
     virtual void Render(sf::RenderTarget* target);

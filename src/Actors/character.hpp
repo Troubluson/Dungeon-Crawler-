@@ -73,7 +73,7 @@ protected:
     float attackCooldownLength;
     float attackCooldownLeft;
     void updateAttackCooldown(float dt);
-    std::list<Projectile*> emptyList();
-    std::list<Projectile*> shotProjectileList(sf::Vector2f aimPos);
+    std::list<ProjectileUP> emptyList();
+    std::list<ProjectileUP> shotProjectileList(sf::Vector2f aimPos);
 };
 #endif

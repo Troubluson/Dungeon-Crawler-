@@ -13,7 +13,7 @@ public:
     SearchingMonster(PlayerPS player, sf::Vector2f pos);
     ~SearchingMonster();
 
-    virtual std::list<Projectile*> Attack();
+    virtual std::list<ProjectileUP> Attack();
     virtual bool Move(float dt);
 
 private:

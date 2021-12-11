@@ -37,7 +37,7 @@ private:
     bool paused = false;
     bool gameEnder_;
 
-    std::list<Projectile*> projectiles_;
+    std::list<ProjectileUP> projectiles_;
     // CollisionSystem collisionSys;
 
     void initVariables();
@@ -49,7 +49,7 @@ private:
     void checkPlayerCollisions();
     void checkAndHandleProjectileWallCollisions();
     void deleteProjectile(Projectile* p);
-    void addProjectiles(std::list<Projectile*> listToAdd);
+    void addProjectiles(std::list<ProjectileUP> listToAdd);
     void updateProjectiles();
     bool collidesWithWall(Character* character);
     bool collidesWithWall(Projectile* object);

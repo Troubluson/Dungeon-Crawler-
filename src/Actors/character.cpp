@@ -116,22 +116,21 @@ bool Character::HasWeapon()
     return weapon_ != nullptr;
 }
 
-std::list<Projectile*> Character::emptyList()
+std::list<ProjectileUP> Character::emptyList()
 {
-    std::list<Projectile*> emptyList;
+    std::list<ProjectileUP> emptyList;
     return emptyList;
 }
-std::list<Projectile*> Character::shotProjectileList(sf::Vector2f aimPos)
+std::list<ProjectileUP> Character::shotProjectileList(sf::Vector2f aimPos)
 {
-    std::list<Projectile*> projectileList;
+    std::list<ProjectileUP> projectileList;
     auto spriteCenter = GetSpriteCenter();
     auto direction = aimPos - spriteCenter;
 
-    Projectile* newProjectile = weapon_->Use(direction, spriteCenter);
-    projectileList.push_back(newProjectile);
+    projectileList.push_back(weapon_->Use(direction, spriteCenter));
 
-    for (auto it : projectileList) {
-        it->SetType(characterProjectileType);
+    for (auto& p : projectileList) {
+        p->SetType(characterProjectileType);
     }
 
     return projectileList;
