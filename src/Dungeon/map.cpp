@@ -21,57 +21,6 @@ void Map::RenderCurrentRoom(sf::RenderTarget* window)
 
     GetCurrentRoom()->Render(window);
 }
-/*
-bool Map::CreateDungeon(int noRooms)
-{
-    RoomInstance* rootRoom = new StartingRoom(roomSize_, currentPos_);
-    dungeon_[getKey()] = rootRoom;
-    int i = 0;
-    int dirCount = static_cast<int>(Direction::Count);
-
-    while (i < noRooms) {
-        int dirIdx = randomhelper::RandomIntBetween(0, dirCount);
-        Direction dir = Direction(dirIdx); // get random dir
-        // move map to new room
-        Move(dir);
-        // should we create a new room, we try to not make it too snake-like
-        int treshold = noRooms / 3;
-        if (abs(rootRoom->GetChoords().x) <= treshold && abs(rootRoom->GetChoords().y) <= treshold) {
-            if (GetRoomAt(currentPos_) == nullptr) {
-                retryCount = 0;
-                auto newRoom = new RoomInstance(roomSize_, currentPos_);
-                dungeon_[getKey(currentPos_)] = newRoom;
-
-                // check which rooms to "connect"
-                for (auto j = 0; j < dirCount; ++j) {
-                    auto roomInDir = GetRoomAt(rootRoom->GetChoords() + DirToVec(Direction(j)));
-                    if (roomInDir != nullptr) {
-                        rootRoom->CreateExit(Direction(j));
-                        roomInDir->CreateExit(direction::GetOppositeDir(Direction(j)));
-                    }
-                }
-                rootRoom = newRoom;
-                ++i;
-
-            } else {
-                rootRoom = GetRoomAt(currentPos_); // move to the room that we already have connected to
-            }
-        } else { // we go to a random tile
-            auto it = dungeon_.begin();
-            std::advance(it, rand() % dungeon_.size());
-            auto random_key = it->first;
-            currentPos_ = sf::Vector2i(random_key.first, random_key.second);
-            retryCount += 1;
-            std::cout << "RetryCount = " << retryCount << std::endl;
-            if (retryCount == 4) {
-                currentPos_ = { 0, 0 };
-                return false;
-            }
-        }
-    }
-    currentPos_ = { 0, 0 }; // reset position to spawnroom
-    return true;
-} */
 
 bool Map::CreateDungeon(int noRooms)
 {
