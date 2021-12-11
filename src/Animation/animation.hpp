@@ -17,7 +17,17 @@ public:
      */
     Animation(int x, int y, int width, int height, int spacing, const std::string& textureName);
     ~Animation() { }
+    /**
+     * @brief sets the right texture to sprite
+     *
+     * @param    sprite               sprite which the texuture is added to
+     */
     void AnimationToSprite(sf::Sprite& sprite) const;
+    /**
+     * @brief updates the sprite based on time passed
+     *
+     * @param    dt                   time parameter
+     */
     void Update(float dt);
 
 private:
@@ -27,6 +37,10 @@ private:
     sf::IntRect frames_[nFrames_];
     int iFrame_ = 0;
     float time_ = 0.0f;
+    /**
+     * @brief function goes to the next frame in the animation loop
+     *
+     */
     void NextFrame();
 };
 
