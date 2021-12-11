@@ -59,6 +59,8 @@ public:
 
     RoomInstance* GetSpawnRoom();
 
+    void ResetMap();
+
 private:
     void Move(Direction dir);
 

@@ -132,3 +132,8 @@ void Map::addStartingRoomToDungeon(sf::Vector2u roomSize, sf::Vector2i choords)
     std::cout << existingRoomCords_.size() << std::endl;
     dungeon_[getKey(choords)] = rootRoom;
 }
+
+void Map::ResetMap()
+{
+    currentPos_ = { 0, 0 };
+}

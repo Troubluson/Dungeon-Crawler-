@@ -29,6 +29,9 @@ void Game::UpdateGame()
 {
     Events();
     managePauseInput();
+    if (gameLost()) {
+        restartGame();
+    }
     if (!paused) {
         updateDt();
         manageInput();
@@ -315,5 +318,12 @@ bool Game::ShouldChangeRoom()
 
 bool Game::gameLost()
 {
-    return player_->IsAlive();
+    return !player_->IsAlive();
+}
+
+void Game::restartGame()
+{
+    dungeonMap_.ResetMap();
+    projectiles_.clear();
+    player_->ResetCharacterToBeAlive();
 }

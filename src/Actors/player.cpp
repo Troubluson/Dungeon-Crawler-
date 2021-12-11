@@ -44,7 +44,6 @@ void Player::Dash()
 
 void Player::initVariables()
 {
-
     dashCooldownLength_ = 1.0f;
     dashCooldownLeft_ = 0.0f;
     CanDash = true;

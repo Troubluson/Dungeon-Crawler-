@@ -85,11 +85,6 @@ private:
      */
     void checkCollisions(Character* character, Projectile::Type projectileType);
     /**
-     * @brief reset game after death, keeps the same player, new map
-     *
-     */
-    void resetGame();
-    /**
      * @brief checks if projectiles hit monsters, removes the monster if they die
      *
      */
@@ -162,6 +157,11 @@ private:
      * @return false if still going
      */
     bool gameLost();
+    /**
+     * @brief reset game after death, keeps the same player, new map
+     *
+     */
+    void restartGame();
 };
 
 #endif

@@ -53,6 +53,7 @@ public:
     bool CanAttack;
 
     void SetNormalSpeed(float value);
+    void ResetCharacterToBeAlive();
     /*
     // for ICollidable
     virtual sf::FloatRect GetBoundingBox() { return sprite_.getGlobalBounds(); }
@@ -65,10 +66,13 @@ protected:
 
     Weapon* weapon_;
     Projectile::Type characterProjectileType_;
+
+    sf::Vector2f startPos;
+
     int hitpoints_;
     int currentMaxHitpoints_;
     int defaultMaxHitpoints_;
-    bool alive_;
+
     bool hasAnimation_;
     AnimationHandler animationHandler_;
     float currentSpeed_;

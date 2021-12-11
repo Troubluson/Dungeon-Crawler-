@@ -10,6 +10,7 @@ Character::Character(const std::string& filename, sf::Vector2f pos, bool animate
     : Entity(filename, pos, sf::Vector2f(C_SCALE, C_SCALE))
     , hasAnimation_(animated)
 {
+    startPos = pos;
     initVariables();
 
     if (hasAnimation_) {
@@ -23,7 +24,6 @@ Character::~Character() { }
 void Character::initVariables()
 {
     weapon_ = nullptr;
-    alive_ = true;
 
     attackCooldownLength_ = 1.66f;
     attackCooldownLeft = 0.0f;
@@ -99,7 +99,7 @@ void Character::Equip(Weapon* weapon)
     attackCooldownLength_ = weapon->GetAttackCooldown();
 }
 
-bool Character::IsAlive() { return alive_; }
+bool Character::IsAlive() { return (hitpoints_ > 0); }
 
 bool Character::Idle()
 {
@@ -151,9 +151,6 @@ void Character::generalUpdate(float dt)
     currentMaxHitpoints_ = defaultMaxHitpoints_ * LevelUpSystem::GetHPModifier(this);
     oldPos_ = pos_;
     sprite_.setPosition(pos_);
-    if (hitpoints_ <= 0) {
-        alive_ = false;
-    }
     updateAttackCooldown(dt);
 }
 
@@ -161,6 +158,12 @@ void Character::SetNormalSpeed(float value)
 {
     defaultSpeed_ = value;
     currentSpeed_ = defaultSpeed_;
+}
+
+void Character::ResetCharacterToBeAlive()
+{
+    hitpoints_ = currentMaxHitpoints_;
+    SetPosAndOldPos({ 200, 200 });
 }
 
 /*
