@@ -38,30 +38,40 @@ bool BossMonster::Move(float dt)
 
 std::list<Projectile*> BossMonster::Attack()
 {
-    if (!CanAttack || !HasWeapon() || !inRangeOfPlayer()) {
+    if (!CanAttack || !HasWeapon()) {
         return emptyList();
     }
 
     ResetAttackCooldown();
-    if (attackStyle == 0) {
-        std::list<Projectile*> listOfBulletsToAdd;
-        int i = 0;
-        int nofBullets = 10;
-        sf::Vector2f centerPos = player_.GetSpriteCenter();
-        float angle = 0;
-        while (i < nofBullets) {
-            sf::Vector2f shootPos = sf::Vector2f(centerPos.x + 1000 * sin(angle), centerPos.y - 1000 * cos(angle));
-            std::list<Projectile*> subListToAdd = shotProjectileList(shootPos);
-            listOfBulletsToAdd.merge(subListToAdd);
-            angle += 2 * M_PI / nofBullets;
-            i += 1;
-        }
-        return listOfBulletsToAdd;
-    }
-    return emptyList();
+
+    std::list<Projectile*> listOfBulletsToAdd;
+
+    sf::Vector2f centerPos = player_.GetSpriteCenter();
+    float angle = angle_;
+    sf::Vector2f shootPos = sf::Vector2f(centerPos.x + 1000 * sin(angle), centerPos.y - 1000 * cos(angle));
+    std::list<Projectile*> subListToAdd = shotProjectileList(shootPos);
+    listOfBulletsToAdd.merge(subListToAdd);
+    angle_ += 2 * M_PI / nofBullets;
+    return listOfBulletsToAdd;
 }
 
 void BossMonster::initVariables()
 {
     SetNormalSpeed(200.0f);
 }
+
+/*
+
+int i = 0;
+int nofBullets = 10;
+sf::Vector2f centerPos = player_.GetSpriteCenter();
+float angle = 0;
+while (i < nofBullets) {
+    sf::Vector2f shootPos = sf::Vector2f(centerPos.x + 1000 * sin(angle), centerPos.y - 1000 * cos(angle));
+    std::list<Projectile*> subListToAdd = shotProjectileList(shootPos);
+    listOfBulletsToAdd.merge(subListToAdd);
+    angle += 2 * M_PI / nofBullets;
+    i += 1;
+}
+
+ */
