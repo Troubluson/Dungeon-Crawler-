@@ -72,7 +72,7 @@ protected:
     bool hasAnimation_;
     AnimationHandler animationHandler_;
     float currentSpeed_;
-    float normalSpeed_;
+    float defaultSpeed_;
 
     void generalUpdate(float dt);
 

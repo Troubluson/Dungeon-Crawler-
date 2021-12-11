@@ -51,6 +51,7 @@ private:
 
     float dt_;
     bool paused = false;
+    bool escapePressedLastTick = paused;
     bool gameEnder_;
 
     std::list<Projectile*> projectiles_;
@@ -75,6 +76,7 @@ private:
      *
      */
     void manageInput();
+    void managePauseInput();
     /**
      * @brief Checks if projectile collides with a character, if hit runs the function for damaging the character
      *
@@ -125,6 +127,11 @@ private:
      *
      */
     void updateProjectiles();
+    /**
+     * @brief Updates all monsters in the game
+     *
+     */
+    void updateMonsters();
     /**
      * @brief check if character collides with wall
      *
