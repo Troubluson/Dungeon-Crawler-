@@ -11,19 +11,8 @@ Game::Game()
     , dungeonMap_(Map(VIDEOMODE_DIMS, 10, *player_))
     , gamebar_(Gamebar(player_))
 {
-    SwordWeapon* sword = new SwordWeapon(20, 100, 120, 1000, sf::Vector2f(50, 100), "content/sprites/projectiles.png");
-    /* Monster* mRandom = new RandomMonster(player_, 300, 300); // placeholder
-    Monster* mSearching = new SearchingMonster(player_, 200, 200);
-    Monster* mSniping = new SnipingMonster(player_, 1000, 700);
-    Monster* mSlow = new SlowMonster(player_, 1000, 700);
-    Monster* mWall = new WallPatrolMonster(player_, 1000, 700);
-
-    SwordWeapon* monterSword = new SwordWeapon(5, 100, sf::Vector2f(50, 100), 120, 1000, "content/sprites/projectiles.png");
-    BowWeapon* snipingBow = new BowWeapon(5, 10000, sf::Vector2f(50, 100), 30, 1000, "content/sprites/projectiles.png");
-    BowWeapon* slowBow = new BowWeapon(5, 400, sf::Vector2f(50, 100), 200, 200, "content/sprites/projectiles.png");
-    SwordWeapon* sword = new SwordWeapon(20, 10, sf::Vector2f(50, 100), 120, "content/sprites/projectiles.png");
-    player_->Equip(sword); */
-    player_->Equip(sword);
+    SwordWeapon* playerSword = new SwordWeapon(20, 100, 120, 1000, sf::Vector2f(50, 100), "content/sprites/projectiles.png");
+    player_->Equip(playerSword);
     initVariables();
     initWindow();
     dtClock_.restart(); // to not have giant first dt
@@ -163,7 +152,7 @@ void Game::manageInput()
         if (collidesWithWall(player_)) {
             player_->RevertMove();
         }
-        if (shouldChangeRoom()) {
+        if (ShouldChangeRoom()) {
             projectiles_.clear();
             dtClock_.restart(); // generating monsters makes dt quite big
         }
@@ -281,7 +270,7 @@ bool Game::collidesWithWall(Projectile* object)
     return !dungeonMap_.GetCurrentRoom()->positionIsPenetratable(object->GetSpriteBounds());
 }
 
-bool Game::shouldChangeRoom()
+bool Game::ShouldChangeRoom()
 {
     if (videomode_.width < player_->GetPos().x) {
         dungeonMap_.MovePlayer(Direction::Right);

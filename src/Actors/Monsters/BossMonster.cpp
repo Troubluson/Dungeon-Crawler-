@@ -89,6 +89,8 @@ std::list<Projectile*> BossMonster::Attack()
 
 void BossMonster::initVariables()
 {
+    SwordWeapon* bossSword = new SwordWeapon(10, 1000, 30, 200, sf::Vector2f(50, 100), "content/sprites/projectiles.png");
+    Equip(bossSword);
     SetNormalSpeed(200.0f);
 }
 

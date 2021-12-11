@@ -40,5 +40,7 @@ std::list<Projectile*> SlowMonster::Attack()
 
 void SlowMonster::initVariables()
 {
+    BowWeapon* slowBow = new BowWeapon(5, 400, 200, 200, sf::Vector2f(50, 100), "content/sprites/projectiles.png");
+    Equip(slowBow);
     SetNormalSpeed(200.0f);
 }

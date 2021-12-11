@@ -33,5 +33,7 @@ std::list<Projectile*> SnipingMonster::Attack()
 
 void SnipingMonster::initVariables()
 {
+    BowWeapon* snipingBow = new BowWeapon(5, 10000, 30, 1000, sf::Vector2f(50, 100), "content/sprites/projectiles.png");
+    Equip(snipingBow);
     SetNormalSpeed(200.0f);
 }

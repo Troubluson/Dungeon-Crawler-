@@ -216,7 +216,7 @@ sf::Vector2u RoomInstance::GetEntranceInDirection(Direction direction)
 void RoomInstance::Enter(Player& player, Direction direction)
 {
     if (!cleared_) {
-        spawner_.SetMonsterAmount(1); // set according to player lvl somehow
+        spawner_.SetMonsterAmount(5); // set according to player lvl somehow
         while (monsters_.size() < spawner_.GetMonsterAmount()) {
             Monster* monster;
             do {

@@ -48,5 +48,7 @@ std::list<Projectile*> RandomMonster::Attack()
 
 void RandomMonster::initVariables()
 {
+    SwordWeapon* monsterSword = new SwordWeapon(5, 100, 120, 1000, sf::Vector2f(50, 100), "content/sprites/projectiles.png");
+    Equip(monsterSword);
     SetNormalSpeed(200.0f);
 }
