@@ -13,6 +13,7 @@ Game::Game()
 {
     SwordWeapon* playerSword = new SwordWeapon(20, 100, 120, 1000, sf::Vector2f(50, 100), "content/sprites/projectiles.png");
     player_->Equip(playerSword);
+    LevelUpSystem::AddCharacter(player_);
     initVariables();
     initWindow();
     dtClock_.restart(); // to not have giant first dt
@@ -187,6 +188,7 @@ void Game::checkMonsterCollisions()
         }
     }
     for (auto monster : deadMonsters) {
+        LevelUpSystem::GainXP(player_, 5.0f);
         deleteMonster(monster);
     }
 }

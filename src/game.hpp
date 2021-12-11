@@ -10,6 +10,7 @@
 #include "Combat/Weapons/BowWeapon.hpp"
 #include "Combat/Weapons/SwordWeapon.hpp"
 #include "Dungeon/map.hpp"
+#include "Utility/LevelUpSystem.hpp"
 #include "gamebar.hpp"
 
 class Game {
