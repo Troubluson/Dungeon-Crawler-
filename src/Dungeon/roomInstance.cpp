@@ -27,6 +27,10 @@ RoomInstance::RoomInstance(sf::Vector2u window_size, sf::Vector2i choords)
     , choords_(choords)
     , spawner_(0)
 {
+    directionsLeft.push_back(Direction::Up);
+    directionsLeft.push_back(Direction::Down);
+    directionsLeft.push_back(Direction::Left);
+    directionsLeft.push_back(Direction::Right);
     setTiles();
 }
 
@@ -240,4 +244,33 @@ void RoomInstance::Exit()
 std::vector<Monster*>& RoomInstance::GetMonsters()
 {
     return monsters_;
+}
+
+Direction RoomInstance::UseDirection()
+{
+    int id = randomhelper::RandomIntBetween(0, directionsLeft.size() - 1);
+    Direction ans = directionsLeft[id];
+    directionsLeft.erase(directionsLeft.begin() + id);
+    return ans;
+}
+
+void RoomInstance::RemoveDirection(Direction dir)
+{
+    int idToRemove = -1;
+    int i = 0;
+    for (auto direction : directionsLeft) {
+        if (direction == dir) {
+            idToRemove = i;
+        }
+        i += 1;
+    }
+
+    if (idToRemove != -1) {
+        directionsLeft.erase(directionsLeft.begin() + idToRemove);
+    }
+}
+
+bool RoomInstance::HasDirectionsLeft()
+{
+    return !directionsLeft.empty();
 }

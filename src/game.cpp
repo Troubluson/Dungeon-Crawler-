@@ -29,28 +29,19 @@ Game::~Game()
 void Game::UpdateGame()
 {
     Events();
+    managePauseInput();
+    if (!paused) {
+        updateDt();
+        manageInput();
 
-    updateDt();
-    manageInput();
-
-    for (auto monster : dungeonMap_.GetCurrentRoom()->GetMonsters()) {
-        // if moved, check collision with walls
-        bool monsterMoved = monster->Move(dt_);
-        if (monsterMoved && collidesWithWall(monster)) {
-            monster->RevertMove();
-        }
-
-        std::list<Projectile*> projectileListToAdd = monster->Attack();
-        addProjectiles(projectileListToAdd);
-
-        monster->Update(dt_);
+        updateMonsters();
+        updateProjectiles();
+        checkMonsterCollisions();
+        checkPlayerCollisions();
+        checkAndHandleProjectileWallCollisions();
+        player_->Update(dt_);
+        gamebar_.Update();
     }
-    updateProjectiles();
-    checkMonsterCollisions();
-    checkPlayerCollisions();
-    checkAndHandleProjectileWallCollisions();
-    player_->Update(dt_);
-    gamebar_.Update();
 }
 // render game frames
 void Game::RenderGame()
@@ -161,6 +152,21 @@ void Game::manageInput()
     }
 }
 
+void Game::managePauseInput()
+{
+    bool ESCAPE = sf::Keyboard::isKeyPressed(sf::Keyboard::Escape);
+
+    if (ESCAPE) {
+        if (escapePressedLastTick != ESCAPE) {
+            paused = !paused;
+            if (!paused) {
+                dtClock_.restart();
+            }
+        }
+    }
+    escapePressedLastTick = ESCAPE;
+}
+
 void Game::checkCollisions(Character* character, Projectile::Type projectileType)
 {
     for (auto projectile : projectiles_) {
@@ -264,6 +270,23 @@ void Game::updateProjectiles()
         }
     }
 }
+
+void Game::updateMonsters()
+{
+    for (auto monster : dungeonMap_.GetCurrentRoom()->GetMonsters()) {
+        // if moved, check collision with walls
+        bool monsterMoved = monster->Move(dt_);
+        if (monsterMoved && collidesWithWall(monster)) {
+            monster->RevertMove();
+        }
+
+        std::list<Projectile*> projectileListToAdd = monster->Attack();
+        addProjectiles(projectileListToAdd);
+
+        monster->Update(dt_);
+    }
+}
+
 bool Game::collidesWithWall(Character* character)
 {
     return !dungeonMap_.GetCurrentRoom()->positionIsWalkable(character->GetBaseBoxAt(character->GetPos()));

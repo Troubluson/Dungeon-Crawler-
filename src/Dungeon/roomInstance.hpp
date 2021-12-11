@@ -97,8 +97,11 @@ public:
      */
     void Exit();
 
-
     std::vector<Monster*>& GetMonsters();
+
+    Direction UseDirection();
+    void RemoveDirection(Direction dir);
+    bool HasDirectionsLeft();
 
 protected:
     /**
@@ -115,6 +118,8 @@ protected:
     MonsterSpawner spawner_;
     bool cleared_; // whether the room is cleared
     bool visited_; // whether the room has been visited already
+
+    vector<Direction> directionsLeft;
 };
 
 #endif
