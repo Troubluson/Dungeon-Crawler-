@@ -7,6 +7,7 @@
 //#include "Interfaces/ICollidable.hpp"
 #include "Animation/Animationhandler.hpp"
 #include "Combat/Weapons/Weapon.hpp"
+#include "Utility/LevelUpSystem.hpp"
 #include "Utility/RandomHelper.hpp"
 #include "entity.hpp"
 
@@ -65,6 +66,8 @@ protected:
     Weapon* weapon_;
     Projectile::Type characterProjectileType_;
     int hitpoints_;
+    int currentMaxHitpoints_;
+    int normalMaxHitpoints_;
     bool alive_;
     bool hasAnimation_;
     AnimationHandler animationHandler_;
