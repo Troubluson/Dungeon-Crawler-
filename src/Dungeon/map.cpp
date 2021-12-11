@@ -8,8 +8,7 @@ Map::Map(sf::Vector2u size, int noRooms, Player& player)
     , spawnChoords_(currentPos_)
 {
     srand(time(NULL));
-    while (!CreateDungeon(noRooms))
-        ; // dungeon creation can fail
+    while (!CreateDungeon(noRooms)); // dungeon creation can fail
     std::map<std::pair<int, int>, RoomInstance*>::iterator it;
     for (it = dungeon_.begin(); it != dungeon_.end(); it++) {
         it->second->renderSpriteBackground();

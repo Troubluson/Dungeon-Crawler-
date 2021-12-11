@@ -12,6 +12,7 @@ Game::Game()
     , gamebar_(Gamebar(player_))
 {
     SwordWeapon* playerSword = new SwordWeapon(20, 100, 120, 1000, sf::Vector2f(50, 100), "content/sprites/projectiles.png");
+    playerSword->SetTextureRect({ 358, 302, 10, 30 });
     player_->Equip(playerSword);
     LevelUpSystem::AddCharacter(player_);
     initVariables();

@@ -18,6 +18,7 @@ public:
     void AddPowerUp(PowerUp* up);
     float GetAttackCooldown() { return cooldown_; };
     float GetRange() { return range_; };
+    void SetTextureRect(sf::IntRect rect);
 
 protected:
     int damage_;

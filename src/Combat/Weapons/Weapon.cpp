@@ -6,7 +6,7 @@ Weapon::Weapon(int damage, int range, int rateOfFire, float projectileSpeed, Vec
     , range_(range)
     , projectileSpeed_(projectileSpeed)
     , projectileSize_(projectileSize)
-    , speed_(speed)
+    , speed_(projectileSpeed)
     , powerUps_(vector<PowerUp*>())
 {
     spritehelper::CreateSpriteFrom(spriteLocation, projectileSize, sprite_, texture_);
@@ -23,3 +23,8 @@ void Weapon::AddPowerUp(PowerUp* up)
 }
 
 int Weapon::getPowerUpCount() { return powerUps_.size(); }
+
+void Weapon::SetTextureRect(sf::IntRect rect)
+{
+    sprite_.setTextureRect(rect);
+}
