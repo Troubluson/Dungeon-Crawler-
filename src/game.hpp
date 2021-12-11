@@ -29,7 +29,7 @@ private:
     sf::RenderWindow* window_;
     sf::Event event_;
     sf::Clock dtClock;
-    playerSP player_;
+    PlayerPS player_;
     Map dungeonMap_;
     Gamebar gamebar_;
 
@@ -50,7 +50,6 @@ private:
     void checkAndHandleProjectileWallCollisions();
     void deleteProjectile(Projectile* p);
     void addProjectiles(std::list<Projectile*> listToAdd);
-    void deleteMonster(Character* m);
     void updateProjectiles();
     bool collidesWithWall(Character* character);
     bool collidesWithWall(Projectile* object);

@@ -9,6 +9,9 @@ Player::Player()
 {
     initVariables();
 }
+Player::~Player()
+{
+}
 
 int Player::GetHitPoints() const { return hitpoints_; }
 

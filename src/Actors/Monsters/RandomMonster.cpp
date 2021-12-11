@@ -3,11 +3,11 @@ namespace {
 const std::string projectileSprite = "content/sprites/monster1.png";
 }
 
-RandomMonster::RandomMonster(playerSP player, sf::Vector2f pos)
+RandomMonster::RandomMonster(PlayerPS player, sf::Vector2f pos)
     : Monster(player, pos, projectileSprite)
 {
 }
-RandomMonster::RandomMonster(playerSP player, float xPos, float yPos)
+RandomMonster::RandomMonster(PlayerPS player, float xPos, float yPos)
     : Monster(player, sf::Vector2f(xPos, yPos), projectileSprite)
 {
 }

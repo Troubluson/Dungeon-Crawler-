@@ -4,6 +4,8 @@
 #include "../RandomMonster.hpp"
 #include "../SearchingMonster.hpp"
 
+typedef std::shared_ptr<Monster> monsterSP;
+
 class MonsterSpawner {
 
 public:
@@ -17,12 +19,12 @@ public:
     ~MonsterSpawner() { }
 
     // std::list<Monster*> SpawnMonsters(sf::Vector2u roomSize) const;
-    Monster* SpawnMonster(sf::Vector2u roomSize, playerSP target) const;
+    monsterSP SpawnMonster(sf::Vector2u roomSize, PlayerPS target) const;
     void SetMonsterAmount(uint amount);
     uint GetMonsterAmount() const;
 
 private:
-    Monster* getRandomMonster(playerSP target) const;
+    monsterSP getRandomMonster(PlayerPS target) const;
     uint monsterCount_;
     uint monsterClassCount_ = 2; // update this when adding monsters
 };

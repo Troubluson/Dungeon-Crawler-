@@ -8,7 +8,7 @@
 class Player : public Character {
 public:
     Player();
-    ~Player() {};
+    ~Player();
     int GetHitPoints() const;
 
     virtual void Update(float dt);
@@ -35,6 +35,6 @@ private:
     float dashCooldownLeft;
     void updateDashCooldown(float dt);
 };
-typedef std::shared_ptr<Player> playerSP;
+typedef std::shared_ptr<Player> PlayerPS;
 
 #endif

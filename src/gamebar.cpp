@@ -5,7 +5,7 @@ const float HEIGHT = 100;
 const float WIDTH = 1280;
 }
 
-Gamebar::Gamebar(playerSP player)
+Gamebar::Gamebar(PlayerPS player)
     : player_(player)
 {
     sf::RectangleShape background(sf::Vector2f(WIDTH, HEIGHT));

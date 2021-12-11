@@ -31,10 +31,10 @@ void Game::UpdateGame()
     manageInput();
 
     // Update projectiles
-    for (auto monster : dungeonMap_.GetCurrentRoom()->GetMonsters()) {
+    for (auto& monster : dungeonMap_.GetCurrentRoom()->GetMonsters()) {
         // if moved, check collision with walls
         bool monsterMoved = monster->Move(dt);
-        if (monsterMoved && collidesWithWall(monster)) {
+        if (monsterMoved && collidesWithWall(monster.get())) {
             monster->RevertMove();
         }
 
@@ -62,7 +62,7 @@ void Game::RenderGame()
     for (auto projectile : projectiles_) {
         projectile->Render(window_);
     }
-    for (auto monster : dungeonMap_.GetCurrentRoom()->GetMonsters()) {
+    for (auto& monster : dungeonMap_.GetCurrentRoom()->GetMonsters()) {
         if (monster == nullptr) {
             std::cout << "nullptr" << std::endl;
         }
@@ -181,15 +181,16 @@ void Game::checkMonsterCollisions()
     if (projectiles_.empty()) {
         return;
     }
-    std::vector<Monster*> deadMonsters;
-    for (auto& monster : dungeonMap_.GetCurrentRoom()->GetMonsters()) {
-        checkCollisions(monster, Projectile::Type::PlayerProjectile);
+    auto currentRoom = dungeonMap_.GetCurrentRoom();
+    std::vector<monsterSP> deadMonsters;
+    for (auto& monster : currentRoom->GetMonsters()) {
+        checkCollisions(monster.get(), Projectile::Type::PlayerProjectile);
         if (!monster->IsAlive()) {
             deadMonsters.push_back(monster);
         }
     }
     for (auto monster : deadMonsters) {
-        deleteMonster(monster);
+        currentRoom->deleteMonster(monster);
     }
 }
 
@@ -231,21 +232,6 @@ void Game::addProjectiles(std::list<Projectile*> projectiles)
 
     for (auto projectile : projectiles) {
         projectiles_.push_back(projectile);
-    }
-}
-
-void Game::deleteMonster(Character* m)
-{
-    auto& monsters = dungeonMap_.GetCurrentRoom()->GetMonsters();
-    if (monsters.empty())
-        return;
-
-    for (auto it = monsters.begin(); it != monsters.end(); ++it) {
-        if (*it == m) {
-            delete *it;
-            it = monsters.erase(it);
-            return;
-        }
     }
 }
 

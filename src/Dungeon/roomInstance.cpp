@@ -31,13 +31,6 @@ RoomInstance::RoomInstance(sf::Vector2u window_size, sf::Vector2i choords)
     setTiles();
 }
 
-RoomInstance::~RoomInstance()
-{
-    for (auto m : monsters_) {
-        delete m;
-    }
-}
-
 void RoomInstance::Render(sf::RenderTarget* target)
 {
     target->draw(roomBackground);
@@ -214,12 +207,12 @@ sf::Vector2u RoomInstance::GetEntranceInDirection(Direction direction)
     }
 }
 
-void RoomInstance::Enter(playerSP player, Direction direction)
+void RoomInstance::Enter(PlayerPS player, Direction direction)
 {
     if (!cleared_) {
         spawner_.SetMonsterAmount(5); // set according to player lvl somehow
         while (monsters_.size() < spawner_.GetMonsterAmount()) {
-            Monster* monster;
+            monsterSP monster;
             do {
                 monster = spawner_.SpawnMonster(roomSize_, player);
             } while (monster == nullptr || !positionIsWalkable(monster->GetBaseBoxAt(monster->GetPos())));
@@ -238,7 +231,20 @@ void RoomInstance::Exit()
     }
 }
 
-std::vector<Monster*>& RoomInstance::GetMonsters()
+std::vector<monsterSP>& RoomInstance::GetMonsters()
 {
     return monsters_;
+}
+
+void RoomInstance::deleteMonster(monsterSP m)
+{
+    if (monsters_.empty())
+        return;
+
+    for (auto it = monsters_.begin(); it != monsters_.end(); ++it) {
+        if (*it == m) {
+            it = monsters_.erase(it);
+            return;
+        }
+    }
 }

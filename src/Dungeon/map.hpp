@@ -15,7 +15,7 @@ public:
      * @param    sizeOfRooms           the size we want our rooms to be
      * @param    noRooms              The number of rooms we want the dungeon to consist of
      */
-    Map(sf::Vector2u sizeOfRooms, int noRooms, playerSP player);
+    Map(sf::Vector2u sizeOfRooms, int noRooms, PlayerPS player);
 
     /**
      * @brief Renders the current room to the given target
@@ -74,7 +74,7 @@ private:
     std::pair<int, int> getKey(sf::Vector2i choord);
     sf::Vector2u roomSize_;
     sf::Vector2i currentPos_;
-    playerSP player_;
+    PlayerPS player_;
     sf::Vector2i spawnChoords_;
     std::map<std::pair<int, int>, RoomInstance*> dungeon_; // cant use vector2i as a key
 };

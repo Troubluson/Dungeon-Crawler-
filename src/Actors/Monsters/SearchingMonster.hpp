@@ -9,8 +9,8 @@
 
 class SearchingMonster : public Monster {
 public:
-    SearchingMonster(playerSP player, float xPos, float yPos);
-    SearchingMonster(playerSP player, sf::Vector2f pos);
+    SearchingMonster(PlayerPS player, float xPos, float yPos);
+    SearchingMonster(PlayerPS player, sf::Vector2f pos);
     ~SearchingMonster();
 
     virtual std::list<Projectile*> Attack();

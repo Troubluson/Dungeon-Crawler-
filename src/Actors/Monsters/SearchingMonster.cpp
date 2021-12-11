@@ -2,12 +2,12 @@
 namespace {
 const std::string projectileSprite = "content/sprites/monster2.png";
 }
-SearchingMonster::SearchingMonster(playerSP player, sf::Vector2f pos)
+SearchingMonster::SearchingMonster(PlayerPS player, sf::Vector2f pos)
     : Monster(player, pos, projectileSprite)
 {
     name = "Sir chi";
 }
-SearchingMonster::SearchingMonster(playerSP player, float xPos, float yPos)
+SearchingMonster::SearchingMonster(PlayerPS player, float xPos, float yPos)
     : Monster(player, sf::Vector2f(xPos, yPos), projectileSprite)
 {
 }

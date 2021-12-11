@@ -1,7 +1,7 @@
 #include "map.hpp"
 #include <time.h>
 
-Map::Map(sf::Vector2u size, int noRooms, playerSP player)
+Map::Map(sf::Vector2u size, int noRooms, PlayerPS player)
     : roomSize_(size)
     , currentPos_({ 0, 0 })
     , player_(player)
