@@ -62,6 +62,7 @@ public:
     RoomInstance* GetSpawnRoom();
 
 private:
+    std::pair<int, int> findBossRoom(std::map<std::pair<int, int>, std::set<Direction>> coordsAndWalls);
     void Move(Direction dir);
 
     /**

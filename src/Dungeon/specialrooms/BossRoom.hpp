@@ -8,6 +8,7 @@ public:
     BossRoom(sf::Vector2u window_size, sf::Vector2i choords);
     BossRoom() { }
     ~BossRoom() { }
+    virtual void Enter(Player& player, Direction direction);
     virtual void setTiles(sf::Vector2u window_size);
 
 private:

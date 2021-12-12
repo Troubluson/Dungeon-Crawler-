@@ -6,6 +6,22 @@ BossRoom::BossRoom(sf::Vector2u window_size, sf::Vector2i choords)
     cleared_ = true;
 }
 
+void BossRoom::Enter(Player& player, Direction direction)
+{
+    if (!cleared_) {
+        spawner_.SetMonsterAmount(5); // set according to player lvl somehow
+        while (monsters_.size() < spawner_.GetMonsterAmount()) {
+            Monster* monster;
+            do {
+                monster = spawner_.SpawnMonster(roomSize_, player);
+            } while (monster == nullptr || !positionIsWalkable(monster->GetBaseBoxAt(monster->GetPos())));
+            monster->SetTarget(player);
+            monsters_.push_back(monster);
+        }
+    }
+    player.SetPosAndOldPos(sf::Vector2f(GetEntranceInDirection(direction))); // prevents us from getting stuck in the wall
+}
+
 void BossRoom::setTiles(sf::Vector2u window_size)
 {
     tileVector_.clear();

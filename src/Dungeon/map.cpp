@@ -26,6 +26,7 @@ bool Map::CreateDungeon(int noRooms)
 {
     addStartingRoomToDungeon(roomSize_, currentPos_);
     int i = 1;
+    std::map<std::pair<int, int>, std::set<Direction>> wallsToBreak;
     while (i < noRooms) {
         std::pair<int, int> coordsToGenFrom = existingRoomCords_[randomhelper::RandomIntBetween(0, existingRoomCords_.size() - 1)];
         RoomInstance* roomToGenFrom = dungeon_[coordsToGenFrom];
@@ -35,13 +36,24 @@ bool Map::CreateDungeon(int noRooms)
             auto newPos = roomToGenFrom->GetChoords() + DirToVec(directionToGenInto);
             if (GetRoomAt(newPos) == nullptr) {
                 auto newRoom = addRoomToDungeon(roomSize_, newPos);
-                newRoom->RemoveDirection(direction::GetOppositeDir(directionToGenInto));
-                roomToGenFrom->CreateExit(directionToGenInto);
-                newRoom->CreateExit(direction::GetOppositeDir(directionToGenInto));
+                wallsToBreak[getKey(roomToGenFrom->GetChoords())].insert(directionToGenInto);
+                wallsToBreak[getKey(newRoom->GetChoords())].insert((direction::GetOppositeDir(directionToGenInto)));
+
                 i += 1;
             }
         }
     }
+
+    auto bossCoords = findBossRoom(wallsToBreak);
+    RoomInstance* bossRoom = new BossRoom(roomSize_, sf::Vector2i(bossCoords.first, bossCoords.second));
+    dungeon_[bossCoords] = bossRoom;
+
+    for (auto room : wallsToBreak) {
+        for (auto dir : room.second) {
+            dungeon_[room.first]->CreateExit(dir);
+        }
+    }
+
     currentPos_ = { 0, 0 };
 
     return true;
@@ -105,6 +117,19 @@ RoomInstance* Map::GetSpawnRoom()
     return dungeon_[getKey(spawnChoords_)];
 }
 
+std::pair<int, int> Map::findBossRoom(std::map<std::pair<int, int>, std::set<Direction>> coordsAndPaths)
+{
+    std::pair<int, int> maxCoord = std::make_pair(0, 0);
+    for (auto it = coordsAndPaths.begin(); it != coordsAndPaths.end(); it++) {
+        auto coord = it->first;
+        auto biggerCoord = max(abs(coord.first), abs(coord.second));
+        if (biggerCoord > max(abs(maxCoord.first), abs(maxCoord.second)) && it->second.size() == 1) {
+            maxCoord = coord;
+        }
+    }
+    return maxCoord;
+}
+
 std::pair<int, int> Map::getKey()
 {
     return std::make_pair(currentPos_.x, currentPos_.y);
@@ -116,13 +141,13 @@ std::pair<int, int> Map::getKey(sf::Vector2i choord)
 
 RoomInstance* Map::addRoomToDungeon(sf::Vector2u roomSize, sf::Vector2i choords)
 {
-    RoomInstance* rooom = new RoomInstance(roomSize, choords);
-    if (rooom == nullptr) {
+    RoomInstance* room = new RoomInstance(roomSize, choords);
+    if (room == nullptr) {
         std::cout << "lol" << std::endl;
     }
     existingRoomCords_.push_back(getKey(choords));
-    dungeon_[getKey(choords)] = rooom;
-    return rooom;
+    dungeon_[getKey(choords)] = room;
+    return room;
 }
 
 void Map::addStartingRoomToDungeon(sf::Vector2u roomSize, sf::Vector2i choords)
