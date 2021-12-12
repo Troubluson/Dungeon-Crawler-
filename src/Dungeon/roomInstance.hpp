@@ -1,9 +1,9 @@
 
-#include "Actors/Monsters/MonsterSpawner/MonsterSpawner.hpp"
-#include "Tiles/roomTile.hpp"
-
 #ifndef _ROOM_INSTANCE_
 #define _ROOM_INSTANCE_
+
+#include "Actors/Monsters/MonsterSpawner/MonsterSpawner.hpp"
+#include "Tiles/roomTile.hpp"
 
 enum class Direction {
     Up,
@@ -12,9 +12,11 @@ enum class Direction {
     Right,
     Count
 };
+
 namespace direction {
 Direction GetOppositeDir(Direction direction);
 }
+
 /**
  * @brief Class representing a room of a dungeon, usually includes a monsterspawner.
  *
@@ -25,12 +27,12 @@ public:
      * @brief Construct a new Room Instance object
      *
      * @param    window_size          TO BE CHANGED takes the windowsize to create a correctly sized room
-     * @param    coords              the map choordinate of the room, follows the cartesian choordinate system
+     * @param    coords              the map coordinate of the room, follows the cartesian coordinate system
      */
     RoomInstance(sf::Vector2u window_size, sf::Vector2i coords);
     RoomInstance(sf::Vector2u window_size, sf::Vector2i coords, MonsterSpawner* spawner);
     RoomInstance() = default;
-    ~RoomInstance();
+    virtual ~RoomInstance();
 
     /**
      * @brief Renders the room
@@ -71,7 +73,7 @@ public:
     RoomInstance* GetRoomInDir(Direction dir);
 
     /**
-     * @brief Get the choordinates of this room on the map
+     * @brief Get the coordinates of this room on the map
      *
      * @return sf::Vector2i
      */
@@ -105,6 +107,7 @@ public:
     Direction UseDirection();
     void RemoveDirection(Direction dir);
     bool HasDirectionsLeft();
+    bool IsCleared();
 
 protected:
     /**

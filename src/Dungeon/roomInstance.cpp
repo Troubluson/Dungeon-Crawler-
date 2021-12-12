@@ -49,54 +49,6 @@ void RoomInstance::Render(sf::RenderTarget* target)
     target->draw(roomBackground);
 }
 
-void RoomInstance::setTiles()
-{
-    tileVector_.clear();
-    int xTileCount = roomSize_.x / 64;
-    int yTileCount = roomSize_.y / 64;
-    int n = 0;
-    for (int i = 0; i < yTileCount; ++i) {
-        std::vector<RoomTile*> row;
-        int k = 0;
-        for (int j = 0; j < xTileCount; ++j) {
-            if (i == 0) {
-                if (j == 0) {
-                    row.push_back(new WallTile("content/sprites/walls/topwallleft.png", k, n));
-                } else if (j == xTileCount - 1) {
-                    row.push_back(new WallTile("content/sprites/walls/topwallbottomleft.png", k, n));
-                } else {
-                    row.push_back(new WallTile("content/sprites/walls/toppartofwall1.png", k, n));
-                }
-            } else if (i == 1 && j != 0 && j != xTileCount - 1) {
-                row.push_back(new FrontWallTile("content/sprites/walls/wallfront1.png", k, n));
-            } else if (i == yTileCount - 1) {
-                if (j == 0) {
-                    row.push_back(new WallTile("content/sprites/walls/topwallright.png", k, n));
-                } else if (j == xTileCount - 1) {
-                    row.push_back(new WallTile("content/sprites/walls/topwallbottomright.png", k, n));
-                } else {
-                    row.push_back(new WallTile("content/sprites/walls/topwallbottom.png", k, n));
-                }
-            } else if (i != 0 && j == 0) {
-                row.push_back(new WallTile("content/sprites/walls/topwallLEFTSIDE.png", k, n));
-            } else if (i != 0 && j == xTileCount - 1) {
-                row.push_back(new WallTile("content/sprites/walls/topwallRIGHTSIDE.png", k, n));
-            } else {
-                int tileNumber = rand() % ((TILE_AMOUNT + 1) + NORMALTILE_EXTRA_WEIGHT) + 1;
-                if (tileNumber > TILE_AMOUNT) {
-                    tileNumber = 1;
-                }
-                std::string tilelocation = "content/sprites/floors/tile" + std::to_string(tileNumber) + ".png";
-                row.push_back(new FloorTile(tilelocation, k, n));
-            }
-
-            k += 64;
-        }
-        n += 64;
-        tileVector_.push_back(row);
-    }
-}
-
 void RoomInstance::renderSpriteBackground()
 {
     roomTexture.create(roomSize_.x, roomSize_.y);
@@ -288,5 +240,57 @@ void RoomInstance::deleteMonster(MonsterSP m)
             it = monsters_.erase(it);
             return;
         }
+    }
+}
+
+bool RoomInstance::IsCleared() {
+    return cleared_;
+}
+
+void RoomInstance::setTiles()
+{
+    tileVector_.clear();
+    int xTileCount = roomSize_.x / 64;
+    int yTileCount = roomSize_.y / 64;
+    int n = 0;
+    for (int i = 0; i < yTileCount; ++i) {
+        std::vector<RoomTile*> row;
+        int k = 0;
+        for (int j = 0; j < xTileCount; ++j) {
+            if (i == 0) {
+                if (j == 0) {
+                    row.push_back(new WallTile("content/sprites/walls/topwallleft.png", k, n));
+                } else if (j == xTileCount - 1) {
+                    row.push_back(new WallTile("content/sprites/walls/topwallbottomleft.png", k, n));
+                } else {
+                    row.push_back(new WallTile("content/sprites/walls/toppartofwall1.png", k, n));
+                }
+            } else if (i == 1 && j != 0 && j != xTileCount - 1) {
+                row.push_back(new FrontWallTile("content/sprites/walls/wallfront1.png", k, n));
+            } else if (i == yTileCount - 1) {
+                if (j == 0) {
+                    row.push_back(new WallTile("content/sprites/walls/topwallright.png", k, n));
+                } else if (j == xTileCount - 1) {
+                    row.push_back(new WallTile("content/sprites/walls/topwallbottomright.png", k, n));
+                } else {
+                    row.push_back(new WallTile("content/sprites/walls/topwallbottom.png", k, n));
+                }
+            } else if (i != 0 && j == 0) {
+                row.push_back(new WallTile("content/sprites/walls/topwallLEFTSIDE.png", k, n));
+            } else if (i != 0 && j == xTileCount - 1) {
+                row.push_back(new WallTile("content/sprites/walls/topwallRIGHTSIDE.png", k, n));
+            } else {
+                int tileNumber = rand() % ((TILE_AMOUNT + 1) + NORMALTILE_EXTRA_WEIGHT) + 1;
+                if (tileNumber > TILE_AMOUNT) {
+                    tileNumber = 1;
+                }
+                std::string tilelocation = "content/sprites/floors/tile" + std::to_string(tileNumber) + ".png";
+                row.push_back(new FloorTile(tilelocation, k, n));
+            }
+
+            k += 64;
+        }
+        n += 64;
+        tileVector_.push_back(row);
     }
 }

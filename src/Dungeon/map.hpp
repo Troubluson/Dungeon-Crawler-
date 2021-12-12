@@ -61,28 +61,31 @@ public:
 
     RoomInstance* GetSpawnRoom();
 
+    bool IsBossRoomCleared();
+
 private:
     std::pair<int, int> findBossRoom(std::map<std::pair<int, int>, std::set<Direction>> coordsAndWalls);
     void Move(Direction dir);
 
     /**
-     * @brief Get the room at the wanted choordinate on the map
+     * @brief Get the room at the wanted coordinate on the map
      *
-     * @param    choord               Desciption
+     * @param    coord               Desciption
      * @return RoomInstance*
      */
-    RoomInstance* GetRoomAt(sf::Vector2i choord);
+    RoomInstance* GetRoomAt(sf::Vector2i coord);
 
     std::pair<int, int> getKey();
-    std::pair<int, int> getKey(sf::Vector2i choord);
-    RoomInstance* addRoomToDungeon(sf::Vector2u roomSize, sf::Vector2i choords);
-    void addStartingRoomToDungeon(sf::Vector2u roomSize, sf::Vector2i choords);
+    std::pair<int, int> getKey(sf::Vector2i coord);
+    RoomInstance* addRoomToDungeon(sf::Vector2u roomSize, sf::Vector2i coords);
+    void addStartingRoomToDungeon(sf::Vector2u roomSize, sf::Vector2i coords);
     sf::Vector2u roomSize_;
     sf::Vector2i currentPos_;
     PlayerPS player_;
-    sf::Vector2i spawnChoords_;
+    sf::Vector2i spawnCoords_;
+    sf::Vector2i bossCoords_;
     std::map<std::pair<int, int>, RoomInstance*> dungeon_; // cant use vector2i as a key
-    std::vector<std::pair<int, int>> existingRoomCords_;
+    std::vector<std::pair<int, int>> existingRoomCoords_;
 };
 
 #endif

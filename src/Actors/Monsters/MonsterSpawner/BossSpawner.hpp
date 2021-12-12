@@ -12,7 +12,7 @@ public:
     }
 
     ~BossSpawner() { }
-    MonsterSP SpawnMonster(sf::Vector2u roomSize, PlayerPS target);
+    virtual MonsterSP SpawnMonster(sf::Vector2u roomSize, PlayerPS target);
 };
 
 #endif
