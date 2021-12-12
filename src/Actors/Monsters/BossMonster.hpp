@@ -10,11 +10,11 @@
 
 class BossMonster : public Monster {
 public:
-    BossMonster(Player& player, float xPos, float yPos);
-    BossMonster(Player& player, sf::Vector2f pos);
+    BossMonster(PlayerPS player, float xPos, float yPos);
+    BossMonster(PlayerPS player, sf::Vector2f pos);
     ~BossMonster();
 
-    virtual std::list<Projectile*> Attack();
+    virtual std::list<ProjectileUP> Attack();
     virtual bool Move(float dt);
 
     void initVariables();

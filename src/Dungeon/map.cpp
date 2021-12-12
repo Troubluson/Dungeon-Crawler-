@@ -33,11 +33,11 @@ bool Map::CreateDungeon(int noRooms)
 
         if (roomToGenFrom->HasDirectionsLeft()) {
             Direction directionToGenInto = roomToGenFrom->UseDirection();
-            auto newPos = roomToGenFrom->GetChoords() + DirToVec(directionToGenInto);
+            auto newPos = roomToGenFrom->GetCoords() + DirToVec(directionToGenInto);
             if (GetRoomAt(newPos) == nullptr) {
                 auto newRoom = addRoomToDungeon(roomSize_, newPos);
-                wallsToBreak[getKey(roomToGenFrom->GetChoords())].insert(directionToGenInto);
-                wallsToBreak[getKey(newRoom->GetChoords())].insert((direction::GetOppositeDir(directionToGenInto)));
+                wallsToBreak[getKey(roomToGenFrom->GetCoords())].insert(directionToGenInto);
+                wallsToBreak[getKey(newRoom->GetCoords())].insert((direction::GetOppositeDir(directionToGenInto)));
 
                 i += 1;
             }

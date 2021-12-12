@@ -10,11 +10,11 @@
 
 class SnipingMonster : public Monster {
 public:
-    SnipingMonster(Player& player, float xPos, float yPos);
-    SnipingMonster(Player& player, sf::Vector2f pos);
+    SnipingMonster(PlayerPS player, float xPos, float yPos);
+    SnipingMonster(PlayerPS player, sf::Vector2f pos);
     ~SnipingMonster();
 
-    virtual std::list<Projectile*> Attack();
+    virtual std::list<ProjectileUP> Attack();
     virtual bool Move(float dt);
 
     void initVariables();

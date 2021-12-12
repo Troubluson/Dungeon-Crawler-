@@ -7,8 +7,8 @@ SwordWeapon::SwordWeapon(int damage, int range, int rateOfFire, float projectile
     penetrates_ = true;
     sprite_.setTextureRect({ 400, 215, 10, 15 }); // placeholder
     spritehelper::SetScale(projectileSize, sprite_);
-    // sets scale and origin of sprite
 }
+
 ProjectileUP SwordWeapon::Use(Vector2f dir, Vector2f origin)
 {
     // have to rotate the projectile

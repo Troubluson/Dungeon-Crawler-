@@ -22,17 +22,26 @@ Direction GetOppositeDir(Direction direction)
 }
 } // namespace
 
-RoomInstance::RoomInstance(sf::Vector2u window_size, sf::Vector2i choords)
+RoomInstance::RoomInstance(sf::Vector2u window_size, sf::Vector2i coords)
+    : RoomInstance(window_size, coords, new MonsterSpawner(0))
+{
+}
+
+RoomInstance::RoomInstance(sf::Vector2u window_size, sf::Vector2i coords, MonsterSpawner* spawner)
     : roomSize_(window_size)
-    , choords_(choords)
-    , spawner_(0)
+    , coords_(coords)
+    , spawner_(spawner)
     , cleared_(false)
+    , visited_(false)
 {
     directionsLeft.push_back(Direction::Up);
     directionsLeft.push_back(Direction::Down);
     directionsLeft.push_back(Direction::Left);
     directionsLeft.push_back(Direction::Right);
     setTiles();
+}
+RoomInstance::~RoomInstance() {
+    delete spawner_;
 }
 
 void RoomInstance::Render(sf::RenderTarget* target)
@@ -214,11 +223,11 @@ sf::Vector2u RoomInstance::GetEntranceInDirection(Direction direction)
 void RoomInstance::Enter(PlayerPS player, Direction direction)
 {
     if (!cleared_) {
-        spawner_.SetMonsterAmount(5); // set according to player lvl somehow
-        while (monsters_.size() < spawner_.GetMonsterAmount()) {
+        spawner_->SetMonsterAmount(5); // set according to player lvl somehow
+        while (monsters_.size() < spawner_->GetMonsterAmount()) {
             MonsterSP monster;
             do {
-                monster = spawner_.SpawnMonster(roomSize_, player);
+                monster = spawner_->SpawnMonster(roomSize_, player);
             } while (monster == nullptr || !positionIsWalkable(monster->GetBaseBoxAt(monster->GetPos())));
             monster->SetTarget(player);
             monsters_.push_back(monster);

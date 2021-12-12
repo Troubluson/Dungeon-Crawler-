@@ -8,7 +8,7 @@
 #include "../SnipingMonster.hpp"
 #include "../WallPatrolMonster.hpp"
 
-typedef std::shared_ptr<Monster> monsterSP;
+typedef std::shared_ptr<Monster> MonsterSP;
 
 class MonsterSpawner {
 
@@ -20,17 +20,19 @@ public:
     MonsterSpawner()
         : monsterCount_(0) {};
 
-    ~MonsterSpawner() { }
+    virtual ~MonsterSpawner() { }
 
     // std::list<Monster*> SpawnMonsters(sf::Vector2u roomSize) const;
-    monsterSP SpawnMonster(sf::Vector2u roomSize, PlayerPS target) const;
+    virtual MonsterSP SpawnMonster(sf::Vector2u roomSize, PlayerPS target) const;
     void SetMonsterAmount(uint amount);
     uint GetMonsterAmount() const;
 
-private:
-    monsterSP getRandomMonster(PlayerPS target) const;
+protected:
+    MonsterSP getRandomMonster(PlayerPS target) const;
     uint monsterCount_;
     uint monsterTypeCount_ = 5; // update this when adding monsters
 };
+
+typedef std::shared_ptr<MonsterSpawner> MonsterSpawnerUP;
 
 #endif

@@ -82,7 +82,11 @@
 		"thread": "cpp",
 		"typeinfo": "cpp",
 		"bit": "cpp",
-		"bitset": "cpp"
+		"bitset": "cpp",
+		"cstring": "cpp",
+		"regex": "cpp",
+		"future": "cpp",
+		"variant": "cpp"
 	},
 	"terminal.integrated.automationShell.windows": "C:/Windows/System32/bash.exe",
 	"terminal.integrated.env.windows": {
