@@ -4,36 +4,51 @@
 #define _PLAYER_CLASS_
 
 #include "Actors/character.hpp"
+#include "Combat/Health/Potion.hpp"
 
 class Player : public Character {
 public:
     Player();
     ~Player() {};
-    int GetHitPoints() const;
 
     virtual void Update(float dt);
 
     void Dash();
-    std::list<Projectile*> Attack(sf::Vector2f aimPos);
+    std::list<ProjectileUP> Attack(sf::Vector2f aimPos);
 
     void initVariables();
 
     void ResetDashCooldown();
 
-    float GetDashCooldownLeft() const { return dashCooldownLeft; };
-    float GetDashCooldownLength() const { return dashCooldownLength; };
+    float GetDashCooldownLeft() const { return dashCooldownLeft_; };
+    float GetDashCooldownLength() const { return dashCooldownLength_; };
 
     bool CanDash;
     bool IsDashing;
 
-private:
-    float dashSpeed;
-    float dashDurationLength;
-    float dashDurationLeft;
+    void AddPotion(Potion* potion);
+    void UsePotion(const std::string& colour);
 
-    float dashCooldownLength;
-    float dashCooldownLeft;
+    std::vector<Potion*> GetInventory() const;
+    void ClearInventory();
+
+private:
+    int attacksBoosted_;
+    int dashesBoosted_;
+
+    float dashSpeed_;
+    float dashLengthBoostModifier = 2.0f;
+    float dashDefaultDurationLength_;
+    float dashCurrentDurationLength_;
+    float dashDurationLeft_;
+    bool deadAnimationPlayed = false;
+    float dt_time = 0;
+    float dashCooldownLength_;
+    float dashCooldownLeft_;
     void updateDashCooldown(float dt);
+
+    std::vector<Potion*> inventory_;
 };
+typedef std::shared_ptr<Player> PlayerPS;
 
 #endif

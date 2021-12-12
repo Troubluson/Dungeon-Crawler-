@@ -7,6 +7,8 @@
 //#include "Interfaces/ICollidable.hpp"
 #include "Animation/Animationhandler.hpp"
 #include "Combat/Weapons/Weapon.hpp"
+#include "Utility/LevelUpSystem.hpp"
+#include "Utility/RandomHelper.hpp"
 #include "entity.hpp"
 
 class Character : public Entity /*, public ICollidable*/ {
@@ -26,14 +28,16 @@ public:
      * @param    pos                  the wanted position
      * @return sf::FloatRect
      */
-    sf::FloatRect GetBaseBoxAt(sf::Vector2f pos);
 
     void TakeDamage(int value);
+    void Heal(int value);
+    int GetHitPoints() const;
 
     bool IsAlive();
     bool HasWeapon();
 
     bool Idle();
+    bool Dead();
     bool MoveLeft(float dt);
     bool MoveRight(float dt);
     bool MoveDown(float dt);
@@ -47,8 +51,12 @@ public:
 
     void ResetAttackCooldown();
     float GetAttackCooldownLeft() const { return attackCooldownLeft; };
-    float GetAttackCooldownLength() const { return attackCooldownLength; };
+    float GetAttackCooldownLength() const { return attackCooldownLength_; };
     bool CanAttack;
+    int GetMaxHP();
+
+    void SetNormalSpeed(float value);
+    void ResetCharacterToBeAlive();
     /*
     // for ICollidable
     virtual sf::FloatRect GetBoundingBox() { return sprite_.getGlobalBounds(); }
@@ -60,20 +68,25 @@ protected:
     /*void GetHitBy(Projectile& projectile);*/
 
     Weapon* weapon_;
-    Projectile::Type characterProjectileType;
+    Projectile::Type characterProjectileType_;
+
+    sf::Vector2f startPos;
+
     int hitpoints_;
-    bool alive_;
+    int currentMaxHitpoints_;
+    int defaultMaxHitpoints_;
+
     bool hasAnimation_;
     AnimationHandler animationHandler_;
     float currentSpeed_;
-    float normalSpeed_;
-
+    float defaultSpeed_;
+    bool left_or_right_ = true;
     void generalUpdate(float dt);
-
-    float attackCooldownLength;
+    bool invincibility_frame_ = false;
+    float attackCooldownLength_;
     float attackCooldownLeft;
     void updateAttackCooldown(float dt);
-    std::list<Projectile*> emptyList();
-    std::list<Projectile*> shotProjectileList(sf::Vector2f aimPos);
+    std::list<ProjectileUP> emptyList();
+    std::list<ProjectileUP> shotProjectileList(sf::Vector2f aimPos);
 };
 #endif

@@ -3,12 +3,16 @@
 #ifndef _GAME_CLASS_
 #define _GAME_CLASS_
 
-#include "Actors/Monsters/MonsterSpawner/MonsterSpawner.hpp"
 #include "Actors/player.hpp"
 /*#include "CollisionSystem.hpp"*/
+#include "Actors/Monsters/BossMonster.hpp"
+#include "Combat/Health/Potion.hpp"
 #include "Combat/Projectile.hpp"
+#include "Combat/Weapons/BowWeapon.hpp"
 #include "Combat/Weapons/SwordWeapon.hpp"
 #include "Dungeon/map.hpp"
+#include "Utility/LevelUpSystem.hpp"
+#include "Utility/ScreenText.hpp"
 #include "gamebar.hpp"
 
 class Game {
@@ -42,16 +46,18 @@ private:
     sf::VideoMode videomode_;
     sf::RenderWindow* window_;
     sf::Event event_;
-    sf::Clock dtClock;
-    Player* player_;
+    sf::Clock dtClock_;
+    PlayerPS player_;
     Map dungeonMap_;
     Gamebar gamebar_;
-
-    float dt;
+    ScreenText deathtext_;
+    ScreenText victoryScreen_;
+    float dt_;
     bool paused = false;
+    bool escapePressedLastTick = paused;
     bool gameEnder_;
 
-    std::list<Projectile*> projectiles_;
+    std::list<ProjectileUP> projectiles_;
     // CollisionSystem collisionSys;
     /**
      * @brief self explanatory, initializes the variables in game.
@@ -64,15 +70,20 @@ private:
      */
     void initWindow();
     /**
-     * @brief updates the game clock
+     * @brief updates the Deltatime (dt_) variable to compensate for diffrent frame rates on diffrent computers
      *
      */
     void updateDt();
     /**
-     * @brief manages inputs, like keypresses and player movement and runs the relevant functions
+     * @brief manages inputs, like keypresses (except for esc for pause) and player movement and runs the relevant functions
      *
      */
     void manageInput();
+    /**
+     * @brief manages input for the Escape key for pausing the game
+     *
+     */
+    void managePauseInput();
     /**
      * @brief Checks if projectile collides with a character, if hit runs the function for damaging the character
      *
@@ -80,11 +91,6 @@ private:
      * @param    projectileType       the shoot projectile
      */
     void checkCollisions(Character* character, Projectile::Type projectileType);
-    /**
-     * @brief reset game after death, keeps the same player, new map
-     *
-     */
-    void resetGame();
     /**
      * @brief checks if projectiles hit monsters, removes the monster if they die
      *
@@ -105,24 +111,30 @@ private:
      *
      * @param    p                    projectile to be deleted
      */
-    void deleteProjectile(Projectile* p);
+    void deleteProjectile(ProjectileUP p);
     /**
      * @brief adds projectile to projectile list
      *
      * @param    listToAdd            the projectiles to be added
      */
-    void addProjectiles(std::list<Projectile*> listToAdd);
+    void addProjectiles(std::list<ProjectileUP> listToAdd);
     /**
      * @brief deletes monster from room if dead
      *
      * @param    m                    monster that is deleted if it's dead
      */
     void deleteMonster(Character* m);
+    void deletePotion(Potion* p);
     /**
      * @brief handles the projectiles life span
      *
      */
     void updateProjectiles();
+    /**
+     * @brief Updates all monsters in the game
+     *
+     */
+    void updateMonsters();
     /**
      * @brief check if character collides with wall
      *
@@ -130,7 +142,9 @@ private:
      * @return true if collides
      * @return false if it does not collide
      */
+    void updatePotions();
     bool collidesWithWall(Character* character);
+
     /**
      * @brief check if projectile collides with wall
      *
@@ -153,6 +167,19 @@ private:
      * @return false if still going
      */
     bool gameLost();
+    /**
+     * @brief reset game after death, keeps the same player, same map
+     *
+     */
+    void restartGame();
+
+    /**
+     * @brief Checks if game is won i.e. if the maps's bossroom has been cleared.
+     *
+     * @return true if room is cleared
+     * @return false not yet cleared
+     */
+    bool gameWon();
 };
 
 #endif

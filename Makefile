@@ -245,6 +245,10 @@ rebuild: clean all
 buildprod: all makeproduction
 .PHONY: buildprod
 
+run: all
+	./bin/$(BUILD)/$(NAME)
+.PHONY: run
+
 #==============================================================================
 # Functions
 color_blue := \033[0;34m
