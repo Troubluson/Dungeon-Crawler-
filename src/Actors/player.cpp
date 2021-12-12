@@ -17,6 +17,7 @@ void Player::Update(float dt)
 {
     if (hasAnimation_) {
         if (IsAlive()) {
+            deadAnimationPlayed = false;
             if (oldPos_.x == pos_.x && oldPos_.y == pos_.y) {
                 Idle();
             }
@@ -35,10 +36,11 @@ void Player::Update(float dt)
             }
         }
     }
+    if (IsAlive()) {
+        generalUpdate(dt);
 
-    generalUpdate(dt);
-
-    updateDashCooldown(dt);
+        updateDashCooldown(dt);
+    }
 
     if (IsDashing) {
         currentSpeed_ = dashSpeed_;
