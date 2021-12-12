@@ -92,7 +92,6 @@ std::list<Projectile*> Player::Attack(sf::Vector2f aimPos)
 void Player::AddPotion(Potion* potion)
 {
     inventory_.push_back(potion);
-    std::cout << "picked up a potion" << std::endl;
 }
 
 void Player::UsePotion(const std::string& colour)
@@ -102,7 +101,6 @@ void Player::UsePotion(const std::string& colour)
     while (it != inventory_.end() && !found) {
         if ((*it)->GetColour() == colour) {
             Heal((*it)->GetHealthIncrease());
-            std::cout << "drinking potion" << std::endl;
             it = inventory_.erase(it);
             found = true;
         } else {
