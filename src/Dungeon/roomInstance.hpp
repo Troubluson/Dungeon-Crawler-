@@ -135,6 +135,10 @@ public:
      */
     bool IsCleared();
 
+    bool IsVisisted() {return visited_;}
+
+    bool monsterCleared();
+
     void AddPotion(Potion* potion);
 
     std::vector<Potion*>& GetPotions();

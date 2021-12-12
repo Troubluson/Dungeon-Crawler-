@@ -7,6 +7,7 @@ BossRoom::BossRoom(sf::Vector2u window_size, sf::Vector2i coords)
 
 void BossRoom::Enter(PlayerPS player, Direction direction)
 {
+    visited_ = true;
     if (!cleared_) {
         MonsterSP monster;
         while (monsters_.empty()) {

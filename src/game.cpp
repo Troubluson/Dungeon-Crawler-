@@ -5,7 +5,7 @@
 namespace {
 const sf::Vector2u VIDEOMODE_DIMS = sf::Vector2u(1280, 768);
 const std::string DEATHTEXT = "content/sprites/DEATHTEXT.png";
-const std::string VICTORY = "content/sprites/endscreen.png";
+const std::string VICTORY = "content/endscreen.png";
 }
 
 Game::Game()
@@ -13,7 +13,7 @@ Game::Game()
     , dungeonMap_(Map(VIDEOMODE_DIMS, 10, player_))
     , gamebar_(Gamebar(player_))
     , deathtext_(ScreenText(DEATHTEXT, { 0, 0 }, { 3, 3 }))
-    , victoryScreen_(ScreenText(VICTORY, { 200, 0 }, { 3, 3 }))
+    , victoryScreen_(ScreenText(VICTORY, { 0, 0 }, { 7, 6 }))
 {
     SwordWeapon* playerSword = new SwordWeapon(20, 100, 120, 1000, sf::Vector2f(200, 200), "content/sprites/Weapons/swordtoobig.png");
 
@@ -52,20 +52,25 @@ void Game::UpdateGame()
 void Game::RenderGame()
 {
     window_->clear();
-    dungeonMap_.RenderCurrentRoom(window_);
-    player_->Render(window_);
-    gamebar_.Render(window_);
-    for (auto& projectile : projectiles_) {
-        projectile->Render(window_);
-    }
-    for (auto& monster : dungeonMap_.GetCurrentRoom()->GetMonsters()) {
-        monster->Render(window_);
-    }
-    if (gameLost() == true) {
-        deathtext_.Render(window_);
-    }
-    for (auto potion : dungeonMap_.GetCurrentRoom()->GetPotions()) {
-        potion->Render(window_);
+
+    if (gameWon()) {
+        victoryScreen_.Render(window_);
+    } else {
+        dungeonMap_.RenderCurrentRoom(window_);
+        player_->Render(window_);
+        gamebar_.Render(window_);
+        for (auto& projectile : projectiles_) {
+            projectile->Render(window_);
+        }
+        for (auto& monster : dungeonMap_.GetCurrentRoom()->GetMonsters()) {
+            monster->Render(window_);
+        }
+        if (gameLost() == true) {
+            deathtext_.Render(window_);
+        }
+        for (auto potion : dungeonMap_.GetCurrentRoom()->GetPotions()) {
+            potion->Render(window_);
+        }
     }
     window_->display();
 }

@@ -86,9 +86,11 @@ std::list<ProjectileUP> BossMonster::Attack()
 
 void BossMonster::initVariables()
 {
-    SwordWeapon* bossSword = new SwordWeapon(10, 1000, 30, 200, sf::Vector2f(100, 100), "content/sprites/projectiles/projectileboss.png");
+    SwordWeapon* bossSword = new SwordWeapon(10, 1000, 60, 400, sf::Vector2f(2000, 2000), "content/sprites/projectiles/projectiles.png");
+    bossSword->SetTextureRect({ 400, 215, 10, 15 });
     Equip(bossSword);
-    SetNormalSpeed(200.0f);
+    hitpoints_ = 300;
+    SetNormalSpeed(300.0f);
 }
 
 void BossMonster::iterateAngle()
