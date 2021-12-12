@@ -102,7 +102,9 @@ void Character::updateAttackCooldown(float dt)
 
 void Character::TakeDamage(int value)
 {
-    hitpoints_ -= value;
+    if (!invincibility_frame_) {
+        hitpoints_ -= value;
+    }
 }
 
 int Character::GetHitPoints() const

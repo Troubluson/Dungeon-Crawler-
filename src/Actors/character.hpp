@@ -75,7 +75,7 @@ protected:
     float defaultSpeed_;
     bool left_or_right_ = true;
     void generalUpdate(float dt);
-
+    bool invincibility_frame_ = false;
     float attackCooldownLength_;
     float attackCooldownLeft;
     void updateAttackCooldown(float dt);

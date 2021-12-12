@@ -26,7 +26,9 @@ void Player::Update(float dt)
 
     if (IsDashing) {
         currentSpeed_ = dashSpeed_;
+        invincibility_frame_ = true;
     } else {
+        invincibility_frame_ = false;
         currentSpeed_ = defaultSpeed_;
     }
 }
