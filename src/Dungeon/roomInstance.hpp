@@ -3,6 +3,7 @@
 #define _ROOM_INSTANCE_
 
 #include "Actors/Monsters/MonsterSpawner/MonsterSpawner.hpp"
+#include "Combat/Health/Potion.hpp"
 #include "Tiles/roomTile.hpp"
 
 enum class Direction {
@@ -134,6 +135,10 @@ public:
      */
     bool IsCleared();
 
+    void AddPotion(Potion* potion);
+
+    std::vector<Potion*>& GetPotions();
+
 protected:
     /**
      * @brief Helper, Sets all the roomtiles of the roominstance
@@ -147,6 +152,7 @@ protected:
     sf::Sprite roomBackground;
     std::vector<MonsterSP> monsters_;
     MonsterSpawner* spawner_;
+    std::vector<Potion*> potions_;
     bool cleared_; // whether the room is cleared
     bool visited_; // whether the room has been visited already
 

@@ -4,12 +4,17 @@
 
 namespace {
 const sf::Vector2u VIDEOMODE_DIMS = sf::Vector2u(1280, 768);
+const std::string DEATHTEXT = "content/sprites/DEATHTEXT.png";
+const std::string VICTORY = "content/sprites/endscreen.png";
 }
 
 Game::Game()
     : player_(PlayerPS(new Player()))
     , dungeonMap_(Map(VIDEOMODE_DIMS, 10, player_))
     , gamebar_(Gamebar(player_))
+    , deathtext_(ScreenText(DEATHTEXT, { 0, 0 }, { 3, 3 }))
+    , victoryScreen_(ScreenText(VICTORY, { 200, 0 }, { 3, 3 }))
+    , gameEnder_(false)
 {
     SwordWeapon* playerSword = new SwordWeapon(20, 100, 120, 1000, sf::Vector2f(50, 100), "content/sprites/projectiles.png");
     playerSword->SetTextureRect({ 358, 302, 10, 30 });
@@ -23,20 +28,25 @@ Game::Game()
 Game::~Game()
 {
     delete window_;
+    delete playerHitSound;
+    delete monsterHitSound;
 }
 
 void Game::UpdateGame()
 {
     Events();
     managePauseInput();
+
     if (!paused) {
         updateDt();
         manageInput();
         updateMonsters();
+        updatePotions();
         updateProjectiles();
         checkMonsterCollisions();
         checkPlayerCollisions();
         checkAndHandleProjectileWallCollisions();
+
         player_->Update(dt_);
         gamebar_.Update();
     }
@@ -53,6 +63,12 @@ void Game::RenderGame()
     }
     for (auto& monster : dungeonMap_.GetCurrentRoom()->GetMonsters()) {
         monster->Render(window_);
+    }
+    if (gameLost() == true) {
+        deathtext_.Render(window_);
+    }
+    for (auto potion : dungeonMap_.GetCurrentRoom()->GetPotions()) {
+        potion->Render(window_);
     }
     window_->display();
 }
@@ -71,14 +87,21 @@ void Game::Events()
         case sf::Event::GainedFocus:
             paused = false;
             break;
+        case sf::Event::KeyPressed:
+            if (event_.key.code == sf::Keyboard::Num1)
+                player_->UsePotion("red");
+            else if (event_.key.code == sf::Keyboard::Num2)
+                player_->UsePotion("green");
+            else if (event_.key.code == sf::Keyboard::Num3)
+                player_->UsePotion("yellow");
+            else if (event_.key.code == sf::Keyboard::Num4)
+                player_->UsePotion("violet");
+            break;
         default:
             break;
         }
     }
 }
-
-void Game::initVariables() { gameEnder_ = false; }
-
 // initalize window
 void Game::initWindow()
 {
@@ -98,7 +121,7 @@ void Game::manageInput()
     bool D = sf::Keyboard::isKeyPressed(sf::Keyboard::D);
     bool LSHIFT = sf::Keyboard::isKeyPressed(sf::Keyboard::LShift);
     bool LMOUSE = sf::Mouse::isButtonPressed(sf::Mouse::Left);
-
+    bool ENTER = sf::Keyboard::isKeyPressed(sf::Keyboard::Enter);
     bool twoKeys = ((W || S) && (A || D));
     bool triedMoving = W || A || S || D;
 
@@ -136,6 +159,13 @@ void Game::manageInput()
         sf::Vector2f mousePos = window_->mapPixelToCoords(sf::Mouse::getPosition(*window_));
         addProjectiles(player_->Attack(mousePos));
     }
+    if (ENTER) {
+        if (!gameLost()) {
+        } else {
+            restartGame();
+        }
+    }
+
     if (triedMoving) {
         // std::cout << player_->GetPos().x << " " << player_->GetPos().y << std::endl;
         if (collidesWithWall(player_.get())) {
@@ -168,6 +198,11 @@ void Game::checkCollisions(Character* character, Projectile::Type projectileType
     for (auto& projectile : projectiles_) {
         if (projectile->GetType() == projectileType && !projectile->HasHit(character)) {
             if (Collision::PixelPerfectTest(projectile->GetSprite(), character->GetSprite())) {
+                if (projectileType == Projectile::Type::PlayerProjectile) {
+                    monsterHitSound->PlaySound();
+                } else if (projectileType == Projectile::Type::EnemyProjectile && player_->IsAlive()) {
+                    playerHitSound->PlaySound();
+                }
                 projectile->Hit(character);
                 character->TakeDamage(projectile->GetDamage());
                 if (!projectile->Penetrates()) {
@@ -189,6 +224,10 @@ void Game::checkMonsterCollisions()
         checkCollisions(monster.get(), Projectile::Type::PlayerProjectile);
         if (!monster->IsAlive()) {
             deadMonsters.push_back(monster);
+            Potion* potion = monster->ReturnPotion();
+            if (potion != nullptr) {
+                dungeonMap_.GetCurrentRoom()->AddPotion(potion);
+            }
         }
     }
     for (auto monster : deadMonsters) {
@@ -225,6 +264,20 @@ void Game::addProjectiles(std::list<ProjectileUP> projectiles)
     }
 }
 
+void Game::deletePotion(Potion* p)
+{
+    auto& potions = dungeonMap_.GetCurrentRoom()->GetPotions();
+    if (potions.empty())
+        return;
+
+    for (auto it = potions.begin(); it != potions.end(); ++it) {
+        if (*it == p) {
+            it = potions.erase(it);
+            return;
+        }
+    }
+}
+
 void Game::updateProjectiles()
 {
     if (projectiles_.empty())
@@ -250,6 +303,20 @@ void Game::updateMonsters()
         }
         addProjectiles(monster->Attack());
         monster->Update(dt_);
+    }
+}
+
+void Game::updatePotions()
+{
+    for (auto potion : dungeonMap_.GetCurrentRoom()->GetPotions()) {
+        sf::Vector2f poPos = potion->GetSpriteCenter();
+        sf::Vector2f plPos = player_->GetSpriteCenter();
+        sf::Vector2f difference = poPos - plPos;
+        float distance = std::sqrt(difference.x * difference.x + difference.y * difference.y);
+        if (distance < 50) {
+            player_->AddPotion(potion);
+            deletePotion(potion);
+        }
     }
 }
 
@@ -282,9 +349,20 @@ bool Game::ShouldChangeRoom()
 
 bool Game::gameLost()
 {
-    return player_->IsAlive();
+    if (!player_->IsAlive()) {
+        gameEnder_ = true;
+    }
+    return gameEnder_;
 }
 
+void Game::restartGame()
+{
+    dungeonMap_.ResetMap();
+    gameEnder_ = false;
+    projectiles_.clear();
+    player_->ClearInventory();
+    player_->ResetCharacterToBeAlive();
+}
 bool Game::gameWon()
 {
     return dungeonMap_.IsBossRoomCleared();

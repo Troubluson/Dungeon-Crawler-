@@ -22,7 +22,7 @@ bool SnipingMonster::Move(float)
 
 std::list<ProjectileUP> SnipingMonster::Attack()
 {
-    if (!CanAttack || !HasWeapon() || !inRangeOfPlayer()) {
+    if (!CanAttack || !HasWeapon() || !inRangeOfPlayer() || !IsAlive()) {
         return emptyList();
     }
 

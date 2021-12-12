@@ -6,11 +6,14 @@
 #include "Actors/player.hpp"
 /*#include "CollisionSystem.hpp"*/
 #include "Actors/Monsters/BossMonster.hpp"
+#include "Combat/Health/Potion.hpp"
 #include "Combat/Projectile.hpp"
 #include "Combat/Weapons/BowWeapon.hpp"
 #include "Combat/Weapons/SwordWeapon.hpp"
 #include "Dungeon/map.hpp"
 #include "Utility/LevelUpSystem.hpp"
+#include "Utility/ScreenText.hpp"
+#include "Utility/Sounds/SoundEffects.hpp"
 #include "gamebar.hpp"
 
 class Game {
@@ -48,6 +51,11 @@ private:
     PlayerPS player_;
     Map dungeonMap_;
     Gamebar gamebar_;
+    ScreenText deathtext_;
+    ScreenText victoryScreen_;
+
+    SoundEffect* playerHitSound = new SoundEffect("content/sounds/playerHit.wav");
+    SoundEffect* monsterHitSound = new SoundEffect("content/sounds/monsterHit.wav");
 
     float dt_;
     bool paused = false;
@@ -89,11 +97,6 @@ private:
      */
     void checkCollisions(Character* character, Projectile::Type projectileType);
     /**
-     * @brief reset game after death, keeps the same player, new map
-     *
-     */
-    void resetGame();
-    /**
      * @brief checks if projectiles hit monsters, removes the monster if they die
      *
      */
@@ -126,6 +129,7 @@ private:
      * @param    m                    monster that is deleted if it's dead
      */
     void deleteMonster(Character* m);
+    void deletePotion(Potion* p);
     /**
      * @brief handles the projectiles life span
      *
@@ -143,7 +147,9 @@ private:
      * @return true if collides
      * @return false if it does not collide
      */
+    void updatePotions();
     bool collidesWithWall(Character* character);
+
     /**
      * @brief check if projectile collides with wall
      *
@@ -166,6 +172,11 @@ private:
      * @return false if still going
      */
     bool gameLost();
+    /**
+     * @brief reset game after death, keeps the same player, same map
+     *
+     */
+    void restartGame();
 
     /**
      * @brief Checks if game is won i.e. if the maps's bossroom has been cleared.

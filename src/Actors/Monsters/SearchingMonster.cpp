@@ -22,7 +22,7 @@ bool SearchingMonster::Move(float dt)
 
 std::list<ProjectileUP> SearchingMonster::Attack()
 {
-    if (!CanAttack || getDistanceToPlayer() > 5.0f) {
+    if (!CanAttack || getDistanceToPlayer() > 5.0f || !IsAlive()) {
         return emptyList();
     }
     ResetAttackCooldown();

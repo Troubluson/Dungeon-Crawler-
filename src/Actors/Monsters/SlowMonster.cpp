@@ -22,7 +22,7 @@ bool SlowMonster::Move(float dt)
 
 std::list<ProjectileUP> SlowMonster::Attack()
 {
-    if (!CanAttack || !HasWeapon() || !inRangeOfPlayer()) {
+    if (!CanAttack || !HasWeapon() || !inRangeOfPlayer() || !IsAlive()) {
         return emptyList();
     }
 

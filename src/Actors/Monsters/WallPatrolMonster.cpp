@@ -46,7 +46,7 @@ bool WallPatrolMonster::Move(float dt)
 
 std::list<ProjectileUP> WallPatrolMonster::Attack()
 {
-    if (!CanAttack || !HasWeapon() || !inRangeOfPlayer()) {
+    if (!CanAttack || !HasWeapon() || !inRangeOfPlayer() || !IsAlive()) {
         return emptyList();
     }
 
