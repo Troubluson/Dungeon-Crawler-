@@ -6,6 +6,7 @@
 #include "Actors/player.hpp"
 /*#include "CollisionSystem.hpp"*/
 #include "Actors/Monsters/BossMonster.hpp"
+#include "Combat/Health/Potion.hpp"
 #include "Combat/Projectile.hpp"
 #include "Combat/Weapons/BowWeapon.hpp"
 #include "Combat/Weapons/SwordWeapon.hpp"
@@ -123,6 +124,7 @@ private:
      * @param    m                    monster that is deleted if it's dead
      */
     void deleteMonster(Character* m);
+    void deletePotion(Potion* p);
     /**
      * @brief handles the projectiles life span
      *
@@ -140,7 +142,7 @@ private:
      * @return true if collides
      * @return false if it does not collide
      */
-
+    void updatePotions();
     bool collidesWithWall(Character* character);
 
     /**

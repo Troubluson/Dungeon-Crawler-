@@ -82,6 +82,21 @@ float Monster::getDistanceToPlayer()
     return distance;
 }
 
+Potion* Monster::ReturnPotion()
+{
+    sf::Vector2f currentPos = GetPos();
+    int r = randomhelper::RandomIntBetween(0, 18);
+    if (r < 4 && r > -1)
+        return new GreenPotion(currentPos);
+    else if (r < 8 && r > 3)
+        return new RedPotion(currentPos);
+    else if (r < 10 && r > 7)
+        return new YellowPotion(currentPos);
+    else if (r < 12 && r > 9)
+        return new VioletPotion(currentPos);
+    else
+        return nullptr;
+}
 bool Monster::inRangeOfPlayer()
 {
     if (!HasWeapon()) {
