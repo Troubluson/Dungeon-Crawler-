@@ -33,6 +33,7 @@ void Game::UpdateGame()
         updateDt();
         manageInput();
         updateMonsters();
+        updatePotions();
         updateProjectiles();
         checkMonsterCollisions();
         checkPlayerCollisions();
@@ -54,6 +55,9 @@ void Game::RenderGame()
     for (auto& monster : dungeonMap_.GetCurrentRoom()->GetMonsters()) {
         monster->Render(window_);
     }
+    for (auto potion : dungeonMap_.GetCurrentRoom()->GetPotions()) {
+        potion->Render(window_);
+    }
     window_->display();
 }
 bool Game::Running() const { return window_->isOpen(); }
@@ -70,6 +74,16 @@ void Game::Events()
             break;
         case sf::Event::GainedFocus:
             paused = false;
+            break;
+        case sf::Event::KeyPressed:
+            if (event_.key.code == sf::Keyboard::Num1)
+                player_->UsePotion("red");
+            else if (event_.key.code == sf::Keyboard::Num2)
+                player_->UsePotion("green");
+            else if (event_.key.code == sf::Keyboard::Num3)
+                player_->UsePotion("yellow");
+            else if (event_.key.code == sf::Keyboard::Num4)
+                player_->UsePotion("violet");
             break;
         default:
             break;
@@ -188,6 +202,10 @@ void Game::checkMonsterCollisions()
         checkCollisions(monster.get(), Projectile::Type::PlayerProjectile);
         if (!monster->IsAlive()) {
             deadMonsters.push_back(monster);
+            Potion* potion = monster->ReturnPotion();
+            if (potion != nullptr) {
+                dungeonMap_.GetCurrentRoom()->AddPotion(potion);
+            }
         }
     }
     for (auto monster : deadMonsters) {
@@ -224,6 +242,20 @@ void Game::addProjectiles(std::list<ProjectileUP> projectiles)
     }
 }
 
+void Game::deletePotion(Potion* p)
+{
+    auto& potions = dungeonMap_.GetCurrentRoom()->GetPotions();
+    if (potions.empty())
+        return;
+
+    for (auto it = potions.begin(); it != potions.end(); ++it) {
+        if (*it == p) {
+            it = potions.erase(it);
+            return;
+        }
+    }
+}
+
 void Game::updateProjectiles()
 {
     if (projectiles_.empty())
@@ -249,6 +281,20 @@ void Game::updateMonsters()
         }
         addProjectiles(monster->Attack());
         monster->Update(dt_);
+    }
+}
+
+void Game::updatePotions()
+{
+    for (auto potion : dungeonMap_.GetCurrentRoom()->GetPotions()) {
+        sf::Vector2f poPos = potion->GetSpriteCenter();
+        sf::Vector2f plPos = player_->GetSpriteCenter();
+        sf::Vector2f difference = poPos - plPos;
+        float distance = std::sqrt(difference.x * difference.x + difference.y * difference.y);
+        if (distance < 50) {
+            player_->AddPotion(potion);
+            deletePotion(potion);
+        }
     }
 }
 
@@ -286,5 +332,5 @@ bool Game::gameLost()
 
 bool Game::gameWon()
 {
-    return  dungeonMap_.IsBossRoomCleared();
+    return dungeonMap_.IsBossRoomCleared();
 }

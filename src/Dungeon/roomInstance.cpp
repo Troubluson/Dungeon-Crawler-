@@ -43,6 +43,9 @@ RoomInstance::RoomInstance(sf::Vector2u window_size, sf::Vector2i coords, Monste
 RoomInstance::~RoomInstance()
 {
     delete spawner_;
+    for (auto h : potions_) {
+        delete h;
+    }
 }
 
 void RoomInstance::Render(sf::RenderTarget* target)
@@ -202,6 +205,14 @@ std::vector<MonsterSP>& RoomInstance::GetMonsters()
     return monsters_;
 }
 
+void RoomInstance::AddPotion(Potion* potion)
+{
+    potions_.push_back(potion);
+}
+std::vector<Potion*>& RoomInstance::GetPotions()
+{
+    return potions_;
+}
 Direction RoomInstance::RemoveRandomDirection()
 {
     int id = randomhelper::RandomIntBetween(0, directionsLeft_.size() - 1);

@@ -34,8 +34,12 @@ void Player::Update(float dt)
 void Player::Dash()
 {
     if (CanDash) {
+        if (dashesBoosted_ > 0) {
+            dashCurrentDurationLength_ = dashDefaultDurationLength_ * dashLengthBoostModifier;
+            dashesBoosted_ -= 1;
+        }
         IsDashing = true;
-        dashDurationLeft_ = dashDurationLength_;
+        dashDurationLeft_ = dashCurrentDurationLength_;
         ResetDashCooldown();
     }
 }
@@ -47,10 +51,14 @@ void Player::initVariables()
     dashCooldownLeft_ = 0.0f;
     CanDash = true;
     IsDashing = false;
-    dashDurationLength_ = 0.25f;
+    dashDefaultDurationLength_ = 0.25f;
+    dashCurrentDurationLength_ = dashDefaultDurationLength_;
     dashDurationLeft_ = 0.0f;
     SetNormalSpeed(300.0f);
     dashSpeed_ = defaultSpeed_ * 3;
+
+    attacksBoosted_ = 0;
+    dashesBoosted_ = 0;
 
     characterProjectileType_ = Projectile::Type::PlayerProjectile;
 }
@@ -72,6 +80,7 @@ void Player::updateDashCooldown(float dt)
         dashDurationLeft_ -= dt;
     }
     if (dashDurationLeft_ <= 0) {
+        dashCurrentDurationLength_ = dashDefaultDurationLength_;
         IsDashing = false;
     }
 }
@@ -84,5 +93,43 @@ std::list<ProjectileUP> Player::Attack(sf::Vector2f aimPos)
 
     ResetAttackCooldown();
 
-    return shotProjectileList(aimPos);
+    if (attacksBoosted_ > 0) {
+        weapon_->BoostDamageValue();
+        attacksBoosted_ -= 1;
+    }
+
+    auto res = shotProjectileList(aimPos);
+    weapon_->UnBoostDamageValue();
+    return res;
+}
+
+void Player::AddPotion(Potion* potion)
+{
+    inventory_.push_back(potion);
+}
+
+void Player::UsePotion(const std::string& colour)
+{
+    bool found = false;
+    auto it = inventory_.begin();
+    while (it != inventory_.end() && !found) {
+        if ((*it)->GetColour() == colour) {
+            if (colour == "violet") {
+                attacksBoosted_ += 10;
+            } else if (colour == "yellow") {
+                dashesBoosted_ += 3;
+            } else {
+                Heal((*it)->GetHealthIncrease());
+            }
+            it = inventory_.erase(it);
+            found = true;
+        } else {
+            ++it;
+        }
+    }
+}
+
+std::vector<Potion*> Player::GetInventory() const
+{
+    return inventory_;
 }

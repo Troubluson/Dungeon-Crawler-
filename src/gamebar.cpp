@@ -34,6 +34,16 @@ Gamebar::Gamebar(PlayerPS player)
     if (!font_.loadFromFile("content/fonts/arial.ttf")) {
         std::cout << "load failed" << std::endl;
     }
+
+    spritehelper::CreateSpriteFrom("content/sprites/potions/red_potion.png", sf::Vector2f(0.4, 0.4), redsprite_, redtexture_);
+    spritehelper::CreateSpriteFrom("content/sprites/potions/green_potion.png", sf::Vector2f(0.4, 0.4), greensprite_, greentexture_);
+    spritehelper::CreateSpriteFrom("content/sprites/potions/yellow_potion.png", sf::Vector2f(0.4, 0.4), yellowsprite_, yellowtexture_);
+    spritehelper::CreateSpriteFrom("content/sprites/potions/violet_potion.png", sf::Vector2f(0.4, 0.4), violetsprite_, violettexture_);
+
+    redsprite_.setPosition(redpos_);
+    greensprite_.setPosition(greenpos_);
+    yellowsprite_.setPosition(yellowpos_);
+    violetsprite_.setPosition(violetpos_);
 }
 
 void Gamebar::Render(sf::RenderTarget* target)
@@ -52,6 +62,8 @@ void Gamebar::Render(sf::RenderTarget* target)
     hp.setPosition(hpPositionX, greenBar_.getPosition().y);
     hp.setFillColor(sf::Color::White);
     target->draw(hp);
+
+    RenderInventory(target);
 }
 
 void Gamebar::Update()
@@ -64,4 +76,56 @@ void Gamebar::Update()
 
     int newYellowWidth = 100 - 100 * (player_->GetDashCooldownLeft() / player_->GetDashCooldownLength());
     yellowBar_.setSize(sf::Vector2f(newYellowWidth, 30));
+}
+
+void Gamebar::RenderInventory(sf::RenderTarget* target)
+{
+    std::vector<Potion*> inv = player_->GetInventory();
+
+    int red = 0;
+    int green = 0;
+    int yellow = 0;
+    int violet = 0;
+
+    for (auto i : inv) {
+        if (i->GetColour() == "red")
+            red += 1;
+        else if (i->GetColour() == "green")
+            green += 1;
+        else if (i->GetColour() == "yellow")
+            yellow += 1;
+        else if (i->GetColour() == "violet")
+            violet += 1;
+    }
+    sf::Text nofred;
+    sf::Text nofgreen;
+    sf::Text nofyellow;
+    sf::Text nofviolet;
+
+    nofred.setString("x" + std::to_string(red));
+    nofgreen.setString("x" + std::to_string(green));
+    nofyellow.setString("x" + std::to_string(yellow));
+    nofviolet.setString("x" + std::to_string(violet));
+
+    std::vector<sf::Text> amounts;
+    amounts.push_back(nofred);
+    amounts.push_back(nofgreen);
+    amounts.push_back(nofyellow);
+    amounts.push_back(nofviolet);
+
+    float xcoord = 0;
+
+    for (auto a : amounts) {
+        a.setFont(font_);
+        a.setCharacterSize(25);
+        a.setPosition(820 + xcoord, 5);
+        a.setFillColor(sf::Color::White);
+        target->draw(a);
+        xcoord += 100;
+    }
+
+    target->draw(redsprite_);
+    target->draw(greensprite_);
+    target->draw(yellowsprite_);
+    target->draw(violetsprite_);
 }

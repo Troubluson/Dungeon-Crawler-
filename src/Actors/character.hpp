@@ -30,6 +30,7 @@ public:
      */
 
     void TakeDamage(int value);
+    void Heal(int value);
     int GetHitPoints() const;
 
     bool IsAlive();
