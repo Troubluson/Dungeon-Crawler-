@@ -20,7 +20,6 @@ Game::Game()
     playerSword->SetTextureRect({ 358, 302, 10, 30 });
     player_->Equip(playerSword);
     LevelUpSystem::AddCharacter(player_.get());
-    initVariables();
     initWindow();
     dtClock_.restart(); // to not have giant first dt
 }
@@ -121,7 +120,7 @@ void Game::manageInput()
     bool D = sf::Keyboard::isKeyPressed(sf::Keyboard::D);
     bool LSHIFT = sf::Keyboard::isKeyPressed(sf::Keyboard::LShift);
     bool LMOUSE = sf::Mouse::isButtonPressed(sf::Mouse::Left);
-    bool ENTER = sf::Keyboard::isKeyPressed(sf::Keyboard::Enter);
+    bool ENTER = sf::Keyboard::isKeyPressed(sf::Keyboard::Return);
     bool twoKeys = ((W || S) && (A || D));
     bool triedMoving = W || A || S || D;
 
