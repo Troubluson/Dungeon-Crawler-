@@ -1,6 +1,6 @@
 #include "WallPatrolMonster.hpp"
 namespace {
-const std::string monsterSpriteFileLocation = "content/sprites/monster1.png";
+const std::string monsterSpriteFileLocation = "content/sprites/monsters/monster5.png";
 }
 
 WallPatrolMonster::WallPatrolMonster(PlayerPS player, sf::Vector2f pos)
@@ -57,7 +57,7 @@ std::list<ProjectileUP> WallPatrolMonster::Attack()
 
 void WallPatrolMonster::initVariables()
 {
-    SwordWeapon* monsterSword = new SwordWeapon(5, 100, 120, 1000, sf::Vector2f(50, 100), "content/sprites/projectiles.png");
+    SwordWeapon* monsterSword = new SwordWeapon(5, 100, 120, 1000, sf::Vector2f(150, 150), "content/sprites/Weapons/halberd.png");
     Equip(monsterSword);
     SetNormalSpeed(200.0f);
 }

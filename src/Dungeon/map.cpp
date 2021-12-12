@@ -54,7 +54,7 @@ void Map::CreateDungeon(int noRooms)
     RoomInstance* bossRoom = new BossRoom(roomSize_, sf::Vector2i(bossCoords.first, bossCoords.second));
     delete dungeon_[bossCoords];
     dungeon_[bossCoords] = bossRoom;
-
+    bossCoords_ = sf::Vector2i(bossCoords.first, bossCoords.second);
     for (auto room : wallsToBreak) {
         for (auto dir : room.second) {
             dungeon_[room.first]->CreateExit(dir);
@@ -124,7 +124,11 @@ RoomInstance* Map::GetSpawnRoom()
 
 bool Map::IsBossRoomCleared()
 {
-    return GetRoomAt(bossCoords_)->IsCleared();
+    if ((GetRoomAt(bossCoords_)->IsVisisted()) && GetRoomAt(bossCoords_)->monsterCleared()) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 std::pair<int, int> Map::findBossRoom(std::map<std::pair<int, int>, std::set<Direction>> coordsAndPaths)

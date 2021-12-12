@@ -265,6 +265,15 @@ bool RoomInstance::IsCleared()
     return cleared_;
 }
 
+bool RoomInstance::monsterCleared()
+{
+    if (monsters_.empty()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 void RoomInstance::setTiles()
 {
     tileVector_.clear();

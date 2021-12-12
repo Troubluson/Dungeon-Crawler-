@@ -1,19 +1,23 @@
 #include "BossRoom.hpp"
 BossRoom::BossRoom(sf::Vector2u window_size, sf::Vector2i coords)
-    : RoomInstance(window_size, coords, dynamic_cast<BossSpawner*>(new BossSpawner()))
+    : RoomInstance(window_size, coords)
 {
     setTiles(window_size);
 }
 
 void BossRoom::Enter(PlayerPS player, Direction direction)
 {
+    visited_ = true;
     if (!cleared_) {
         MonsterSP monster;
-        do {
-            monster = spawner_->SpawnMonster(roomSize_, player);
-        } while (monster == nullptr || !positionIsWalkable(monster->GetBaseBoxAt(monster->GetPos())));
-        monster->SetTarget(player);
-        monsters_.push_back(monster);
+        while (monsters_.empty()) {
+            BossSpawner bossSpawner = BossSpawner();
+            do {
+                monster = bossSpawner.SpawnMonster(roomSize_, player);
+            } while (monster == nullptr || !positionIsWalkable(monster->GetBaseBoxAt(monster->GetPos())));
+            monster->SetTarget(player);
+            monsters_.push_back(monster);
+        }
     }
     player->SetPosAndOldPos(sf::Vector2f(GetEntranceInDirection(direction))); // prevents us from getting stuck in the wall
 }

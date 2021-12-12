@@ -1,6 +1,6 @@
 #include "SnipingMonster.hpp"
 namespace {
-const std::string monsterSpriteFileLocation = "content/sprites/monster1.png";
+const std::string monsterSpriteFileLocation = "content/sprites/monsters/monster3.png";
 }
 
 SnipingMonster::SnipingMonster(PlayerPS player, sf::Vector2f pos)
@@ -33,7 +33,7 @@ std::list<ProjectileUP> SnipingMonster::Attack()
 
 void SnipingMonster::initVariables()
 {
-    BowWeapon* snipingBow = new BowWeapon(5, 10000, 30, 1000, sf::Vector2f(50, 100), "content/sprites/projectiles.png");
+    BowWeapon* snipingBow = new BowWeapon(5, 10000, 30, 1000, sf::Vector2f(100, 100), "content/sprites/projectiles/projectilessnipe.png");
     Equip(snipingBow);
     SetNormalSpeed(200.0f);
 }

@@ -23,7 +23,7 @@ Character::Character(const std::string& filename, sf::Vector2f pos, bool animate
 
 Character::~Character()
 {
-    delete weapon_;
+    // delete weapon_; makes produces memory leak but projectile become white otherwise
 }
 
 void Character::initVariables()
@@ -45,16 +45,28 @@ void Character::initVariables()
 bool Character::MoveLeft(float dt)
 {
     pos_.x -= currentSpeed_ * dt;
-    if (hasAnimation_)
+    if (hasAnimation_) {
         animationHandler_.setAnimation(AnimationIndex::AnimationLeft);
+    }
+    /**else if (!left_or_right_) {
+        sprite_.setScale(-sprite_.getScale().x, sprite_.getScale().y);
+        sprite_.setPosition(pos_.x + sprite_.getLocalBounds().width, pos_.y);
+        left_or_right_ = true;
+    }*/
     return true;
 }
 
 bool Character::MoveRight(float dt)
 {
     pos_.x += currentSpeed_ * dt;
-    if (hasAnimation_)
+    if (hasAnimation_) {
         animationHandler_.setAnimation(AnimationIndex::AnimationRight);
+    }
+    /**else if (left_or_right_) {
+        sprite_.setScale(sprite_.getScale().x, sprite_.getScale().y);
+        sprite_.setPosition(pos_.x + 64, pos_.y);
+        left_or_right_ = false;
+    }*/
     return true;
 }
 
@@ -95,7 +107,9 @@ void Character::updateAttackCooldown(float dt)
 
 void Character::TakeDamage(int value)
 {
-    hitpoints_ = std::max(0, hitpoints_ - value);
+    if (!invincibility_frame_) {
+        hitpoints_ = std::max(0, hitpoints_ - value);
+    }
 }
 
 void Character::Heal(int value)
