@@ -3,6 +3,10 @@
 #define _COLLISIONSYSTEM_CLASS_
 #include "Interfaces/ICollidable.hpp"
 
+/**
+ * @brief Unused, was not intergrated or completed
+ *
+ */
 class CollisionSystem {
 private:
     // hold all objects that participate in collision

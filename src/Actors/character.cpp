@@ -21,7 +21,10 @@ Character::Character(const std::string& filename, sf::Vector2f pos, bool animate
     }
 }
 
-Character::~Character() { }
+Character::~Character()
+{
+    // delete weapon_; makes produces memory leak but projectile become white otherwise
+}
 
 void Character::initVariables()
 {
@@ -104,13 +107,9 @@ void Character::updateAttackCooldown(float dt)
 
 void Character::TakeDamage(int value)
 {
-<<<<<<< src/Actors/character.cpp
     if (!invincibility_frame_) {
         hitpoints_ = std::max(0, hitpoints_ - value);
     }
-=======
-    hitpoints_ = std::max(0, hitpoints_ - value);
->>>>>>> src/Actors/character.cpp
 }
 
 void Character::Heal(int value)

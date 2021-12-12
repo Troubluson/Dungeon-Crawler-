@@ -9,7 +9,7 @@
 
 class Monster : public Character {
 public:
-    ~Monster();
+    virtual ~Monster();
 
     Player& GetPlayer() const;
     virtual std::list<ProjectileUP> Attack() = 0;
