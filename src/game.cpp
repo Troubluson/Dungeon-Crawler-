@@ -32,7 +32,6 @@ void Game::UpdateGame()
     if (!paused) {
         updateDt();
         manageInput();
-
         updateMonsters();
         updateProjectiles();
         checkMonsterCollisions();
@@ -53,9 +52,6 @@ void Game::RenderGame()
         projectile->Render(window_);
     }
     for (auto& monster : dungeonMap_.GetCurrentRoom()->GetMonsters()) {
-        if (monster == nullptr) {
-            std::cout << "nullptr" << std::endl;
-        }
         monster->Render(window_);
     }
     window_->display();
@@ -286,4 +282,9 @@ bool Game::ShouldChangeRoom()
 bool Game::gameLost()
 {
     return player_->IsAlive();
+}
+
+bool Game::gameWon()
+{
+    return  dungeonMap_.IsBossRoomCleared();
 }

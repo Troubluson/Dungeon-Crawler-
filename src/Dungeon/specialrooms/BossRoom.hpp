@@ -11,8 +11,6 @@ public:
     ~BossRoom() { }
     virtual void Enter(PlayerPS player, Direction direction);
     virtual void setTiles(sf::Vector2u window_size);
-
-private:
 };
 
 #endif

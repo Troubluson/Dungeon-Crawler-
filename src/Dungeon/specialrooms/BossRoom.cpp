@@ -2,7 +2,6 @@
 BossRoom::BossRoom(sf::Vector2u window_size, sf::Vector2i coords)
     : RoomInstance(window_size, coords, dynamic_cast<BossSpawner*>(new BossSpawner()))
 {
-
     setTiles(window_size);
 }
 

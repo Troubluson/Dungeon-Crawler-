@@ -162,6 +162,14 @@ private:
      * @return false if still going
      */
     bool gameLost();
+
+    /**
+     * @brief Checks if game is won i.e. if the maps's bossroom has been cleared.
+     *
+     * @return true if room is cleared
+     * @return false not yet cleared
+     */
+    bool gameWon();
 };
 
 #endif
