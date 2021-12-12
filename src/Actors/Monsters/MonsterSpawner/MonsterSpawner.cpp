@@ -1,40 +1,33 @@
 #include "MonsterSpawner.hpp"
 #include <time.h>
 
-Monster* MonsterSpawner::getRandomMonster(Player& target) const
+MonsterSP MonsterSpawner::getRandomMonster(PlayerPS target) const
 {
     int monsterType = randomhelper::RandomIntBetween(0, monsterTypeCount_ - 1);
     switch (monsterType) {
-    case 0: { //RandomMonster
-        Monster* m = new RandomMonster(target, 0, 0);
-        return m;
-        break;
+    case 0: { // RandomMonster
+        return MonsterSP(new RandomMonster(target, 0, 0));
     }
-    case 1: { //SlowMonster
+    case 1: { // SlowMonster
 
-        Monster* m = new SlowMonster(target, 1000, 700);
-        return m;
-        break;
+        return MonsterSP(new SlowMonster(target, 1000, 700));
     }
-    case 2: { //WallPatrolMonster
-        Monster* m = new WallPatrolMonster(target, 1000, 700);
-        return m;
-        break;
+    case 2: { // WallPatrolMonster
+        return MonsterSP(new WallPatrolMonster(target, 1000, 700));
     }
-    case 3: { //SnipingMonster
-        Monster* m = new SnipingMonster(target, 0, 0);
-        return m;
-        break;
+    case 3: { // SnipingMonster
+        return MonsterSP(new SnipingMonster(target, 0, 0));
     }
     case 4:
-        return new SearchingMonster(target, 0, 0);
+        return MonsterSP(new SearchingMonster(target, 0, 0));
     default:
         return nullptr;
     }
 }
-Monster* MonsterSpawner::SpawnMonster(sf::Vector2u roomSize, Player& target) const
+
+MonsterSP MonsterSpawner::SpawnMonster(sf::Vector2u roomSize, PlayerPS target) const
 {
-    Monster* m = getRandomMonster(target);
+    auto m = getRandomMonster(target);
     if (m == nullptr) {
         return nullptr;
     }
@@ -45,18 +38,6 @@ Monster* MonsterSpawner::SpawnMonster(sf::Vector2u roomSize, Player& target) con
     return m;
 }
 
-/*std::list<Monster*> MonsterSpawner::SpawnMonsters(sf::Vector2u roomSize) const
-{
-    std::list<Monster*> monsters;
-    for (auto i = 0u; i < monsterCount_; ++i) {
-        Monster* newMonster = SpawnMonster(roomSize, );
-        if (newMonster == nullptr) {
-            return std::list<Monster*>();
-        }
-        monsters.push_back(newMonster);
-    }
-    return monsters;
-}*/
 void MonsterSpawner::SetMonsterAmount(uint amount)
 {
     monsterCount_ = amount;

@@ -9,15 +9,16 @@ const std::string VICTORY = "content/sprites/endscreen.png";
 }
 
 Game::Game()
-    : player_(new Player())
-    , dungeonMap_(Map(VIDEOMODE_DIMS, 10, *player_))
+    : player_(PlayerPS(new Player()))
+    , dungeonMap_(Map(VIDEOMODE_DIMS, 10, player_))
     , gamebar_(Gamebar(player_))
     , deathtext_(ScreenText(DEATHTEXT, { 0, 0 }, { 3, 3 }))
     , victoryScreen_(ScreenText(VICTORY, { 200, 0 }, { 3, 3 }))
 {
     SwordWeapon* playerSword = new SwordWeapon(20, 100, 120, 1000, sf::Vector2f(50, 100), "content/sprites/projectiles.png");
+    playerSword->SetTextureRect({ 358, 302, 10, 30 });
     player_->Equip(playerSword);
-    LevelUpSystem::AddCharacter(player_);
+    LevelUpSystem::AddCharacter(player_.get());
     initVariables();
     initWindow();
     dtClock_.restart(); // to not have giant first dt
@@ -26,20 +27,16 @@ Game::Game()
 Game::~Game()
 {
     delete window_;
-    delete player_;
 }
 
 void Game::UpdateGame()
 {
-    std::cout << LevelUpSystem::GetHPModifier(player_) << std::endl;
-    std::cout << LevelUpSystem::GetLevel(player_) << std::endl;
     Events();
     managePauseInput();
 
     if (!paused) {
         updateDt();
         manageInput();
-
         updateMonsters();
         updateProjectiles();
         checkMonsterCollisions();
@@ -57,14 +54,10 @@ void Game::RenderGame()
     dungeonMap_.RenderCurrentRoom(window_);
     player_->Render(window_);
     gamebar_.Render(window_);
-
-    for (auto projectile : projectiles_) {
+    for (auto& projectile : projectiles_) {
         projectile->Render(window_);
     }
-    for (auto monster : dungeonMap_.GetCurrentRoom()->GetMonsters()) {
-        if (monster == nullptr) {
-            std::cout << "nullptr" << std::endl;
-        }
+    for (auto& monster : dungeonMap_.GetCurrentRoom()->GetMonsters()) {
         monster->Render(window_);
     }
     if (gameLost() == true) {
@@ -152,8 +145,7 @@ void Game::manageInput()
 
     if (LMOUSE) {
         sf::Vector2f mousePos = window_->mapPixelToCoords(sf::Mouse::getPosition(*window_));
-        std::list<Projectile*> projectileListToAdd = player_->Attack(mousePos);
-        addProjectiles(projectileListToAdd);
+        addProjectiles(player_->Attack(mousePos));
     }
     if (ENTER) {
         if (!gameLost()) {
@@ -163,7 +155,8 @@ void Game::manageInput()
     }
 
     if (triedMoving) {
-        if (collidesWithWall(player_)) {
+        // std::cout << player_->GetPos().x << " " << player_->GetPos().y << std::endl;
+        if (collidesWithWall(player_.get())) {
             player_->RevertMove();
         }
         if (ShouldChangeRoom()) {
@@ -190,7 +183,7 @@ void Game::managePauseInput()
 
 void Game::checkCollisions(Character* character, Projectile::Type projectileType)
 {
-    for (auto projectile : projectiles_) {
+    for (auto& projectile : projectiles_) {
         if (projectile->GetType() == projectileType && !projectile->HasHit(character)) {
             if (Collision::PixelPerfectTest(projectile->GetSprite(), character->GetSprite())) {
                 projectile->Hit(character);
@@ -208,16 +201,17 @@ void Game::checkMonsterCollisions()
     if (projectiles_.empty()) {
         return;
     }
-    std::vector<Monster*> deadMonsters;
-    for (auto& monster : dungeonMap_.GetCurrentRoom()->GetMonsters()) {
-        checkCollisions(monster, Projectile::Type::PlayerProjectile);
+    auto currentRoom = dungeonMap_.GetCurrentRoom();
+    std::vector<MonsterSP> deadMonsters;
+    for (auto& monster : currentRoom->GetMonsters()) {
+        checkCollisions(monster.get(), Projectile::Type::PlayerProjectile);
         if (!monster->IsAlive()) {
             deadMonsters.push_back(monster);
         }
     }
     for (auto monster : deadMonsters) {
-        LevelUpSystem::GainXP(player_, 5.0f);
-        deleteMonster(monster);
+        LevelUpSystem::GainXP(player_.get(), 5.0f);
+        currentRoom->deleteMonster(monster);
     }
 }
 
@@ -226,54 +220,26 @@ void Game::checkPlayerCollisions()
     if (projectiles_.empty()) {
         return;
     }
-    checkCollisions(player_, Projectile::Type::EnemyProjectile);
+    checkCollisions(player_.get(), Projectile::Type::EnemyProjectile);
 }
 
 void Game::checkAndHandleProjectileWallCollisions()
 {
-    for (auto projectile : projectiles_) {
-        if (collidesWithWall(projectile)) {
+    for (auto& projectile : projectiles_) {
+        if (collidesWithWall(projectile.get())) {
             projectile->Kill();
         }
     }
 }
-// redundant atm
-void Game::deleteProjectile(Projectile* p)
-{
-    if (projectiles_.empty())
-        return;
 
-    for (auto it = projectiles_.begin(); it != projectiles_.end(); ++it) {
-        if (*it == p) {
-            projectiles_.erase(it);
-            return;
-        }
-    }
-}
-
-void Game::addProjectiles(std::list<Projectile*> projectiles)
+void Game::addProjectiles(std::list<ProjectileUP> projectiles)
 {
     if (projectiles.empty()) {
         return;
     }
 
-    for (auto projectile : projectiles) {
-        projectiles_.push_back(projectile);
-    }
-}
-
-void Game::deleteMonster(Character* m)
-{
-    auto& monsters = dungeonMap_.GetCurrentRoom()->GetMonsters();
-    if (monsters.empty())
-        return;
-
-    for (auto it = monsters.begin(); it != monsters.end(); ++it) {
-        if (*it == m) {
-            delete *it;
-            it = monsters.erase(it);
-            return;
-        }
+    for (auto& projectile : projectiles) {
+        projectiles_.push_back(std::move(projectile));
     }
 }
 
@@ -283,7 +249,7 @@ void Game::updateProjectiles()
         return;
 
     for (auto it = projectiles_.begin(); it != projectiles_.end(); ++it) {
-        auto p = *it;
+        auto& p = *it;
         if (!p->IsAlive()) {
             it = projectiles_.erase(it);
         } else {
@@ -297,13 +263,10 @@ void Game::updateMonsters()
     for (auto monster : dungeonMap_.GetCurrentRoom()->GetMonsters()) {
         // if moved, check collision with walls
         bool monsterMoved = monster->Move(dt_);
-        if (monsterMoved && collidesWithWall(monster)) {
+        if (monsterMoved && collidesWithWall(monster.get())) {
             monster->RevertMove();
         }
-
-        std::list<Projectile*> projectileListToAdd = monster->Attack();
-        addProjectiles(projectileListToAdd);
-
+        addProjectiles(monster->Attack());
         monster->Update(dt_);
     }
 }
@@ -349,4 +312,8 @@ void Game::restartGame()
     gameEnder_ = false;
     projectiles_.clear();
     player_->ResetCharacterToBeAlive();
+}
+bool Game::gameWon()
+{
+    return dungeonMap_.IsBossRoomCleared();
 }

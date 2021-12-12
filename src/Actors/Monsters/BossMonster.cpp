@@ -4,11 +4,11 @@ namespace {
 const std::string monsterSpriteFileLocation = "content/sprites/monster1.png";
 }
 
-BossMonster::BossMonster(Player& player, sf::Vector2f pos)
+BossMonster::BossMonster(PlayerPS player, sf::Vector2f pos)
     : Monster(player, pos, monsterSpriteFileLocation)
 {
 }
-BossMonster::BossMonster(Player& player, float xPos, float yPos)
+BossMonster::BossMonster(PlayerPS player, float xPos, float yPos)
     : Monster(player, sf::Vector2f(xPos, yPos), monsterSpriteFileLocation)
 {
     initVariables();
@@ -36,7 +36,7 @@ bool BossMonster::Move(float dt)
     return true;
 }
 
-std::list<Projectile*> BossMonster::Attack()
+std::list<ProjectileUP> BossMonster::Attack()
 {
     if ((!CanAttack || !HasWeapon() || !IsAlive()) && inRangeOfPlayer()) {
         return emptyList();
@@ -45,10 +45,10 @@ std::list<Projectile*> BossMonster::Attack()
     sf::Vector2f centerPos = GetSpriteCenter();
     if (attackStyle_ == 0) {
         ResetAttackCooldown();
-        std::list<Projectile*> listOfBulletsToAdd;
+        std::list<ProjectileUP> listOfBulletsToAdd;
         while (nofBulletsShot_ < nofBulletsInCircle_) {
             sf::Vector2f shootPos = sf::Vector2f(centerPos.x + 1 * sin(angle_), centerPos.y - 1 * cos(angle_));
-            std::list<Projectile*> subListToAdd = shotProjectileList(shootPos);
+            std::list<ProjectileUP> subListToAdd = shotProjectileList(shootPos);
             listOfBulletsToAdd.merge(subListToAdd);
             iterateAngle();
             nofBulletsShot_ += 1;
@@ -77,7 +77,7 @@ std::list<Projectile*> BossMonster::Attack()
                 iterateAttackStyle();
                 ResetAttackCooldown();
             }
-            return shotProjectileList(player_.GetSpriteCenter());
+            return shotProjectileList(player_->GetSpriteCenter());
         }
     }
 

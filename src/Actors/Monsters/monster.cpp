@@ -1,6 +1,6 @@
 #include "monster.hpp"
 
-Monster::Monster(Player& player, sf::Vector2f pos, const std::string& spriteFile)
+Monster::Monster(PlayerPS player, sf::Vector2f pos, const std::string& spriteFile)
     : Character(spriteFile, pos)
     , player_(player)
 {
@@ -10,7 +10,7 @@ Monster::Monster(Player& player, sf::Vector2f pos, const std::string& spriteFile
     healthbar.setPosition(pos.x + 15, pos.y - 5);
     healthbar_ = healthbar;
 }
-Monster::Monster(Player& player, float xPos, float yPos, const std::string& spriteFile)
+Monster::Monster(PlayerPS player, float xPos, float yPos, const std::string& spriteFile)
     : Monster(player, sf::Vector2f(xPos, yPos), spriteFile)
 {
 }
@@ -20,7 +20,7 @@ void Monster::initVariables()
     characterProjectileType_ = Projectile::Type::EnemyProjectile;
 }
 
-void Monster::SetTarget(Player& target)
+void Monster::SetTarget(PlayerPS target)
 {
     player_ = target;
 }
@@ -37,7 +37,7 @@ void Monster::Render(sf::RenderTarget* target)
 
 Player& Monster::GetPlayer() const
 {
-    return player_;
+    return *player_;
 }
 void Monster::Update(float dt)
 {

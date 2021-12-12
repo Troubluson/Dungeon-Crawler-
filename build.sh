@@ -26,12 +26,17 @@ launch() {
 	display_styled_symbol 32 " " "Launching bin/$BUILD/$NAME"
 	printf '\n'
 }
+launch_valgrind() {
+	display_styled_symbol 32 " " "Launching bin/$BUILD/$NAME with valgrind"
+	printf '\n'
+}
 
 build_success_launch() {
 	printf '\n'
 	display_styled_symbol 32 "✔" "Succeeded!"
 	launch
 }
+
 
 build_fail() {
 	printf '\n'
@@ -66,6 +71,25 @@ profiler_osx() {
 	display_styled_symbol 31 "⭙" "Error: Profiling (with gprof) is not supported on Mac OSX."
 	printf '\033[0m'
 	exit 1
+}
+
+cmd_buildrunvfull() {
+	display_styled_symbol 33 "⬤" "Build & Run with full valgrind: $BUILD (target: $NAME)"
+	printf '\n'
+	BLD=$BUILD
+	if [[ $BUILD == 'Tests' && $1 != 'main' ]]; then
+		BLD=Release
+	fi
+	if $MAKE_EXEC BUILD=$BLD; then
+		build_success_launch
+		if [[ $BUILD == 'Tests' ]]; then
+			valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all --log-file="valgrind_log" bin/Release/$NAME $OPTIONS
+		else
+			bin/$BUILD/$NAME $OPTIONS
+		fi
+	else
+		build_fail
+	fi
 }
 
 cmd_buildrun() {

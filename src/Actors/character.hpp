@@ -28,9 +28,9 @@ public:
      * @param    pos                  the wanted position
      * @return sf::FloatRect
      */
-    sf::FloatRect GetBaseBoxAt(sf::Vector2f pos);
 
     void TakeDamage(int value);
+    int GetHitPoints() const;
 
     bool IsAlive();
     bool HasWeapon();
@@ -85,7 +85,7 @@ protected:
     float attackCooldownLength_;
     float attackCooldownLeft;
     void updateAttackCooldown(float dt);
-    std::list<Projectile*> emptyList();
-    std::list<Projectile*> shotProjectileList(sf::Vector2f aimPos);
+    std::list<ProjectileUP> emptyList();
+    std::list<ProjectileUP> shotProjectileList(sf::Vector2f aimPos);
 };
 #endif

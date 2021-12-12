@@ -11,8 +11,6 @@ Player::Player()
     initVariables();
 }
 
-int Player::GetHitPoints() const { return hitpoints_; }
-
 void Player::Update(float dt)
 {
     if (hasAnimation_) {
@@ -93,7 +91,7 @@ void Player::updateDashCooldown(float dt)
     }
 }
 
-std::list<Projectile*> Player::Attack(sf::Vector2f aimPos)
+std::list<ProjectileUP> Player::Attack(sf::Vector2f aimPos)
 {
     if (!CanAttack || !HasWeapon() || !IsAlive()) {
         return emptyList();

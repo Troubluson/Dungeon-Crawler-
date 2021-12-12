@@ -46,7 +46,7 @@ private:
     sf::RenderWindow* window_;
     sf::Event event_;
     sf::Clock dtClock_;
-    Player* player_;
+    PlayerPS player_;
     Map dungeonMap_;
     Gamebar gamebar_;
     ScreenText deathtext_;
@@ -56,7 +56,7 @@ private:
     bool escapePressedLastTick = paused;
     bool gameEnder_;
 
-    std::list<Projectile*> projectiles_;
+    std::list<ProjectileUP> projectiles_;
     // CollisionSystem collisionSys;
     /**
      * @brief self explanatory, initializes the variables in game.
@@ -69,15 +69,19 @@ private:
      */
     void initWindow();
     /**
-     * @brief updates the game clock
+     * @brief updates the Deltatime (dt_) variable to compensate for diffrent frame rates on diffrent computers
      *
      */
     void updateDt();
     /**
-     * @brief manages inputs, like keypresses and player movement and runs the relevant functions
+     * @brief manages inputs, like keypresses (except for esc for pause) and player movement and runs the relevant functions
      *
      */
     void manageInput();
+    /**
+     * @brief manages input for the Escape key for pausing the game
+     *
+     */
     void managePauseInput();
     /**
      * @brief Checks if projectile collides with a character, if hit runs the function for damaging the character
@@ -106,13 +110,13 @@ private:
      *
      * @param    p                    projectile to be deleted
      */
-    void deleteProjectile(Projectile* p);
+    void deleteProjectile(ProjectileUP p);
     /**
      * @brief adds projectile to projectile list
      *
      * @param    listToAdd            the projectiles to be added
      */
-    void addProjectiles(std::list<Projectile*> listToAdd);
+    void addProjectiles(std::list<ProjectileUP> listToAdd);
     /**
      * @brief deletes monster from room if dead
      *
@@ -166,6 +170,14 @@ private:
      *
      */
     void restartGame();
+
+    /**
+     * @brief Checks if game is won i.e. if the maps's bossroom has been cleared.
+     *
+     * @return true if room is cleared
+     * @return false not yet cleared
+     */
+    bool gameWon();
 };
 
 #endif

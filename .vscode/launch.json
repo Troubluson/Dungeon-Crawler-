@@ -34,13 +34,6 @@
 					"PATH": "${config:terminal.integrated.env.linux.PATH}",
 				}
 			},
-			"osx": {
-				"program": "${workspaceFolder}/bin/Debug/${workspaceRootFolderName}",
-				"MIMode": "lldb",
-				"env": {
-					"PATH": "${config:terminal.integrated.env.osx.PATH}",
-				}
-			},
 		}
 	]
 }
