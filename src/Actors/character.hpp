@@ -73,7 +73,7 @@ protected:
     AnimationHandler animationHandler_;
     float currentSpeed_;
     float defaultSpeed_;
-
+    bool left_or_right_ = true;
     void generalUpdate(float dt);
 
     float attackCooldownLength_;

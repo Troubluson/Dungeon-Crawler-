@@ -40,16 +40,28 @@ void Character::initVariables()
 bool Character::MoveLeft(float dt)
 {
     pos_.x -= currentSpeed_ * dt;
-    if (hasAnimation_)
+    if (hasAnimation_) {
         animationHandler_.setAnimation(AnimationIndex::AnimationLeft);
+    }
+    /**else if (!left_or_right_) {
+        sprite_.setScale(-sprite_.getScale().x, sprite_.getScale().y);
+        sprite_.setPosition(pos_.x + sprite_.getLocalBounds().width, pos_.y);
+        left_or_right_ = true;
+    }*/
     return true;
 }
 
 bool Character::MoveRight(float dt)
 {
     pos_.x += currentSpeed_ * dt;
-    if (hasAnimation_)
+    if (hasAnimation_) {
         animationHandler_.setAnimation(AnimationIndex::AnimationRight);
+    }
+    /**else if (left_or_right_) {
+        sprite_.setScale(sprite_.getScale().x, sprite_.getScale().y);
+        sprite_.setPosition(pos_.x + 64, pos_.y);
+        left_or_right_ = false;
+    }*/
     return true;
 }
 

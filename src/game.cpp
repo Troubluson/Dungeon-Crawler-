@@ -11,8 +11,8 @@ Game::Game()
     , dungeonMap_(Map(VIDEOMODE_DIMS, 10, player_))
     , gamebar_(Gamebar(player_))
 {
-    SwordWeapon* playerSword = new SwordWeapon(20, 100, 120, 1000, sf::Vector2f(50, 100), "content/sprites/projectiles.png");
-    playerSword->SetTextureRect({ 358, 302, 10, 30 });
+    SwordWeapon* playerSword = new SwordWeapon(20, 100, 120, 1000, sf::Vector2f(200, 200), "content/sprites/Weapons/swordtoobig.png");
+
     player_->Equip(playerSword);
     LevelUpSystem::AddCharacter(player_.get());
     initVariables();
@@ -286,5 +286,5 @@ bool Game::gameLost()
 
 bool Game::gameWon()
 {
-    return  dungeonMap_.IsBossRoomCleared();
+    return dungeonMap_.IsBossRoomCleared();
 }

@@ -1,6 +1,6 @@
 #include "SearchingMonster.hpp"
 namespace {
-const std::string MONSTER_SPRITE_LOC = "content/sprites/monster2.png";
+const std::string MONSTER_SPRITE_LOC = "content/sprites/monsters/monster2.png";
 }
 SearchingMonster::SearchingMonster(PlayerPS player, sf::Vector2f pos)
     : Monster(player, pos, MONSTER_SPRITE_LOC)
