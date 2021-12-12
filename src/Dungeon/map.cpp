@@ -27,11 +27,11 @@ void Map::CreateDungeon(int noRooms)
     int i = 1;
     std::map<std::pair<int, int>, std::set<Direction>> wallsToBreak;
     while (i < noRooms) {
-        std::pair<int, int> coordsToGenFrom = existingRoomCoords_[randomhelper::RandomIntBetween(0, existingRoomCoords_.size() - 1)];
-        RoomInstance* roomToGenFrom = dungeon_[coordsToGenFrom];
+        RoomInstance* roomToGenFrom = getRandomRoom();
 
         if (roomToGenFrom->HasDirectionsLeft()) {
-            Direction directionToGenInto = roomToGenFrom->UseDirection();
+
+            Direction directionToGenInto = roomToGenFrom->RemoveRandomDirection();
             auto newPos = roomToGenFrom->GetCoords() + DirToVec(directionToGenInto);
             if (GetRoomAt(newPos) == nullptr) {
                 auto newRoom = addRoomToDungeon(roomSize_, newPos);
@@ -140,6 +140,13 @@ std::pair<int, int> Map::getKey()
 std::pair<int, int> Map::getKey(sf::Vector2i coord)
 {
     return std::make_pair(coord.x, coord.y);
+}
+
+RoomInstance* Map::getRandomRoom()
+{
+    std::pair<int, int> coordsToGenFrom = existingRoomCoords_[randomhelper::RandomIntBetween(0, existingRoomCoords_.size() - 1)];
+    RoomInstance* roomToGenFrom = dungeon_[coordsToGenFrom];
+    return roomToGenFrom;
 }
 
 RoomInstance* Map::addRoomToDungeon(sf::Vector2u roomSize, sf::Vector2i coords)

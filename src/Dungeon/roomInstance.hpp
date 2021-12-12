@@ -104,9 +104,34 @@ public:
 
     void deleteMonster(MonsterSP m);
 
-    Direction UseDirection();
+    /**
+     * @brief Function used for Generating the dungeon map. Removes and returns a random Direction from the directionsLeft_ vector.
+     *
+     * @return Direction The Direction that was randomly chosen.
+     */
+    Direction RemoveRandomDirection();
+
+    /**
+     * @brief Function used for Generating the dungeon map. Removes the Direction dir from the directionsLeft_ vector.
+     *
+     * @param dir The Direction to remove.
+     */
     void RemoveDirection(Direction dir);
+
+    /**
+     * @brief Function used for Generating the dungeon map. Checks if this roomInstance has any direction that does not already contain an other roomInstance.
+     *
+     * @return true Meaning that this roomInstance can be used to generate a new roomInstance
+     * @return false Meaning that this roomInstance cannot be used to generate a new roomInstance
+     */
     bool HasDirectionsLeft();
+
+    /**
+     * @brief Function the check if the roomInstance is cleared of Monsters
+     *
+     * @return true Meaning that this roomInstance is cleared of Monsters
+     * @return false Meaning that this roomInstance is not cleared of Monsters
+     */
     bool IsCleared();
 
 protected:
@@ -125,7 +150,7 @@ protected:
     bool cleared_; // whether the room is cleared
     bool visited_; // whether the room has been visited already
 
-    vector<Direction> directionsLeft;
+    vector<Direction> directionsLeft_;
 };
 
 #endif

@@ -57,6 +57,11 @@ public:
      */
     RoomInstance* GetCurrentRoom();
 
+    /**
+     * @brief Get the SpawnRoom
+     *
+     * @return RoomInstance* The SpawnRoom
+     */
     RoomInstance* GetSpawnRoom();
 
     bool IsBossRoomCleared();
@@ -75,6 +80,7 @@ private:
 
     std::pair<int, int> getKey();
     std::pair<int, int> getKey(sf::Vector2i coord);
+    RoomInstance* getRandomRoom();
     RoomInstance* addRoomToDungeon(sf::Vector2u roomSize, sf::Vector2i coords);
     void addStartingRoomToDungeon(sf::Vector2u roomSize, sf::Vector2i coords);
     sf::Vector2u roomSize_;
