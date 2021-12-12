@@ -63,12 +63,7 @@ private:
     bool gameEnder_;
 
     std::list<ProjectileUP> projectiles_;
-    // CollisionSystem collisionSys;
-    /**
-     * @brief self explanatory, initializes the variables in game.
-     *
-     */
-    void initVariables();
+
     /**
      * @brief initializes game window
      *
