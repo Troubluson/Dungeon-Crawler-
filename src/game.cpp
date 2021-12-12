@@ -5,6 +5,7 @@
 namespace {
 const sf::Vector2u VIDEOMODE_DIMS = sf::Vector2u(1280, 768);
 const std::string DEATHTEXT = "content/sprites/DEATHTEXT.png";
+const std::string VICTORY = "content/sprites/endscreen.png";
 }
 
 Game::Game()
@@ -12,6 +13,7 @@ Game::Game()
     , dungeonMap_(Map(VIDEOMODE_DIMS, 10, *player_))
     , gamebar_(Gamebar(player_))
     , deathtext_(ScreenText(DEATHTEXT, { 0, 0 }, { 3, 3 }))
+    , victoryScreen_(ScreenText(VICTORY, { 200, 0 }, { 3, 3 }))
 {
     SwordWeapon* sword = new SwordWeapon(20, 10, sf::Vector2f(50, 100), 120, "content/sprites/projectiles.png");
     player_->Equip(sword);
@@ -74,7 +76,7 @@ void Game::RenderGame()
         monster->Render(window_);
     }
     if (gameLost() == true) {
-        deathtext_.Render(window_);
+        victoryScreen_.Render(window_);
     }
     window_->display();
 }

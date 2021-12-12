@@ -34,6 +34,7 @@ private:
     Map dungeonMap_;
     Gamebar gamebar_;
     ScreenText deathtext_;
+    ScreenText victoryScreen_;
     float dt;
     bool paused = false;
     bool gameEnder_;
