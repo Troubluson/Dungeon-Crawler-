@@ -4,12 +4,16 @@
 
 namespace {
 const sf::Vector2u VIDEOMODE_DIMS = sf::Vector2u(1280, 768);
+const std::string DEATHTEXT = "content/sprites/DEATHTEXT.png";
+const std::string VICTORY = "content/sprites/endscreen.png";
 }
 
 Game::Game()
     : player_(new Player())
     , dungeonMap_(Map(VIDEOMODE_DIMS, 10, *player_))
     , gamebar_(Gamebar(player_))
+    , deathtext_(ScreenText(DEATHTEXT, { 0, 0 }, { 3, 3 }))
+    , victoryScreen_(ScreenText(VICTORY, { 200, 0 }, { 3, 3 }))
 {
     SwordWeapon* playerSword = new SwordWeapon(20, 100, 120, 1000, sf::Vector2f(50, 100), "content/sprites/projectiles.png");
     player_->Equip(playerSword);
@@ -29,9 +33,7 @@ void Game::UpdateGame()
 {
     Events();
     managePauseInput();
-    if (gameLost()) {
-        restartGame();
-    }
+
     if (!paused) {
         updateDt();
         manageInput();
@@ -41,8 +43,10 @@ void Game::UpdateGame()
         checkMonsterCollisions();
         checkPlayerCollisions();
         checkAndHandleProjectileWallCollisions();
-        player_->Update(dt_);
-        gamebar_.Update();
+        if (player_->IsAlive()) {
+            player_->Update(dt_);
+            gamebar_.Update();
+        }
     }
 }
 // render game frames
@@ -52,6 +56,7 @@ void Game::RenderGame()
     dungeonMap_.RenderCurrentRoom(window_);
     player_->Render(window_);
     gamebar_.Render(window_);
+
     for (auto projectile : projectiles_) {
         projectile->Render(window_);
     }
@@ -60,6 +65,9 @@ void Game::RenderGame()
             std::cout << "nullptr" << std::endl;
         }
         monster->Render(window_);
+    }
+    if (gameLost() == true) {
+        deathtext_.Render(window_);
     }
     window_->display();
 }
@@ -84,7 +92,10 @@ void Game::Events()
     }
 }
 
-void Game::initVariables() { gameEnder_ = false; }
+void Game::initVariables()
+{
+    gameEnder_ = false;
+}
 // initalize window
 void Game::initWindow()
 {
@@ -104,7 +115,7 @@ void Game::manageInput()
     bool D = sf::Keyboard::isKeyPressed(sf::Keyboard::D);
     bool LSHIFT = sf::Keyboard::isKeyPressed(sf::Keyboard::LShift);
     bool LMOUSE = sf::Mouse::isButtonPressed(sf::Mouse::Left);
-
+    bool ENTER = sf::Keyboard::isKeyPressed(sf::Keyboard::Enter);
     bool twoKeys = ((W || S) && (A || D));
     bool triedMoving = W || A || S || D;
 
@@ -143,6 +154,13 @@ void Game::manageInput()
         std::list<Projectile*> projectileListToAdd = player_->Attack(mousePos);
         addProjectiles(projectileListToAdd);
     }
+    if (ENTER) {
+        if (!gameLost()) {
+        } else {
+            restartGame();
+        }
+    }
+
     if (triedMoving) {
         if (collidesWithWall(player_)) {
             player_->RevertMove();
@@ -318,12 +336,16 @@ bool Game::ShouldChangeRoom()
 
 bool Game::gameLost()
 {
-    return !player_->IsAlive();
+    if (!player_->IsAlive()) {
+        gameEnder_ = true;
+    }
+    return gameEnder_;
 }
 
 void Game::restartGame()
 {
     dungeonMap_.ResetMap();
+    gameEnder_ = false;
     projectiles_.clear();
     player_->ResetCharacterToBeAlive();
 }

@@ -1,6 +1,7 @@
 #include "Actors/player.hpp"
 
 namespace {
+const std::string PLAYER_DEATH_SPRITE = "content/sprites/characters/deathanimation.png";
 const std::string PLAYER_SPRITE = "content/sprites/characters/SpriteSheet.png";
 }
 
@@ -15,11 +16,24 @@ int Player::GetHitPoints() const { return hitpoints_; }
 void Player::Update(float dt)
 {
     if (hasAnimation_) {
-        if (oldPos_.x == pos_.x && oldPos_.y == pos_.y) {
-            Idle();
+        if (IsAlive()) {
+            if (oldPos_.x == pos_.x && oldPos_.y == pos_.y) {
+                Idle();
+            }
+            animationHandler_.getAnimation()->Update(dt);
+            animationHandler_.getAnimation()->AnimationToSprite(sprite_);
+        } else {
+            Dead();
+            if (deadAnimationPlayed == false) {
+                animationHandler_.getAnimation()->Update(dt);
+                animationHandler_.getAnimation()->AnimationToSprite(sprite_);
+                dt_time += dt;
+                std::cout << dt_time << " " << dt << std::endl;
+                if (dt_time > 0.73) {
+                    deadAnimationPlayed = true;
+                };
+            }
         }
-        animationHandler_.getAnimation()->Update(dt);
-        animationHandler_.getAnimation()->AnimationToSprite(sprite_);
     }
 
     generalUpdate(dt);

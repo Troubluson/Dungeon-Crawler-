@@ -11,6 +11,7 @@
 #include "Combat/Weapons/SwordWeapon.hpp"
 #include "Dungeon/map.hpp"
 #include "Utility/LevelUpSystem.hpp"
+#include "Utility/ScreenText.hpp"
 #include "gamebar.hpp"
 
 class Game {
@@ -48,7 +49,8 @@ private:
     Player* player_;
     Map dungeonMap_;
     Gamebar gamebar_;
-
+    ScreenText deathtext_;
+    ScreenText victoryScreen_;
     float dt_;
     bool paused = false;
     bool escapePressedLastTick = paused;
@@ -134,7 +136,9 @@ private:
      * @return true if collides
      * @return false if it does not collide
      */
+
     bool collidesWithWall(Character* character);
+
     /**
      * @brief check if projectile collides with wall
      *
