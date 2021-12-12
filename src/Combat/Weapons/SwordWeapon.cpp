@@ -5,7 +5,6 @@ SwordWeapon::SwordWeapon(int damage, int range, int rateOfFire, float projectile
     : Weapon(damage, range, rateOfFire, projectileSpeed, projectileSize, spriteLocation)
 {
     penetrates_ = true;
-    sprite_.setTextureRect({ 400, 215, 10, 15 }); // placeholder
     spritehelper::SetScale(projectileSize, sprite_);
 }
 
