@@ -103,11 +103,6 @@ void Game::Events()
 void Game::initVariables()
 {
     gameEnder_ = false;
-    if (!monsterHurtSound.loadFromFile("monsterHit.wav")) {
-        ;
-    } else {
-        sound.setBuffer(monsterHurtSound);
-    }
 }
 // initalize window
 void Game::initWindow()
@@ -159,7 +154,6 @@ void Game::manageInput()
     }
 
     if (LSHIFT) {
-        sound.play();
         player_->Dash();
     }
 
@@ -206,6 +200,9 @@ void Game::checkCollisions(Character* character, Projectile::Type projectileType
     for (auto& projectile : projectiles_) {
         if (projectile->GetType() == projectileType && !projectile->HasHit(character)) {
             if (Collision::PixelPerfectTest(projectile->GetSprite(), character->GetSprite())) {
+                if (projectileType == Projectile::Type::PlayerProjectile) {
+                    dmgSound->PlaySound();
+                }
                 projectile->Hit(character);
                 character->TakeDamage(projectile->GetDamage());
                 if (!projectile->Penetrates()) {
