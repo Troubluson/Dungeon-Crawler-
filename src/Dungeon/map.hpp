@@ -29,10 +29,8 @@ public:
      * @brief Create the actual dungeon
      *
      * @param    noRooms              number of rooms on in the dungeon
-     * @return true dungeon creation succeeded
-     * @return false dungeon creation failed
      */
-    bool CreateDungeon(int noRooms);
+    void CreateDungeon(int noRooms);
 
     void MovePlayer(Direction dir);
 

@@ -8,8 +8,7 @@ Map::Map(sf::Vector2u size, int noRooms, PlayerPS player)
     , spawnCoords_(currentPos_)
 {
     srand(time(NULL));
-    while (!CreateDungeon(noRooms))
-        ; // dungeon creation can fail
+    CreateDungeon(noRooms);
     std::map<std::pair<int, int>, RoomInstance*>::iterator it;
     for (it = dungeon_.begin(); it != dungeon_.end(); it++) {
         it->second->renderSpriteBackground();
@@ -22,7 +21,7 @@ void Map::RenderCurrentRoom(sf::RenderTarget* window)
     GetCurrentRoom()->Render(window);
 }
 
-bool Map::CreateDungeon(int noRooms)
+void Map::CreateDungeon(int noRooms)
 {
     addStartingRoomToDungeon(roomSize_, currentPos_);
     int i = 1;
@@ -56,8 +55,6 @@ bool Map::CreateDungeon(int noRooms)
     }
 
     currentPos_ = { 0, 0 };
-
-    return true;
 }
 
 void Map::MovePlayer(Direction dir)
