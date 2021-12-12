@@ -85,14 +85,14 @@ float Monster::getDistanceToPlayer()
 Potion* Monster::ReturnPotion()
 {
     sf::Vector2f currentPos = GetPos();
-    int r = rand() % 5;
-    if (r == 0)
+    int r = randomhelper::RandomIntBetween(0, 18);
+    if (r < 4 && r > -1)
         return new GreenPotion(currentPos);
-    else if (r == 1)
+    else if (r < 8 && r > 3)
         return new RedPotion(currentPos);
-    else if (r == 2)
+    else if (r < 10 && r > 7)
         return new YellowPotion(currentPos);
-    else if (r == 3)
+    else if (r < 12 && r > 9)
         return new VioletPotion(currentPos);
     else
         return nullptr;
