@@ -7,6 +7,10 @@
 #include "Actors/player.hpp"
 #include "monster.hpp"
 
+/**
+ * @brief SearchingMonster is our only monster that does not shoot projectile but rather directly decreases the healthpoints of the player. It as its name says always walks towards the player
+ *
+ */
 class SearchingMonster : public Monster {
 public:
     SearchingMonster(PlayerPS player, float xPos, float yPos);

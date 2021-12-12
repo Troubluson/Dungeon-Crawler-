@@ -8,6 +8,10 @@
 #include "Combat/Weapons/BowWeapon.hpp"
 #include "monster.hpp"
 
+/**
+ * @brief SlowMonster is a monster that slowly walks towards the player and rapidly shoots a lot of projectiles. The aim of slowmonster is purposfully inacurate
+ *
+ */
 class SlowMonster : public Monster {
 public:
     SlowMonster(PlayerPS player, float xPos, float yPos);

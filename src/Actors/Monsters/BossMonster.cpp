@@ -89,6 +89,8 @@ void BossMonster::initVariables()
     SwordWeapon* bossSword = new SwordWeapon(10, 1000, 60, 400, sf::Vector2f(2000, 2000), "content/sprites/projectiles/projectiles.png");
     bossSword->SetTextureRect({ 400, 215, 10, 15 });
     Equip(bossSword);
+    defaultMaxHitpoints_ = 300;
+    currentMaxHitpoints_ = 300;
     hitpoints_ = 300;
     SetNormalSpeed(300.0f);
 }

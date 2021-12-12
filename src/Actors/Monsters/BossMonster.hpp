@@ -8,6 +8,10 @@
 #include "Combat/Weapons/SwordWeapon.hpp"
 #include "monster.hpp"
 
+/**
+ * @brief This is the boss monster. It is the most powerful monster and once the player kills it the game is won.
+ *
+ */
 class BossMonster : public Monster {
 public:
     BossMonster(PlayerPS player, float xPos, float yPos);

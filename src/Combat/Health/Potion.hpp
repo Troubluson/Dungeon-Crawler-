@@ -10,7 +10,18 @@ public:
 
     virtual ~Potion() {};
 
+    /**
+     * @brief Get the Colour of the potion
+     *
+     * @return const refrence to a string with the color
+     */
     const std::string& GetColour() const;
+
+    /**
+     * @brief Get the Healing effect of the potion.
+     *
+     * @return int
+     */
     int GetHealthIncrease() const;
 
 protected:

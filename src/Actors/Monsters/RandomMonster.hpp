@@ -8,6 +8,10 @@
 #include "Combat/Weapons/SwordWeapon.hpp"
 #include "monster.hpp"
 
+/**
+ * @brief RandomMonster is a monster that moves randomly around and shoots projectiles towards the player.
+ *
+ */
 class RandomMonster : public Monster {
 public:
     RandomMonster(PlayerPS player, float xPos, float yPos);

@@ -8,6 +8,10 @@
 #include "Combat/Weapons/SwordWeapon.hpp"
 #include "monster.hpp"
 
+/**
+ * @brief WallPatrolMonster walks along the walls of the room patroling. Then when the player is in its range it shoots projectiles towards it.
+ *
+ */
 class WallPatrolMonster : public Monster {
 public:
     WallPatrolMonster(PlayerPS player, float xPos, float yPos);
