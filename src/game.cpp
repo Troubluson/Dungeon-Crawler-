@@ -63,6 +63,7 @@ void Game::RenderGame()
     }
     if (gameLost() == true) {
         deathtext_.Render(window_);
+    }
     for (auto potion : dungeonMap_.GetCurrentRoom()->GetPotions()) {
         potion->Render(window_);
     }
@@ -356,6 +357,7 @@ void Game::restartGame()
     dungeonMap_.ResetMap();
     gameEnder_ = false;
     projectiles_.clear();
+    player_->ClearInventory();
     player_->ResetCharacterToBeAlive();
 }
 bool Game::gameWon()

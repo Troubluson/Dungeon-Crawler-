@@ -144,6 +144,14 @@ void Player::UsePotion(const std::string& colour)
     }
 }
 
+void Player::ClearInventory()
+{
+    for (auto potion : inventory_) {
+        delete potion;
+    }
+    inventory_.clear();
+}
+
 std::vector<Potion*> Player::GetInventory() const
 {
     return inventory_;

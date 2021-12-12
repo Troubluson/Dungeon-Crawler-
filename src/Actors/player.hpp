@@ -30,6 +30,7 @@ public:
     void UsePotion(const std::string& colour);
 
     std::vector<Potion*> GetInventory() const;
+    void ClearInventory();
 
 private:
     int attacksBoosted_;

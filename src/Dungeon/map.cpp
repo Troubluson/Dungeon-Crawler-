@@ -15,13 +15,6 @@ Map::Map(sf::Vector2u size, int noRooms, PlayerPS player)
     }
 }
 
-Map::~Map()
-{
-    for (auto it = dungeon_.begin(); it != dungeon_.end(); ++it) {
-        it = dungeon_.erase(it);
-    }
-}
-
 void Map::RenderCurrentRoom(sf::RenderTarget* window)
 {
 
@@ -131,12 +124,17 @@ std::pair<int, int> Map::findBossRoom(std::map<std::pair<int, int>, std::set<Dir
 {
     std::pair<int, int> maxCoord = std::make_pair(0, 0);
 
-    for (auto it = coordsAndPaths.begin(); it != coordsAndPaths.end(); it++) {
-        auto coord = it->first;
-        if (abs(coord.first) > abs(maxCoord.first) && abs(coord.second) > abs(maxCoord.second) && it->second.size() == 1) {
-            maxCoord = coord;
+    size_t allowedBossRoomEntrances = 1;
+    while (maxCoord.first == 0 && maxCoord.second == 0) {
+        for (auto it = coordsAndPaths.begin(); it != coordsAndPaths.end(); it++) {
+            auto coord = it->first;
+            if (abs(coord.first) > abs(maxCoord.first) && abs(coord.second) > abs(maxCoord.second) && it->second.size() <= allowedBossRoomEntrances) {
+                maxCoord = coord;
+            }
         }
+        allowedBossRoomEntrances += 1;
     }
+
     return maxCoord;
 }
 
