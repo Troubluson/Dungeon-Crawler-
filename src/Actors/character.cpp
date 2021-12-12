@@ -21,7 +21,10 @@ Character::Character(const std::string& filename, sf::Vector2f pos, bool animate
     }
 }
 
-Character::~Character() { }
+Character::~Character()
+{
+    // delete weapon_; makes produces memory leak but projectile become white otherwise
+}
 
 void Character::initVariables()
 {

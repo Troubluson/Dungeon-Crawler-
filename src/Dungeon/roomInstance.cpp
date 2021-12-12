@@ -43,6 +43,11 @@ RoomInstance::RoomInstance(sf::Vector2u window_size, sf::Vector2i coords, Monste
 RoomInstance::~RoomInstance()
 {
     delete spawner_;
+    for (auto row : tileVector_) {
+        for (auto tileptr : row) {
+            delete tileptr;
+        }
+    }
     for (auto h : potions_) {
         delete h;
     }
@@ -153,7 +158,7 @@ void RoomInstance::CreateExit(Direction dir)
 
     for (auto tile : tilesToReplace) {
         auto pos = tileVector_[tile.first][tile.second]->getPosition();
-        // delete tileVector_[tile.first][tile.second];
+        delete tileVector_[tile.first][tile.second]; // delete old pointers
         tileVector_[tile.first][tile.second] = new FloorTile("content/sprites/floors/tile1.png", pos.x, pos.y);
     }
 }

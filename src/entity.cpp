@@ -3,31 +3,27 @@
 Entity::Entity(const std::string& spriteFile, float xPos, float yPos, sf::Vector2f spriteDims)
     : pos_(sf::Vector2f(xPos, yPos))
     , oldPos_(pos_)
+    , texture_(sf::Texture())
 {
     initSprite(spriteFile, spriteDims);
     sprite_.setPosition(xPos, yPos);
 }
-Entity::Entity(const std::string& spriteFile, sf::Vector2f pos, sf::Vector2f spriteDims)
-    : pos_(pos)
-    , oldPos_(pos_)
 
+Entity::Entity(const std::string& spriteFile, sf::Vector2f pos, sf::Vector2f spriteDims)
+    : Entity(spriteFile, pos.x, pos.y, spriteDims)
 {
-    initSprite(spriteFile, spriteDims);
-    sprite_.setPosition(pos);
 }
 
 Entity::Entity(sf::Sprite& sprite, float xPos, float yPos)
-    : sprite_(sprite)
-    , pos_(sf::Vector2f(xPos, yPos))
+    : pos_(sf::Vector2f(xPos, yPos))
     , oldPos_(pos_)
-
+    , sprite_(sprite)
+    , texture_(sf::Texture())
 {
 }
 
 Entity::Entity(sf::Sprite& sprite, sf::Vector2f pos)
-    : sprite_(sprite)
-    , pos_(pos)
-    , oldPos_(pos_)
+    : Entity(sprite, pos.x, pos.y)
 {
 }
 

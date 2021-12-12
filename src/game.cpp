@@ -14,12 +14,12 @@ Game::Game()
     , gamebar_(Gamebar(player_))
     , deathtext_(ScreenText(DEATHTEXT, { 0, 0 }, { 3, 3 }))
     , victoryScreen_(ScreenText(VICTORY, { 0, 0 }, { 7, 6 }))
+    , gameEnder_(false)
 {
     SwordWeapon* playerSword = new SwordWeapon(20, 100, 120, 1000, sf::Vector2f(200, 200), "content/sprites/Weapons/swordtoobig.png");
 
     player_->Equip(playerSword);
     LevelUpSystem::AddCharacter(player_.get());
-    initVariables();
     initWindow();
     dtClock_.restart(); // to not have giant first dt
 }
@@ -106,11 +106,6 @@ void Game::Events()
         }
     }
 }
-
-void Game::initVariables()
-{
-    gameEnder_ = false;
-}
 // initalize window
 void Game::initWindow()
 {
@@ -130,7 +125,7 @@ void Game::manageInput()
     bool D = sf::Keyboard::isKeyPressed(sf::Keyboard::D);
     bool LSHIFT = sf::Keyboard::isKeyPressed(sf::Keyboard::LShift);
     bool LMOUSE = sf::Mouse::isButtonPressed(sf::Mouse::Left);
-    bool ENTER = sf::Keyboard::isKeyPressed(sf::Keyboard::Enter);
+    bool ENTER = sf::Keyboard::isKeyPressed(sf::Keyboard::Return);
     bool twoKeys = ((W || S) && (A || D));
     bool triedMoving = W || A || S || D;
 

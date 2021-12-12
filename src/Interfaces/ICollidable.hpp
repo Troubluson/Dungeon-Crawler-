@@ -2,7 +2,10 @@
 #ifndef _COLLIDABLE_INTERFACE_
 #define _COLLIDABLE_INTERFACE_
 
-// not a real interface due to constructor but helps with collisions
+/**
+ * @brief Unused interface for collisionsystem
+ *
+ */
 class ICollidable {
 public:
     enum EntityType {
