@@ -103,6 +103,8 @@ void Game::Events()
 void Game::initVariables()
 {
     gameEnder_ = false;
+    monsterHurtSound.loadFromFile("monsterHit.wav");
+    sound.setBuffer(monsterHurtSound);
 }
 // initalize window
 void Game::initWindow()
@@ -154,6 +156,7 @@ void Game::manageInput()
     }
 
     if (LSHIFT) {
+        sound.play();
         player_->Dash();
     }
 

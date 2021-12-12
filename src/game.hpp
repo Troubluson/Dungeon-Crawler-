@@ -52,6 +52,8 @@ private:
     Gamebar gamebar_;
     ScreenText deathtext_;
     ScreenText victoryScreen_;
+    sf::Sound sound;
+    sf::SoundBuffer monsterHurtSound;
     float dt_;
     bool paused = false;
     bool escapePressedLastTick = paused;
