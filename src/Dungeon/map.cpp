@@ -16,6 +16,13 @@ Map::Map(sf::Vector2u size, int noRooms, Player& player)
     }
 }
 
+Map::~Map()
+{
+    for (auto it = dungeon_.begin(); it != dungeon_.end(); ++it) {
+        it = dungeon_.erase(it);
+    }
+}
+
 void Map::RenderCurrentRoom(sf::RenderTarget* window)
 {
 

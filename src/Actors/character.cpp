@@ -5,7 +5,9 @@
 #define C_PIXELS_delta 20
 #define C_PIXELS_Y 64
 #define C_SCALE 2
-
+namespace {
+const std::string PLAYER_DEATH_SPRITE = "content/sprites/characters/deathanimation.png";
+}
 Character::Character(const std::string& filename, sf::Vector2f pos, bool animated)
     : Entity(filename, pos, sf::Vector2f(C_SCALE, C_SCALE))
     , hasAnimation_(animated)
@@ -15,7 +17,7 @@ Character::Character(const std::string& filename, sf::Vector2f pos, bool animate
 
     if (hasAnimation_) {
         sprite_.setTextureRect({ 0, 0, C_PIXELS_X, C_PIXELS_Y });
-        animationHandler_ = AnimationHandler(1, 0, C_PIXELS_X, C_PIXELS_Y, C_PIXELS_delta, filename);
+        animationHandler_ = AnimationHandler(1, 0, C_PIXELS_X, C_PIXELS_Y, C_PIXELS_delta, filename, PLAYER_DEATH_SPRITE);
     }
 }
 
@@ -105,6 +107,13 @@ bool Character::Idle()
 {
     if (hasAnimation_)
         animationHandler_.setAnimation(AnimationIndex::AnimationIdle);
+    return true;
+}
+
+bool Character::Dead()
+{
+    if (hasAnimation_)
+        animationHandler_.setAnimation(AnimationIndex::AnimationDeath);
     return true;
 }
 
