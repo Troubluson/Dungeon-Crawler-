@@ -1,6 +1,7 @@
 #include "Actors/player.hpp"
 
 namespace {
+const std::string PLAYER_DEATH_SPRITE = "content/sprites/characters/deathanimation.png";
 const std::string PLAYER_SPRITE = "content/sprites/characters/SpriteSheet.png";
 }
 
@@ -13,16 +14,31 @@ Player::Player()
 void Player::Update(float dt)
 {
     if (hasAnimation_) {
-        if (oldPos_.x == pos_.x && oldPos_.y == pos_.y) {
-            Idle();
+        if (IsAlive()) {
+            deadAnimationPlayed = false;
+            if (oldPos_.x == pos_.x && oldPos_.y == pos_.y) {
+                Idle();
+            }
+            animationHandler_.getAnimation()->Update(dt);
+            animationHandler_.getAnimation()->AnimationToSprite(sprite_);
+        } else {
+            Dead();
+            if (deadAnimationPlayed == false) {
+                animationHandler_.getAnimation()->Update(dt);
+                animationHandler_.getAnimation()->AnimationToSprite(sprite_);
+                dt_time += dt;
+                std::cout << dt_time << " " << dt << std::endl;
+                if (dt_time > 0.73) {
+                    deadAnimationPlayed = true;
+                };
+            }
         }
-        animationHandler_.getAnimation()->Update(dt);
-        animationHandler_.getAnimation()->AnimationToSprite(sprite_);
     }
+    if (IsAlive()) {
+        generalUpdate(dt);
 
-    generalUpdate(dt);
-
-    updateDashCooldown(dt);
+        updateDashCooldown(dt);
+    }
 
     if (IsDashing) {
         currentSpeed_ = dashSpeed_;
@@ -36,23 +52,30 @@ void Player::Update(float dt)
 void Player::Dash()
 {
     if (CanDash) {
+        if (dashesBoosted_ > 0) {
+            dashCurrentDurationLength_ = dashDefaultDurationLength_ * dashLengthBoostModifier;
+            dashesBoosted_ -= 1;
+        }
         IsDashing = true;
-        dashDurationLeft_ = dashDurationLength_;
+        dashDurationLeft_ = dashCurrentDurationLength_;
         ResetDashCooldown();
     }
 }
 
 void Player::initVariables()
 {
-
     dashCooldownLength_ = 1.0f;
     dashCooldownLeft_ = 0.0f;
     CanDash = true;
     IsDashing = false;
-    dashDurationLength_ = 0.25f;
+    dashDefaultDurationLength_ = 0.25f;
+    dashCurrentDurationLength_ = dashDefaultDurationLength_;
     dashDurationLeft_ = 0.0f;
     SetNormalSpeed(300.0f);
     dashSpeed_ = defaultSpeed_ * 3;
+
+    attacksBoosted_ = 0;
+    dashesBoosted_ = 0;
 
     characterProjectileType_ = Projectile::Type::PlayerProjectile;
 }
@@ -74,17 +97,64 @@ void Player::updateDashCooldown(float dt)
         dashDurationLeft_ -= dt;
     }
     if (dashDurationLeft_ <= 0) {
+        dashCurrentDurationLength_ = dashDefaultDurationLength_;
         IsDashing = false;
     }
 }
 
 std::list<ProjectileUP> Player::Attack(sf::Vector2f aimPos)
 {
-    if (!CanAttack || !HasWeapon()) {
+    if (!CanAttack || !HasWeapon() || !IsAlive()) {
         return emptyList();
     }
 
     ResetAttackCooldown();
 
-    return shotProjectileList(aimPos);
+    if (attacksBoosted_ > 0) {
+        weapon_->BoostDamageValue();
+        attacksBoosted_ -= 1;
+    }
+
+    auto res = shotProjectileList(aimPos);
+    weapon_->UnBoostDamageValue();
+    return res;
+}
+
+void Player::AddPotion(Potion* potion)
+{
+    inventory_.push_back(potion);
+}
+
+void Player::UsePotion(const std::string& colour)
+{
+    bool found = false;
+    auto it = inventory_.begin();
+    while (it != inventory_.end() && !found) {
+        if ((*it)->GetColour() == colour) {
+            if (colour == "violet") {
+                attacksBoosted_ += 10;
+            } else if (colour == "yellow") {
+                dashesBoosted_ += 3;
+            } else {
+                Heal((*it)->GetHealthIncrease());
+            }
+            it = inventory_.erase(it);
+            found = true;
+        } else {
+            ++it;
+        }
+    }
+}
+
+void Player::ClearInventory()
+{
+    for (auto potion : inventory_) {
+        delete potion;
+    }
+    inventory_.clear();
+}
+
+std::vector<Potion*> Player::GetInventory() const
+{
+    return inventory_;
 }

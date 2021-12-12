@@ -16,7 +16,7 @@ ProjectileUP BowWeapon::Use(Vector2f dir, Vector2f origin)
     spritehelper::SetOriginBottomCenter(sprite_);
     ProjectileUP p(new Projectile(sprite_, origin, true));
     p->SetDirection(dir);
-    p->SetDamage(damage_);
+    p->SetDamage(currentDamage_);
     p->SetDistanceLifeSpan(range_);
     p->SetProjectileSpeed(projectileSpeed_);
     return p;

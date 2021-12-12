@@ -19,9 +19,14 @@ public:
     float GetAttackCooldown() { return cooldown_; };
     float GetRange() { return range_; };
     void SetTextureRect(sf::IntRect rect);
+    void BoostDamageValue();
+    void UnBoostDamageValue();
 
 protected:
-    int damage_;
+    int defaultDamage_;
+    int currentDamage_;
+    float damageBoostModifier = 1.1f;
+
     int range_;
     float projectileSpeed_;
     Vector2f projectileSize_;
