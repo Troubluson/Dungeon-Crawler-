@@ -7,6 +7,8 @@
 //#include "Interfaces/ICollidable.hpp"
 #include "Animation/Animationhandler.hpp"
 #include "Combat/Weapons/Weapon.hpp"
+#include "Utility/LevelUpSystem.hpp"
+#include "Utility/RandomHelper.hpp"
 #include "entity.hpp"
 
 class Character : public Entity /*, public ICollidable*/ {
@@ -26,10 +28,10 @@ public:
      * @param    pos                  the wanted position
      * @return sf::FloatRect
      */
-    sf::FloatRect GetBaseBoxAt(sf::Vector2f pos);
 
     void TakeDamage(int value);
     void Heal(int value);
+    int GetHitPoints() const;
 
     bool IsAlive();
     bool HasWeapon();
@@ -48,8 +50,10 @@ public:
 
     void ResetAttackCooldown();
     float GetAttackCooldownLeft() const { return attackCooldownLeft; };
-    float GetAttackCooldownLength() const { return attackCooldownLength; };
+    float GetAttackCooldownLength() const { return attackCooldownLength_; };
     bool CanAttack;
+
+    void SetNormalSpeed(float value);
     /*
     // for ICollidable
     virtual sf::FloatRect GetBoundingBox() { return sprite_.getGlobalBounds(); }
@@ -61,21 +65,22 @@ protected:
     /*void GetHitBy(Projectile& projectile);*/
 
     Weapon* weapon_;
-    Projectile::Type characterProjectileType;
+    Projectile::Type characterProjectileType_;
     int hitpoints_;
-    int maxhitpoints_ = 50;
+    int currentMaxHitpoints_;
+    int defaultMaxHitpoints_;
     bool alive_;
     bool hasAnimation_;
     AnimationHandler animationHandler_;
     float currentSpeed_;
-    float normalSpeed_;
+    float defaultSpeed_;
 
     void generalUpdate(float dt);
 
-    float attackCooldownLength;
+    float attackCooldownLength_;
     float attackCooldownLeft;
     void updateAttackCooldown(float dt);
-    std::list<Projectile*> emptyList();
-    std::list<Projectile*> shotProjectileList(sf::Vector2f aimPos);
+    std::list<ProjectileUP> emptyList();
+    std::list<ProjectileUP> shotProjectileList(sf::Vector2f aimPos);
 };
 #endif

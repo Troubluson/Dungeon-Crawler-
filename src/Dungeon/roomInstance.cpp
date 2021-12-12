@@ -4,21 +4,45 @@ namespace {
 int TILE_AMOUNT = 7;
 int NORMALTILE_EXTRA_WEIGHT = 4;
 }
-
-RoomInstance::RoomInstance(sf::Vector2u window_size, sf::Vector2i choords)
-    : roomSize_(window_size)
-    , choords_(choords)
-    , spawner_(0)
+namespace direction {
+Direction GetOppositeDir(Direction direction)
 {
-    setTiles();
+    switch (direction) {
+    case Direction::Up:
+        return Direction::Down;
+    case Direction::Down:
+        return Direction::Up;
+    case Direction::Left:
+        return Direction::Right;
+    case Direction::Right:
+        return Direction::Left;
+    default:
+        return Direction::Up;
+    }
+}
+} // namespace
+
+RoomInstance::RoomInstance(sf::Vector2u window_size, sf::Vector2i coords)
+    : RoomInstance(window_size, coords, new MonsterSpawner(0))
+{
 }
 
+RoomInstance::RoomInstance(sf::Vector2u window_size, sf::Vector2i coords, MonsterSpawner* spawner)
+    : roomSize_(window_size)
+    , coords_(coords)
+    , spawner_(spawner)
+    , cleared_(false)
+    , visited_(false)
+{
+    directionsLeft_.push_back(Direction::Up);
+    directionsLeft_.push_back(Direction::Down);
+    directionsLeft_.push_back(Direction::Left);
+    directionsLeft_.push_back(Direction::Right);
+    setTiles();
+}
 RoomInstance::~RoomInstance()
 {
-    for (auto m : monsters_) {
-        delete m;
-    }
-
+    delete spawner_;
     for (auto h : potions_) {
         delete h;
     }
@@ -27,55 +51,6 @@ RoomInstance::~RoomInstance()
 void RoomInstance::Render(sf::RenderTarget* target)
 {
     target->draw(roomBackground);
-}
-
-void RoomInstance::setTiles()
-{
-    tileVector_.clear();
-    int xTileCount = roomSize_.x / 64;
-    int yTileCount = roomSize_.y / 64;
-    int n = 0;
-    for (int i = 0; i < yTileCount; ++i) {
-        std::vector<RoomTile*> row;
-        int k = 0;
-        for (int j = 0; j < xTileCount; ++j) {
-            if (i == 0) {
-                if (j == 0) {
-                    row.push_back(new RoomTile("content/sprites/walls/topwallleft.png", k, n, false, false));
-                } else if (j == xTileCount - 1) {
-                    row.push_back(new RoomTile("content/sprites/walls/topwallbottomleft.png", k, n, false, false));
-                } else {
-                    row.push_back(new RoomTile("content/sprites/walls/toppartofwall1.png", k, n, false, false));
-                }
-            } else if (i == 1 && j != 0 && j != xTileCount - 1) {
-                row.push_back(new RoomTile("content/sprites/walls/wallfront1.png", k, n, false, true));
-            } else if (i == yTileCount - 1) {
-                if (j == 0) {
-                    row.push_back(new RoomTile("content/sprites/walls/topwallright.png", k, n, false, false));
-                } else if (j == xTileCount - 1) {
-                    row.push_back(new RoomTile("content/sprites/walls/topwallbottomright.png", k, n, false, false));
-                } else {
-                    row.push_back(new RoomTile("content/sprites/walls/topwallbottom.png", k, n, false, false));
-                }
-            } else if (i != 0 && j == 0) {
-                row.push_back(new RoomTile("content/sprites/walls/topwallLEFTSIDE.png", k, n, false, false));
-            } else if (i != 0 && j == xTileCount - 1) {
-                row.push_back(new RoomTile("content/sprites/walls/topwallRIGHTSIDE.png", k, n, false, false));
-
-            } else {
-                int tileNumber = rand() % ((TILE_AMOUNT + 1) + NORMALTILE_EXTRA_WEIGHT) + 1;
-                if (tileNumber > TILE_AMOUNT) {
-                    tileNumber = 1;
-                }
-                std::string tilelocation = "content/sprites/floors/tile" + std::to_string(tileNumber) + ".png";
-                row.push_back(new RoomTile(tilelocation, k, n, true, true));
-            }
-
-            k += 64;
-        }
-        n += 64;
-        tileVector_.push_back(row);
-    }
 }
 
 void RoomInstance::renderSpriteBackground()
@@ -109,12 +84,24 @@ std::vector<RoomTile*> RoomInstance::getRoomTilesAt(sf::FloatRect entityBounds)
     }
     return tilesInBounds;
 }
+
 // we end up needing to use the bounding box character being in multiple tiles simultaneously
 bool RoomInstance::positionIsWalkable(sf::FloatRect entityBounds)
 {
     auto tilesInBounds = getRoomTilesAt(entityBounds);
     for (auto tile : tilesInBounds) {
         if (!tile->isWalkable()) {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool RoomInstance::positionIsPenetratable(sf::FloatRect entityBounds)
+{
+    auto tilesInBounds = getRoomTilesAt(entityBounds);
+    for (auto tile : tilesInBounds) {
+        if (!tile->isPenetratable()) {
             return false;
         }
     }
@@ -167,23 +154,42 @@ void RoomInstance::CreateExit(Direction dir)
     for (auto tile : tilesToReplace) {
         auto pos = tileVector_[tile.first][tile.second]->getPosition();
         // delete tileVector_[tile.first][tile.second];
-        tileVector_[tile.first][tile.second] = new RoomTile("content/sprites/floors/tile1.png", pos.x, pos.y, true, true);
+        tileVector_[tile.first][tile.second] = new FloorTile("content/sprites/floors/tile1.png", pos.x, pos.y);
     }
 }
-void RoomInstance::Enter(Player& player)
-{
 
+sf::Vector2u RoomInstance::GetEntranceInDirection(Direction direction)
+{
+    uint offsetY = 80;
+    uint offsetX = 48;
+    switch (direction) {
+    case Direction::Up:
+        return { roomSize_.x / 2 - offsetX, roomSize_.y };
+    case Direction::Down:
+        return { roomSize_.x / 2 - offsetX, 0 };
+    case Direction::Left:
+        return { roomSize_.x - 1, roomSize_.y / 2 - offsetY };
+    case Direction::Right:
+        return { 1, roomSize_.y / 2 - offsetY };
+    default:
+        throw "no entrance";
+    }
+}
+
+void RoomInstance::Enter(PlayerPS player, Direction direction)
+{
     if (!cleared_) {
-        spawner_.SetMonsterAmount(5); // set according to player lvl somehow
-        while (monsters_.size() < spawner_.GetMonsterAmount()) {
-            Monster* monster;
+        spawner_->SetMonsterAmount(5); // set according to player lvl somehow
+        while (monsters_.size() < spawner_->GetMonsterAmount()) {
+            MonsterSP monster;
             do {
-                monster = spawner_.SpawnMonster(roomSize_, player);
+                monster = spawner_->SpawnMonster(roomSize_, player);
             } while (monster == nullptr || !positionIsWalkable(monster->GetBaseBoxAt(monster->GetPos())));
             monster->SetTarget(player);
             monsters_.push_back(monster);
         }
     }
+    player->SetPosAndOldPos(sf::Vector2f(GetEntranceInDirection(direction))); // prevents us from getting stuck in the wall
 }
 
 void RoomInstance::Exit()
@@ -194,7 +200,7 @@ void RoomInstance::Exit()
     }
 }
 
-std::vector<Monster*>& RoomInstance::GetMonsters()
+std::vector<MonsterSP>& RoomInstance::GetMonsters()
 {
     return monsters_;
 }
@@ -206,4 +212,98 @@ void RoomInstance::AddPotion(Potion* potion)
 std::vector<Potion*>& RoomInstance::GetPotions()
 {
     return potions_;
+}
+Direction RoomInstance::RemoveRandomDirection()
+{
+    int id = randomhelper::RandomIntBetween(0, directionsLeft_.size() - 1);
+    Direction ans = directionsLeft_[id];
+    directionsLeft_.erase(directionsLeft_.begin() + id);
+    return ans;
+}
+
+void RoomInstance::RemoveDirection(Direction dir)
+{
+    int idToRemove = -1;
+    int i = 0;
+    for (auto direction : directionsLeft_) {
+        if (direction == dir) {
+            idToRemove = i;
+        }
+        i += 1;
+    }
+
+    if (idToRemove != -1) {
+        directionsLeft_.erase(directionsLeft_.begin() + idToRemove);
+    }
+}
+
+bool RoomInstance::HasDirectionsLeft()
+{
+    return !directionsLeft_.empty();
+}
+
+void RoomInstance::deleteMonster(MonsterSP m)
+{
+    if (monsters_.empty())
+        return;
+
+    for (auto it = monsters_.begin(); it != monsters_.end(); ++it) {
+        if (*it == m) {
+            it = monsters_.erase(it);
+            return;
+        }
+    }
+}
+
+bool RoomInstance::IsCleared()
+{
+    return cleared_;
+}
+
+void RoomInstance::setTiles()
+{
+    tileVector_.clear();
+    int xTileCount = roomSize_.x / 64;
+    int yTileCount = roomSize_.y / 64;
+    int n = 0;
+    for (int i = 0; i < yTileCount; ++i) {
+        std::vector<RoomTile*> row;
+        int k = 0;
+        for (int j = 0; j < xTileCount; ++j) {
+            if (i == 0) {
+                if (j == 0) {
+                    row.push_back(new WallTile("content/sprites/walls/topwallleft.png", k, n));
+                } else if (j == xTileCount - 1) {
+                    row.push_back(new WallTile("content/sprites/walls/topwallbottomleft.png", k, n));
+                } else {
+                    row.push_back(new WallTile("content/sprites/walls/toppartofwall1.png", k, n));
+                }
+            } else if (i == 1 && j != 0 && j != xTileCount - 1) {
+                row.push_back(new FrontWallTile("content/sprites/walls/wallfront1.png", k, n));
+            } else if (i == yTileCount - 1) {
+                if (j == 0) {
+                    row.push_back(new WallTile("content/sprites/walls/topwallright.png", k, n));
+                } else if (j == xTileCount - 1) {
+                    row.push_back(new WallTile("content/sprites/walls/topwallbottomright.png", k, n));
+                } else {
+                    row.push_back(new WallTile("content/sprites/walls/topwallbottom.png", k, n));
+                }
+            } else if (i != 0 && j == 0) {
+                row.push_back(new WallTile("content/sprites/walls/topwallLEFTSIDE.png", k, n));
+            } else if (i != 0 && j == xTileCount - 1) {
+                row.push_back(new WallTile("content/sprites/walls/topwallRIGHTSIDE.png", k, n));
+            } else {
+                int tileNumber = rand() % ((TILE_AMOUNT + 1) + NORMALTILE_EXTRA_WEIGHT) + 1;
+                if (tileNumber > TILE_AMOUNT) {
+                    tileNumber = 1;
+                }
+                std::string tilelocation = "content/sprites/floors/tile" + std::to_string(tileNumber) + ".png";
+                row.push_back(new FloorTile(tilelocation, k, n));
+            }
+
+            k += 64;
+        }
+        n += 64;
+        tileVector_.push_back(row);
+    }
 }

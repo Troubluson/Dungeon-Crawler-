@@ -9,17 +9,30 @@
 #include "Utility/SpriteHelper.hpp"
 class Gamebar {
 public:
-    Gamebar(Player* player);
+    /**
+     * @brief Construct a new Gamebar object, meaning creates the gamebars for player health, attack cooldown and dash cooldown
+     *
+     * @param    player              player which is tracked
+     */
+    Gamebar(PlayerPS player);
+
     Gamebar() {};
-
+    /**
+     * @brief renders the gamebars
+     *
+     * @param    target               window here gamebars should be drawn
+     */
     void Render(sf::RenderTarget* target);
-
+    /**
+     * @brief keeps the gamebars updates when damage is lost and when attack and dash is used
+     *
+     */
     void Update();
 
     void RenderInventory(sf::RenderTarget* target);
 
 private:
-    Player* player_;
+    PlayerPS player_;
     sf::Font font_;
     sf::RectangleShape background_;
     sf::RectangleShape greenBar_;

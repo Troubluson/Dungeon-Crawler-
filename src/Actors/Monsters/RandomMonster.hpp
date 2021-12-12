@@ -10,17 +10,19 @@
 
 class RandomMonster : public Monster {
 public:
-    RandomMonster(Player& player, float xPos, float yPos);
-    RandomMonster(Player& player, sf::Vector2f pos);
+    RandomMonster(PlayerPS player, float xPos, float yPos);
+    RandomMonster(PlayerPS player, sf::Vector2f pos);
     ~RandomMonster();
 
-    virtual std::list<Projectile*> Attack();
+    virtual std::list<ProjectileUP> Attack();
     virtual bool Move(float dt);
+
+    void initVariables();
 
 private:
     int currentDir_;
-    float durationUntilTurn = 3.0f;
-    float elapsedTurnTime = 0.0f;
+    float durationUntilTurn_ = 0.5f;
+    float elapsedTurnTime_ = 0.0f;
 };
 
 #endif

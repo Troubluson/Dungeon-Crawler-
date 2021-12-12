@@ -31,14 +31,26 @@ Entity::Entity(sf::Sprite& sprite, sf::Vector2f pos)
 {
 }
 
-const sf::Vector2f& Entity::getOldPosition() const
+const sf::Vector2f& Entity::GetOldPosition() const
 {
     return oldPos_;
 }
 
-sf::FloatRect Entity::getSpriteBounds() const
+sf::FloatRect Entity::GetSpriteBounds() const
 {
     return sprite_.getGlobalBounds();
+}
+
+sf::FloatRect Entity::GetBaseBoxAt(sf::Vector2f pos) const
+{
+    auto spriteBounds = sprite_.getGlobalBounds();
+    // set to use new position
+    spriteBounds.left = pos.x;
+    spriteBounds.top = pos.y;
+    // use only lower half
+    spriteBounds.height *= 1.0f / 2;
+    spriteBounds.top += spriteBounds.height;
+    return spriteBounds;
 }
 
 sf::Vector2f Entity::GetSpriteCenter() const
@@ -59,8 +71,15 @@ void Entity::initSprite(const std::string& spriteFile, sf::Vector2f spriteDims)
         sprite_.setScale(spriteDims);
     }
 }
-void Entity::setOldAndNewPos(sf::Vector2f pos)
+
+void Entity::SetPos(sf::Vector2f pos)
 {
     pos_ = pos;
+    sprite_.setPosition(pos_);
+}
+
+void Entity::SetPosAndOldPos(sf::Vector2f pos)
+{
+    SetPos(pos);
     oldPos_ = pos;
 }

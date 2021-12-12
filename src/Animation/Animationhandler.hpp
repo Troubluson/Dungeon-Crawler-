@@ -3,6 +3,8 @@
 #define _ANIMATIONHANDLER_CLASS_
 #include "animation.hpp"
 
+typedef std::unique_ptr<Animation> AnimationUP;
+
 enum AnimationIndex {
     AnimationUp,
     AnimationDown,
@@ -13,14 +15,17 @@ enum AnimationIndex {
 };
 
 class AnimationHandler {
-private:
-    Animation* animations_[static_cast<uint>(AnimationIndex::Count)];
-    AnimationIndex currentAnimationIndex_ = AnimationIndex::AnimationDown;
 
 public:
-    AnimationHandler() = default;
+    AnimationHandler()
+        : animations_(0) {};
+    ~AnimationHandler();
     AnimationHandler(uint xOffset, uint yOffset, uint width, uint height, uint xSpacing, const std::string& textureLocation);
     void setAnimation(AnimationIndex index);
     Animation* getAnimation() const;
+
+private:
+    std::vector<Animation*> animations_;
+    AnimationIndex currentAnimationIndex_ = AnimationIndex::AnimationDown;
 };
 #endif

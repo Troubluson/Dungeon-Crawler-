@@ -10,19 +10,18 @@ class Player : public Character {
 public:
     Player();
     ~Player() {};
-    int GetHitPoints() const;
 
     virtual void Update(float dt);
 
     void Dash();
-    std::list<Projectile*> Attack(sf::Vector2f aimPos);
+    std::list<ProjectileUP> Attack(sf::Vector2f aimPos);
 
     void initVariables();
 
     void ResetDashCooldown();
 
-    float GetDashCooldownLeft() const { return dashCooldownLeft; };
-    float GetDashCooldownLength() const { return dashCooldownLength; };
+    float GetDashCooldownLeft() const { return dashCooldownLeft_; };
+    float GetDashCooldownLength() const { return dashCooldownLength_; };
 
     bool CanDash;
     bool IsDashing;
@@ -33,15 +32,16 @@ public:
     std::vector<Potion*> GetInventory() const;
 
 private:
-    float dashSpeed;
-    float dashDurationLength;
-    float dashDurationLeft;
+    float dashSpeed_;
+    float dashDurationLength_;
+    float dashDurationLeft_;
 
-    float dashCooldownLength;
-    float dashCooldownLeft;
+    float dashCooldownLength_;
+    float dashCooldownLeft_;
     void updateDashCooldown(float dt);
 
     std::vector<Potion*> inventory_;
 };
+typedef std::shared_ptr<Player> PlayerPS;
 
 #endif

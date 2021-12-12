@@ -10,8 +10,6 @@ Player::Player()
     initVariables();
 }
 
-int Player::GetHitPoints() const { return hitpoints_; }
-
 void Player::Update(float dt)
 {
     if (hasAnimation_) {
@@ -27,9 +25,9 @@ void Player::Update(float dt)
     updateDashCooldown(dt);
 
     if (IsDashing) {
-        currentSpeed_ = dashSpeed;
+        currentSpeed_ = dashSpeed_;
     } else {
-        currentSpeed_ = normalSpeed_;
+        currentSpeed_ = defaultSpeed_;
     }
 }
 
@@ -37,7 +35,7 @@ void Player::Dash()
 {
     if (CanDash) {
         IsDashing = true;
-        dashDurationLeft = dashDurationLength;
+        dashDurationLeft_ = dashDurationLength_;
         ResetDashCooldown();
     }
 }
@@ -45,40 +43,40 @@ void Player::Dash()
 void Player::initVariables()
 {
 
-    dashCooldownLength = 1.0f;
-    dashCooldownLeft = 0.0f;
+    dashCooldownLength_ = 1.0f;
+    dashCooldownLeft_ = 0.0f;
     CanDash = true;
     IsDashing = false;
-    dashDurationLength = 0.25f;
-    dashDurationLeft = 0.0f;
-    normalSpeed_ = 300.0f;
-    dashSpeed = normalSpeed_ * 3;
+    dashDurationLength_ = 0.25f;
+    dashDurationLeft_ = 0.0f;
+    SetNormalSpeed(300.0f);
+    dashSpeed_ = defaultSpeed_ * 3;
 
-    characterProjectileType = Projectile::Type::PlayerProjectile;
+    characterProjectileType_ = Projectile::Type::PlayerProjectile;
 }
 
 void Player::ResetDashCooldown()
 {
-    dashCooldownLeft = dashCooldownLength;
+    dashCooldownLeft_ = dashCooldownLength_;
     CanDash = false;
 }
 
 void Player::updateDashCooldown(float dt)
 {
-    dashCooldownLeft = std::max(0.0f, dashCooldownLeft - dt);
-    if (dashCooldownLeft <= 0.0f) {
+    dashCooldownLeft_ = std::max(0.0f, dashCooldownLeft_ - dt);
+    if (dashCooldownLeft_ <= 0.0f) {
         CanDash = true;
     }
 
     if (IsDashing) {
-        dashDurationLeft -= dt;
+        dashDurationLeft_ -= dt;
     }
-    if (dashDurationLeft <= 0) {
+    if (dashDurationLeft_ <= 0) {
         IsDashing = false;
     }
 }
 
-std::list<Projectile*> Player::Attack(sf::Vector2f aimPos)
+std::list<ProjectileUP> Player::Attack(sf::Vector2f aimPos)
 {
     if (!CanAttack || !HasWeapon()) {
         return emptyList();
