@@ -1,0 +1,57 @@
+\doxysection{player.\+hpp}
+\label{player_8hpp_source}\index{src/Actors/player.hpp@{src/Actors/player.hpp}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{2 }
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#ifndef \_PLAYER\_CLASS\_}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#define \_PLAYER\_CLASS\_}}
+\DoxyCodeLine{5 }
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include "{}Actors/character.hpp"{}}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include "{}Combat/Health/Potion.hpp"{}}}
+\DoxyCodeLine{12 \textcolor{keyword}{class }Player : \textcolor{keyword}{public} Character \{}
+\DoxyCodeLine{13 \textcolor{keyword}{public}:}
+\DoxyCodeLine{14     Player();}
+\DoxyCodeLine{15     \string~Player() \{\};}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} Update(\textcolor{keywordtype}{float} dt);}
+\DoxyCodeLine{22     \textcolor{keywordtype}{void} Dash();}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{30     std::list<ProjectileUP> Attack(sf::Vector2f aimPos);}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32     \textcolor{keywordtype}{void} initVariables();}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34     \textcolor{keywordtype}{void} ResetDashCooldown();}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36     \textcolor{keywordtype}{float} GetDashCooldownLeft()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} dashCooldownLeft\_; \};}
+\DoxyCodeLine{37     \textcolor{keywordtype}{float} GetDashCooldownLength()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} dashCooldownLength\_; \};}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39     \textcolor{keywordtype}{bool} CanDash;}
+\DoxyCodeLine{40     \textcolor{keywordtype}{bool} IsDashing;}
+\DoxyCodeLine{46     \textcolor{keywordtype}{void} AddPotion(Potion* potion);}
+\DoxyCodeLine{52     \textcolor{keywordtype}{void} UsePotion(\textcolor{keyword}{const} std::string\& colour);}
+\DoxyCodeLine{58     std::vector<Potion*> GetInventory() \textcolor{keyword}{const};}
+\DoxyCodeLine{59     \textcolor{keywordtype}{void} ClearInventory();}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61 \textcolor{keyword}{private}:}
+\DoxyCodeLine{62     \textcolor{keywordtype}{int} attacksBoosted\_;}
+\DoxyCodeLine{63     \textcolor{keywordtype}{int} dashesBoosted\_;}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65     \textcolor{keywordtype}{float} dashSpeed\_;}
+\DoxyCodeLine{66     \textcolor{keywordtype}{float} dashLengthBoostModifier = 2.0f;}
+\DoxyCodeLine{67     \textcolor{keywordtype}{float} dashDefaultDurationLength\_;}
+\DoxyCodeLine{68     \textcolor{keywordtype}{float} dashCurrentDurationLength\_;}
+\DoxyCodeLine{69     \textcolor{keywordtype}{float} dashDurationLeft\_;}
+\DoxyCodeLine{70     \textcolor{keywordtype}{bool} deadAnimationPlayed = \textcolor{keyword}{false};}
+\DoxyCodeLine{71     \textcolor{keywordtype}{float} dt\_time = 0;}
+\DoxyCodeLine{72     \textcolor{keywordtype}{float} dashCooldownLength\_;}
+\DoxyCodeLine{73     \textcolor{keywordtype}{float} dashCooldownLeft\_;}
+\DoxyCodeLine{74     \textcolor{keywordtype}{void} updateDashCooldown(\textcolor{keywordtype}{float} dt);}
+\DoxyCodeLine{75 }
+\DoxyCodeLine{76     std::vector<Potion*> inventory\_;}
+\DoxyCodeLine{77 \};}
+\DoxyCodeLine{78 \textcolor{keyword}{typedef} std::shared\_ptr<Player> PlayerPS;}
+\DoxyCodeLine{79 }
+\DoxyCodeLine{80 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

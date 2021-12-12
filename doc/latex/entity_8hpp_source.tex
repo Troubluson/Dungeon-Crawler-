@@ -1,0 +1,49 @@
+\doxysection{entity.\+hpp}
+\label{entity_8hpp_source}\index{src/entity.hpp@{src/entity.hpp}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{2 }
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#ifndef \_ENTITY\_CLASS\_}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#define \_ENTITY\_CLASS\_}}
+\DoxyCodeLine{5 \textcolor{keyword}{class }Entity \{}
+\DoxyCodeLine{6 \textcolor{keyword}{public}:}
+\DoxyCodeLine{15     Entity(\textcolor{keyword}{const} std::string\& spriteLocation, \textcolor{keywordtype}{float} xPos, \textcolor{keywordtype}{float} yPos, sf::Vector2f spriteDims);}
+\DoxyCodeLine{16     Entity(\textcolor{keyword}{const} std::string\& spirteLocation, sf::Vector2f pos, sf::Vector2f spriteDims);}
+\DoxyCodeLine{17     Entity(sf::Sprite\& sprite, \textcolor{keywordtype}{float} xPos, \textcolor{keywordtype}{float} yPos);}
+\DoxyCodeLine{18     Entity(sf::Sprite\& sprite, sf::Vector2f pos);}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20     \textcolor{keyword}{virtual} \string~Entity() \{\};}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{27     \textcolor{keyword}{const} sf::Sprite\& GetSprite()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} sprite\_; \};}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{34     \textcolor{keyword}{const} sf::Vector2f\& GetPos()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} pos\_; \}}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{41     \textcolor{keyword}{const} sf::Vector2i GetPosI() \{ \textcolor{keywordflow}{return} sf::Vector2i(pos\_); \}}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{48     sf::Vector2f GetSpritePosition()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} sprite\_.getPosition(); \} \textcolor{comment}{// might be unnecessary, because sprite pos should be same as that returned of GetPos()}}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{55     sf::Vector2f GetSpriteCenter() \textcolor{keyword}{const};}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{62     \textcolor{keyword}{const} sf::Vector2f\& GetOldPosition() \textcolor{keyword}{const};}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{64     sf::FloatRect GetSpriteBounds() \textcolor{keyword}{const};}
+\DoxyCodeLine{65     sf::FloatRect GetBaseBoxAt(sf::Vector2f pos) \textcolor{keyword}{const};}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{72     \textcolor{keywordtype}{void} SetPos(sf::Vector2f pos);}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{79     \textcolor{keywordtype}{void} SetPosAndOldPos(sf::Vector2f pos);}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{81     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} Render(sf::RenderTarget* target);}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{83 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{84     \textcolor{keywordtype}{void} initSprite(\textcolor{keyword}{const} std::string\& spriteLocation, sf::Vector2f spriteDims);}
+\DoxyCodeLine{85 }
+\DoxyCodeLine{86     sf::Vector2f pos\_;}
+\DoxyCodeLine{87     sf::Vector2f oldPos\_;}
+\DoxyCodeLine{88     sf::Sprite sprite\_;}
+\DoxyCodeLine{89     sf::Texture texture\_;}
+\DoxyCodeLine{90 \};}
+\DoxyCodeLine{91 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

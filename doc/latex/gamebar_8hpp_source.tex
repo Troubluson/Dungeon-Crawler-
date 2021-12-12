@@ -1,0 +1,53 @@
+\doxysection{gamebar.\+hpp}
+\label{gamebar_8hpp_source}\index{src/gamebar.hpp@{src/gamebar.hpp}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{2 }
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#ifndef \_GAMEBAR\_CLASS\_}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#define \_GAMEBAR\_CLASS\_}}
+\DoxyCodeLine{5 }
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include "{}Actors/player.hpp"{}}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include "{}Combat/Health/HealthPotions.hpp"{}}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include "{}Combat/Health/Potion.hpp"{}}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#include "{}Utility/SpriteHelper.hpp"{}}}
+\DoxyCodeLine{10 \textcolor{keyword}{class }Gamebar \{}
+\DoxyCodeLine{11 \textcolor{keyword}{public}:}
+\DoxyCodeLine{17     Gamebar(PlayerPS player);}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19     Gamebar() \{\};}
+\DoxyCodeLine{25     \textcolor{keywordtype}{void} Render(sf::RenderTarget* target);}
+\DoxyCodeLine{30     \textcolor{keywordtype}{void} Update();}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32     \textcolor{keywordtype}{void} RenderInventory(sf::RenderTarget* target);}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34 \textcolor{keyword}{private}:}
+\DoxyCodeLine{35     PlayerPS player\_;}
+\DoxyCodeLine{36     sf::Font font\_;}
+\DoxyCodeLine{37     sf::RectangleShape background\_;}
+\DoxyCodeLine{38     sf::RectangleShape greenBar\_;}
+\DoxyCodeLine{39     sf::RectangleShape redBar\_;}
+\DoxyCodeLine{40     sf::RectangleShape violetBar\_;}
+\DoxyCodeLine{41     sf::RectangleShape yellowBar\_;}
+\DoxyCodeLine{42     sf::Text hp\_;}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44     sf::Vector2f redpos\_ = sf::Vector2f(800, 5);}
+\DoxyCodeLine{45     sf::Vector2f greenpos\_ = sf::Vector2f(900, 5);}
+\DoxyCodeLine{46     sf::Vector2f yellowpos\_ = sf::Vector2f(1000, 5);}
+\DoxyCodeLine{47     sf::Vector2f violetpos\_ = sf::Vector2f(1100, 5);}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49     sf::Sprite redsprite\_;}
+\DoxyCodeLine{50     sf::Texture redtexture\_;}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52     sf::Sprite greensprite\_;}
+\DoxyCodeLine{53     sf::Texture greentexture\_;}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{55     sf::Sprite yellowsprite\_;}
+\DoxyCodeLine{56     sf::Texture yellowtexture\_;}
+\DoxyCodeLine{57 }
+\DoxyCodeLine{58     sf::Sprite violetsprite\_;}
+\DoxyCodeLine{59     sf::Texture violettexture\_;}
+\DoxyCodeLine{60 \};}
+\DoxyCodeLine{61 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

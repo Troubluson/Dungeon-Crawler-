@@ -1,0 +1,63 @@
+\doxysection{map.\+hpp}
+\label{map_8hpp_source}\index{src/Dungeon/map.hpp@{src/Dungeon/map.hpp}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#ifndef \_MAP\_}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#define \_MAP\_}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include "{}Actors/player.hpp"{}}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include "{}Dungeon/specialrooms/BossRoom.hpp"{}}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include "{}Dungeon/specialrooms/TreasureRoom.hpp"{}}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include "{}Dungeon/specialrooms/startingRoom.hpp"{}}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include "{}PCH.hpp"{}}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#include "{}roomInstance.hpp"{}}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{keyword}{class }Map \{}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{keyword}{public}:}
+\DoxyCodeLine{20     Map(sf::Vector2u sizeOfRooms, \textcolor{keywordtype}{int} noRooms, PlayerPS player);}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22     \string~Map();}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{28     \textcolor{keywordtype}{void} RenderCurrentRoom(sf::RenderTarget* target);}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{35     \textcolor{keywordtype}{void} CreateDungeon(\textcolor{keywordtype}{int} noRooms);}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{42     \textcolor{keywordtype}{void} MovePlayer(Direction dir);}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{50     RoomInstance* GetRoomInDir(Direction direction);}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{58     sf::Vector2i DirToVec(Direction direction);}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{65     RoomInstance* GetCurrentRoom();}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{72     RoomInstance* GetSpawnRoom();}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{74     \textcolor{keywordtype}{void} ResetMap();}
+\DoxyCodeLine{75 }
+\DoxyCodeLine{82     \textcolor{keywordtype}{bool} IsBossRoomCleared();}
+\DoxyCodeLine{83 }
+\DoxyCodeLine{84 \textcolor{keyword}{private}:}
+\DoxyCodeLine{85     std::pair<int, int> findBossRoom(std::map<std::pair<int, int>, std::set<Direction>> coordsAndWalls);}
+\DoxyCodeLine{86     \textcolor{keywordtype}{void} Move(Direction dir);}
+\DoxyCodeLine{87 }
+\DoxyCodeLine{94     RoomInstance* GetRoomAt(sf::Vector2i coord);}
+\DoxyCodeLine{95 }
+\DoxyCodeLine{101     std::pair<int, int> getKey();}
+\DoxyCodeLine{102 }
+\DoxyCodeLine{108     std::pair<int, int> getKey(sf::Vector2i coord);}
+\DoxyCodeLine{109     RoomInstance* getRandomRoom();}
+\DoxyCodeLine{110     RoomInstance* addRoomToDungeon(sf::Vector2u roomSize, sf::Vector2i coords);}
+\DoxyCodeLine{111     \textcolor{keywordtype}{void} addStartingRoomToDungeon(sf::Vector2u roomSize, sf::Vector2i coords);}
+\DoxyCodeLine{112     sf::Vector2u roomSize\_;}
+\DoxyCodeLine{113     sf::Vector2i currentPos\_;}
+\DoxyCodeLine{114     PlayerPS player\_;}
+\DoxyCodeLine{115     sf::Vector2i spawnCoords\_;}
+\DoxyCodeLine{116     sf::Vector2i bossCoords\_;}
+\DoxyCodeLine{117     std::map<std::pair<int, int>, RoomInstance*> dungeon\_; \textcolor{comment}{// cant use vector2i as a key}}
+\DoxyCodeLine{118     std::vector<std::pair<int, int>> existingRoomCoords\_;}
+\DoxyCodeLine{119 \};}
+\DoxyCodeLine{120 }
+\DoxyCodeLine{121 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,28 @@
+\doxysection{Potion.\+hpp}
+\label{_potion_8hpp_source}\index{src/Combat/Health/Potion.hpp@{src/Combat/Health/Potion.hpp}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{2 }
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#ifndef \_POTION\_CLASS\_}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#define \_POTION\_CLASS\_}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include "{}entity.hpp"{}}}
+\DoxyCodeLine{6 }
+\DoxyCodeLine{7 \textcolor{keyword}{class }Potion : \textcolor{keyword}{public} Entity \{}
+\DoxyCodeLine{8 \textcolor{keyword}{public}:}
+\DoxyCodeLine{9     Potion(\textcolor{keyword}{const} std::string\& spritefile, sf::Vector2f pos, \textcolor{keywordtype}{int} healthIncrease, \textcolor{keyword}{const} std::string\& colour);}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11     \textcolor{keyword}{virtual} \string~Potion() \{\};}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{18     \textcolor{keyword}{const} std::string\& GetColour() \textcolor{keyword}{const};}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{25     \textcolor{keywordtype}{int} GetHealthIncrease() \textcolor{keyword}{const};}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{28     \textcolor{keywordtype}{int} healthIncrease\_;}
+\DoxyCodeLine{29     std::string colour\_;}
+\DoxyCodeLine{30 \};}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

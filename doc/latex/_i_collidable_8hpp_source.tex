@@ -1,0 +1,31 @@
+\doxysection{ICollidable.\+hpp}
+\label{_i_collidable_8hpp_source}\index{src/Interfaces/ICollidable.hpp@{src/Interfaces/ICollidable.hpp}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#ifndef \_COLLIDABLE\_INTERFACE\_}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#define \_COLLIDABLE\_INTERFACE\_}}
+\DoxyCodeLine{4 }
+\DoxyCodeLine{9 \textcolor{keyword}{class }ICollidable \{}
+\DoxyCodeLine{10 \textcolor{keyword}{public}:}
+\DoxyCodeLine{11     \textcolor{keyword}{enum} EntityType \{}
+\DoxyCodeLine{12         character,}
+\DoxyCodeLine{13         projectile,}
+\DoxyCodeLine{14         tile,}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16     \};}
+\DoxyCodeLine{17     \textcolor{comment}{// we use these function to retrieve collision relevant information}}
+\DoxyCodeLine{18     \textcolor{comment}{// virtual sf::Vector2f GetPosition() = 0; // objects have position}}
+\DoxyCodeLine{19     \textcolor{keyword}{virtual} sf::FloatRect GetBoundingBox() = 0; \textcolor{comment}{// objects have a size}}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21     \textcolor{comment}{// using this function, we notify the object that it collided with something else}}
+\DoxyCodeLine{22     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} ProcessCollision(ICollidable* other) = 0;}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24     \textcolor{keyword}{virtual} EntityType GetEntityType() = 0;}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26     \textcolor{keyword}{virtual} \string~ICollidable() \{\};}
+\DoxyCodeLine{27 \};}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

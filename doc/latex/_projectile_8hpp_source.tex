@@ -1,0 +1,86 @@
+\doxysection{Projectile.\+hpp}
+\label{_projectile_8hpp_source}\index{src/Combat/Projectile.hpp@{src/Combat/Projectile.hpp}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{2 }
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#ifndef \_Projectile\_CLASS\_}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#define \_Projectile\_CLASS\_}}
+\DoxyCodeLine{5 }
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include "{}entity.hpp"{}}}
+\DoxyCodeLine{7 }
+\DoxyCodeLine{8 \textcolor{keyword}{class }Character;}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{10 \textcolor{keyword}{class }Projectile : \textcolor{keyword}{public} Entity \{}
+\DoxyCodeLine{11 \textcolor{keyword}{public}:}
+\DoxyCodeLine{12     \textcolor{keyword}{enum} Type \{ PlayerProjectile,}
+\DoxyCodeLine{13         EnemyProjectile \};}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{keyword}{public}:}
+\DoxyCodeLine{16     Projectile(sf::Sprite\& sprite, sf::Vector2f startPos, \textcolor{keywordtype}{bool} penetratesObjects = \textcolor{keyword}{false});}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{25     \textcolor{keywordtype}{bool} HasHit(Character* c);}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{32     \textcolor{keywordtype}{void} Hit(Character* c);}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{39     \textcolor{keywordtype}{int} GetDamage() \{ \textcolor{keywordflow}{return} damage\_; \}}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{46     Projectile::Type GetType() \{ \textcolor{keywordflow}{return} type\_; \}}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{53     sf::Vector2f GetDirection() \{ \textcolor{keywordflow}{return} direction\_; \}}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{60     sf::Vector2f GetStartPosition() \{ \textcolor{keywordflow}{return} startPos\_; \}}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{67     \textcolor{keywordtype}{float} GetTimeExisted() \{ \textcolor{keywordflow}{return} timeExisted\_; \}}
+\DoxyCodeLine{68 }
+\DoxyCodeLine{74     \textcolor{keywordtype}{float} GetTimeLifeSpan() \{ \textcolor{keywordflow}{return} timeLifeSpan\_; \}}
+\DoxyCodeLine{75 }
+\DoxyCodeLine{81     \textcolor{keywordtype}{float} GetProjectileSpeed() \{ \textcolor{keywordflow}{return} projectileSpeed\_; \}}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{88     \textcolor{keywordtype}{float} GetDistanceLifeSpan() \{ \textcolor{keywordflow}{return} distanceLifeSpanSquared\_; \}}
+\DoxyCodeLine{89 }
+\DoxyCodeLine{96     \textcolor{keywordtype}{bool} Penetrates() \{ \textcolor{keywordflow}{return} penetrates\_; \}}
+\DoxyCodeLine{97 }
+\DoxyCodeLine{104     \textcolor{keywordtype}{bool} IsAlive() \{ \textcolor{keywordflow}{return} alive\_; \}}
+\DoxyCodeLine{105 }
+\DoxyCodeLine{111     \textcolor{keywordtype}{void} SetType(Projectile::Type type);}
+\DoxyCodeLine{112 }
+\DoxyCodeLine{118     \textcolor{keywordtype}{void} SetDirection(sf::Vector2f direction);}
+\DoxyCodeLine{119 }
+\DoxyCodeLine{125     \textcolor{keywordtype}{void} SetDamage(\textcolor{keywordtype}{int} damage);}
+\DoxyCodeLine{126 }
+\DoxyCodeLine{132     \textcolor{keywordtype}{void} SetProjectileSpeed(\textcolor{keywordtype}{float} projectileSpeed);}
+\DoxyCodeLine{133 }
+\DoxyCodeLine{139     \textcolor{keywordtype}{void} SetTimeLifeSpan(\textcolor{keywordtype}{float} timeLifeSpan);}
+\DoxyCodeLine{140 }
+\DoxyCodeLine{146     \textcolor{keywordtype}{void} SetDistanceLifeSpan(\textcolor{keywordtype}{float} distanceLifeSpan);}
+\DoxyCodeLine{147 }
+\DoxyCodeLine{153     \textcolor{keywordtype}{void} SetSprite(sf::Sprite sprite) \{ sprite\_ = sprite; \}}
+\DoxyCodeLine{154 }
+\DoxyCodeLine{159     \textcolor{keywordtype}{void} Kill() \{ alive\_ = \textcolor{keyword}{false}; \};}
+\DoxyCodeLine{160 }
+\DoxyCodeLine{166     \textcolor{keywordtype}{void} Update(\textcolor{keywordtype}{float} dt);}
+\DoxyCodeLine{167 }
+\DoxyCodeLine{168 \textcolor{keyword}{private}:}
+\DoxyCodeLine{169     Type type\_;}
+\DoxyCodeLine{170     sf::Vector2f direction\_;}
+\DoxyCodeLine{171     sf::Vector2f startPos\_;}
+\DoxyCodeLine{172     std::set<Character*> charactersHit\_;}
+\DoxyCodeLine{173     \textcolor{keywordtype}{int} damage\_;}
+\DoxyCodeLine{174     \textcolor{keywordtype}{float} projectileSpeed\_;}
+\DoxyCodeLine{175 }
+\DoxyCodeLine{176     \textcolor{keywordtype}{bool} alive\_;}
+\DoxyCodeLine{177     \textcolor{keywordtype}{bool} penetrates\_;}
+\DoxyCodeLine{178     \textcolor{keywordtype}{float} distanceLifeSpanSquared\_;}
+\DoxyCodeLine{179     \textcolor{keywordtype}{float} timeExisted\_;}
+\DoxyCodeLine{180     \textcolor{keywordtype}{float} timeLifeSpan\_;}
+\DoxyCodeLine{181 }
+\DoxyCodeLine{182     \textcolor{keywordtype}{void} initVariables();}
+\DoxyCodeLine{183     \textcolor{keywordtype}{bool} move(\textcolor{keywordtype}{float} dt, \textcolor{keywordtype}{float} x, \textcolor{keywordtype}{float} y);}
+\DoxyCodeLine{184 \};}
+\DoxyCodeLine{185 }
+\DoxyCodeLine{186 \textcolor{keyword}{typedef} std::unique\_ptr<Projectile> ProjectileUP;}
+\DoxyCodeLine{187 }
+\DoxyCodeLine{188 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

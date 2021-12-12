@@ -1,0 +1,33 @@
+\doxysection{Wall\+Patrol\+Monster.\+hpp}
+\label{_wall_patrol_monster_8hpp_source}\index{src/Actors/Monsters/WallPatrolMonster.hpp@{src/Actors/Monsters/WallPatrolMonster.hpp}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{2 }
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#ifndef \_WALL\_PATROL\_MONSTER\_CLASS\_}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#define \_WALL\_PATROL\_MONSTER\_CLASS\_}}
+\DoxyCodeLine{5 }
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include "{}Actors/character.hpp"{}}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include "{}Actors/player.hpp"{}}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include "{}Combat/Weapons/SwordWeapon.hpp"{}}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#include "{}monster.hpp"{}}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{15 \textcolor{keyword}{class }WallPatrolMonster : \textcolor{keyword}{public} Monster \{}
+\DoxyCodeLine{16 \textcolor{keyword}{public}:}
+\DoxyCodeLine{17     WallPatrolMonster(PlayerPS player, \textcolor{keywordtype}{float} xPos, \textcolor{keywordtype}{float} yPos);}
+\DoxyCodeLine{18     WallPatrolMonster(PlayerPS player, sf::Vector2f pos);}
+\DoxyCodeLine{19     \string~WallPatrolMonster();}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21     \textcolor{keyword}{virtual} std::list<ProjectileUP> Attack();}
+\DoxyCodeLine{22     \textcolor{keyword}{virtual} \textcolor{keywordtype}{bool} Move(\textcolor{keywordtype}{float} dt);}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24     \textcolor{keywordtype}{void} initVariables();}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26 \textcolor{keyword}{private}:}
+\DoxyCodeLine{27     \textcolor{keywordtype}{int} currentDir\_ = 1;}
+\DoxyCodeLine{28     \textcolor{keywordtype}{void} changeDirection();}
+\DoxyCodeLine{29 \};}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

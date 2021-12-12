@@ -1,0 +1,24 @@
+\doxysection{Boss\+Spawner.\+hpp}
+\label{_boss_spawner_8hpp_source}\index{src/Actors/Monsters/MonsterSpawner/BossSpawner.hpp@{src/Actors/Monsters/MonsterSpawner/BossSpawner.hpp}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#ifndef \_BOSS\_SPAWNER\_CLASS\_}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#define \_BOSS\_SPAWNER\_CLASS\_}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include "{}../BossMonster.hpp"{}}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include "{}MonsterSpawner.hpp"{}}}
+\DoxyCodeLine{6 }
+\DoxyCodeLine{7 \textcolor{keyword}{class }BossSpawner : \textcolor{keyword}{public} MonsterSpawner \{}
+\DoxyCodeLine{8 \textcolor{keyword}{public}:}
+\DoxyCodeLine{9     BossSpawner()}
+\DoxyCodeLine{10         : MonsterSpawner(1)}
+\DoxyCodeLine{11     \{}
+\DoxyCodeLine{12     \}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14     \string~BossSpawner() \{ \}}
+\DoxyCodeLine{15     \textcolor{keyword}{virtual} MonsterSP SpawnMonster(sf::Vector2u roomSize, PlayerPS target);}
+\DoxyCodeLine{16 \};}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

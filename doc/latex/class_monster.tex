@@ -1,0 +1,237 @@
+\doxysection{Monster Class Reference}
+\label{class_monster}\index{Monster@{Monster}}
+
+
+\doxyref{Monster}{p.}{class_monster} class, which all our other monsters inherit.  
+
+
+
+
+{\ttfamily \#include $<$monster.\+hpp$>$}
+
+Inheritance diagram for Monster\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.010753cm]{class_monster}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual \textbf{ $\sim$\+Monster} ()
+\item 
+\textbf{ Player} \& \textbf{ Get\+Player} () const
+\item 
+virtual std\+::list$<$ \textbf{ Projectile\+UP} $>$ \textbf{ Attack} ()=0
+\item 
+virtual void \textbf{ Update} (float)
+\item 
+virtual bool \textbf{ Move} (float dt)=0
+\item 
+virtual void \textbf{ Render} (sf\+::\+Render\+Target $\ast$target)
+\item 
+void \textbf{ init\+Variables} ()
+\item 
+void \textbf{ Set\+Target} (\textbf{ Player\+PS} target)
+\item 
+\textbf{ Potion} $\ast$ \textbf{ Return\+Potion} ()
+\begin{DoxyCompactList}\small\item\em determines if monster is going to drop a potion and what kind of potion. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ Monster} (\textbf{ Player\+PS} player, sf\+::\+Vector2f pos, const std\+::string \&sprite\+File)
+\item 
+\textbf{ Monster} (\textbf{ Player\+PS} player, float x\+Pos, float y\+Pos, const std\+::string \&sprite\+File)
+\item 
+float \textbf{ get\+Distance\+To\+Player} ()
+\item 
+bool \textbf{ in\+Range\+Of\+Player} ()
+\begin{DoxyCompactList}\small\item\em Checks if player is in attack range of monster character based on weapon range. \end{DoxyCompactList}\item 
+bool \textbf{ move\+Towards\+Player} (float dt)
+\item 
+void \textbf{ clamp\+Pos\+To\+Room} ()
+\begin{DoxyCompactList}\small\item\em clamps the monsters into a room so they can go into corridors \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::shared\+\_\+ptr$<$ \textbf{ Player} $>$ \textbf{ player\+\_\+}
+\item 
+sf\+::\+Rectangle\+Shape \textbf{ healthbar\+\_\+}
+\item 
+float \textbf{ static\+Damage\+\_\+} = 5.\+0f
+\item 
+bool \textbf{ moved\+Last\+Tick\+\_\+}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+\doxyref{Monster}{p.}{class_monster} class, which all our other monsters inherit. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\label{class_monster_a21619ba1759b910cd2fd50d858aab338}} 
+\index{Monster@{Monster}!````~Monster@{$\sim$Monster}}
+\index{````~Monster@{$\sim$Monster}!Monster@{Monster}}
+\doxysubsubsection{$\sim$Monster()}
+{\footnotesize\ttfamily Monster\+::$\sim$\+Monster (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+\mbox{\label{class_monster_a43ceac89cceee8b2c4c98a8c35783907}} 
+\index{Monster@{Monster}!Monster@{Monster}}
+\index{Monster@{Monster}!Monster@{Monster}}
+\doxysubsubsection{Monster()\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Monster\+::\+Monster (\begin{DoxyParamCaption}\item[{\textbf{ Player\+PS}}]{player,  }\item[{sf\+::\+Vector2f}]{pos,  }\item[{const std\+::string \&}]{sprite\+File }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\label{class_monster_a29a5eb418e6dd9c603136a01f5be1294}} 
+\index{Monster@{Monster}!Monster@{Monster}}
+\index{Monster@{Monster}!Monster@{Monster}}
+\doxysubsubsection{Monster()\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Monster\+::\+Monster (\begin{DoxyParamCaption}\item[{\textbf{ Player\+PS}}]{player,  }\item[{float}]{x\+Pos,  }\item[{float}]{y\+Pos,  }\item[{const std\+::string \&}]{sprite\+File }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\label{class_monster_a65d700523a81fdbf87fd30a838c6e610}} 
+\index{Monster@{Monster}!Attack@{Attack}}
+\index{Attack@{Attack}!Monster@{Monster}}
+\doxysubsubsection{Attack()}
+{\footnotesize\ttfamily virtual std\+::list$<$ \textbf{ Projectile\+UP} $>$ Monster\+::\+Attack (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \textbf{ Boss\+Monster} \doxyref{}{p.}{class_boss_monster_a2ec1678d6f2add0f7273ab8d5a301b72}, \textbf{ Random\+Monster} \doxyref{}{p.}{class_random_monster_a941acf7e060a9665a261476846a5678b}, \textbf{ Searching\+Monster} \doxyref{}{p.}{class_searching_monster_abcd6511050b6ecc18b4fdee766732546}, \textbf{ Slow\+Monster} \doxyref{}{p.}{class_slow_monster_a1525437cc51b9192b420ada9638dc47d}, \textbf{ Sniping\+Monster} \doxyref{}{p.}{class_sniping_monster_a6b4d5c0cb61e08967a446cc8b1ff81d3}, and \textbf{ Wall\+Patrol\+Monster} \doxyref{}{p.}{class_wall_patrol_monster_a1c9f9deed0bb0a033243ddf044897a24}.
+
+\mbox{\label{class_monster_a1495848858433efb1c03db4531fc30d6}} 
+\index{Monster@{Monster}!clampPosToRoom@{clampPosToRoom}}
+\index{clampPosToRoom@{clampPosToRoom}!Monster@{Monster}}
+\doxysubsubsection{clampPosToRoom()}
+{\footnotesize\ttfamily void Monster\+::clamp\+Pos\+To\+Room (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+clamps the monsters into a room so they can go into corridors 
+
+\mbox{\label{class_monster_ae67529c2e75e1a0f92c9fe8c5cb54140}} 
+\index{Monster@{Monster}!getDistanceToPlayer@{getDistanceToPlayer}}
+\index{getDistanceToPlayer@{getDistanceToPlayer}!Monster@{Monster}}
+\doxysubsubsection{getDistanceToPlayer()}
+{\footnotesize\ttfamily float Monster\+::get\+Distance\+To\+Player (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\label{class_monster_a18a794c3014f40c83a3bf356cf5587a4}} 
+\index{Monster@{Monster}!GetPlayer@{GetPlayer}}
+\index{GetPlayer@{GetPlayer}!Monster@{Monster}}
+\doxysubsubsection{GetPlayer()}
+{\footnotesize\ttfamily \textbf{ Player} \& Monster\+::\+Get\+Player (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\label{class_monster_ab90c5c8dc9c3f24e1aa9f79731b875d7}} 
+\index{Monster@{Monster}!initVariables@{initVariables}}
+\index{initVariables@{initVariables}!Monster@{Monster}}
+\doxysubsubsection{initVariables()}
+{\footnotesize\ttfamily void Monster\+::init\+Variables (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\label{class_monster_a1f95f90b2156b9cda7b06b390fb99310}} 
+\index{Monster@{Monster}!inRangeOfPlayer@{inRangeOfPlayer}}
+\index{inRangeOfPlayer@{inRangeOfPlayer}!Monster@{Monster}}
+\doxysubsubsection{inRangeOfPlayer()}
+{\footnotesize\ttfamily bool Monster\+::in\+Range\+Of\+Player (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Checks if player is in attack range of monster character based on weapon range. 
+
+\begin{DoxyReturn}{Returns}
+true if it is 
+
+false if not 
+\end{DoxyReturn}
+\mbox{\label{class_monster_af0b3f67e1cc9593b0b657323a25d746e}} 
+\index{Monster@{Monster}!Move@{Move}}
+\index{Move@{Move}!Monster@{Monster}}
+\doxysubsubsection{Move()}
+{\footnotesize\ttfamily virtual bool Monster\+::\+Move (\begin{DoxyParamCaption}\item[{float}]{dt }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Reimplemented from \textbf{ Character} \doxyref{}{p.}{class_character_ae2e7aeef21ec15ae0cff17aee15c6ca0}.
+
+
+
+Implemented in \textbf{ Boss\+Monster} \doxyref{}{p.}{class_boss_monster_a3e08beea7748fa58c2de8299063d0d65}, \textbf{ Random\+Monster} \doxyref{}{p.}{class_random_monster_a4f2f4d12ca1ae8471482836187d2f748}, \textbf{ Searching\+Monster} \doxyref{}{p.}{class_searching_monster_aee8ee5a68b09c30edb3f322c0cd874fe}, \textbf{ Slow\+Monster} \doxyref{}{p.}{class_slow_monster_a0c977a815d98fef9bb0f23e931971fbb}, \textbf{ Sniping\+Monster} \doxyref{}{p.}{class_sniping_monster_af5a89db315172695ccdd0bf83601e139}, and \textbf{ Wall\+Patrol\+Monster} \doxyref{}{p.}{class_wall_patrol_monster_a862ea23ac2104f4093662ec8317ab994}.
+
+\mbox{\label{class_monster_ab167b8a33f19b396a555a80d50158bf0}} 
+\index{Monster@{Monster}!moveTowardsPlayer@{moveTowardsPlayer}}
+\index{moveTowardsPlayer@{moveTowardsPlayer}!Monster@{Monster}}
+\doxysubsubsection{moveTowardsPlayer()}
+{\footnotesize\ttfamily bool Monster\+::move\+Towards\+Player (\begin{DoxyParamCaption}\item[{float}]{dt }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\label{class_monster_ac8f61d71151979a78dbf858fdff4d93b}} 
+\index{Monster@{Monster}!Render@{Render}}
+\index{Render@{Render}!Monster@{Monster}}
+\doxysubsubsection{Render()}
+{\footnotesize\ttfamily void Monster\+::\+Render (\begin{DoxyParamCaption}\item[{sf\+::\+Render\+Target $\ast$}]{target }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Reimplemented from \textbf{ Entity} \doxyref{}{p.}{class_entity_a034bc6e6506d067bdad46080cbee620c}.
+
+\mbox{\label{class_monster_abb1da5123c06bf7f330dec8c85e65eab}} 
+\index{Monster@{Monster}!ReturnPotion@{ReturnPotion}}
+\index{ReturnPotion@{ReturnPotion}!Monster@{Monster}}
+\doxysubsubsection{ReturnPotion()}
+{\footnotesize\ttfamily \textbf{ Potion} $\ast$ Monster\+::\+Return\+Potion (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+determines if monster is going to drop a potion and what kind of potion. 
+
+\begin{DoxyReturn}{Returns}
+Potion$\ast$ 
+\end{DoxyReturn}
+\mbox{\label{class_monster_aaa410f8a19211d8c5ddad101d66803df}} 
+\index{Monster@{Monster}!SetTarget@{SetTarget}}
+\index{SetTarget@{SetTarget}!Monster@{Monster}}
+\doxysubsubsection{SetTarget()}
+{\footnotesize\ttfamily void Monster\+::\+Set\+Target (\begin{DoxyParamCaption}\item[{\textbf{ Player\+PS}}]{target }\end{DoxyParamCaption})}
+
+\mbox{\label{class_monster_aa730079d3f513f17f44ec15a6be35b28}} 
+\index{Monster@{Monster}!Update@{Update}}
+\index{Update@{Update}!Monster@{Monster}}
+\doxysubsubsection{Update()}
+{\footnotesize\ttfamily void Monster\+::\+Update (\begin{DoxyParamCaption}\item[{float}]{dt }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \textbf{ Character} \doxyref{}{p.}{class_character_a72da2201326fe395bea15161cd37bd53}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\label{class_monster_a08af3b479664015187e92f0d0bbdf0dc}} 
+\index{Monster@{Monster}!healthbar\_@{healthbar\_}}
+\index{healthbar\_@{healthbar\_}!Monster@{Monster}}
+\doxysubsubsection{healthbar\_}
+{\footnotesize\ttfamily sf\+::\+Rectangle\+Shape Monster\+::healthbar\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\label{class_monster_ad7db690ec6b26faa6959b52deb5357f6}} 
+\index{Monster@{Monster}!movedLastTick\_@{movedLastTick\_}}
+\index{movedLastTick\_@{movedLastTick\_}!Monster@{Monster}}
+\doxysubsubsection{movedLastTick\_}
+{\footnotesize\ttfamily bool Monster\+::moved\+Last\+Tick\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\label{class_monster_a3d8e2ee749c613b405c830229985a234}} 
+\index{Monster@{Monster}!player\_@{player\_}}
+\index{player\_@{player\_}!Monster@{Monster}}
+\doxysubsubsection{player\_}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$\textbf{ Player}$>$ Monster\+::player\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\label{class_monster_ab0137bcc8c652bd858a6fa000f8d23eb}} 
+\index{Monster@{Monster}!staticDamage\_@{staticDamage\_}}
+\index{staticDamage\_@{staticDamage\_}!Monster@{Monster}}
+\doxysubsubsection{staticDamage\_}
+{\footnotesize\ttfamily float Monster\+::static\+Damage\+\_\+ = 5.\+0f\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/\+Actors/\+Monsters/\textbf{ monster.\+hpp}\item 
+src/\+Actors/\+Monsters/\textbf{ monster.\+cpp}\end{DoxyCompactItemize}

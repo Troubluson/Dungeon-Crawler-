@@ -1,0 +1,50 @@
+\doxysection{Weapon.\+hpp}
+\label{_weapon_8hpp_source}\index{src/Combat/Weapons/Weapon.hpp@{src/Combat/Weapons/Weapon.hpp}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#ifndef \_WEAPON\_CLASS\_}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#define \_WEAPON\_CLASS\_}}
+\DoxyCodeLine{4 }
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include "{}Combat/PowerUps/PowerUp.hpp"{}}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include "{}Combat/Projectile.hpp"{}}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include "{}Utility/SpriteHelper.hpp"{}}}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9 \textcolor{keyword}{using namespace }std;}
+\DoxyCodeLine{10 \textcolor{keyword}{using namespace }sf;}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{keyword}{class }Weapon \{}
+\DoxyCodeLine{13 \textcolor{keyword}{public}:}
+\DoxyCodeLine{14     Weapon(\textcolor{keywordtype}{int} damage, \textcolor{keywordtype}{int} range, \textcolor{keywordtype}{int} rateOfFire, \textcolor{keywordtype}{float} projectileSpeed, Vector2f projectileSize, \textcolor{keyword}{const} std::string\& spriteLocation);}
+\DoxyCodeLine{15     \textcolor{keyword}{virtual} \string~Weapon() \{\};}
+\DoxyCodeLine{16     \textcolor{keyword}{virtual} ProjectileUP Use(Vector2f dir, Vector2f origin) = 0;}
+\DoxyCodeLine{17     \textcolor{comment}{// virtual void Animate() = 0;}}
+\DoxyCodeLine{18     \textcolor{keywordtype}{void} AddPowerUp(PowerUp* up);}
+\DoxyCodeLine{19     \textcolor{keywordtype}{float} GetAttackCooldown() \{ \textcolor{keywordflow}{return} cooldown\_; \};}
+\DoxyCodeLine{20     \textcolor{keywordtype}{float} GetRange() \{ \textcolor{keywordflow}{return} range\_; \};}
+\DoxyCodeLine{21     \textcolor{keywordtype}{void} SetTextureRect(sf::IntRect rect);}
+\DoxyCodeLine{22     \textcolor{keywordtype}{void} BoostDamageValue();}
+\DoxyCodeLine{23     \textcolor{keywordtype}{void} UnBoostDamageValue();}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{26     \textcolor{keywordtype}{int} defaultDamage\_;}
+\DoxyCodeLine{27     \textcolor{keywordtype}{int} currentDamage\_;}
+\DoxyCodeLine{28     \textcolor{keywordtype}{float} damageBoostModifier = 1.1f;}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30     \textcolor{keywordtype}{int} range\_;}
+\DoxyCodeLine{31     \textcolor{keywordtype}{float} projectileSpeed\_;}
+\DoxyCodeLine{32     Vector2f projectileSize\_;}
+\DoxyCodeLine{33     \textcolor{keywordtype}{int} speed\_;}
+\DoxyCodeLine{34     \textcolor{keywordtype}{bool} penetrates\_ = \textcolor{keyword}{false};}
+\DoxyCodeLine{35     \textcolor{keyword}{const} \textcolor{keywordtype}{int} maxPowerUps = 3;}
+\DoxyCodeLine{36     \textcolor{keywordtype}{int} getPowerUpCount();}
+\DoxyCodeLine{37     Sprite sprite\_;}
+\DoxyCodeLine{38     Texture texture\_;}
+\DoxyCodeLine{39     vector<PowerUp*> powerUps\_;}
+\DoxyCodeLine{40     \textcolor{keywordtype}{float} cooldown\_;}
+\DoxyCodeLine{41     \textcolor{keywordtype}{float} attackCooldownLength\_;}
+\DoxyCodeLine{42     \textcolor{keywordtype}{float} attackCooldownLeft;}
+\DoxyCodeLine{43 \};}
+\DoxyCodeLine{44 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

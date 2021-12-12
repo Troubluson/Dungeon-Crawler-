@@ -1,0 +1,79 @@
+\doxysection{game.\+hpp}
+\label{game_8hpp_source}\index{src/game.hpp@{src/game.hpp}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{2 }
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#ifndef \_GAME\_CLASS\_}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#define \_GAME\_CLASS\_}}
+\DoxyCodeLine{5 }
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include "{}Actors/Monsters/BossMonster.hpp"{}}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include "{}Actors/player.hpp"{}}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include "{}Combat/Health/Potion.hpp"{}}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#include "{}Combat/Projectile.hpp"{}}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}Combat/Weapons/BowWeapon.hpp"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}Combat/Weapons/SwordWeapon.hpp"{}}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include "{}Dungeon/map.hpp"{}}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include "{}Utility/LevelUpSystem.hpp"{}}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include "{}Utility/ScreenText.hpp"{}}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include "{}Utility/Sounds/SoundEffects.hpp"{}}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include "{}gamebar.hpp"{}}}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 \textcolor{keyword}{class }Game \{}
+\DoxyCodeLine{19 \textcolor{keyword}{public}:}
+\DoxyCodeLine{20     Game();}
+\DoxyCodeLine{21     \string~Game();}
+\DoxyCodeLine{26     \textcolor{keywordtype}{void} UpdateGame();}
+\DoxyCodeLine{31     \textcolor{keywordtype}{void} RenderGame();}
+\DoxyCodeLine{38     \textcolor{keywordtype}{bool} Running() \textcolor{keyword}{const};}
+\DoxyCodeLine{43     \textcolor{keywordtype}{void} Events();}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45 \textcolor{keyword}{private}:}
+\DoxyCodeLine{46     sf::VideoMode videomode\_;}
+\DoxyCodeLine{47     sf::RenderWindow* window\_;}
+\DoxyCodeLine{48     sf::Event event\_;}
+\DoxyCodeLine{49     sf::Clock dtClock\_;}
+\DoxyCodeLine{50     PlayerPS player\_;}
+\DoxyCodeLine{51     Map dungeonMap\_;}
+\DoxyCodeLine{52     Gamebar gamebar\_;}
+\DoxyCodeLine{53     ScreenText deathtext\_;}
+\DoxyCodeLine{54     ScreenText victoryScreen\_;}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56     SoundEffect* playerHitSound = \textcolor{keyword}{new} SoundEffect(\textcolor{stringliteral}{"{}content/sounds/playerHit.wav"{}});}
+\DoxyCodeLine{57     SoundEffect* monsterHitSound = \textcolor{keyword}{new} SoundEffect(\textcolor{stringliteral}{"{}content/sounds/monsterHit.wav"{}});}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59     \textcolor{keywordtype}{float} dt\_;}
+\DoxyCodeLine{60     \textcolor{keywordtype}{bool} paused = \textcolor{keyword}{false};}
+\DoxyCodeLine{61     \textcolor{keywordtype}{bool} escapePressedLastTick = paused;}
+\DoxyCodeLine{62     \textcolor{keywordtype}{bool} gameEnder\_;}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{64     std::list<ProjectileUP> projectiles\_;}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{70     \textcolor{keywordtype}{void} initWindow();}
+\DoxyCodeLine{75     \textcolor{keywordtype}{void} updateDt();}
+\DoxyCodeLine{80     \textcolor{keywordtype}{void} manageInput();}
+\DoxyCodeLine{85     \textcolor{keywordtype}{void} managePauseInput();}
+\DoxyCodeLine{92     \textcolor{keywordtype}{void} checkCollisions(Character* character, Projectile::Type projectileType);}
+\DoxyCodeLine{97     \textcolor{keywordtype}{void} checkMonsterCollisions();}
+\DoxyCodeLine{102     \textcolor{keywordtype}{void} checkPlayerCollisions();}
+\DoxyCodeLine{107     \textcolor{keywordtype}{void} checkAndHandleProjectileWallCollisions();}
+\DoxyCodeLine{113     \textcolor{keywordtype}{void} deleteProjectile(ProjectileUP p);}
+\DoxyCodeLine{119     \textcolor{keywordtype}{void} addProjectiles(std::list<ProjectileUP> listToAdd);}
+\DoxyCodeLine{125     \textcolor{keywordtype}{void} deleteMonster(Character* m);}
+\DoxyCodeLine{126     \textcolor{keywordtype}{void} deletePotion(Potion* p);}
+\DoxyCodeLine{131     \textcolor{keywordtype}{void} updateProjectiles();}
+\DoxyCodeLine{136     \textcolor{keywordtype}{void} updateMonsters();}
+\DoxyCodeLine{144     \textcolor{keywordtype}{void} updatePotions();}
+\DoxyCodeLine{145     \textcolor{keywordtype}{bool} collidesWithWall(Character* character);}
+\DoxyCodeLine{146 }
+\DoxyCodeLine{154     \textcolor{keywordtype}{bool} collidesWithWall(Projectile* \textcolor{keywordtype}{object});}
+\DoxyCodeLine{161     \textcolor{keywordtype}{bool} ShouldChangeRoom();}
+\DoxyCodeLine{168     \textcolor{keywordtype}{bool} gameLost();}
+\DoxyCodeLine{173     \textcolor{keywordtype}{void} restartGame();}
+\DoxyCodeLine{174 }
+\DoxyCodeLine{181     \textcolor{keywordtype}{bool} gameWon();}
+\DoxyCodeLine{182 \};}
+\DoxyCodeLine{183 }
+\DoxyCodeLine{184 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

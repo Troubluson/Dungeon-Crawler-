@@ -1,0 +1,50 @@
+\doxysection{Boss\+Monster.\+hpp}
+\label{_boss_monster_8hpp_source}\index{src/Actors/Monsters/BossMonster.hpp@{src/Actors/Monsters/BossMonster.hpp}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{2 }
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#ifndef \_BOSS\_MONSTER\_CLASS\_}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#define \_BOSS\_MONSTER\_CLASS\_}}
+\DoxyCodeLine{5 }
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include "{}Actors/character.hpp"{}}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include "{}Actors/player.hpp"{}}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include "{}Combat/Weapons/SwordWeapon.hpp"{}}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#include "{}monster.hpp"{}}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{15 \textcolor{keyword}{class }BossMonster : \textcolor{keyword}{public} Monster \{}
+\DoxyCodeLine{16 \textcolor{keyword}{public}:}
+\DoxyCodeLine{17     BossMonster(PlayerPS player, \textcolor{keywordtype}{float} xPos, \textcolor{keywordtype}{float} yPos);}
+\DoxyCodeLine{18     BossMonster(PlayerPS player, sf::Vector2f pos);}
+\DoxyCodeLine{19     \string~BossMonster();}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21     \textcolor{keyword}{virtual} std::list<ProjectileUP> Attack();}
+\DoxyCodeLine{22     \textcolor{keyword}{virtual} \textcolor{keywordtype}{bool} Move(\textcolor{keywordtype}{float} dt);}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24     \textcolor{keywordtype}{void} initVariables();}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26 \textcolor{keyword}{private}:}
+\DoxyCodeLine{27     \textcolor{keywordtype}{int} currentDir\_;}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29     \textcolor{keywordtype}{int} attackStyle\_ = 0;}
+\DoxyCodeLine{30     \textcolor{keywordtype}{int} nofattackStyles\_ = 3;}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32     \textcolor{keywordtype}{float} angle\_ = 0;}
+\DoxyCodeLine{33     \textcolor{keywordtype}{int} nofBulletsInCircle\_ = 10;}
+\DoxyCodeLine{34     \textcolor{keywordtype}{int} nofBulletsToShootTowardsPlayer\_ = 5;}
+\DoxyCodeLine{35     \textcolor{keywordtype}{int} nofBulletsShot\_ = 0;}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37     sf::Clock attackLoopClock\_;}
+\DoxyCodeLine{38     \textcolor{keywordtype}{float} spritalAttackCooldownLength\_ = 0.1f;}
+\DoxyCodeLine{39     \textcolor{keywordtype}{float} normalAttackCooldownLength\_ = 0.5f;}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41     \textcolor{keywordtype}{float} durationUntilTurn\_ = 0.5f;}
+\DoxyCodeLine{42     \textcolor{keywordtype}{float} elapsedTurnTime\_ = 0.0f;}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44     \textcolor{keywordtype}{void} iterateAngle();}
+\DoxyCodeLine{45     \textcolor{keywordtype}{void} iterateAttackStyle();}
+\DoxyCodeLine{46 \};}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

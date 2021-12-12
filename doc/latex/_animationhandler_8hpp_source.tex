@@ -1,0 +1,38 @@
+\doxysection{Animationhandler.\+hpp}
+\label{_animationhandler_8hpp_source}\index{src/Animation/Animationhandler.hpp@{src/Animation/Animationhandler.hpp}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#ifndef \_ANIMATIONHANDLER\_CLASS\_}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#define \_ANIMATIONHANDLER\_CLASS\_}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include "{}animation.hpp"{}}}
+\DoxyCodeLine{5 }
+\DoxyCodeLine{6 \textcolor{keyword}{typedef} std::shared\_ptr<Animation> AnimationPS;}
+\DoxyCodeLine{7 }
+\DoxyCodeLine{8 \textcolor{keyword}{enum} AnimationIndex \{}
+\DoxyCodeLine{9     AnimationUp,}
+\DoxyCodeLine{10     AnimationDown,}
+\DoxyCodeLine{11     AnimationLeft,}
+\DoxyCodeLine{12     AnimationRight,}
+\DoxyCodeLine{13     AnimationIdle,}
+\DoxyCodeLine{14     AnimationDeath,}
+\DoxyCodeLine{15     Count}
+\DoxyCodeLine{16 \};}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 \textcolor{keyword}{class }AnimationHandler \{}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20 \textcolor{keyword}{public}:}
+\DoxyCodeLine{21     AnimationHandler()}
+\DoxyCodeLine{22         : animations\_(0) \{\};}
+\DoxyCodeLine{23     \string~AnimationHandler();}
+\DoxyCodeLine{24     AnimationHandler(uint xOffset, uint yOffset, uint width, uint height, uint xSpacing, \textcolor{keyword}{const} std::string\& textureLocation, \textcolor{keyword}{const} std::string\& deathTexture);}
+\DoxyCodeLine{25     \textcolor{keywordtype}{void} setAnimation(AnimationIndex index);}
+\DoxyCodeLine{26     Animation* getAnimation() \textcolor{keyword}{const};}
+\DoxyCodeLine{27 }
+\DoxyCodeLine{28 \textcolor{keyword}{private}:}
+\DoxyCodeLine{29     std::vector<AnimationPS> animations\_;}
+\DoxyCodeLine{30     AnimationIndex currentAnimationIndex\_ = AnimationIndex::AnimationDown;}
+\DoxyCodeLine{31 \};}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

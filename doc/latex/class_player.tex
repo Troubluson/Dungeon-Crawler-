@@ -1,0 +1,207 @@
+\doxysection{Player Class Reference}
+\label{class_player}\index{Player@{Player}}
+
+
+\doxyref{Player}{p.}{class_player} class, our controlled character.  
+
+
+
+
+{\ttfamily \#include $<$player.\+hpp$>$}
+
+Inheritance diagram for Player\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_player}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ Player} ()
+\item 
+\textbf{ $\sim$\+Player} ()
+\item 
+virtual void \textbf{ Update} (float dt)
+\item 
+void \textbf{ Dash} ()
+\begin{DoxyCompactList}\small\item\em Handles the dashing functions. \end{DoxyCompactList}\item 
+std\+::list$<$ \textbf{ Projectile\+UP} $>$ \textbf{ Attack} (sf\+::\+Vector2f aim\+Pos)
+\begin{DoxyCompactList}\small\item\em handles the attacking of player character \end{DoxyCompactList}\item 
+void \textbf{ init\+Variables} ()
+\item 
+void \textbf{ Reset\+Dash\+Cooldown} ()
+\item 
+float \textbf{ Get\+Dash\+Cooldown\+Left} () const
+\item 
+float \textbf{ Get\+Dash\+Cooldown\+Length} () const
+\item 
+void \textbf{ Add\+Potion} (\textbf{ Potion} $\ast$potion)
+\begin{DoxyCompactList}\small\item\em Adds a potion to be used later. \end{DoxyCompactList}\item 
+void \textbf{ Use\+Potion} (const std\+::string \&colour)
+\begin{DoxyCompactList}\small\item\em Get the colour of the potion player is going to use and runs the funcions to use it. \end{DoxyCompactList}\item 
+std\+::vector$<$ \textbf{ Potion} $\ast$ $>$ \textbf{ Get\+Inventory} () const
+\begin{DoxyCompactList}\small\item\em gets inventory of \end{DoxyCompactList}\item 
+void \textbf{ Clear\+Inventory} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+bool \textbf{ Can\+Dash}
+\item 
+bool \textbf{ Is\+Dashing}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+\doxyref{Player}{p.}{class_player} class, our controlled character. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\label{class_player_affe0cc3cb714f6deb4e62f0c0d3f1fd8}} 
+\index{Player@{Player}!Player@{Player}}
+\index{Player@{Player}!Player@{Player}}
+\doxysubsubsection{Player()}
+{\footnotesize\ttfamily Player\+::\+Player (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\label{class_player_a749d2c00e1fe0f5c2746f7505a58c062}} 
+\index{Player@{Player}!````~Player@{$\sim$Player}}
+\index{````~Player@{$\sim$Player}!Player@{Player}}
+\doxysubsubsection{$\sim$Player()}
+{\footnotesize\ttfamily Player\+::$\sim$\+Player (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\label{class_player_acb65287ccc0e6154e66fcdf47f11df96}} 
+\index{Player@{Player}!AddPotion@{AddPotion}}
+\index{AddPotion@{AddPotion}!Player@{Player}}
+\doxysubsubsection{AddPotion()}
+{\footnotesize\ttfamily void Player\+::\+Add\+Potion (\begin{DoxyParamCaption}\item[{\textbf{ Potion} $\ast$}]{potion }\end{DoxyParamCaption})}
+
+
+
+Adds a potion to be used later. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em potion} & potion to be added to inventory \\
+\hline
+\end{DoxyParams}
+\mbox{\label{class_player_a008826863f2a69464e5f51ea4504828c}} 
+\index{Player@{Player}!Attack@{Attack}}
+\index{Attack@{Attack}!Player@{Player}}
+\doxysubsubsection{Attack()}
+{\footnotesize\ttfamily std\+::list$<$ \textbf{ Projectile\+UP} $>$ Player\+::\+Attack (\begin{DoxyParamCaption}\item[{sf\+::\+Vector2f}]{aim\+Pos }\end{DoxyParamCaption})}
+
+
+
+handles the attacking of player character 
+
+
+\begin{DoxyParams}{Parameters}
+{\em aim\+Pos} & position of where mouse is aiming \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+std\+::list$<$\+Projectile\+UP$>$ 
+\end{DoxyReturn}
+\mbox{\label{class_player_af87692c2ccbda91a484d03e2ae8fe741}} 
+\index{Player@{Player}!ClearInventory@{ClearInventory}}
+\index{ClearInventory@{ClearInventory}!Player@{Player}}
+\doxysubsubsection{ClearInventory()}
+{\footnotesize\ttfamily void Player\+::\+Clear\+Inventory (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\label{class_player_a90684e3a8d5ae38cc0579b5592e8db35}} 
+\index{Player@{Player}!Dash@{Dash}}
+\index{Dash@{Dash}!Player@{Player}}
+\doxysubsubsection{Dash()}
+{\footnotesize\ttfamily void Player\+::\+Dash (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Handles the dashing functions. 
+
+\mbox{\label{class_player_a154c995d8a6cc846ac3ddf72e930b532}} 
+\index{Player@{Player}!GetDashCooldownLeft@{GetDashCooldownLeft}}
+\index{GetDashCooldownLeft@{GetDashCooldownLeft}!Player@{Player}}
+\doxysubsubsection{GetDashCooldownLeft()}
+{\footnotesize\ttfamily float Player\+::\+Get\+Dash\+Cooldown\+Left (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\label{class_player_a471b07609433018177c9e1c33cfae2fc}} 
+\index{Player@{Player}!GetDashCooldownLength@{GetDashCooldownLength}}
+\index{GetDashCooldownLength@{GetDashCooldownLength}!Player@{Player}}
+\doxysubsubsection{GetDashCooldownLength()}
+{\footnotesize\ttfamily float Player\+::\+Get\+Dash\+Cooldown\+Length (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\label{class_player_a190571de6a8a1a19ec9111838d62df70}} 
+\index{Player@{Player}!GetInventory@{GetInventory}}
+\index{GetInventory@{GetInventory}!Player@{Player}}
+\doxysubsubsection{GetInventory()}
+{\footnotesize\ttfamily std\+::vector$<$ \textbf{ Potion} $\ast$ $>$ Player\+::\+Get\+Inventory (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+gets inventory of 
+
+\begin{DoxyReturn}{Returns}
+std\+::vector$<$\+Potion$\ast$$>$ 
+\end{DoxyReturn}
+\mbox{\label{class_player_a41ed6d3482b0815b564ac401093a297a}} 
+\index{Player@{Player}!initVariables@{initVariables}}
+\index{initVariables@{initVariables}!Player@{Player}}
+\doxysubsubsection{initVariables()}
+{\footnotesize\ttfamily void Player\+::init\+Variables (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\label{class_player_a6cc79a135f85503b04f0f872e8bae318}} 
+\index{Player@{Player}!ResetDashCooldown@{ResetDashCooldown}}
+\index{ResetDashCooldown@{ResetDashCooldown}!Player@{Player}}
+\doxysubsubsection{ResetDashCooldown()}
+{\footnotesize\ttfamily void Player\+::\+Reset\+Dash\+Cooldown (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\label{class_player_a2e6518b602a35ec83a71318db084e67b}} 
+\index{Player@{Player}!Update@{Update}}
+\index{Update@{Update}!Player@{Player}}
+\doxysubsubsection{Update()}
+{\footnotesize\ttfamily void Player\+::\+Update (\begin{DoxyParamCaption}\item[{float}]{dt }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \textbf{ Character} \doxyref{}{p.}{class_character_a72da2201326fe395bea15161cd37bd53}.
+
+\mbox{\label{class_player_a34559f5f74fd83837d3feeea068100b6}} 
+\index{Player@{Player}!UsePotion@{UsePotion}}
+\index{UsePotion@{UsePotion}!Player@{Player}}
+\doxysubsubsection{UsePotion()}
+{\footnotesize\ttfamily void Player\+::\+Use\+Potion (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{colour }\end{DoxyParamCaption})}
+
+
+
+Get the colour of the potion player is going to use and runs the funcions to use it. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em colour} & colour of potion \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\label{class_player_ae1a22d7b4a1d85295c1693ed046c86fb}} 
+\index{Player@{Player}!CanDash@{CanDash}}
+\index{CanDash@{CanDash}!Player@{Player}}
+\doxysubsubsection{CanDash}
+{\footnotesize\ttfamily bool Player\+::\+Can\+Dash}
+
+\mbox{\label{class_player_a8ef6848b8b83a6fcb8f92b0da2f4306d}} 
+\index{Player@{Player}!IsDashing@{IsDashing}}
+\index{IsDashing@{IsDashing}!Player@{Player}}
+\doxysubsubsection{IsDashing}
+{\footnotesize\ttfamily bool Player\+::\+Is\+Dashing}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/\+Actors/\textbf{ player.\+hpp}\item 
+src/\+Actors/\textbf{ player.\+cpp}\end{DoxyCompactItemize}

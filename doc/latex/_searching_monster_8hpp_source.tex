@@ -1,0 +1,32 @@
+\doxysection{Searching\+Monster.\+hpp}
+\label{_searching_monster_8hpp_source}\index{src/Actors/Monsters/SearchingMonster.hpp@{src/Actors/Monsters/SearchingMonster.hpp}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{2 }
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#ifndef \_SEARCHING\_MONSTER\_CLASS\_}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#define \_SEARCHING\_MONSTER\_CLASS\_}}
+\DoxyCodeLine{5 }
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include "{}Actors/character.hpp"{}}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include "{}Actors/player.hpp"{}}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include "{}monster.hpp"{}}}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{14 \textcolor{keyword}{class }SearchingMonster : \textcolor{keyword}{public} Monster \{}
+\DoxyCodeLine{15 \textcolor{keyword}{public}:}
+\DoxyCodeLine{16     SearchingMonster(PlayerPS player, \textcolor{keywordtype}{float} xPos, \textcolor{keywordtype}{float} yPos);}
+\DoxyCodeLine{17     SearchingMonster(PlayerPS player, sf::Vector2f pos);}
+\DoxyCodeLine{18     \string~SearchingMonster();}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20     \textcolor{keyword}{virtual} std::list<ProjectileUP> Attack();}
+\DoxyCodeLine{21     \textcolor{keyword}{virtual} \textcolor{keywordtype}{bool} Move(\textcolor{keywordtype}{float} dt);}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23     \textcolor{keywordtype}{void} initVariables();}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25 \textcolor{keyword}{private}:}
+\DoxyCodeLine{26     sf::Clock cooldown\_;}
+\DoxyCodeLine{27     std::string name\_ = \textcolor{stringliteral}{"{}Sir Chi"{}};}
+\DoxyCodeLine{28 \};}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

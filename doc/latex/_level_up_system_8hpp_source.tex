@@ -1,0 +1,30 @@
+\doxysection{Level\+Up\+System.\+hpp}
+\label{_level_up_system_8hpp_source}\index{src/Utility/LevelUpSystem.hpp@{src/Utility/LevelUpSystem.hpp}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{2 }
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include "{}Actors/character.hpp"{}}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include "{}LevelUpInstance.hpp"{}}}
+\DoxyCodeLine{5 }
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#ifndef \_LevelUpSystem\_CLASS\_}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#define \_LevelUpSystem\_CLASS\_}}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9 \textcolor{keyword}{class }LevelUpSystem \{}
+\DoxyCodeLine{10 \textcolor{keyword}{public}:}
+\DoxyCodeLine{16     \textcolor{keyword}{static} \textcolor{keywordtype}{void} AddCharacter(Character* character);}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{24     \textcolor{keyword}{static} \textcolor{keywordtype}{void} GainXP(Character* character, \textcolor{keywordtype}{float} amount);}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{31     \textcolor{keyword}{static} \textcolor{keywordtype}{void} LevelUp(Character* character);}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{39     \textcolor{keyword}{static} \textcolor{keywordtype}{int} GetLevel(Character* character);}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{47     \textcolor{keyword}{static} \textcolor{keywordtype}{float} GetHPModifier(Character* character);}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49     \textcolor{keyword}{static} std::unordered\_map<Character*, LevelUpInstance> characterLevelMap;}
+\DoxyCodeLine{50 \};}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

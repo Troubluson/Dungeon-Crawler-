@@ -1,0 +1,92 @@
+\doxysection{Slow\+Monster Class Reference}
+\label{class_slow_monster}\index{SlowMonster@{SlowMonster}}
+
+
+\doxyref{Slow\+Monster}{p.}{class_slow_monster} is a monster that slowly walks towards the player and rapidly shoots a lot of projectiles. The aim of slowmonster is purposfully inacurate.  
+
+
+
+
+{\ttfamily \#include $<$Slow\+Monster.\+hpp$>$}
+
+Inheritance diagram for Slow\+Monster\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{class_slow_monster}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ Slow\+Monster} (\textbf{ Player\+PS} player, float x\+Pos, float y\+Pos)
+\item 
+\textbf{ Slow\+Monster} (\textbf{ Player\+PS} player, sf\+::\+Vector2f pos)
+\item 
+\textbf{ $\sim$\+Slow\+Monster} ()
+\item 
+virtual std\+::list$<$ \textbf{ Projectile\+UP} $>$ \textbf{ Attack} ()
+\item 
+virtual bool \textbf{ Move} (float dt)
+\item 
+void \textbf{ init\+Variables} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+\doxyref{Slow\+Monster}{p.}{class_slow_monster} is a monster that slowly walks towards the player and rapidly shoots a lot of projectiles. The aim of slowmonster is purposfully inacurate. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\label{class_slow_monster_aa18503bdae661d0698dc66a0a21509b6}} 
+\index{SlowMonster@{SlowMonster}!SlowMonster@{SlowMonster}}
+\index{SlowMonster@{SlowMonster}!SlowMonster@{SlowMonster}}
+\doxysubsubsection{SlowMonster()\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Slow\+Monster\+::\+Slow\+Monster (\begin{DoxyParamCaption}\item[{\textbf{ Player\+PS}}]{player,  }\item[{float}]{x\+Pos,  }\item[{float}]{y\+Pos }\end{DoxyParamCaption})}
+
+\mbox{\label{class_slow_monster_a3e954f05cd4599820bba037a8a18c455}} 
+\index{SlowMonster@{SlowMonster}!SlowMonster@{SlowMonster}}
+\index{SlowMonster@{SlowMonster}!SlowMonster@{SlowMonster}}
+\doxysubsubsection{SlowMonster()\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Slow\+Monster\+::\+Slow\+Monster (\begin{DoxyParamCaption}\item[{\textbf{ Player\+PS}}]{player,  }\item[{sf\+::\+Vector2f}]{pos }\end{DoxyParamCaption})}
+
+\mbox{\label{class_slow_monster_a2e66ae7e753f8a9b211e7ec4a81c798e}} 
+\index{SlowMonster@{SlowMonster}!````~SlowMonster@{$\sim$SlowMonster}}
+\index{````~SlowMonster@{$\sim$SlowMonster}!SlowMonster@{SlowMonster}}
+\doxysubsubsection{$\sim$SlowMonster()}
+{\footnotesize\ttfamily Slow\+Monster\+::$\sim$\+Slow\+Monster (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\label{class_slow_monster_a1525437cc51b9192b420ada9638dc47d}} 
+\index{SlowMonster@{SlowMonster}!Attack@{Attack}}
+\index{Attack@{Attack}!SlowMonster@{SlowMonster}}
+\doxysubsubsection{Attack()}
+{\footnotesize\ttfamily std\+::list$<$ \textbf{ Projectile\+UP} $>$ Slow\+Monster\+::\+Attack (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \textbf{ Monster} \doxyref{}{p.}{class_monster_a65d700523a81fdbf87fd30a838c6e610}.
+
+\mbox{\label{class_slow_monster_a09078685f1d8185929423bb5ba87a4da}} 
+\index{SlowMonster@{SlowMonster}!initVariables@{initVariables}}
+\index{initVariables@{initVariables}!SlowMonster@{SlowMonster}}
+\doxysubsubsection{initVariables()}
+{\footnotesize\ttfamily void Slow\+Monster\+::init\+Variables (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\label{class_slow_monster_a0c977a815d98fef9bb0f23e931971fbb}} 
+\index{SlowMonster@{SlowMonster}!Move@{Move}}
+\index{Move@{Move}!SlowMonster@{SlowMonster}}
+\doxysubsubsection{Move()}
+{\footnotesize\ttfamily bool Slow\+Monster\+::\+Move (\begin{DoxyParamCaption}\item[{float}]{dt }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \textbf{ Monster} \doxyref{}{p.}{class_monster_af0b3f67e1cc9593b0b657323a25d746e}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/\+Actors/\+Monsters/\textbf{ Slow\+Monster.\+hpp}\item 
+src/\+Actors/\+Monsters/\textbf{ Slow\+Monster.\+cpp}\end{DoxyCompactItemize}

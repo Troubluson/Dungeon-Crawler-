@@ -1,0 +1,125 @@
+\doxysection{Level\+Up\+System Class Reference}
+\label{class_level_up_system}\index{LevelUpSystem@{LevelUpSystem}}
+
+
+{\ttfamily \#include $<$Level\+Up\+System.\+hpp$>$}
+
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \textbf{ Add\+Character} (\textbf{ Character} $\ast$character)
+\begin{DoxyCompactList}\small\item\em Function for adding a character to the \doxyref{Level\+Up\+System}{p.}{class_level_up_system}. \end{DoxyCompactList}\item 
+static void \textbf{ Gain\+XP} (\textbf{ Character} $\ast$character, float amount)
+\begin{DoxyCompactList}\small\item\em Function to add XP to a character that is in the \doxyref{Level\+Up\+System}{p.}{class_level_up_system}. \end{DoxyCompactList}\item 
+static void \textbf{ Level\+Up} (\textbf{ Character} $\ast$character)
+\begin{DoxyCompactList}\small\item\em Function to directly level up a character. Sets character XP to 0. \end{DoxyCompactList}\item 
+static int \textbf{ Get\+Level} (\textbf{ Character} $\ast$character)
+\begin{DoxyCompactList}\small\item\em Function to get the level of a character in the \doxyref{Level\+Up\+System}{p.}{class_level_up_system}. \end{DoxyCompactList}\item 
+static float \textbf{ Get\+HPModifier} (\textbf{ Character} $\ast$character)
+\begin{DoxyCompactList}\small\item\em Function to get a HP modifier that is calculated from the level of the character. Used to buff character when leveling up. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static std\+::unordered\+\_\+map$<$ \textbf{ Character} $\ast$, \textbf{ Level\+Up\+Instance} $>$ \textbf{ character\+Level\+Map}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\label{class_level_up_system_a596202df95040f008ad1158fabb7ced8}} 
+\index{LevelUpSystem@{LevelUpSystem}!AddCharacter@{AddCharacter}}
+\index{AddCharacter@{AddCharacter}!LevelUpSystem@{LevelUpSystem}}
+\doxysubsubsection{AddCharacter()}
+{\footnotesize\ttfamily void Level\+Up\+System\+::\+Add\+Character (\begin{DoxyParamCaption}\item[{\textbf{ Character} $\ast$}]{character }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Function for adding a character to the \doxyref{Level\+Up\+System}{p.}{class_level_up_system}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em character} & \doxyref{Character}{p.}{class_character} to add to the \doxyref{Level\+Up\+System}{p.}{class_level_up_system} \\
+\hline
+\end{DoxyParams}
+\mbox{\label{class_level_up_system_af23f857e6fbb331813e8f3be3440176e}} 
+\index{LevelUpSystem@{LevelUpSystem}!GainXP@{GainXP}}
+\index{GainXP@{GainXP}!LevelUpSystem@{LevelUpSystem}}
+\doxysubsubsection{GainXP()}
+{\footnotesize\ttfamily void Level\+Up\+System\+::\+Gain\+XP (\begin{DoxyParamCaption}\item[{\textbf{ Character} $\ast$}]{character,  }\item[{float}]{amount }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Function to add XP to a character that is in the \doxyref{Level\+Up\+System}{p.}{class_level_up_system}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em character} & \doxyref{Character}{p.}{class_character} to add XP to \\
+\hline
+{\em amount} & Amount of XP to add to the character \\
+\hline
+\end{DoxyParams}
+\mbox{\label{class_level_up_system_a90506d14517841865263b633eb53e567}} 
+\index{LevelUpSystem@{LevelUpSystem}!GetHPModifier@{GetHPModifier}}
+\index{GetHPModifier@{GetHPModifier}!LevelUpSystem@{LevelUpSystem}}
+\doxysubsubsection{GetHPModifier()}
+{\footnotesize\ttfamily float Level\+Up\+System\+::\+Get\+HPModifier (\begin{DoxyParamCaption}\item[{\textbf{ Character} $\ast$}]{character }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Function to get a HP modifier that is calculated from the level of the character. Used to buff character when leveling up. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em character} & \doxyref{Character}{p.}{class_character} to get HP modifier of \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+float The HP modifierr of the character 
+\end{DoxyReturn}
+\mbox{\label{class_level_up_system_ab8758fa4c37ccd52e874c8cee3731978}} 
+\index{LevelUpSystem@{LevelUpSystem}!GetLevel@{GetLevel}}
+\index{GetLevel@{GetLevel}!LevelUpSystem@{LevelUpSystem}}
+\doxysubsubsection{GetLevel()}
+{\footnotesize\ttfamily int Level\+Up\+System\+::\+Get\+Level (\begin{DoxyParamCaption}\item[{\textbf{ Character} $\ast$}]{character }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Function to get the level of a character in the \doxyref{Level\+Up\+System}{p.}{class_level_up_system}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em character} & \doxyref{Character}{p.}{class_character} to get level of \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int The level of the character 
+\end{DoxyReturn}
+\mbox{\label{class_level_up_system_ac44b5ce7e5bfdc0fb1ae43bc943085cf}} 
+\index{LevelUpSystem@{LevelUpSystem}!LevelUp@{LevelUp}}
+\index{LevelUp@{LevelUp}!LevelUpSystem@{LevelUpSystem}}
+\doxysubsubsection{LevelUp()}
+{\footnotesize\ttfamily void Level\+Up\+System\+::\+Level\+Up (\begin{DoxyParamCaption}\item[{\textbf{ Character} $\ast$}]{character }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Function to directly level up a character. Sets character XP to 0. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em character} & \doxyref{Character}{p.}{class_character} to level up \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\label{class_level_up_system_a69fdc056fe3e24804772277db95a0955}} 
+\index{LevelUpSystem@{LevelUpSystem}!characterLevelMap@{characterLevelMap}}
+\index{characterLevelMap@{characterLevelMap}!LevelUpSystem@{LevelUpSystem}}
+\doxysubsubsection{characterLevelMap}
+{\footnotesize\ttfamily std\+::unordered\+\_\+map$<$ \textbf{ Character} $\ast$, \textbf{ Level\+Up\+Instance} $>$ Level\+Up\+System\+::character\+Level\+Map\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/\+Utility/\textbf{ Level\+Up\+System.\+hpp}\item 
+src/\+Utility/\textbf{ Level\+Up\+System.\+cpp}\end{DoxyCompactItemize}

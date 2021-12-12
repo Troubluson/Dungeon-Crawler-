@@ -1,0 +1,95 @@
+\doxysection{room\+Instance.\+hpp}
+\label{room_instance_8hpp_source}\index{src/Dungeon/roomInstance.hpp@{src/Dungeon/roomInstance.hpp}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#ifndef \_ROOM\_INSTANCE\_}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#define \_ROOM\_INSTANCE\_}}
+\DoxyCodeLine{4 }
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include "{}Actors/Monsters/MonsterSpawner/MonsterSpawner.hpp"{}}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include "{}Combat/Health/Potion.hpp"{}}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include "{}Tiles/roomTile.hpp"{}}}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9 \textcolor{keyword}{enum class} Direction \{}
+\DoxyCodeLine{10     Up,}
+\DoxyCodeLine{11     Down,}
+\DoxyCodeLine{12     Left,}
+\DoxyCodeLine{13     Right,}
+\DoxyCodeLine{14     Count}
+\DoxyCodeLine{15 \};}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 \textcolor{keyword}{namespace }direction \{}
+\DoxyCodeLine{18 Direction GetOppositeDir(Direction direction);}
+\DoxyCodeLine{19 \}}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{25 \textcolor{keyword}{class }RoomInstance \{}
+\DoxyCodeLine{26 \textcolor{keyword}{public}:}
+\DoxyCodeLine{33     RoomInstance(sf::Vector2u window\_size, sf::Vector2i coords);}
+\DoxyCodeLine{34     RoomInstance(sf::Vector2u window\_size, sf::Vector2i coords, MonsterSpawner* spawner);}
+\DoxyCodeLine{35     RoomInstance() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{36     \textcolor{keyword}{virtual} \string~RoomInstance();}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{43     \textcolor{keywordtype}{void} Render(sf::RenderTarget* target);}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45     std::vector<RoomTile*> getRoomTilesAt(sf::FloatRect bounds);}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47     \textcolor{keywordtype}{bool} positionIsWalkable(sf::FloatRect bounds);}
+\DoxyCodeLine{48     \textcolor{keywordtype}{bool} positionIsPenetratable(sf::FloatRect bounds);}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50     std::vector<std::vector<RoomTile*>> getTiles() \textcolor{keyword}{const};}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{57     \textcolor{keywordtype}{void} CreateExit(Direction direction);}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{66     \textcolor{keywordtype}{void} Connect(Direction dir, RoomInstance* room);}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{74     RoomInstance* GetRoomInDir(Direction dir);}
+\DoxyCodeLine{75 }
+\DoxyCodeLine{81     sf::Vector2i GetCoords() \{ \textcolor{keywordflow}{return} coords\_; \}}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{86     \textcolor{keywordtype}{void} renderSpriteBackground();}
+\DoxyCodeLine{87 }
+\DoxyCodeLine{88     sf::Vector2u GetEntranceInDirection(Direction direction);}
+\DoxyCodeLine{89 }
+\DoxyCodeLine{96     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} Enter(PlayerPS player, Direction direction);}
+\DoxyCodeLine{97 }
+\DoxyCodeLine{102     \textcolor{keywordtype}{void} Exit();}
+\DoxyCodeLine{103 }
+\DoxyCodeLine{104     std::vector<MonsterSP>\& GetMonsters();}
+\DoxyCodeLine{105 }
+\DoxyCodeLine{106     \textcolor{keywordtype}{void} deleteMonster(MonsterSP m);}
+\DoxyCodeLine{107 }
+\DoxyCodeLine{113     Direction RemoveRandomDirection();}
+\DoxyCodeLine{114 }
+\DoxyCodeLine{120     \textcolor{keywordtype}{void} RemoveDirection(Direction dir);}
+\DoxyCodeLine{121 }
+\DoxyCodeLine{128     \textcolor{keywordtype}{bool} HasDirectionsLeft();}
+\DoxyCodeLine{129 }
+\DoxyCodeLine{136     \textcolor{keywordtype}{bool} IsCleared();}
+\DoxyCodeLine{137 }
+\DoxyCodeLine{138     \textcolor{keywordtype}{bool} IsVisisted() \{\textcolor{keywordflow}{return} visited\_;\}}
+\DoxyCodeLine{139 }
+\DoxyCodeLine{140     \textcolor{keywordtype}{bool} monsterCleared();}
+\DoxyCodeLine{141 }
+\DoxyCodeLine{142     \textcolor{keywordtype}{void} AddPotion(Potion* potion);}
+\DoxyCodeLine{143 }
+\DoxyCodeLine{144     std::vector<Potion*>\& GetPotions();}
+\DoxyCodeLine{145 }
+\DoxyCodeLine{146 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{151     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} setTiles();}
+\DoxyCodeLine{152     sf::Vector2u roomSize\_;}
+\DoxyCodeLine{153     sf::Vector2i coords\_;}
+\DoxyCodeLine{154     std::vector<std::vector<RoomTile*>> tileVector\_;}
+\DoxyCodeLine{155     sf::RenderTexture roomTexture;}
+\DoxyCodeLine{156     sf::Sprite roomBackground;}
+\DoxyCodeLine{157     std::vector<MonsterSP> monsters\_;}
+\DoxyCodeLine{158     MonsterSpawner* spawner\_;}
+\DoxyCodeLine{159     std::vector<Potion*> potions\_;}
+\DoxyCodeLine{160     \textcolor{keywordtype}{bool} cleared\_; \textcolor{comment}{// whether the room is cleared}}
+\DoxyCodeLine{161     \textcolor{keywordtype}{bool} visited\_; \textcolor{comment}{// whether the room has been visited already}}
+\DoxyCodeLine{162 }
+\DoxyCodeLine{163     vector<Direction> directionsLeft\_;}
+\DoxyCodeLine{164 \};}
+\DoxyCodeLine{165 }
+\DoxyCodeLine{166 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

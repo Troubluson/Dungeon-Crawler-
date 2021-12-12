@@ -1,0 +1,44 @@
+\doxysection{Monster\+Spawner.\+hpp}
+\label{_monster_spawner_8hpp_source}\index{src/Actors/Monsters/MonsterSpawner/MonsterSpawner.hpp@{src/Actors/Monsters/MonsterSpawner/MonsterSpawner.hpp}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#ifndef \_MONSTERSPAWNER\_CLASS\_}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#define \_MONSTERSPAWNER\_CLASS\_}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include "{}../BossMonster.hpp"{}}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include "{}../RandomMonster.hpp"{}}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include "{}../SearchingMonster.hpp"{}}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include "{}../SlowMonster.hpp"{}}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include "{}../SnipingMonster.hpp"{}}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#include "{}../WallPatrolMonster.hpp"{}}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{keyword}{typedef} std::shared\_ptr<Monster> MonsterSP;}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{keyword}{class }MonsterSpawner \{}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{keyword}{public}:}
+\DoxyCodeLine{16     MonsterSpawner(uint monsterAmount)}
+\DoxyCodeLine{17         : monsterCount\_(monsterAmount)}
+\DoxyCodeLine{18     \{}
+\DoxyCodeLine{19     \}}
+\DoxyCodeLine{20     MonsterSpawner()}
+\DoxyCodeLine{21         : monsterCount\_(0) \{\};}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23     \textcolor{keyword}{virtual} \string~MonsterSpawner() \{ \}}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25     \textcolor{comment}{// std::list<Monster*> SpawnMonsters(sf::Vector2u roomSize) const;}}
+\DoxyCodeLine{26     \textcolor{keyword}{virtual} MonsterSP SpawnMonster(sf::Vector2u roomSize, PlayerPS target) \textcolor{keyword}{const};}
+\DoxyCodeLine{27     \textcolor{keywordtype}{void} SetMonsterAmount(uint amount);}
+\DoxyCodeLine{28     uint GetMonsterAmount() \textcolor{keyword}{const};}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{31     MonsterSP getRandomMonster(PlayerPS target) \textcolor{keyword}{const};}
+\DoxyCodeLine{32     uint monsterCount\_;}
+\DoxyCodeLine{33     uint monsterTypeCount\_ = 5; \textcolor{comment}{// update this when adding monsters}}
+\DoxyCodeLine{34 \};}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{keyword}{typedef} std::shared\_ptr<MonsterSpawner> MonsterSpawnerUP;}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

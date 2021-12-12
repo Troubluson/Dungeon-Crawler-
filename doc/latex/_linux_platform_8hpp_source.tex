@@ -1,0 +1,25 @@
+\doxysection{Linux\+Platform.\+hpp}
+\label{_linux_platform_8hpp_source}\index{src/Platform/Unix/LinuxPlatform.hpp@{src/Platform/Unix/LinuxPlatform.hpp}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef UTIL\_LINUX\_PLATFORM\_HPP}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define UTIL\_LINUX\_PLATFORM\_HPP}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include "{}Platform/IPlatform.hpp"{}}}
+\DoxyCodeLine{5 }
+\DoxyCodeLine{6 \textcolor{keyword}{namespace }util}
+\DoxyCodeLine{7 \{}
+\DoxyCodeLine{8 \textcolor{keyword}{struct }LinuxPlatform : IPlatform}
+\DoxyCodeLine{9 \{}
+\DoxyCodeLine{10     LinuxPlatform();}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12     \textcolor{keywordtype}{void} setIcon(\textcolor{keyword}{const} sf::WindowHandle\& inHandle) \textcolor{keyword}{final};}
+\DoxyCodeLine{13     \textcolor{keywordtype}{void} toggleFullscreen(\textcolor{keyword}{const} sf::WindowHandle\& inHandle, \textcolor{keyword}{const} sf::Uint32 inStyle, \textcolor{keyword}{const} \textcolor{keywordtype}{bool} inWindowed, \textcolor{keyword}{const} sf::Vector2u\& inResolution) \textcolor{keyword}{final};}
+\DoxyCodeLine{14     \textcolor{keywordtype}{float} getScreenScalingFactor(\textcolor{keyword}{const} sf::WindowHandle\& inHandle) \textcolor{keyword}{final};}
+\DoxyCodeLine{15     \textcolor{keywordtype}{int} getRefreshRate(\textcolor{keyword}{const} sf::WindowHandle\& inHandle) \textcolor{keyword}{final};}
+\DoxyCodeLine{16 \};}
+\DoxyCodeLine{17 \}}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// UTIL\_LINUX\_PLATFORM\_HPP}}
+
+\end{DoxyCode}
