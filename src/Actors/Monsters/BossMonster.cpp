@@ -38,7 +38,7 @@ bool BossMonster::Move(float dt)
 
 std::list<Projectile*> BossMonster::Attack()
 {
-    if ((!CanAttack || !HasWeapon()) && inRangeOfPlayer()) {
+    if ((!CanAttack || !HasWeapon() || !IsAlive()) && inRangeOfPlayer()) {
         return emptyList();
     }
 

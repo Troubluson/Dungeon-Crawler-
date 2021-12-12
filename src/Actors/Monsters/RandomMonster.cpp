@@ -37,7 +37,7 @@ bool RandomMonster::Move(float dt)
 
 std::list<Projectile*> RandomMonster::Attack()
 {
-    if (!CanAttack || !HasWeapon() || !inRangeOfPlayer()) {
+    if (!CanAttack || !HasWeapon() || !inRangeOfPlayer() || !IsAlive()) {
         return emptyList();
     }
 

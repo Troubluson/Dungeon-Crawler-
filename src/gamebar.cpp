@@ -56,7 +56,7 @@ void Gamebar::Render(sf::RenderTarget* target)
 
 void Gamebar::Update()
 {
-    int newGreenWidth = std::min(100, 100 * player_->GetHitPoints() / player_->GetMaxHP());
+    int newGreenWidth = std::max(0, std::min(100, 100 * player_->GetHitPoints() / player_->GetMaxHP()));
     greenBar_.setSize(sf::Vector2f(newGreenWidth, 30));
 
     int newVioletWidth = 100 - 100 * (player_->GetAttackCooldownLeft() / player_->GetAttackCooldownLength());

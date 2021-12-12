@@ -95,7 +95,7 @@ void Player::updateDashCooldown(float dt)
 
 std::list<Projectile*> Player::Attack(sf::Vector2f aimPos)
 {
-    if (!CanAttack || !HasWeapon()) {
+    if (!CanAttack || !HasWeapon() || !IsAlive()) {
         return emptyList();
     }
 
