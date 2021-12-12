@@ -157,7 +157,6 @@ protected:
     bool visited_; // whether the room has been visited already
 
     vector<Direction> directionsLeft_;
-    er* spawner_;
 };
 
 #endif

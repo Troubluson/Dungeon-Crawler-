@@ -96,7 +96,7 @@ void Character::TakeDamage(int value)
 void Character::Heal(int value)
 {
     hitpoints_ += value;
-    hitpoints_ = std::min(maxhitpoints_, hitpoints_);
+    hitpoints_ = std::min(currentMaxHitpoints_, hitpoints_);
 }
 
 int Character::GetHitPoints() const

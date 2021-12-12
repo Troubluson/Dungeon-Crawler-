@@ -32,8 +32,13 @@ public:
     std::vector<Potion*> GetInventory() const;
 
 private:
+    int attacksBoosted_;
+    int dashesBoosted_;
+
     float dashSpeed_;
-    float dashDurationLength_;
+    float dashLengthBoostModifier = 2.0f;
+    float dashDefaultDurationLength_;
+    float dashCurrentDurationLength_;
     float dashDurationLeft_;
 
     float dashCooldownLength_;

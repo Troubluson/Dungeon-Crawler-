@@ -145,6 +145,7 @@ private:
      * @return true if collides
      * @return false if it does not collide
      */
+    void updatePotions();
     bool collidesWithWall(Character* character);
     /**
      * @brief check if projectile collides with wall

@@ -17,7 +17,7 @@ public:
     virtual bool Move(float dt) = 0;
     virtual void Render(sf::RenderTarget* target);
     void initVariables();
-    void SetTarget(Player& target);
+    void SetTarget(PlayerPS target);
     Potion* ReturnPotion();
 
 protected:

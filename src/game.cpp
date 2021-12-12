@@ -33,6 +33,7 @@ void Game::UpdateGame()
         updateDt();
         manageInput();
         updateMonsters();
+        updatePotions();
         updateProjectiles();
         checkMonsterCollisions();
         checkPlayerCollisions();
@@ -280,6 +281,20 @@ void Game::updateMonsters()
         }
         addProjectiles(monster->Attack());
         monster->Update(dt_);
+    }
+}
+
+void Game::updatePotions()
+{
+    for (auto potion : dungeonMap_.GetCurrentRoom()->GetPotions()) {
+        sf::Vector2f poPos = potion->GetSpriteCenter();
+        sf::Vector2f plPos = player_->GetSpriteCenter();
+        sf::Vector2f difference = poPos - plPos;
+        float distance = std::sqrt(difference.x * difference.x + difference.y * difference.y);
+        if (distance < 50) {
+            player_->AddPotion(potion);
+            deletePotion(potion);
+        }
     }
 }
 
