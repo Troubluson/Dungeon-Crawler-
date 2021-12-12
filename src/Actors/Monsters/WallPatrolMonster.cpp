@@ -1,6 +1,6 @@
 #include "WallPatrolMonster.hpp"
 namespace {
-const std::string monsterSpriteFileLocation = "content/sprites/monster1.png";
+const std::string monsterSpriteFileLocation = "content/sprites/monster5.png";
 }
 
 WallPatrolMonster::WallPatrolMonster(PlayerPS player, sf::Vector2f pos)

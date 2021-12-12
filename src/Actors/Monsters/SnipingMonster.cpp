@@ -1,6 +1,6 @@
 #include "SnipingMonster.hpp"
 namespace {
-const std::string monsterSpriteFileLocation = "content/sprites/monster1.png";
+const std::string monsterSpriteFileLocation = "content/sprites/monster3.png";
 }
 
 SnipingMonster::SnipingMonster(PlayerPS player, sf::Vector2f pos)

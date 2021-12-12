@@ -1,6 +1,6 @@
 #include "SlowMonster.hpp"
 namespace {
-const std::string monsterSpriteFileLocation = "content/sprites/monster1.png";
+const std::string monsterSpriteFileLocation = "content/sprites/monster4.png";
 }
 
 SlowMonster::SlowMonster(PlayerPS player, sf::Vector2f pos)
