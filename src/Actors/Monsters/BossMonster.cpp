@@ -1,7 +1,7 @@
 #include "BossMonster.hpp"
 #include "math.h"
 namespace {
-const std::string monsterSpriteFileLocation = "content/sprites/monster1.png";
+const std::string monsterSpriteFileLocation = "content/sprites/monsters/ratking.png";
 }
 
 BossMonster::BossMonster(PlayerPS player, sf::Vector2f pos)
@@ -86,7 +86,7 @@ std::list<ProjectileUP> BossMonster::Attack()
 
 void BossMonster::initVariables()
 {
-    SwordWeapon* bossSword = new SwordWeapon(10, 1000, 30, 200, sf::Vector2f(50, 100), "content/sprites/projectiles.png");
+    SwordWeapon* bossSword = new SwordWeapon(10, 1000, 30, 200, sf::Vector2f(100, 100), "content/sprites/projectiles/projectileboss.png");
     Equip(bossSword);
     SetNormalSpeed(200.0f);
 }
