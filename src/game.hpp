@@ -162,7 +162,7 @@ private:
      */
     bool gameLost();
     /**
-     * @brief reset game after death, keeps the same player, new map
+     * @brief reset game after death, keeps the same player, same map
      *
      */
     void restartGame();
