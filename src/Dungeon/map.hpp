@@ -19,6 +19,8 @@ public:
      */
     Map(sf::Vector2u sizeOfRooms, int noRooms, PlayerPS player);
 
+    ~Map();
+
     /**
      * @brief Renders the current room to the given target
      *

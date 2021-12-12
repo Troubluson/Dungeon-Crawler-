@@ -78,6 +78,7 @@ void Game::Events()
 }
 
 void Game::initVariables() { gameEnder_ = false; }
+
 // initalize window
 void Game::initWindow()
 {
@@ -286,5 +287,5 @@ bool Game::gameLost()
 
 bool Game::gameWon()
 {
-    return  dungeonMap_.IsBossRoomCleared();
+    return dungeonMap_.IsBossRoomCleared();
 }

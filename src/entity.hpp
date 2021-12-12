@@ -81,11 +81,11 @@ public:
     virtual void Render(sf::RenderTarget* target);
 
 protected:
-    sf::Sprite sprite_;
-    sf::Texture texture_;
     void initSprite(const std::string& spriteLocation, sf::Vector2f spriteDims);
 
     sf::Vector2f pos_;
     sf::Vector2f oldPos_;
+    sf::Sprite sprite_;
+    sf::Texture texture_;
 };
 #endif

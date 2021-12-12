@@ -3,7 +3,7 @@
 #define _ANIMATIONHANDLER_CLASS_
 #include "animation.hpp"
 
-typedef std::unique_ptr<Animation> AnimationUP;
+typedef std::shared_ptr<Animation> AnimationPS;
 
 enum AnimationIndex {
     AnimationUp,
@@ -25,7 +25,7 @@ public:
     Animation* getAnimation() const;
 
 private:
-    std::vector<Animation*> animations_;
+    std::vector<AnimationPS> animations_;
     AnimationIndex currentAnimationIndex_ = AnimationIndex::AnimationDown;
 };
 #endif

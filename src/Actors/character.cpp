@@ -18,7 +18,10 @@ Character::Character(const std::string& filename, sf::Vector2f pos, bool animate
     }
 }
 
-Character::~Character() { }
+Character::~Character()
+{
+    delete weapon_;
+}
 
 void Character::initVariables()
 {
