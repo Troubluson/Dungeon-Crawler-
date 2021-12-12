@@ -104,9 +104,13 @@ void Character::updateAttackCooldown(float dt)
 
 void Character::TakeDamage(int value)
 {
+<<<<<<< src/Actors/character.cpp
     if (!invincibility_frame_) {
-        hitpoints_ -= value;
+        hitpoints_ = std::max(0, hitpoints_ - value);
     }
+=======
+    hitpoints_ = std::max(0, hitpoints_ - value);
+>>>>>>> src/Actors/character.cpp
 }
 
 void Character::Heal(int value)

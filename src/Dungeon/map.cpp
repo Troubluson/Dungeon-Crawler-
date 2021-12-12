@@ -170,7 +170,6 @@ void Map::addStartingRoomToDungeon(sf::Vector2u roomSize, sf::Vector2i coords)
 {
     RoomInstance* rootRoom = new StartingRoom(roomSize, coords);
     existingRoomCoords_.push_back(getKey(coords));
-    std::cout << existingRoomCoords_.size() << std::endl;
     dungeon_[getKey(coords)] = rootRoom;
 }
 
