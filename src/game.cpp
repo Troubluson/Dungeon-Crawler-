@@ -103,8 +103,11 @@ void Game::Events()
 void Game::initVariables()
 {
     gameEnder_ = false;
-    monsterHurtSound.loadFromFile("monsterHit.wav");
-    sound.setBuffer(monsterHurtSound);
+    if (!monsterHurtSound.loadFromFile("monsterHit.wav")) {
+        ;
+    } else {
+        sound.setBuffer(monsterHurtSound);
+    }
 }
 // initalize window
 void Game::initWindow()
