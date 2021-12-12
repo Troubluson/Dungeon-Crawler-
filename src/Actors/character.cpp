@@ -92,7 +92,7 @@ void Character::updateAttackCooldown(float dt)
 
 void Character::TakeDamage(int value)
 {
-    hitpoints_ -= value;
+    hitpoints_ = std::max(0, hitpoints_ - value);
 }
 
 void Character::Heal(int value)
