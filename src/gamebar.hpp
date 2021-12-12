@@ -11,7 +11,7 @@ public:
      *
      * @param    player              player which is tracked
      */
-    Gamebar(Player* player);
+    Gamebar(PlayerPS player);
 
     Gamebar() {};
     /**
@@ -27,7 +27,7 @@ public:
     void Update();
 
 private:
-    Player* player_;
+    PlayerPS player_;
     sf::Font font_;
     sf::RectangleShape background_;
     sf::RectangleShape greenBar_;

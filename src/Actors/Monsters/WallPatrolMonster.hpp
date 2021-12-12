@@ -10,11 +10,11 @@
 
 class WallPatrolMonster : public Monster {
 public:
-    WallPatrolMonster(Player& player, float xPos, float yPos);
-    WallPatrolMonster(Player& player, sf::Vector2f pos);
+    WallPatrolMonster(PlayerPS player, float xPos, float yPos);
+    WallPatrolMonster(PlayerPS player, sf::Vector2f pos);
     ~WallPatrolMonster();
 
-    virtual std::list<Projectile*> Attack();
+    virtual std::list<ProjectileUP> Attack();
     virtual bool Move(float dt);
 
     void initVariables();

@@ -45,7 +45,7 @@ private:
     sf::RenderWindow* window_;
     sf::Event event_;
     sf::Clock dtClock_;
-    Player* player_;
+    PlayerPS player_;
     Map dungeonMap_;
     Gamebar gamebar_;
 
@@ -54,7 +54,7 @@ private:
     bool escapePressedLastTick = paused;
     bool gameEnder_;
 
-    std::list<Projectile*> projectiles_;
+    std::list<ProjectileUP> projectiles_;
     // CollisionSystem collisionSys;
     /**
      * @brief self explanatory, initializes the variables in game.
@@ -109,13 +109,13 @@ private:
      *
      * @param    p                    projectile to be deleted
      */
-    void deleteProjectile(Projectile* p);
+    void deleteProjectile(ProjectileUP p);
     /**
      * @brief adds projectile to projectile list
      *
      * @param    listToAdd            the projectiles to be added
      */
-    void addProjectiles(std::list<Projectile*> listToAdd);
+    void addProjectiles(std::list<ProjectileUP> listToAdd);
     /**
      * @brief deletes monster from room if dead
      *
@@ -162,6 +162,14 @@ private:
      * @return false if still going
      */
     bool gameLost();
+
+    /**
+     * @brief Checks if game is won i.e. if the maps's bossroom has been cleared.
+     *
+     * @return true if room is cleared
+     * @return false not yet cleared
+     */
+    bool gameWon();
 };
 
 #endif

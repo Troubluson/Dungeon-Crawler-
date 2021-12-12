@@ -9,6 +9,5 @@ int main()
         dungeonCrawler.UpdateGame();
         dungeonCrawler.RenderGame();
     }
-
     return 0;
 }

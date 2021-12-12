@@ -3,11 +3,11 @@ namespace {
 const std::string monsterSpriteFileLocation = "content/sprites/monster1.png";
 }
 
-WallPatrolMonster::WallPatrolMonster(Player& player, sf::Vector2f pos)
+WallPatrolMonster::WallPatrolMonster(PlayerPS player, sf::Vector2f pos)
     : WallPatrolMonster(player, pos.x, pos.y)
 {
 }
-WallPatrolMonster::WallPatrolMonster(Player& player, float xPos, float yPos)
+WallPatrolMonster::WallPatrolMonster(PlayerPS player, float xPos, float yPos)
     : Monster(player, sf::Vector2f(xPos, yPos), monsterSpriteFileLocation)
 {
     initVariables();
@@ -44,7 +44,7 @@ bool WallPatrolMonster::Move(float dt)
     return true;
 }
 
-std::list<Projectile*> WallPatrolMonster::Attack()
+std::list<ProjectileUP> WallPatrolMonster::Attack()
 {
     if (!CanAttack || !HasWeapon() || !inRangeOfPlayer()) {
         return emptyList();
@@ -52,7 +52,7 @@ std::list<Projectile*> WallPatrolMonster::Attack()
 
     ResetAttackCooldown();
 
-    return shotProjectileList(player_.GetSpriteCenter());
+    return shotProjectileList(player_->GetSpriteCenter());
 }
 
 void WallPatrolMonster::initVariables()

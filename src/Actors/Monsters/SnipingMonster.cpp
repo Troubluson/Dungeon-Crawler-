@@ -3,11 +3,11 @@ namespace {
 const std::string monsterSpriteFileLocation = "content/sprites/monster1.png";
 }
 
-SnipingMonster::SnipingMonster(Player& player, sf::Vector2f pos)
+SnipingMonster::SnipingMonster(PlayerPS player, sf::Vector2f pos)
     : SnipingMonster(player, pos.x, pos.y)
 {
 }
-SnipingMonster::SnipingMonster(Player& player, float xPos, float yPos)
+SnipingMonster::SnipingMonster(PlayerPS player, float xPos, float yPos)
     : Monster(player, sf::Vector2f(xPos, yPos), monsterSpriteFileLocation)
 {
     initVariables();
@@ -17,10 +17,10 @@ SnipingMonster::~SnipingMonster() { }
 
 bool SnipingMonster::Move(float)
 {
-    return false; //Should never move
+    return false; // Should never move
 }
 
-std::list<Projectile*> SnipingMonster::Attack()
+std::list<ProjectileUP> SnipingMonster::Attack()
 {
     if (!CanAttack || !HasWeapon() || !inRangeOfPlayer()) {
         return emptyList();
@@ -28,7 +28,7 @@ std::list<Projectile*> SnipingMonster::Attack()
 
     ResetAttackCooldown();
 
-    return shotProjectileList(player_.GetSpriteCenter());
+    return shotProjectileList(player_->GetSpriteCenter());
 }
 
 void SnipingMonster::initVariables()

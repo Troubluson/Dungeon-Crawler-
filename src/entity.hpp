@@ -17,6 +17,8 @@ public:
     Entity(sf::Sprite& sprite, float xPos, float yPos);
     Entity(sf::Sprite& sprite, sf::Vector2f pos);
 
+    virtual ~Entity() {};
+
     /**
      * @brief Get the entity's sprite
      *
@@ -30,12 +32,9 @@ public:
     sf::Vector2f GetSpriteCenter() const;
     const sf::Vector2f& GetOldPosition() const;
     sf::FloatRect GetSpriteBounds() const;
+    sf::FloatRect GetBaseBoxAt(sf::Vector2f pos) const;
 
-    void SetPos(sf::Vector2f newPos)
-    {
-        pos_ = newPos;
-        sprite_.setPosition(pos_);
-    }
+    void SetPos(sf::Vector2f pos);
     void SetPosAndOldPos(sf::Vector2f pos);
 
     virtual void Render(sf::RenderTarget* target);

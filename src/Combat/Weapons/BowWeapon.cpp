@@ -9,12 +9,13 @@ BowWeapon::BowWeapon(int damage, int range, int rateOfFire, float projectileSpee
     spritehelper::SetScale(projectileSize, sprite_);
     // sets scale and origin of sprite
 }
-Projectile* BowWeapon::Use(Vector2f dir, Vector2f origin)
+
+ProjectileUP BowWeapon::Use(Vector2f dir, Vector2f origin)
 {
     // have to rotate the projectile
     spritehelper::RotateSprite(dir, sprite_);
     spritehelper::SetOriginBottomCenter(sprite_);
-    Projectile* p = new Projectile(sprite_, origin, true);
+    ProjectileUP p(new Projectile(sprite_, origin, true));
     p->SetDirection(dir);
     p->SetDamage(damage_);
     p->SetDistanceLifeSpan(range_);

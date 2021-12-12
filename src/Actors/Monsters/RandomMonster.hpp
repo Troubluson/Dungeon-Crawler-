@@ -10,11 +10,11 @@
 
 class RandomMonster : public Monster {
 public:
-    RandomMonster(Player& player, float xPos, float yPos);
-    RandomMonster(Player& player, sf::Vector2f pos);
+    RandomMonster(PlayerPS player, float xPos, float yPos);
+    RandomMonster(PlayerPS player, sf::Vector2f pos);
     ~RandomMonster();
 
-    virtual std::list<Projectile*> Attack();
+    virtual std::list<ProjectileUP> Attack();
     virtual bool Move(float dt);
 
     void initVariables();

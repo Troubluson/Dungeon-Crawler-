@@ -1,9 +1,9 @@
 
-#include "Actors/Monsters/MonsterSpawner/MonsterSpawner.hpp"
-#include "Tiles/roomTile.hpp"
-
 #ifndef _ROOM_INSTANCE_
 #define _ROOM_INSTANCE_
+
+#include "Actors/Monsters/MonsterSpawner/MonsterSpawner.hpp"
+#include "Tiles/roomTile.hpp"
 
 enum class Direction {
     Up,
@@ -12,9 +12,11 @@ enum class Direction {
     Right,
     Count
 };
+
 namespace direction {
 Direction GetOppositeDir(Direction direction);
 }
+
 /**
  * @brief Class representing a room of a dungeon, usually includes a monsterspawner.
  *
@@ -25,11 +27,12 @@ public:
      * @brief Construct a new Room Instance object
      *
      * @param    window_size          TO BE CHANGED takes the windowsize to create a correctly sized room
-     * @param    choords              the map choordinate of the room, follows the cartesian choordinate system
+     * @param    coords              the map coordinate of the room, follows the cartesian coordinate system
      */
-    RoomInstance(sf::Vector2u window_size, sf::Vector2i choords);
+    RoomInstance(sf::Vector2u window_size, sf::Vector2i coords);
+    RoomInstance(sf::Vector2u window_size, sf::Vector2i coords, MonsterSpawner* spawner);
     RoomInstance() = default;
-    ~RoomInstance();
+    virtual ~RoomInstance();
 
     /**
      * @brief Renders the room
@@ -70,11 +73,11 @@ public:
     RoomInstance* GetRoomInDir(Direction dir);
 
     /**
-     * @brief Get the choordinates of this room on the map
+     * @brief Get the coordinates of this room on the map
      *
      * @return sf::Vector2i
      */
-    sf::Vector2i GetChoords() { return choords_; }
+    sf::Vector2i GetCoords() { return coords_; }
 
     /**
      * @brief Renders the rooms background to be a static backdrop, a very expensive operation
@@ -89,7 +92,7 @@ public:
      * @param    player
      * @param    direction  the direction we enter from
      */
-    void Enter(Player& player, Direction direction);
+    virtual void Enter(PlayerPS player, Direction direction);
 
     /**
      * @brief Function called when exiting a room modifies cleared_ and visited_ booleans
@@ -97,11 +100,14 @@ public:
      */
     void Exit();
 
-    std::vector<Monster*>& GetMonsters();
+    std::vector<MonsterSP>& GetMonsters();
+
+    void deleteMonster(MonsterSP m);
 
     Direction UseDirection();
     void RemoveDirection(Direction dir);
     bool HasDirectionsLeft();
+    bool IsCleared();
 
 protected:
     /**
@@ -110,12 +116,12 @@ protected:
      */
     virtual void setTiles();
     sf::Vector2u roomSize_;
-    sf::Vector2i choords_;
+    sf::Vector2i coords_;
     std::vector<std::vector<RoomTile*>> tileVector_;
     sf::RenderTexture roomTexture;
     sf::Sprite roomBackground;
-    std::vector<Monster*> monsters_;
-    MonsterSpawner spawner_;
+    std::vector<MonsterSP> monsters_;
+    MonsterSpawner* spawner_;
     bool cleared_; // whether the room is cleared
     bool visited_; // whether the room has been visited already
 

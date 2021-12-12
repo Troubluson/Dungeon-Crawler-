@@ -10,11 +10,11 @@
 
 class SlowMonster : public Monster {
 public:
-    SlowMonster(Player& player, float xPos, float yPos);
-    SlowMonster(Player& player, sf::Vector2f pos);
+    SlowMonster(PlayerPS player, float xPos, float yPos);
+    SlowMonster(PlayerPS player, sf::Vector2f pos);
     ~SlowMonster();
 
-    virtual std::list<Projectile*> Attack();
+    virtual std::list<ProjectileUP> Attack();
     virtual bool Move(float dt);
 
     void initVariables();

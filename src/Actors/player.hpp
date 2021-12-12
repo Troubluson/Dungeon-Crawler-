@@ -9,12 +9,11 @@ class Player : public Character {
 public:
     Player();
     ~Player() {};
-    int GetHitPoints() const;
 
     virtual void Update(float dt);
 
     void Dash();
-    std::list<Projectile*> Attack(sf::Vector2f aimPos);
+    std::list<ProjectileUP> Attack(sf::Vector2f aimPos);
 
     void initVariables();
 
@@ -35,5 +34,6 @@ private:
     float dashCooldownLeft_;
     void updateDashCooldown(float dt);
 };
+typedef std::shared_ptr<Player> PlayerPS;
 
 #endif
