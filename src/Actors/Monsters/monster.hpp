@@ -6,7 +6,10 @@
 #include "Actors/character.hpp"
 #include "Actors/player.hpp"
 #include "Combat/Health/HealthPotions.hpp"
-
+/**
+ * @brief Monster class, which all our other monsters inherit.
+ *
+ */
 class Monster : public Character {
 public:
     ~Monster();
