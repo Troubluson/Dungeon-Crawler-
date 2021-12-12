@@ -5,6 +5,7 @@
 
 #include "Actors/character.hpp"
 #include "Actors/player.hpp"
+#include "Combat/Health/HealthPotions.hpp"
 
 class Monster : public Character {
 public:
@@ -17,6 +18,7 @@ public:
     virtual void Render(sf::RenderTarget* target);
     void initVariables();
     void SetTarget(PlayerPS target);
+    Potion* ReturnPotion();
 
 protected:
     Monster(PlayerPS player, sf::Vector2f pos, const std::string& spriteFile);

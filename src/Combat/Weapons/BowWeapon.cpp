@@ -5,7 +5,6 @@ BowWeapon::BowWeapon(int damage, int range, int rateOfFire, float projectileSpee
     : Weapon(damage, range, rateOfFire, projectileSpeed, projectileSize, spriteLocation)
 {
     penetrates_ = false;
-    sprite_.setTextureRect({ 400, 215, 10, 15 }); // placeholder
     spritehelper::SetScale(projectileSize, sprite_);
     // sets scale and origin of sprite
 }
@@ -17,7 +16,7 @@ ProjectileUP BowWeapon::Use(Vector2f dir, Vector2f origin)
     spritehelper::SetOriginBottomCenter(sprite_);
     ProjectileUP p(new Projectile(sprite_, origin, true));
     p->SetDirection(dir);
-    p->SetDamage(damage_);
+    p->SetDamage(currentDamage_);
     p->SetDistanceLifeSpan(range_);
     p->SetProjectileSpeed(projectileSpeed_);
     return p;

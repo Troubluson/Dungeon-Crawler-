@@ -5,16 +5,19 @@
 #define C_PIXELS_delta 20
 #define C_PIXELS_Y 64
 #define C_SCALE 2
-
+namespace {
+const std::string PLAYER_DEATH_SPRITE = "content/sprites/characters/deathanimation.png";
+}
 Character::Character(const std::string& filename, sf::Vector2f pos, bool animated)
     : Entity(filename, pos, sf::Vector2f(C_SCALE, C_SCALE))
     , hasAnimation_(animated)
 {
+    startPos = pos;
     initVariables();
 
     if (hasAnimation_) {
         sprite_.setTextureRect({ 0, 0, C_PIXELS_X, C_PIXELS_Y });
-        animationHandler_ = AnimationHandler(1, 0, C_PIXELS_X, C_PIXELS_Y, C_PIXELS_delta, filename);
+        animationHandler_ = AnimationHandler(1, 0, C_PIXELS_X, C_PIXELS_Y, C_PIXELS_delta, filename, PLAYER_DEATH_SPRITE);
     }
 }
 
@@ -23,7 +26,6 @@ Character::~Character() { }
 void Character::initVariables()
 {
     weapon_ = nullptr;
-    alive_ = true;
 
     attackCooldownLength_ = 1.66f;
     attackCooldownLeft = 0.0f;
@@ -40,16 +42,28 @@ void Character::initVariables()
 bool Character::MoveLeft(float dt)
 {
     pos_.x -= currentSpeed_ * dt;
-    if (hasAnimation_)
+    if (hasAnimation_) {
         animationHandler_.setAnimation(AnimationIndex::AnimationLeft);
+    }
+    /**else if (!left_or_right_) {
+        sprite_.setScale(-sprite_.getScale().x, sprite_.getScale().y);
+        sprite_.setPosition(pos_.x + sprite_.getLocalBounds().width, pos_.y);
+        left_or_right_ = true;
+    }*/
     return true;
 }
 
 bool Character::MoveRight(float dt)
 {
     pos_.x += currentSpeed_ * dt;
-    if (hasAnimation_)
+    if (hasAnimation_) {
         animationHandler_.setAnimation(AnimationIndex::AnimationRight);
+    }
+    /**else if (left_or_right_) {
+        sprite_.setScale(sprite_.getScale().x, sprite_.getScale().y);
+        sprite_.setPosition(pos_.x + 64, pos_.y);
+        left_or_right_ = false;
+    }*/
     return true;
 }
 
@@ -90,7 +104,15 @@ void Character::updateAttackCooldown(float dt)
 
 void Character::TakeDamage(int value)
 {
-    hitpoints_ -= value;
+    if (!invincibility_frame_) {
+        hitpoints_ -= value;
+    }
+}
+
+void Character::Heal(int value)
+{
+    hitpoints_ += value;
+    hitpoints_ = std::min(currentMaxHitpoints_, hitpoints_);
 }
 
 int Character::GetHitPoints() const
@@ -104,12 +126,19 @@ void Character::Equip(Weapon* weapon)
     attackCooldownLength_ = weapon->GetAttackCooldown();
 }
 
-bool Character::IsAlive() { return alive_; }
+bool Character::IsAlive() { return (hitpoints_ > 0); }
 
 bool Character::Idle()
 {
     if (hasAnimation_)
         animationHandler_.setAnimation(AnimationIndex::AnimationIdle);
+    return true;
+}
+
+bool Character::Dead()
+{
+    if (hasAnimation_)
+        animationHandler_.setAnimation(AnimationIndex::AnimationDeath);
     return true;
 }
 
@@ -143,9 +172,6 @@ void Character::generalUpdate(float dt)
     currentMaxHitpoints_ = defaultMaxHitpoints_ * LevelUpSystem::GetHPModifier(this);
     oldPos_ = pos_;
     SetPos(pos_);
-    if (hitpoints_ <= 0) {
-        alive_ = false;
-    }
     updateAttackCooldown(dt);
 }
 
@@ -155,6 +181,16 @@ void Character::SetNormalSpeed(float value)
     currentSpeed_ = defaultSpeed_;
 }
 
+void Character::ResetCharacterToBeAlive()
+{
+    hitpoints_ = currentMaxHitpoints_;
+    SetPosAndOldPos({ 200, 200 });
+}
+
+int Character::GetMaxHP()
+{
+    return currentMaxHitpoints_;
+}
 /*
 void Character::ProcessCollision(ICollidable* object)
 {

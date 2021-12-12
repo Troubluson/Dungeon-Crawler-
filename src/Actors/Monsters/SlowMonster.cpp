@@ -1,6 +1,6 @@
 #include "SlowMonster.hpp"
 namespace {
-const std::string monsterSpriteFileLocation = "content/sprites/monster1.png";
+const std::string monsterSpriteFileLocation = "content/sprites/monsters/monster4.png";
 }
 
 SlowMonster::SlowMonster(PlayerPS player, sf::Vector2f pos)
@@ -22,7 +22,7 @@ bool SlowMonster::Move(float dt)
 
 std::list<ProjectileUP> SlowMonster::Attack()
 {
-    if (!CanAttack || !HasWeapon() || !inRangeOfPlayer()) {
+    if (!CanAttack || !HasWeapon() || !inRangeOfPlayer() || !IsAlive()) {
         return emptyList();
     }
 
@@ -39,7 +39,7 @@ std::list<ProjectileUP> SlowMonster::Attack()
 
 void SlowMonster::initVariables()
 {
-    BowWeapon* slowBow = new BowWeapon(5, 400, 200, 200, sf::Vector2f(50, 100), "content/sprites/projectiles.png");
+    BowWeapon* slowBow = new BowWeapon(5, 400, 200, 200, sf::Vector2f(100, 100), "content/sprites/projectiles/projectileoctopus.png");
     Equip(slowBow);
     SetNormalSpeed(200.0f);
 }

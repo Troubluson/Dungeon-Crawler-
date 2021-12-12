@@ -1,6 +1,6 @@
 #include "RandomMonster.hpp"
 namespace {
-const std::string monsterSpriteFileLocation = "content/sprites/monster1.png";
+const std::string monsterSpriteFileLocation = "content/sprites/monsters/monster1.png";
 }
 
 RandomMonster::RandomMonster(PlayerPS player, sf::Vector2f pos)
@@ -37,7 +37,7 @@ bool RandomMonster::Move(float dt)
 
 std::list<ProjectileUP> RandomMonster::Attack()
 {
-    if (!CanAttack || !HasWeapon() || !inRangeOfPlayer()) {
+    if (!CanAttack || !HasWeapon() || !inRangeOfPlayer() || !IsAlive()) {
         return emptyList();
     }
 
@@ -48,7 +48,7 @@ std::list<ProjectileUP> RandomMonster::Attack()
 
 void RandomMonster::initVariables()
 {
-    SwordWeapon* monsterSword = new SwordWeapon(5, 100, 120, 1000, sf::Vector2f(50, 100), "content/sprites/projectiles.png");
+    SwordWeapon* monsterSword = new SwordWeapon(5, 100, 120, 1000, sf::Vector2f(120, 120), "content/sprites/Weapons/spear.png");
     Equip(monsterSword);
     SetNormalSpeed(200.0f);
 }
