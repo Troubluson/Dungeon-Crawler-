@@ -67,15 +67,19 @@ private:
      */
     void initWindow();
     /**
-     * @brief updates the game clock
+     * @brief updates the Deltatime (dt_) variable to compensate for diffrent frame rates on diffrent computers
      *
      */
     void updateDt();
     /**
-     * @brief manages inputs, like keypresses and player movement and runs the relevant functions
+     * @brief manages inputs, like keypresses (except for esc for pause) and player movement and runs the relevant functions
      *
      */
     void manageInput();
+    /**
+     * @brief manages input for the Escape key for pausing the game
+     *
+     */
     void managePauseInput();
     /**
      * @brief Checks if projectile collides with a character, if hit runs the function for damaging the character

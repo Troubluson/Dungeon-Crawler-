@@ -8,8 +8,7 @@ Map::Map(sf::Vector2u size, int noRooms, PlayerPS player)
     , spawnCoords_(currentPos_)
 {
     srand(time(NULL));
-    while (!CreateDungeon(noRooms))
-        ; // dungeon creation can fail
+    CreateDungeon(noRooms);
     std::map<std::pair<int, int>, RoomInstance*>::iterator it;
     for (it = dungeon_.begin(); it != dungeon_.end(); it++) {
         it->second->renderSpriteBackground();
@@ -22,17 +21,17 @@ void Map::RenderCurrentRoom(sf::RenderTarget* window)
     GetCurrentRoom()->Render(window);
 }
 
-bool Map::CreateDungeon(int noRooms)
+void Map::CreateDungeon(int noRooms)
 {
     addStartingRoomToDungeon(roomSize_, currentPos_);
     int i = 1;
     std::map<std::pair<int, int>, std::set<Direction>> wallsToBreak;
     while (i < noRooms) {
-        std::pair<int, int> coordsToGenFrom = existingRoomCoords_[randomhelper::RandomIntBetween(0, existingRoomCoords_.size() - 1)];
-        RoomInstance* roomToGenFrom = dungeon_[coordsToGenFrom];
+        RoomInstance* roomToGenFrom = getRandomRoom();
 
         if (roomToGenFrom->HasDirectionsLeft()) {
-            Direction directionToGenInto = roomToGenFrom->UseDirection();
+
+            Direction directionToGenInto = roomToGenFrom->RemoveRandomDirection();
             auto newPos = roomToGenFrom->GetCoords() + DirToVec(directionToGenInto);
             if (GetRoomAt(newPos) == nullptr) {
                 auto newRoom = addRoomToDungeon(roomSize_, newPos);
@@ -56,8 +55,6 @@ bool Map::CreateDungeon(int noRooms)
     }
 
     currentPos_ = { 0, 0 };
-
-    return true;
 }
 
 void Map::MovePlayer(Direction dir)
@@ -143,6 +140,13 @@ std::pair<int, int> Map::getKey()
 std::pair<int, int> Map::getKey(sf::Vector2i coord)
 {
     return std::make_pair(coord.x, coord.y);
+}
+
+RoomInstance* Map::getRandomRoom()
+{
+    std::pair<int, int> coordsToGenFrom = existingRoomCoords_[randomhelper::RandomIntBetween(0, existingRoomCoords_.size() - 1)];
+    RoomInstance* roomToGenFrom = dungeon_[coordsToGenFrom];
+    return roomToGenFrom;
 }
 
 RoomInstance* Map::addRoomToDungeon(sf::Vector2u roomSize, sf::Vector2i coords)

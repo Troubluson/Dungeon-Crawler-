@@ -34,13 +34,14 @@ RoomInstance::RoomInstance(sf::Vector2u window_size, sf::Vector2i coords, Monste
     , cleared_(false)
     , visited_(false)
 {
-    directionsLeft.push_back(Direction::Up);
-    directionsLeft.push_back(Direction::Down);
-    directionsLeft.push_back(Direction::Left);
-    directionsLeft.push_back(Direction::Right);
+    directionsLeft_.push_back(Direction::Up);
+    directionsLeft_.push_back(Direction::Down);
+    directionsLeft_.push_back(Direction::Left);
+    directionsLeft_.push_back(Direction::Right);
     setTiles();
 }
-RoomInstance::~RoomInstance() {
+RoomInstance::~RoomInstance()
+{
     delete spawner_;
 }
 
@@ -201,11 +202,11 @@ std::vector<MonsterSP>& RoomInstance::GetMonsters()
     return monsters_;
 }
 
-Direction RoomInstance::UseDirection()
+Direction RoomInstance::RemoveRandomDirection()
 {
-    int id = randomhelper::RandomIntBetween(0, directionsLeft.size() - 1);
-    Direction ans = directionsLeft[id];
-    directionsLeft.erase(directionsLeft.begin() + id);
+    int id = randomhelper::RandomIntBetween(0, directionsLeft_.size() - 1);
+    Direction ans = directionsLeft_[id];
+    directionsLeft_.erase(directionsLeft_.begin() + id);
     return ans;
 }
 
@@ -213,7 +214,7 @@ void RoomInstance::RemoveDirection(Direction dir)
 {
     int idToRemove = -1;
     int i = 0;
-    for (auto direction : directionsLeft) {
+    for (auto direction : directionsLeft_) {
         if (direction == dir) {
             idToRemove = i;
         }
@@ -221,13 +222,13 @@ void RoomInstance::RemoveDirection(Direction dir)
     }
 
     if (idToRemove != -1) {
-        directionsLeft.erase(directionsLeft.begin() + idToRemove);
+        directionsLeft_.erase(directionsLeft_.begin() + idToRemove);
     }
 }
 
 bool RoomInstance::HasDirectionsLeft()
 {
-    return !directionsLeft.empty();
+    return !directionsLeft_.empty();
 }
 
 void RoomInstance::deleteMonster(MonsterSP m)
@@ -243,7 +244,8 @@ void RoomInstance::deleteMonster(MonsterSP m)
     }
 }
 
-bool RoomInstance::IsCleared() {
+bool RoomInstance::IsCleared()
+{
     return cleared_;
 }
 
