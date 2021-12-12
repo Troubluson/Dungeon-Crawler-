@@ -9,9 +9,16 @@ Map::Map(sf::Vector2u size, int noRooms, PlayerPS player)
 {
     srand(time(NULL));
     CreateDungeon(noRooms);
-    std::map<std::pair<int, int>, RoomInstance*>::iterator it;
-    for (it = dungeon_.begin(); it != dungeon_.end(); it++) {
+
+    for (auto it = dungeon_.begin(); it != dungeon_.end(); it++) {
         it->second->renderSpriteBackground();
+    }
+}
+
+Map::~Map()
+{
+    for (auto it = dungeon_.begin(); it != dungeon_.end(); it++) {
+        delete it->second;
     }
 }
 
@@ -170,7 +177,6 @@ void Map::addStartingRoomToDungeon(sf::Vector2u roomSize, sf::Vector2i coords)
 {
     RoomInstance* rootRoom = new StartingRoom(roomSize, coords);
     existingRoomCoords_.push_back(getKey(coords));
-    std::cout << existingRoomCoords_.size() << std::endl;
     dungeon_[getKey(coords)] = rootRoom;
 }
 

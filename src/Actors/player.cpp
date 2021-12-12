@@ -28,7 +28,6 @@ void Player::Update(float dt)
                 animationHandler_.getAnimation()->Update(dt);
                 animationHandler_.getAnimation()->AnimationToSprite(sprite_);
                 dt_time += dt;
-                std::cout << dt_time << " " << dt << std::endl;
                 if (dt_time > 0.73) {
                     deadAnimationPlayed = true;
                 };

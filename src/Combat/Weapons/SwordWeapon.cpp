@@ -10,7 +10,6 @@ SwordWeapon::SwordWeapon(int damage, int range, int rateOfFire, float projectile
 
 ProjectileUP SwordWeapon::Use(Vector2f dir, Vector2f origin)
 {
-    std::cout << currentDamage_ << std::endl;
     // have to rotate the projectile
     spritehelper::RotateSprite(dir, sprite_);
     spritehelper::SetOriginBottomCenter(sprite_);

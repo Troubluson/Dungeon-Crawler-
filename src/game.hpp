@@ -13,6 +13,7 @@
 #include "Dungeon/map.hpp"
 #include "Utility/LevelUpSystem.hpp"
 #include "Utility/ScreenText.hpp"
+#include "Utility/Sounds/SoundEffects.hpp"
 #include "gamebar.hpp"
 
 class Game {
@@ -52,18 +53,17 @@ private:
     Gamebar gamebar_;
     ScreenText deathtext_;
     ScreenText victoryScreen_;
+
+    SoundEffect* playerHitSound = new SoundEffect("content/sounds/playerHit.wav");
+    SoundEffect* monsterHitSound = new SoundEffect("content/sounds/monsterHit.wav");
+
     float dt_;
     bool paused = false;
     bool escapePressedLastTick = paused;
     bool gameEnder_;
 
     std::list<ProjectileUP> projectiles_;
-    // CollisionSystem collisionSys;
-    /**
-     * @brief self explanatory, initializes the variables in game.
-     *
-     */
-    void initVariables();
+
     /**
      * @brief initializes game window
      *

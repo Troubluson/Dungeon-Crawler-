@@ -85,7 +85,7 @@ cmd_buildrunvfull() {
 		if [[ $BUILD == 'Tests' ]]; then
 			valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all --log-file="valgrind_log" bin/Release/$NAME $OPTIONS
 		else
-			bin/$BUILD/$NAME $OPTIONS
+			valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all --log-file="valgrind_log" bin/$BUILD/$NAME $OPTIONS
 		fi
 	else
 		build_fail

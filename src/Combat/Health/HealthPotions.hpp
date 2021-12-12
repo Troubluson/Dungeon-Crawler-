@@ -5,6 +5,10 @@
 #include "Actors/player.hpp"
 #include "Potion.hpp"
 
+/**
+ * @brief A green potion. Takes a position as parameter and the colour and healing effect is set automatically.
+ *
+ */
 class GreenPotion : public Potion {
 public:
     GreenPotion(sf::Vector2f pos)
@@ -13,6 +17,10 @@ public:
     }
 };
 
+/**
+ * @brief A red potion. Takes a position as parameter and the colour and healing effect is set automatically.
+ *
+ */
 class RedPotion : public Potion {
 public:
     RedPotion(sf::Vector2f pos)
@@ -21,6 +29,10 @@ public:
     }
 };
 
+/**
+ * @brief A yellow potion. Takes a position as parameter and the colour and healing effect is set automatically.
+ *
+ */
 class YellowPotion : public Potion {
 public:
     YellowPotion(sf::Vector2f pos)
@@ -29,6 +41,10 @@ public:
     }
 };
 
+/**
+ * @brief A violet potion. Takes a position as parameter and the colour and healing effect is set automatically.
+ *
+ */
 class VioletPotion : public Potion {
 public:
     VioletPotion(sf::Vector2f pos)

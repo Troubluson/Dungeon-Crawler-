@@ -5,7 +5,7 @@ Monster::Monster(PlayerPS player, sf::Vector2f pos, const std::string& spriteFil
     , player_(player)
 {
     initVariables();
-    sf::RectangleShape healthbar(sf::Vector2f(100, 5));
+    sf::RectangleShape healthbar(sf::Vector2f(100.0f, 5.0f));
     healthbar.setFillColor(sf::Color::Green);
     healthbar.setPosition(pos.x + 15, pos.y - 5);
     healthbar_ = healthbar;
@@ -47,8 +47,8 @@ void Monster::Update(float dt)
     }
     generalUpdate(dt);
 
-    int width = hitpoints_;
-    int newWidth = std::min(100, std::max(0, width));
+    float width = 100.0f * hitpoints_ / currentMaxHitpoints_;
+    int newWidth = std::min(100.0f, std::max(0.0f, width));
     healthbar_.setSize(sf::Vector2f(newWidth, 5));
     healthbar_.setPosition(GetPos() + sf::Vector2f(15, -5));
 
