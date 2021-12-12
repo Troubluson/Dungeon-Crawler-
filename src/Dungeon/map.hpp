@@ -64,6 +64,7 @@ public:
      */
     RoomInstance* GetSpawnRoom();
 
+    void ResetMap();
     bool IsBossRoomCleared();
 
 private:

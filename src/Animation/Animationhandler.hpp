@@ -11,6 +11,7 @@ enum AnimationIndex {
     AnimationLeft,
     AnimationRight,
     AnimationIdle,
+    AnimationDeath,
     Count
 };
 
@@ -20,7 +21,7 @@ public:
     AnimationHandler()
         : animations_(0) {};
     ~AnimationHandler();
-    AnimationHandler(uint xOffset, uint yOffset, uint width, uint height, uint xSpacing, const std::string& textureLocation);
+    AnimationHandler(uint xOffset, uint yOffset, uint width, uint height, uint xSpacing, const std::string& textureLocation, const std::string& deathTexture);
     void setAnimation(AnimationIndex index);
     Animation* getAnimation() const;
 

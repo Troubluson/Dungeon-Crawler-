@@ -13,7 +13,7 @@ Gamebar::Gamebar(PlayerPS player)
     background.setPosition(0, 0);
     background_ = background;
 
-    sf::RectangleShape greenBar(sf::Vector2f(2 * player_->GetHitPoints(), 30));
+    sf::RectangleShape greenBar(sf::Vector2f(100, 30));
     greenBar.setFillColor(sf::Color::Green);
     greenBar.setPosition(50, 5);
     greenBar_ = greenBar;
@@ -68,7 +68,7 @@ void Gamebar::Render(sf::RenderTarget* target)
 
 void Gamebar::Update()
 {
-    int newGreenWidth = std::min(100, std::max(0, 2 * (player_->GetHitPoints())));
+    int newGreenWidth = std::max(0, std::min(100, 100 * player_->GetHitPoints() / player_->GetMaxHP()));
     greenBar_.setSize(sf::Vector2f(newGreenWidth, 30));
 
     int newVioletWidth = 100 - 100 * (player_->GetAttackCooldownLeft() / player_->GetAttackCooldownLength());

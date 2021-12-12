@@ -30,6 +30,7 @@ public:
     void UsePotion(const std::string& colour);
 
     std::vector<Potion*> GetInventory() const;
+    void ClearInventory();
 
 private:
     int attacksBoosted_;
@@ -40,7 +41,8 @@ private:
     float dashDefaultDurationLength_;
     float dashCurrentDurationLength_;
     float dashDurationLeft_;
-
+    bool deadAnimationPlayed = false;
+    float dt_time = 0;
     float dashCooldownLength_;
     float dashCooldownLeft_;
     void updateDashCooldown(float dt);

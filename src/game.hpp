@@ -12,6 +12,7 @@
 #include "Combat/Weapons/SwordWeapon.hpp"
 #include "Dungeon/map.hpp"
 #include "Utility/LevelUpSystem.hpp"
+#include "Utility/ScreenText.hpp"
 #include "gamebar.hpp"
 
 class Game {
@@ -49,7 +50,8 @@ private:
     PlayerPS player_;
     Map dungeonMap_;
     Gamebar gamebar_;
-
+    ScreenText deathtext_;
+    ScreenText victoryScreen_;
     float dt_;
     bool paused = false;
     bool escapePressedLastTick = paused;
@@ -89,11 +91,6 @@ private:
      * @param    projectileType       the shoot projectile
      */
     void checkCollisions(Character* character, Projectile::Type projectileType);
-    /**
-     * @brief reset game after death, keeps the same player, new map
-     *
-     */
-    void resetGame();
     /**
      * @brief checks if projectiles hit monsters, removes the monster if they die
      *
@@ -147,6 +144,7 @@ private:
      */
     void updatePotions();
     bool collidesWithWall(Character* character);
+
     /**
      * @brief check if projectile collides with wall
      *
@@ -169,6 +167,11 @@ private:
      * @return false if still going
      */
     bool gameLost();
+    /**
+     * @brief reset game after death, keeps the same player, same map
+     *
+     */
+    void restartGame();
 
     /**
      * @brief Checks if game is won i.e. if the maps's bossroom has been cleared.

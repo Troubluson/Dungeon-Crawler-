@@ -1,6 +1,7 @@
 #include "Actors/player.hpp"
 
 namespace {
+const std::string PLAYER_DEATH_SPRITE = "content/sprites/characters/deathanimation.png";
 const std::string PLAYER_SPRITE = "content/sprites/characters/SpriteSheet.png";
 }
 
@@ -13,16 +14,31 @@ Player::Player()
 void Player::Update(float dt)
 {
     if (hasAnimation_) {
-        if (oldPos_.x == pos_.x && oldPos_.y == pos_.y) {
-            Idle();
+        if (IsAlive()) {
+            deadAnimationPlayed = false;
+            if (oldPos_.x == pos_.x && oldPos_.y == pos_.y) {
+                Idle();
+            }
+            animationHandler_.getAnimation()->Update(dt);
+            animationHandler_.getAnimation()->AnimationToSprite(sprite_);
+        } else {
+            Dead();
+            if (deadAnimationPlayed == false) {
+                animationHandler_.getAnimation()->Update(dt);
+                animationHandler_.getAnimation()->AnimationToSprite(sprite_);
+                dt_time += dt;
+                std::cout << dt_time << " " << dt << std::endl;
+                if (dt_time > 0.73) {
+                    deadAnimationPlayed = true;
+                };
+            }
         }
-        animationHandler_.getAnimation()->Update(dt);
-        animationHandler_.getAnimation()->AnimationToSprite(sprite_);
     }
+    if (IsAlive()) {
+        generalUpdate(dt);
 
-    generalUpdate(dt);
-
-    updateDashCooldown(dt);
+        updateDashCooldown(dt);
+    }
 
     if (IsDashing) {
         currentSpeed_ = dashSpeed_;
@@ -46,7 +62,6 @@ void Player::Dash()
 
 void Player::initVariables()
 {
-
     dashCooldownLength_ = 1.0f;
     dashCooldownLeft_ = 0.0f;
     CanDash = true;
@@ -87,7 +102,7 @@ void Player::updateDashCooldown(float dt)
 
 std::list<ProjectileUP> Player::Attack(sf::Vector2f aimPos)
 {
-    if (!CanAttack || !HasWeapon()) {
+    if (!CanAttack || !HasWeapon() || !IsAlive()) {
         return emptyList();
     }
 
@@ -127,6 +142,14 @@ void Player::UsePotion(const std::string& colour)
             ++it;
         }
     }
+}
+
+void Player::ClearInventory()
+{
+    for (auto potion : inventory_) {
+        delete potion;
+    }
+    inventory_.clear();
 }
 
 std::vector<Potion*> Player::GetInventory() const
