@@ -27,6 +27,8 @@ Game::Game()
 Game::~Game()
 {
     delete window_;
+    delete playerHitSound;
+    delete monsterHitSound;
 }
 
 void Game::UpdateGame()
@@ -201,7 +203,9 @@ void Game::checkCollisions(Character* character, Projectile::Type projectileType
         if (projectile->GetType() == projectileType && !projectile->HasHit(character)) {
             if (Collision::PixelPerfectTest(projectile->GetSprite(), character->GetSprite())) {
                 if (projectileType == Projectile::Type::PlayerProjectile) {
-                    dmgSound->PlaySound();
+                    monsterHitSound->PlaySound();
+                } else if (projectileType == Projectile::Type::EnemyProjectile && player_->IsAlive()) {
+                    playerHitSound->PlaySound();
                 }
                 projectile->Hit(character);
                 character->TakeDamage(projectile->GetDamage());

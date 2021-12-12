@@ -53,8 +53,10 @@ private:
     Gamebar gamebar_;
     ScreenText deathtext_;
     ScreenText victoryScreen_;
-    SoundEffect* monsterHitSound = new SoundEffect("content/monsterHit.wav");
-    SoundEffect* monsterHitSound = new SoundEffect("content/monsterHit.wav");
+
+    SoundEffect* playerHitSound = new SoundEffect("content/sounds/playerHit.wav");
+    SoundEffect* monsterHitSound = new SoundEffect("content/sounds/monsterHit.wav");
+
     float dt_;
     bool paused = false;
     bool escapePressedLastTick = paused;
