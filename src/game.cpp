@@ -43,10 +43,9 @@ void Game::UpdateGame()
         checkMonsterCollisions();
         checkPlayerCollisions();
         checkAndHandleProjectileWallCollisions();
-        if (player_->IsAlive()) {
-            player_->Update(dt_);
-            gamebar_.Update();
-        }
+
+        player_->Update(dt_);
+        gamebar_.Update();
     }
 }
 // render game frames
