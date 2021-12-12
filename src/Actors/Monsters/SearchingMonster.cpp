@@ -1,14 +1,14 @@
 #include "SearchingMonster.hpp"
 namespace {
-const std::string monsterSpriteFileLocation = "content/sprites/monster2.png";
+const std::string MONSTER_SPRITE_LOC = "content/sprites/monster2.png";
 }
-SearchingMonster::SearchingMonster(Player& player, sf::Vector2f pos)
-    : SearchingMonster(player, pos.x, pos.y)
+SearchingMonster::SearchingMonster(PlayerPS player, sf::Vector2f pos)
+    : Monster(player, pos, MONSTER_SPRITE_LOC)
 {
     name_ = "Sir chi";
 }
-SearchingMonster::SearchingMonster(Player& player, float xPos, float yPos)
-    : Monster(player, sf::Vector2f(xPos, yPos), monsterSpriteFileLocation)
+SearchingMonster::SearchingMonster(PlayerPS player, float xPos, float yPos)
+    : Monster(player, sf::Vector2f(xPos, yPos), MONSTER_SPRITE_LOC)
 {
     initVariables();
 }
@@ -20,15 +20,14 @@ bool SearchingMonster::Move(float dt)
     return moveTowardsPlayer(dt);
 }
 
-std::list<Projectile*> SearchingMonster::Attack()
+std::list<ProjectileUP> SearchingMonster::Attack()
 {
     if (!CanAttack || getDistanceToPlayer() > 5.0f) {
         return emptyList();
     }
-
     ResetAttackCooldown();
 
-    player_.TakeDamage(staticDamage_);
+    player_->TakeDamage(staticDamage_);
     return emptyList();
 }
 

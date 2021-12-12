@@ -26,19 +26,13 @@ RoomInstance::RoomInstance(sf::Vector2u window_size, sf::Vector2i choords)
     : roomSize_(window_size)
     , choords_(choords)
     , spawner_(0)
+    , cleared_(false)
 {
     directionsLeft.push_back(Direction::Up);
     directionsLeft.push_back(Direction::Down);
     directionsLeft.push_back(Direction::Left);
     directionsLeft.push_back(Direction::Right);
     setTiles();
-}
-
-RoomInstance::~RoomInstance()
-{
-    for (auto m : monsters_) {
-        delete m;
-    }
 }
 
 void RoomInstance::Render(sf::RenderTarget* target)
@@ -217,12 +211,12 @@ sf::Vector2u RoomInstance::GetEntranceInDirection(Direction direction)
     }
 }
 
-void RoomInstance::Enter(Player& player, Direction direction)
+void RoomInstance::Enter(PlayerPS player, Direction direction)
 {
     if (!cleared_) {
         spawner_.SetMonsterAmount(5); // set according to player lvl somehow
         while (monsters_.size() < spawner_.GetMonsterAmount()) {
-            Monster* monster;
+            MonsterSP monster;
             do {
                 monster = spawner_.SpawnMonster(roomSize_, player);
             } while (monster == nullptr || !positionIsWalkable(monster->GetBaseBoxAt(monster->GetPos())));
@@ -230,7 +224,7 @@ void RoomInstance::Enter(Player& player, Direction direction)
             monsters_.push_back(monster);
         }
     }
-    player.SetPosAndOldPos(sf::Vector2f(GetEntranceInDirection(direction))); // prevents us from getting stuck in the wall
+    player->SetPosAndOldPos(sf::Vector2f(GetEntranceInDirection(direction))); // prevents us from getting stuck in the wall
 }
 
 void RoomInstance::Exit()
@@ -241,7 +235,7 @@ void RoomInstance::Exit()
     }
 }
 
-std::vector<Monster*>& RoomInstance::GetMonsters()
+std::vector<MonsterSP>& RoomInstance::GetMonsters()
 {
     return monsters_;
 }
@@ -273,4 +267,17 @@ void RoomInstance::RemoveDirection(Direction dir)
 bool RoomInstance::HasDirectionsLeft()
 {
     return !directionsLeft.empty();
+}
+
+void RoomInstance::deleteMonster(MonsterSP m)
+{
+    if (monsters_.empty())
+        return;
+
+    for (auto it = monsters_.begin(); it != monsters_.end(); ++it) {
+        if (*it == m) {
+            it = monsters_.erase(it);
+            return;
+        }
+    }
 }

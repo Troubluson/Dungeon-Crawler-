@@ -29,7 +29,7 @@ public:
      */
     RoomInstance(sf::Vector2u window_size, sf::Vector2i choords);
     RoomInstance() = default;
-    ~RoomInstance();
+    ~RoomInstance() {};
 
     /**
      * @brief Renders the room
@@ -89,7 +89,7 @@ public:
      * @param    player
      * @param    direction  the direction we enter from
      */
-    virtual void Enter(Player& player, Direction direction);
+    virtual void Enter(PlayerPS player, Direction direction);
 
     /**
      * @brief Function called when exiting a room modifies cleared_ and visited_ booleans
@@ -97,7 +97,9 @@ public:
      */
     void Exit();
 
-    std::vector<Monster*>& GetMonsters();
+    std::vector<MonsterSP>& GetMonsters();
+
+    void deleteMonster(MonsterSP m);
 
     Direction UseDirection();
     void RemoveDirection(Direction dir);
@@ -114,7 +116,7 @@ protected:
     std::vector<std::vector<RoomTile*>> tileVector_;
     sf::RenderTexture roomTexture;
     sf::Sprite roomBackground;
-    std::vector<Monster*> monsters_;
+    std::vector<MonsterSP> monsters_;
     MonsterSpawner spawner_;
     bool cleared_; // whether the room is cleared
     bool visited_; // whether the room has been visited already

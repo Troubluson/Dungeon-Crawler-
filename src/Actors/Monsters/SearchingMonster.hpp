@@ -9,11 +9,11 @@
 
 class SearchingMonster : public Monster {
 public:
-    SearchingMonster(Player& player, float xPos, float yPos);
-    SearchingMonster(Player& player, sf::Vector2f pos);
+    SearchingMonster(PlayerPS player, float xPos, float yPos);
+    SearchingMonster(PlayerPS player, sf::Vector2f pos);
     ~SearchingMonster();
 
-    virtual std::list<Projectile*> Attack();
+    virtual std::list<ProjectileUP> Attack();
     virtual bool Move(float dt);
 
     void initVariables();

@@ -3,11 +3,11 @@ namespace {
 const std::string monsterSpriteFileLocation = "content/sprites/monster1.png";
 }
 
-RandomMonster::RandomMonster(Player& player, sf::Vector2f pos)
+RandomMonster::RandomMonster(PlayerPS player, sf::Vector2f pos)
     : Monster(player, pos, monsterSpriteFileLocation)
 {
 }
-RandomMonster::RandomMonster(Player& player, float xPos, float yPos)
+RandomMonster::RandomMonster(PlayerPS player, float xPos, float yPos)
     : Monster(player, sf::Vector2f(xPos, yPos), monsterSpriteFileLocation)
 {
     initVariables();
@@ -23,11 +23,11 @@ bool RandomMonster::Move(float dt)
         currentDir_ = randomhelper::RandomIntBetween(1, 4);
         durationUntilTurn_ = randomhelper::RandomFloatBetween(0.2f, 1.0f);
     }
-    if (currentDir_ == 1) {
+    if (currentDir_ == 0) {
         MoveDown(dt);
-    } else if (currentDir_ == 2) {
+    } else if (currentDir_ == 1) {
         MoveLeft(dt);
-    } else if (currentDir_ == 3) {
+    } else if (currentDir_ == 2) {
         MoveUp(dt);
     } else {
         MoveRight(dt);
@@ -35,7 +35,7 @@ bool RandomMonster::Move(float dt)
     return true;
 }
 
-std::list<Projectile*> RandomMonster::Attack()
+std::list<ProjectileUP> RandomMonster::Attack()
 {
     if (!CanAttack || !HasWeapon() || !inRangeOfPlayer()) {
         return emptyList();
@@ -43,7 +43,7 @@ std::list<Projectile*> RandomMonster::Attack()
 
     ResetAttackCooldown();
 
-    return shotProjectileList(player_.GetSpriteCenter());
+    return shotProjectileList(player_->GetSpriteCenter());
 }
 
 void RandomMonster::initVariables()

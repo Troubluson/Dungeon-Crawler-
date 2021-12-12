@@ -13,7 +13,7 @@ class Weapon {
 public:
     Weapon(int damage, int range, int rateOfFire, float projectileSpeed, Vector2f projectileSize, const std::string& spriteLocation);
     virtual ~Weapon() {};
-    virtual Projectile* Use(Vector2f dir, Vector2f origin) = 0;
+    virtual ProjectileUP Use(Vector2f dir, Vector2f origin) = 0;
     // virtual void Animate() = 0;
     void AddPowerUp(PowerUp* up);
     float GetAttackCooldown() { return cooldown_; };
