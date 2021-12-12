@@ -25,11 +25,12 @@ public:
      * @brief Construct a new Room Instance object
      *
      * @param    window_size          TO BE CHANGED takes the windowsize to create a correctly sized room
-     * @param    choords              the map choordinate of the room, follows the cartesian choordinate system
+     * @param    coords              the map choordinate of the room, follows the cartesian choordinate system
      */
-    RoomInstance(sf::Vector2u window_size, sf::Vector2i choords);
+    RoomInstance(sf::Vector2u window_size, sf::Vector2i coords);
+    RoomInstance(sf::Vector2u window_size, sf::Vector2i coords, MonsterSpawner* spawner);
     RoomInstance() = default;
-    ~RoomInstance() {};
+    ~RoomInstance();
 
     /**
      * @brief Renders the room
@@ -74,7 +75,7 @@ public:
      *
      * @return sf::Vector2i
      */
-    sf::Vector2i GetChoords() { return choords_; }
+    sf::Vector2i GetCoords() { return coords_; }
 
     /**
      * @brief Renders the rooms background to be a static backdrop, a very expensive operation
@@ -112,12 +113,12 @@ protected:
      */
     virtual void setTiles();
     sf::Vector2u roomSize_;
-    sf::Vector2i choords_;
+    sf::Vector2i coords_;
     std::vector<std::vector<RoomTile*>> tileVector_;
     sf::RenderTexture roomTexture;
     sf::Sprite roomBackground;
     std::vector<MonsterSP> monsters_;
-    MonsterSpawner spawner_;
+    MonsterSpawner* spawner_;
     bool cleared_; // whether the room is cleared
     bool visited_; // whether the room has been visited already
 
