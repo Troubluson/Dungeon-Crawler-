@@ -1,6 +1,6 @@
 # Skelly GoGo
 
-A realtime dungeoncrawler done as a few-week project with 3 other people for a C++ course.
+A realtime dungeoncrawler done as a 4-man project over a few weeks for a C++ course.
 
 Dependent on a local installation of SFML
 
